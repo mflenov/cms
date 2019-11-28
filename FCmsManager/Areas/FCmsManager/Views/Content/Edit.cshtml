@@ -1,0 +1,48 @@
+﻿@model FCmsManager.ViewModel.EditContentViewModel
+
+<div>
+    <h1>
+        Edit @Model.ContentDefinition.Name
+    </h1>
+
+    <form method="post" action="/fcmsmanager/content/save">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="Item.Id" value="@Model.Item.Id" />
+        <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
+        <input type="hidden" name="DefinitionId" value="@Model.Item.DefinitionId" />
+        <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
+        <div>
+            @await Html.PartialAsync(Model.ContentDefinition.GetTypeName() + "Editor", Model)
+        </div>
+
+        <h2>Filters</h2>
+        <div class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
+            <div class="col-md-12" data-object="filters-list">
+                @foreach (var contentFilter in Model.ContentFilters)
+                {
+                    await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
+                }
+            </div>
+            <did class="col-md-8">
+                <select class="form-control" data-object="filter-select">
+                    <option value="">Select Filter to add</option>
+                    @foreach (SelectListItem item in Model.GlobalFilters)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </did>
+            <did class="col-md-4"><a href="javascript:void(0)" data-object="addfilterbutton" class="cmsbutton">Add filter</a></did>
+        </div>
+
+
+        <div class="cmscontrols">
+            <button class="cmsbutton">Save</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script src="~/_content/FCmsManager/js/cms/ContentEditor.js"></script>
+}

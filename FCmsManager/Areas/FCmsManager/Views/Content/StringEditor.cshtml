@@ -1,0 +1,7 @@
+﻿@model FCmsManager.ViewModel.EditContentViewModel
+
+<div class="form-group">
+    <label for="definisionNameInput">Value</label>
+    <input type="text" name="Value" class="form-control" id="definisionNameInput" placeholder="Default Value" value="@Model.Item.Value" />
+    <small class="form-text error">@Html.ValidationMessage("DefaultValue")</small>
+</div>

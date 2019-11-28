@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/_content/FCmsManager/css/Style.css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="fcms">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 cmslogo">
+                    <a href="/fcmsmanager/home">FCms Manager</a>
+                </div>
+                <div class="col-sm-9 cmsmenu">
+                    <a href="~/fcmsmanager/repository">Repositories</a>
+                    <a href="~/fcmsmanager/config">Config</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="content">
+                        @RenderBody()
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <p>fCms is an Open Source .NET Core CMS </p>
+                    <p>Created by Mikhail Flenov from <a href="http://www.profwebdev.com">ProfWebDev</a></p>
+                </div>
+                <div class="col-md-3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/_content/FCmsManager/js/jquery-3.4.1.min.js"></script>
+    
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

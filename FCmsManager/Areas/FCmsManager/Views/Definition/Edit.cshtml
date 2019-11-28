@@ -1,0 +1,35 @@
+﻿@model FCmsManager.ViewModel.ContentDefinitionViewModel
+
+<div>
+    <h1>
+        Repository
+        @if (String.IsNullOrEmpty(Model.Name))
+        {
+            <i>New</i>
+        }
+        else
+        {
+            <text>@Model.Name</text>
+        }
+    </h1>
+
+    <form method="post" action="/fcmsmanager/definition/save">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
+        <input type="hidden" name="DefinitionId" value="@Model.DefinitionId" />
+        <div>
+            <div class="form-group">
+                <label for="definisionNameInput">Name</label>
+                <input type="text" name="Name" class="form-control" id="definisionNameInput" placeholder="name" value="@Model.Name" />
+                <small class="form-text error">@Html.ValidationMessage("Name")</small>
+            </div>
+
+            <div class="form-group">
+                <label for="definisionTypeInput">Type</label>
+                @Html.DropDownListFor(model => model.ContentType, Model.ContentTypeList, Model.ContentType, htmlAttributes: new { @class = "form-control" })
+                <small class="form-text error">@Html.ValidationMessage("Name")</small>
+            </div>
+        </div>
+        <button>Save</button>
+    </form>
+</div>

@@ -1,0 +1,28 @@
+﻿@model FCms.Content.IRepository
+
+<div>
+    <h1>@Model.Name Definition</h1>
+    <div class="">
+        <table class="cmstable">
+            <tr>
+                <th style="width:40%">Name</th>
+                <th style="width:40%">Type</th>
+                <th></th>
+            </tr>
+            @foreach (FCms.Content.IContentDefinition definition in Model.ContentDefinitions)
+            {
+                <tr>
+                    <td>@definition.Name</td>
+                    <td>@definition.GetTypeName()</td>
+                    <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">Edit Content</a></td>
+                </tr>
+            }
+        </table>
+        @if (Model.ContentDefinitions.Count == 0)
+        {
+            <p>You don't have content definitions yet. Start by creating one</p>
+        }
+        <hr />
+        <a href="~/fcmsmanager/definition/add?repositoryid=@Model.Id" class="cmsbutton">Add</a>
+    </div>
+</div>

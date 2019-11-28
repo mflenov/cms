@@ -1,0 +1,114 @@
+﻿.fcms {
+    background: #34495e;
+}
+
+.fcms a {
+    color: #f07b66;
+}
+
+.fcms a:visited {
+    color: #f07b66;
+}
+
+.fcms a:hover {
+    color: #f07b66;
+    text-decoration: underline;
+}
+
+.fcms .header {
+    background: #34495e;
+    padding: 20px 0px;
+}
+
+.fcms .header .logo a {
+    color:#fff;
+}
+
+.fcms .header .logo {
+    font-size: 140%;
+}
+
+.fcms .header .menu {
+    font-size: 110%;
+}
+
+.fcms .page {
+    min-height: 300px;
+    background: #f5f5f5;
+    padding: 20px 0px;
+}
+
+.fcms .footer {
+    background: #34495e;
+    color: white;
+    padding: 20px 0px;
+}
+
+.fcms .error {
+    color: #e00;
+}
+
+.fcms h1 {
+    margin-bottom: 1.5rem;
+}
+
+.fcms .cmstable {
+    width: 100%;
+}
+
+.fcms .cmstable th {
+    width: 100%;
+    background:#fff;
+    padding:4px 12px;
+    border: 1px solid #ccc;
+}
+
+.fcms .cmstable td {
+    padding: 4px 12px;
+    border: 1px solid #ccc;
+}
+
+.fcms .cmsbutton {
+    display: inline-block;
+    padding: 0px 20px 0px 20px;
+    color: #f07b66;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #c17b48;
+    font-style: normal;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.fcms .cmsbutton:hover {
+    color: white;
+    text-decoration: none;
+    background: #f07b66;
+}
+
+.fcms .cmsmenu a {
+    padding-right: 12px;
+}
+
+.fcms .cmscontrols > * {
+    margin-right:12px;
+}
+
+.fcms .cmsnote {
+    color:#00bbaa;
+    margin:10px 0px;
+}
+
+.fcms .cmsfilterlist {
+    margin:10px 0px;
+    background: #eee;
+    padding: 12px 0px;
+    border: 1px solid #ccc;
+}
+
+.fcms .cmsfiltervalue {
+    margin:12px 0px;
+}
+

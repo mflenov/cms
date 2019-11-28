@@ -1,0 +1,22 @@
+﻿@model FCmsManager.ViewModel.ContentListViewModel
+
+<div>
+    <h1>Values for @Model.ContentDefinition.Name</h1>
+    <table class="cmstable">
+        <tr>
+            <th style="width:40%">Name</th>
+            <th style="width:40%">Filters</th>
+            <th>Command</th>
+        </tr>
+        @foreach (ContentItem content in Model.Items)
+        {
+            <tr>
+                <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">@content.Value</a></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <a href="/fcmsmanager/content/add?repositoryid=@Model.RepositoryId&definitionid=@Model.DefinitionId" class="cmsbutton">Add</a>
+</div>
