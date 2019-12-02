@@ -1,7 +1,4 @@
 ﻿using FCms.Content;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FCms.Factory
 {
@@ -9,6 +6,7 @@ namespace FCms.Factory
     {
         public static ContentItem CreateContentByType(IContentDefinition definition)
         {
+            // review: what is it?
             if (definition is StringContentDefinition)
             {
                 return new StringContentValue();

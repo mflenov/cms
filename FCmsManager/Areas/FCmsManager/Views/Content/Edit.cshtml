@@ -20,7 +20,7 @@
             <div class="col-md-12" data-object="filters-list">
                 @foreach (var contentFilter in Model.ContentFilters)
                 {
-                    await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
+                    await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type, contentFilter);
                 }
             </div>
             <did class="col-md-8">

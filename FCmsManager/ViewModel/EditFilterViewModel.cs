@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using FCms.Content;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -9,7 +8,7 @@ namespace FCmsManager.ViewModel
 {
     public class EditFilterViewModel
     {
-        String[] TypeNames = new[] { "Text", "Boolean", "RegEx", "DateRange", "ValueList" };
+        String[] TypeNames = { "Text", "Boolean", "RegEx", "DateRange", "ValueList" };
 
         public Guid? Id { get; set; }
 

@@ -27,7 +27,7 @@ namespace FCmsTests
             Guid repositoryId1 = Guid.NewGuid();
             ICmsManager manager = CmsManager.Load();
             manager.Repositories.Add(
-                    new Repository()
+                    new Repository
                     {
                         Id = repositoryId1,
                         Name = "Test 1"
@@ -44,7 +44,7 @@ namespace FCmsTests
             // add one more repo
             Guid repositoryId2 = Guid.NewGuid();
             loadedmanager.Repositories.Add(
-                new Repository()
+                new Repository
                 {
                     Id = repositoryId2,
                     Name = "Test 2"

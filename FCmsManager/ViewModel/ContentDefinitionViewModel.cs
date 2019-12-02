@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using FCms.Content;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,15 +18,12 @@ namespace FCmsManager.ViewModel
 
         public string ContentType { get; set; }
 
-        public IEnumerable<SelectListItem> ContentTypeList {
-            get {
-                return new List<SelectListItem>
-                    {
-                        new SelectListItem { Text = "String", Value = "String"},
-                        new SelectListItem { Text = "Folder", Value = "Folder"},
-                    };
-            }
-        }
+        public IEnumerable<SelectListItem> ContentTypeList =>
+            new List<SelectListItem>
+            {
+                new SelectListItem { Text = "String", Value = "String"},
+                new SelectListItem { Text = "Folder", Value = "Folder"},
+            };
 
         public IContentDefinition MapToModel(IContentDefinition model) { 
             if (model == null)

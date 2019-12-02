@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
@@ -29,27 +26,24 @@ namespace FCmsManager.Controllers
         [HttpPost("fcmsmanager/repository/save"), ValidateAntiForgeryToken]
         public IActionResult savePost(RepositoryViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View("Edit", new RepositoryViewModel());
+            ICmsManager manager = CmsManager.Load();
+            if (model.Id == null)
             {
-                ICmsManager manager = CmsManager.Load();
-                if (model.Id == null)
-                {
-                    manager.Repositories.Add(model.MapToModel(new Repository()));
-                }
-                else
-                {
-                    int repoindex = manager.GetIndexById(model.Id.Value);
-                    if (repoindex < 0)
-                    {
-                        throw new Exception("The content definition not found");
-                    }
-                    model.MapToModel(manager.Repositories[repoindex]);
-                }
-                manager.Save();
-                return Redirect("/fcmsmanager/repository");
+                manager.Repositories.Add(model.MapToModel(new Repository()));
             }
+            else
+            {
+                int repoindex = manager.GetIndexById(model.Id.Value);
+                if (repoindex < 0)
+                {
+                    throw new Exception("The content definition not found");
+                }
+                model.MapToModel(manager.Repositories[repoindex]);
+            }
+            manager.Save();
+            return Redirect("/fcmsmanager/repository");
 
-            return View("Edit", new RepositoryViewModel());
         }
     }
 }

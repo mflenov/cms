@@ -1,7 +1,5 @@
-﻿using FCms.Content;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace FCms.Content
@@ -39,7 +37,7 @@ namespace FCms.Content
 
         public IContentDefinition GetByName(string contentName)
         {
-            return ContentDefinitions.Where(m => m.Name == contentName).FirstOrDefault();
+            return ContentDefinitions.FirstOrDefault(m => m.Name == contentName);
         }
 
         #endregion

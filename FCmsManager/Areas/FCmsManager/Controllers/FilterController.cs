@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
@@ -14,8 +12,8 @@ namespace FCmsManager.Areas.FCmsManager.Controllers
         [HttpGet("fcmsmanager/filter", Name = "fcmsfilter")]
         public IActionResult Index()
         {
-            var maanger = CmsManager.Load();
-            return View("Index", maanger.Filters);
+            var manager = CmsManager.Load();
+            return View("Index", manager.Filters);
         }
 
         [HttpGet("fcmsmanager/filter/add", Name = "fcmsfilteradd")]
@@ -27,28 +25,25 @@ namespace FCmsManager.Areas.FCmsManager.Controllers
         [HttpPost("fcmsmanager/filter/save", Name = "fcmsfilteraddsave")]
         public IActionResult Save(EditFilterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View("Add", new EditFilterViewModel());
+            ICmsManager manager = CmsManager.Load();
+            if (model.Id == null)
             {
-                ICmsManager manager = CmsManager.Load();
-                if (model.Id == null)
-                {
-                    IFilter filtermodel = FCms.Factory.FilterFactory.CreateFilterByType((IFilter.FilterType)Enum.Parse(typeof(IFilter.FilterType), model.Type));
-                    manager.Filters.Add(model.MapToModel(filtermodel));
-                }
-                else
-                {
-                    int repoindex = manager.Filters.Select((v, i) => new { filter = v, Index = i }).FirstOrDefault(x => x.filter.Id == model.Id)?.Index ?? -1;
-                    if (repoindex < 0)
-                    {
-                        throw new Exception("The filter definition not found");
-                    }
-                    model.MapToModel(manager.Filters[repoindex]);
-                }
-                manager.Save();
-                return Redirect("/fcmsmanager/filter");
+                IFilter filtermodel = FCms.Factory.FilterFactory.CreateFilterByType((IFilter.FilterType)Enum.Parse(typeof(IFilter.FilterType), model.Type));
+                manager.Filters.Add(model.MapToModel(filtermodel));
             }
+            else
+            {
+                int repoindex = manager.Filters.Select((v, i) => new { filter = v, Index = i }).FirstOrDefault(x => x.filter.Id == model.Id)?.Index ?? -1;
+                if (repoindex < 0)
+                {
+                    throw new Exception("The filter definition not found");
+                }
+                model.MapToModel(manager.Filters[repoindex]);
+            }
+            manager.Save();
+            return Redirect("/fcmsmanager/filter");
 
-            return View("Add", new EditFilterViewModel());
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace FCms.Content
@@ -17,7 +16,7 @@ namespace FCms.Content
 
         public void Save()
         {
-            System.IO.File.WriteAllText(RepositoryId.ToString() + ".json", JsonConvert.SerializeObject(this, new JsonSerializerSettings()
+            System.IO.File.WriteAllText(RepositoryId + ".json", JsonConvert.SerializeObject(this, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             }));

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
@@ -30,13 +27,14 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/definition/add", Name = "fcmsdefinitionadd")]
         public IActionResult add(Guid repositoryid)
         {
-            return View("Edit", new ContentDefinitionViewModel() { 
+            return View("Edit", new ContentDefinitionViewModel
+            { 
                 RepositoryId = repositoryid
             });
         }
 
         [HttpPost("fcmsmanager/definition/save"), ValidateAntiForgeryToken]
-        public IActionResult saveDefinition(ContentDefinitionViewModel model)
+        public IActionResult SaveDefinition(ContentDefinitionViewModel model)
         {
             if (ModelState.IsValid)
             {

@@ -29,10 +29,10 @@ namespace FCmsTests
             Guid filter3 = Guid.NewGuid();
             Guid filter4 = Guid.NewGuid();
             ICmsManager manager = CmsManager.Load();
-            manager.Filters.Add(new BooleanFilter() { Id = filter1, Name = "Boolean Filter" });
-            manager.Filters.Add(new DateRangeFilter() { Id = filter2, Name = "DateRange Filter" });
-            manager.Filters.Add(new RegExFilter() { Id = filter3, Name = "Regex Filter" });
-            manager.Filters.Add(new TextFilter() { Id = filter4, Name = "Text Filter" });
+            manager.Filters.Add(new BooleanFilter { Id = filter1, Name = "Boolean Filter" });
+            manager.Filters.Add(new DateRangeFilter { Id = filter2, Name = "DateRange Filter" });
+            manager.Filters.Add(new RegExFilter { Id = filter3, Name = "Regex Filter" });
+            manager.Filters.Add(new TextFilter { Id = filter4, Name = "Text Filter" });
             manager.Save();
 
             // load and make sure it is there
@@ -61,7 +61,7 @@ namespace FCmsTests
         {
             Guid filter1 = Guid.NewGuid();
             ICmsManager manager = CmsManager.Load();
-            manager.Filters.Add(new ValueListFilter() { Id = filter1, Name = "ValueList Filter" });
+            manager.Filters.Add(new ValueListFilter { Id = filter1, Name = "ValueList Filter" });
             manager.Save();
 
             // load and make sure it is there

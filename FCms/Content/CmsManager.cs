@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Linq;
 
@@ -32,7 +31,7 @@ namespace FCms.Content
 
         public void Save()
         {
-            System.IO.File.WriteAllText(filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings()
+            System.IO.File.WriteAllText(filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.Auto
             }));
@@ -43,18 +42,18 @@ namespace FCms.Content
             if (File.Exists(filename))
             {
                 return JsonConvert.DeserializeObject<CmsManager>(File.ReadAllText(filename),
-                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
             }
             return new CmsManager();
         }
 
         public IRepository GetRepositoryByName(string name)
         {
-            return Repositories.Where(m => m.Name == name).FirstOrDefault();
+            return Repositories.FirstOrDefault(m => m.Name == name);
         }
         public IRepository GetRepositoryById(Guid id)
         {
-            return Repositories.Where(m => m.Id == id).FirstOrDefault();
+            return Repositories.FirstOrDefault(m => m.Id == id);
         }
 
         public int GetIndexById(Guid id) {
@@ -73,25 +72,22 @@ namespace FCms.Content
             var filterDefinition = this.Filters.ToLookup(m => m.Id);
             foreach (var filter in store.Items.SelectMany(m => m.Filters))
             {
-                if (filterDefinition[filter.FilterDefinitionId] == null)
-                    continue;
                 filter.Filter = filterDefinition[filter.FilterDefinitionId].FirstOrDefault();
             }
         }
 
         public IContentStore GetContentStore(Guid repositoryid)
         {
-            string filename = repositoryid.ToString() + ".json";
-            if (File.Exists(filename))
-            {
-                IContentStore store = JsonConvert.DeserializeObject<ContentStore>(File.ReadAllText(filename),
-                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
-                MapFilters(store);
-                return store;
-            }
-            return new ContentStore() {
-                RepositoryId = repositoryid
-            };
+            string filename = repositoryid + ".json";
+            if (!File.Exists(filename))
+                return new ContentStore
+                {
+                    RepositoryId = repositoryid
+                };
+            IContentStore store = JsonConvert.DeserializeObject<ContentStore>(File.ReadAllText(filename),
+                new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            MapFilters(store);
+            return store;
         }
     }
 }

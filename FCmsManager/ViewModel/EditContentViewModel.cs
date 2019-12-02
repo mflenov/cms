@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FCms.Content;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -28,10 +27,10 @@ namespace FCmsManager.ViewModel
                 int index = 1;
                 foreach (ContentFilter filter in item.Filters)
                 {
-                    yield return new FilterValueViewModel()
+                    yield return new FilterValueViewModel
                     {
                         ContentFilter = filter,
-                        FilterDefinition = manager.Filters.Where(m => m.Id == filter.FilterDefinitionId).FirstOrDefault(),
+                        FilterDefinition = manager.Filters.FirstOrDefault(m => m.Id == filter.FilterDefinitionId),
                         Index = index
                     };
                     index++;
@@ -62,22 +61,22 @@ namespace FCmsManager.ViewModel
             int numberoffilters = Utility.GetRequestIntValueDef(request, "numbderoffilters", -1);
             for (int i = 1; i <= numberoffilters;  i++)
             {
-                string typeName = Utility.GetRequestValueDef(request, "filtertype" + i.ToString(), "");
+                string typeName = Utility.GetRequestValueDef(request, "filtertype" + i, "");
                 if (String.IsNullOrEmpty(typeName))
                 {
                     continue;
                 }
                 IFilter filter = FCms.Factory.FilterFactory.CreateFilterByTypeName(typeName);
-                filter.Id = Guid.Parse(Utility.GetRequestValueDef(request, "filterid" + i.ToString(), ""));
+                filter.Id = Guid.Parse(Utility.GetRequestValueDef(request, "filterid" + i, ""));
 
-                ContentFilter contentFilter = new ContentFilter()
+                ContentFilter contentFilter = new ContentFilter
                 {
                     Filter = filter,
-                    FilterType = (IContentFilter.ContentFilterType)Utility.GetRequestIntValueDef(request, "contentfiltertype" + i.ToString(), 1),
+                    FilterType = (IContentFilter.ContentFilterType)Utility.GetRequestIntValueDef(request, "contentfiltertype" + i, 1),
                     FilterDefinitionId = filter.Id,
                     Index = index
                 };
-                contentFilter.Values.AddRange(Utility.GetRequestList(request, "filtervalue" + i.ToString()));
+                contentFilter.Values.AddRange(Utility.GetRequestList(request, "filtervalue" + i));
                 model.Filters.Add(contentFilter);
                 index++;
             }

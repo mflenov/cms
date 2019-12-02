@@ -22,7 +22,7 @@ namespace FCmsTests
             Tools.DeleteCmsFile();
 
             manager = CmsManager.Load();
-            Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
+            Repository repository = new Repository { Id = repositoryId, Name = repositoryName };
             IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(IContentDefinition.DefinitionType.String);
             definition.DefinitionId = definitionId;
             definition.Name = contentName;
@@ -49,7 +49,7 @@ namespace FCmsTests
         public void DefaultContenExistOneFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
-            var contentItem = new ContentItem()
+            var contentItem = new ContentItem
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,
@@ -64,16 +64,16 @@ namespace FCmsTests
         }
 
         [TestMethod]
-        public void DefaultContenExistTwoFoundTest()
+        public void DefaultContentExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
-            contentStore.Items.Add(new ContentItem()
-                {
+            contentStore.Items.Add(new ContentItem
+            {
                     Id = Guid.NewGuid(),
                     DefinitionId = definitionId,
                     Value = "First"
                 });
-            contentStore.Items.Add(new ContentItem()
+            contentStore.Items.Add(new ContentItem
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,

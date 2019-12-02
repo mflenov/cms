@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FCms.Content
 {
@@ -20,9 +19,7 @@ namespace FCms.Content
             }
             if ((bool)value == true && values.Contains("on"))
                 return true;
-            if ((bool)value == false && !values.Contains("on"))
-                return true;
-            return false;
+            return (bool)value == false && !values.Contains("on");
         }
     }
 }

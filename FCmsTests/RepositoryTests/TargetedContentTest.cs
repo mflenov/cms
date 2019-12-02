@@ -24,7 +24,7 @@ namespace FCmsTests
             Tools.DeleteCmsFile();
 
             manager = CmsManager.Load();
-            Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
+            Repository repository = new Repository { Id = repositoryId, Name = repositoryName };
             IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(IContentDefinition.DefinitionType.String);
             definition.DefinitionId = definitionId;
             definition.Name = contentName;
@@ -32,7 +32,7 @@ namespace FCmsTests
             manager.Repositories.Add(repository);
 
             // filters
-            manager.Filters.Add(new BooleanFilter() { Id = booleanFilterId, Name = "IsLoggedIn" });
+            manager.Filters.Add(new BooleanFilter { Id = booleanFilterId, Name = "IsLoggedIn" });
 
             manager.Save();
         }
@@ -46,13 +46,13 @@ namespace FCmsTests
         void CreateBooleanContentValue()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
-            var contentItem = new ContentItem()
+            var contentItem = new ContentItem
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,
                 Value = contentName
             };
-            var contentFilter = new ContentFilter()
+            var contentFilter = new ContentFilter
             {
                 FilterDefinitionId = booleanFilterId
             };
