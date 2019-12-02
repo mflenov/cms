@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Linq;
 
@@ -73,8 +72,6 @@ namespace FCms.Content
             var filterDefinition = this.Filters.ToLookup(m => m.Id);
             foreach (var filter in store.Items.SelectMany(m => m.Filters))
             {
-                if (filterDefinition[filter.FilterDefinitionId] == null)
-                    continue;
                 filter.Filter = filterDefinition[filter.FilterDefinitionId].FirstOrDefault();
             }
         }
