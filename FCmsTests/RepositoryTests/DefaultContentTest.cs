@@ -46,7 +46,7 @@ namespace FCmsTests
         }
 
         [TestMethod]
-        public void DefaultContenExistOneFoundTest()
+        public void DefaultContentExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
             var contentItem = new ContentItem()

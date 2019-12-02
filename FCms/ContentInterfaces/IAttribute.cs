@@ -1,5 +1,4 @@
-﻿using System;
-namespace FCms.Content
+﻿namespace FCms.Content
 {
     public interface IAttribute
     {

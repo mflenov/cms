@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace FCms.Tools
@@ -19,17 +17,12 @@ namespace FCms.Tools
 
         public static int StringToIntDef(string value, int defValue)
         {
-            int intValue;
-            if (int.TryParse(value, out intValue))
-            {
-                return intValue;
-            }
-            return defValue;
+            return int.TryParse(value, out var intValue) ? intValue : defValue;
         }
 
         public static string GetRequestValueDef(HttpRequest request, string name, string defaultvalue)
         {
-            if (request == null || request.Form == null)
+            if (request?.Form == null)
             {
                 return defaultvalue;
             }
@@ -42,7 +35,7 @@ namespace FCms.Tools
 
         public static List<string> GetRequestList(HttpRequest request, string name)
         {
-            if (request == null || request.Form == null)
+            if (request?.Form == null)
             {
                 return new List<string>();
             }

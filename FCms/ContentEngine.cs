@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using FCms.Content;
 using System.Linq;
-using System.Reflection;
 
 namespace FCms
 {
     public class ContentEngine
     {
-        ICmsManager manager = CmsManager.Load();
-        IRepository repo;
-        IContentStore contentStore;
+        readonly ICmsManager manager = CmsManager.Load();
+        readonly IRepository repo;
+        readonly IContentStore contentStore;
 
         public ContentEngine(string repositoryName)
         {
@@ -28,7 +25,7 @@ namespace FCms
                 return "";
             }
 
-            return contentItem.GetStringValue();
+            return contentItem == null ? "" : contentItem.GetStringValue();
         }
 
         public IEnumerable<string> GetContentStrings(string contentName)
