@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace FCmsTests
 {
     [TestClass]
-    public class TargetedContentTest
+    public class TargetedBooleanContentTest
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -17,6 +17,7 @@ namespace FCmsTests
         Guid definitionId = Guid.NewGuid();
         Guid booleanFilterId = Guid.NewGuid();
         ICmsManager manager;
+        IContentStore contentStore;
 
         [TestInitialize]
         public void InitTest()
@@ -45,7 +46,7 @@ namespace FCmsTests
 
         void CreateBooleanContentValue()
         {
-            IContentStore contentStore = manager.GetContentStore(repositoryId);
+            contentStore = manager.GetContentStore(repositoryId);
             var contentItem = new ContentItem()
             {
                 Id = Guid.NewGuid(),
@@ -84,6 +85,23 @@ namespace FCmsTests
 
             items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
             Assert.AreEqual(1, items.Count());
+        }
+
+        [TestMethod]
+        public void TargetedValueExcludeBooleanFilterTest()
+        {
+            CreateBooleanContentValue();
+            contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
+            contentStore.Save();
+
+
+            ContentEngine engine = new ContentEngine(repositoryName);
+
+            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            Assert.AreEqual(1, items.Count());
+
+            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            Assert.AreEqual(0, items.Count());
         }
     }
 }

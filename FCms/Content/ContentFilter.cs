@@ -22,7 +22,8 @@ namespace FCms.Content
 
         public virtual bool Validate(object value)
         {
-            return Filter.Validate(Values, value);
+            bool isValid = Filter.Validate(Values, value);
+            return FilterType == IContentFilter.ContentFilterType.Include ? isValid : !isValid;
         }
 
         public string GetValue(int index)
