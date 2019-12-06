@@ -13,7 +13,11 @@ namespace FCms.Content
 
         public bool Validate(List<object> values, object value)
         {
-            return false;
+            if (values == null)
+            {
+                return false;
+            }
+            return values.Contains(value);
         }
     }
 }
