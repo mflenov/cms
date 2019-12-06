@@ -9,14 +9,15 @@ using System.Collections.Generic;
 namespace FCmsTests
 {
     [TestClass]
-    public class TargetedContentTest
+    public class TargetedTextContentTest
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
         Guid repositoryId = Guid.NewGuid();
         Guid definitionId = Guid.NewGuid();
-        Guid booleanFilterId = Guid.NewGuid();
+        Guid textFilterId = Guid.NewGuid();
         ICmsManager manager;
+        IContentStore contentStore;
 
         [TestInitialize]
         public void InitTest()
@@ -32,7 +33,7 @@ namespace FCmsTests
             manager.Repositories.Add(repository);
 
             // filters
-            manager.Filters.Add(new BooleanFilter() { Id = booleanFilterId, Name = "IsLoggedIn" });
+            manager.Filters.Add(new TextFilter() { Id = textFilterId, Name = "Card" });
 
             manager.Save();
         }
@@ -43,9 +44,9 @@ namespace FCmsTests
             Tools.DeleteCmsFile();
         }
 
-        void CreateBooleanContentValue()
+        void CreateTextContentValue()
         {
-            IContentStore contentStore = manager.GetContentStore(repositoryId);
+            contentStore = manager.GetContentStore(repositoryId);
             var contentItem = new ContentItem()
             {
                 Id = Guid.NewGuid(),
@@ -54,9 +55,9 @@ namespace FCmsTests
             };
             var contentFilter = new ContentFilter()
             {
-                FilterDefinitionId = booleanFilterId
+                FilterDefinitionId = textFilterId
             };
-            contentFilter.Values.Add("on");
+            contentFilter.Values.Add("MyCoolCard");
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
             contentStore.Save();
@@ -65,7 +66,7 @@ namespace FCmsTests
         [TestMethod]
         public void TargetedValueNotFoundTest()
         {
-            CreateBooleanContentValue();
+            CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
@@ -73,17 +74,34 @@ namespace FCmsTests
         }
 
         [TestMethod]
-        public void TargetedValueBooleanFilterTest()
+        public void TargetedValueStringFilterTest()
         {
-            CreateBooleanContentValue();
+            CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            List<ContentItem> items = engine.GetContents(contentName, new { Card = "NotFoundCard" }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            items = engine.GetContents(contentName, new { Card = "MyCoolCard" }).ToList();
             Assert.AreEqual(1, items.Count());
         }
+
+        [TestMethod]
+        public void TargetedValueExcludeStringFilterTest()
+        {
+            CreateTextContentValue();
+            contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
+            contentStore.Save();
+
+            ContentEngine engine = new ContentEngine(repositoryName);
+
+            List<ContentItem> items = engine.GetContents(contentName, new { Card = "NotFoundCard" }).ToList();
+            Assert.AreEqual(1, items.Count());
+
+            items = engine.GetContents(contentName, new { Card = "MyCoolCard" }).ToList();
+            Assert.AreEqual(0, items.Count());
+        }
+
     }
 }
