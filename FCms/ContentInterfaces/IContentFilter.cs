@@ -19,6 +19,8 @@ namespace FCms.Content
 
         bool Validate(object value);
 
-        string GetValue(int index);
+        object GetValue(int index);
+
+        string GetStringValue(int index);
     }
 }

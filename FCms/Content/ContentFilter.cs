@@ -26,10 +26,14 @@ namespace FCms.Content
             return FilterType == IContentFilter.ContentFilterType.Include ? isValid : !isValid;
         }
 
-        public string GetValue(int index)
+        public object GetValue(int index)
         {
-            if (values.Count > index) { return values[index].ToString(); }
-            return "";
+            if (values.Count > index) { return values[index]; }
+            return null;
+        }
+        public string GetStringValue(int index)
+        {
+            return (GetValue(index) ?? "").ToString();
         }
     }
 }

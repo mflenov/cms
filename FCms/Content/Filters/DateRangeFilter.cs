@@ -15,5 +15,18 @@ namespace FCms.Content
         {
             return false;
         }
+        public List<object> ParseValues(List<string> list)
+        {
+            List<object> result = new List<object>();
+            foreach (string item in list ?? new List<string>())
+            {
+                DateTime? value = FCms.Tools.Utility.StringToDateTime(item);
+                if (value != null)
+                {
+                    result.Add(value);
+                }
+            }
+            return result;
+        }
     }
 }

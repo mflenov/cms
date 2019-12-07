@@ -57,7 +57,7 @@ namespace FCmsTests
             {
                 FilterDefinitionId = booleanFilterId
             };
-            contentFilter.Values.Add("on");
+            contentFilter.Values.Add(true);
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
             contentStore.Save();

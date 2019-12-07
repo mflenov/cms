@@ -73,11 +73,13 @@ namespace FCmsManager.ViewModel
                 ContentFilter contentFilter = new ContentFilter()
                 {
                     Filter = filter,
-                    FilterType = (IContentFilter.ContentFilterType)Utility.GetRequestIntValueDef(request, "contentfiltertype" + i.ToString(), 1),
+                    FilterType = (IContentFilter.ContentFilterType)Utility.GetRequestIntValueDef(request, "contentfiltertype" + i.ToString(), 0),
                     FilterDefinitionId = filter.Id,
                     Index = index
                 };
-                contentFilter.Values.AddRange(Utility.GetRequestList(request, "filtervalue" + i.ToString()));
+                contentFilter.Values.AddRange(
+                    filter.ParseValues(Utility.GetRequestList(request, "filtervalue" + i.ToString()))
+                    );
                 model.Filters.Add(contentFilter);
                 index++;
             }

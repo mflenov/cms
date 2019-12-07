@@ -14,5 +14,7 @@ namespace FCms.Content
         string Type { get; }
 
         bool Validate(List<object> values, object value);
+
+        List<object> ParseValues(List<string> list);
     }
 }
