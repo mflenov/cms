@@ -12,7 +12,15 @@
         {
             <tr>
                 <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">@content.Value</a></td>
-                <td></td>
+                <td>
+                    <ul>
+                    @foreach (var filter in content.Filters)
+                    {
+                        <li>@filter.Filter.Name = @filter.GetValue(0) @if (filter.Values.Count > 1) { <text> - </text> }
+                            @filter.GetValue(1)</li>
+                    }
+                    </ul>
+                </td>
                 <td></td>
             </tr>
         }
