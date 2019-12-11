@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace FCms.Content
@@ -13,7 +14,10 @@ namespace FCms.Content
 
         public bool Validate(List<object> values, object value)
         {
-            return false;
+            DateTime start = (DateTime?)values.FirstOrDefault() ?? DateTime.MinValue;
+            DateTime end = (DateTime?)values.Skip(1).FirstOrDefault() ?? DateTime.MaxValue;
+
+            return start < (DateTime)value && (DateTime)value < end;
         }
         public List<object> ParseValues(List<string> list)
         {
