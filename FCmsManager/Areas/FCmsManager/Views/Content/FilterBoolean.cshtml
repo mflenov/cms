@@ -8,5 +8,5 @@
         <input type="hidden" name="filterid@(Model.Index)" value="@Model.FilterDefinition.Id" />
         <input type="hidden" name="filtertype@(Model.Index)" value="@Model.FilterDefinition.Type" />
 
-        <input type="checkbox" name="filtervalue@(Model.Index)" value="on" @if (Model.ContentFilter.GetValue(0).ToLower() == "on") { <text>checked="checked"</text> } /> @Model.FilterDefinition.Name
+        <input type="checkbox" name="filtervalue@(Model.Index)" value="True" @if (((bool?)Model.ContentFilter.GetValue(0)) == true) { <text>checked="checked"</text> } /> @Model.FilterDefinition.Name
     </div>

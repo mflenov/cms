@@ -9,13 +9,13 @@ using System.Collections.Generic;
 namespace FCmsTests
 {
     [TestClass]
-    public class TargetedBooleanContentTest
+    public class TargetedRegexContentTest
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
         Guid repositoryId = Guid.NewGuid();
         Guid definitionId = Guid.NewGuid();
-        Guid booleanFilterId = Guid.NewGuid();
+        Guid regexFilterId = Guid.NewGuid();
         ICmsManager manager;
         IContentStore contentStore;
 
@@ -33,7 +33,7 @@ namespace FCmsTests
             manager.Repositories.Add(repository);
 
             // filters
-            manager.Filters.Add(new BooleanFilter() { Id = booleanFilterId, Name = "IsLoggedIn" });
+            manager.Filters.Add(new RegExFilter() { Id = regexFilterId, Name = "Email" });
 
             manager.Save();
         }
@@ -44,7 +44,7 @@ namespace FCmsTests
             Tools.DeleteCmsFile();
         }
 
-        void CreateBooleanContentValue()
+        void CreateTextContentValue()
         {
             contentStore = manager.GetContentStore(repositoryId);
             var contentItem = new ContentItem()
@@ -55,9 +55,9 @@ namespace FCmsTests
             };
             var contentFilter = new ContentFilter()
             {
-                FilterDefinitionId = booleanFilterId
+                FilterDefinitionId = regexFilterId
             };
-            contentFilter.Values.Add(true);
+            contentFilter.Values.Add(@"(\w+)@gmail.com");
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
             contentStore.Save();
@@ -66,7 +66,7 @@ namespace FCmsTests
         [TestMethod]
         public void TargetedValueNotFoundTest()
         {
-            CreateBooleanContentValue();
+            CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
@@ -74,33 +74,32 @@ namespace FCmsTests
         }
 
         [TestMethod]
-        public void TargetedValueBooleanFilterTest()
+        public void TargetedValueStringFilterTest()
         {
-            CreateBooleanContentValue();
+            CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            List<ContentItem> items = engine.GetContents(contentName, new { Email = "test@hotmail.com" }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            items = engine.GetContents(contentName, new { Email = "test@gmail.com" }).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
         [TestMethod]
-        public void TargetedValueExcludeBooleanFilterTest()
+        public void TargetedValueExcludeStringFilterTest()
         {
-            CreateBooleanContentValue();
+            CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
             contentStore.Save();
 
-
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            List<ContentItem> items = engine.GetContents(contentName, new { Email = "test@hotmail.com" }).ToList();
             Assert.AreEqual(1, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            items = engine.GetContents(contentName, new { Email = "test@gmail.com" }).ToList();
             Assert.AreEqual(0, items.Count());
         }
     }

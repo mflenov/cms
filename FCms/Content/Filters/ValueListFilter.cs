@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace FCms.Content
@@ -11,10 +12,21 @@ namespace FCms.Content
 
         public string Type { get { return "ValueList"; } }
 
+        List<string> values = new List<string>();
+        public List<string> Values { get { return values; }  }
+
         public bool Validate(List<object> values, object value)
         {
-            return false;
+            if (values == null)
+            {
+                return false;
+            }
+            return values.Contains(value);
         }
 
+        public List<object> ParseValues(List<string> list)
+        {
+            return list.Select(m => (object)m).ToList();
+        }
     }
 }

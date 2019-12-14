@@ -17,10 +17,21 @@ namespace FCms.Content
             {
                 return (bool)value == false;
             }
-            if ((bool)value == true && values.Contains("on"))
-                return true;
+            return values.Contains((bool)value);
+        }
 
-            return (bool)value == false && !values.Contains("on");
+        public List<object> ParseValues(List<string> list)
+        {
+            List<object> result = new List<object>();
+            foreach (string item in list ?? new List<string>())
+            {
+                bool? value = FCms.Tools.Utility.StringToBoolean(item);
+                if (value != null)
+                {
+                    result.Add(value);
+                }
+            }
+            return result;
         }
     }
 }

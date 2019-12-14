@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,6 +49,20 @@ namespace FCms.Tools
         public static int GetRequestIntValueDef(HttpRequest request, string name, int defaultvalue)
         {
             return Utility.StringToIntDef(Utility.GetRequestValueDef(request, name, ""), defaultvalue);
+        }
+
+        public static bool? StringToBoolean(string value)
+        {
+            if (bool.TryParse(value, out var boolValue))
+                return boolValue;
+            return null;
+        }
+
+        public static DateTime? StringToDateTime(string value)
+        {
+            if (DateTime.TryParse(value, out var dateValue))
+                return dateValue;
+            return null;
         }
     }
 }

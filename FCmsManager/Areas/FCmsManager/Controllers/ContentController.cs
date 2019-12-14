@@ -126,7 +126,7 @@ namespace FCmsManager.Controllers
                 return new ContentResult();
             }
 
-            return View("Filter" + model.FilterDefinition.Type.ToString(), model);
+            return View("NewFilter", model);
         }
     }
 }
