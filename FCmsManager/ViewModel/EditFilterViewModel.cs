@@ -19,6 +19,13 @@ namespace FCmsManager.ViewModel
 
         public String Type { get; set; }
 
+        public List<string> Values { get; set; }
+
+        public EditFilterViewModel()
+        {
+            Values = new List<string>();
+        }
+
         public IEnumerable<SelectListItem> TypeList {
             get {
                 foreach (string typename in TypeNames)
@@ -32,6 +39,9 @@ namespace FCmsManager.ViewModel
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
+            if (model is ValueListFilter) { 
+                (model as ValueListFilter).Values.AddRange(this.Values);
+            }
             return model;
         }
 
@@ -40,6 +50,10 @@ namespace FCmsManager.ViewModel
             this.Name = model.Name;
             this.Id = model.Id;
             this.Type = model.Type;
+            if (model is ValueListFilter)
+            {
+                this.Values.AddRange((model as ValueListFilter).Values);
+            }
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

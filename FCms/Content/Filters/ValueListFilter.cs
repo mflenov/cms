@@ -12,6 +12,9 @@ namespace FCms.Content
 
         public string Type { get { return "ValueList"; } }
 
+        List<string> values = new List<string>();
+        public List<string> Values { get { return values; }  }
+
         public bool Validate(List<object> values, object value)
         {
             if (values == null)

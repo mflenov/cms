@@ -7,5 +7,17 @@
         <input type="hidden" name="filterid@(Model.Index)" value="@Model.FilterDefinition.Id" />
         <input type="hidden" name="filtertype@(Model.Index)" value="@Model.FilterDefinition.Type" />
 
-        <select type="text" name="filtervalue@(Model.Index)" class="form-control" placeholder="Start date" value="@Model.ContentFilter.GetValue(0)" />
+        <select type="text" name="filtervalue@(Model.Index)" class="form-control" placeholder="Start date">
+            @foreach (string value in (Model.FilterDefinition as ValueListFilter).Values)
+            {
+                if (value == Model.ContentFilter.GetValue(0)?.ToString())
+                {
+                    <option value="@value" selected="selected">@value</option>
+                }
+                else
+                {
+                    <option value="@value">@value</option>
+                }
+            }
+        </select>
     </div>
