@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
@@ -32,6 +33,24 @@ namespace FCmsManager.Controllers
             });
         }
 
+        [HttpGet("fcmsmanager/definition/edit", Name = "fcmsdefinitionedit")]
+        public IActionResult edit(Guid repositoryid, Guid id)
+        {
+            ICmsManager manager = CmsManager.Load();
+            var repo = manager.GetRepositoryById(repositoryid);
+            IContentDefinition definition = repo?.ContentDefinitions.Where(m => m.DefinitionId == id).FirstOrDefault();
+            if (definition == null)
+                return Redirect("/fcmsmanager/repository");
+
+            ContentDefinitionViewModel model = new ContentDefinitionViewModel()
+            {
+                RepositoryId = repositoryid
+            };
+            model.MapFromModel(definition);
+
+            return View("Edit", model);
+        }
+
         [HttpPost("fcmsmanager/definition/save"), ValidateAntiForgeryToken]
         public IActionResult saveDefinition(ContentDefinitionViewModel model)
         {
@@ -46,6 +65,10 @@ namespace FCmsManager.Controllers
                 if (model.DefinitionId == null) {
                     repository.ContentDefinitions.Add(model.MapToModel(null));
                 }
+                else {
+                    model.MapToModel(repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault());
+                }
+
 
                 manager.Save();
                 return Redirect("/fcmsmanager/definition?repositoryid=" + model.RepositoryId);

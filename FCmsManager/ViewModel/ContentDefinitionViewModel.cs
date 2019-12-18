@@ -38,5 +38,11 @@ namespace FCmsManager.ViewModel
             model.DefinitionId = this.DefinitionId ?? Guid.NewGuid();
             return model;
         }
+
+        public void MapFromModel(IContentDefinition model)
+        {
+            this.Name = model.Name;
+            this.DefinitionId = model.DefinitionId;
+        }
     }
 }
