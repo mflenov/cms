@@ -7,7 +7,8 @@
   },
   "files": [
     "./ContentEditor.ts",
-    "./Filter.ts"
+    "./Filter.ts",
+    "./FolderRepo.ts"
   ],
   "compileOnSave": true
 }

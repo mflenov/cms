@@ -43,6 +43,7 @@ namespace FCmsManager.ViewModel
         {
             this.Name = model.Name;
             this.DefinitionId = model.DefinitionId;
+            this.ContentType = model.GetTypeName();
         }
     }
 }
