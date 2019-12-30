@@ -49,11 +49,11 @@ namespace FCmsTests
         public void DefaultContentExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
-            var contentItem = new ContentItem()
+            var contentItem = new StringContentItem()
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,
-                Value = "UniqueValue"
+                Data = "UniqueValue"
             };
             contentStore.Items.Add(contentItem);
             contentStore.Save();
@@ -67,17 +67,17 @@ namespace FCmsTests
         public void DefaultContenExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
-            contentStore.Items.Add(new ContentItem()
+            contentStore.Items.Add(new StringContentItem()
                 {
                     Id = Guid.NewGuid(),
                     DefinitionId = definitionId,
-                    Value = "First"
+                    Data = "First"
                 });
-            contentStore.Items.Add(new ContentItem()
+            contentStore.Items.Add(new StringContentItem()
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,
-                Value = "Second"
+                Data = "Second"
             });
             contentStore.Save();
 

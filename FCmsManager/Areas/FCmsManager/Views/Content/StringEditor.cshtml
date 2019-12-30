@@ -2,6 +2,6 @@
 
 <div class="form-group">
     <label for="definisionNameInput">Value</label>
-    <input type="text" name="Value" class="form-control" id="definisionNameInput" placeholder="Default Value" value="@Model.Item.Value" />
+    <input type="text" name="Value" class="form-control" id="definisionNameInput" placeholder="Default Value" value="@Model.Item.GetValue()" />
     <small class="form-text error">@Html.ValidationMessage("DefaultValue")</small>
 </div>

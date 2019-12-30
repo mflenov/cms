@@ -5,36 +5,15 @@ using System.Linq;
 
 namespace FCms.Content
 {
-    public class ContentItem
+    public abstract class ContentItem: IContent
     {
         public Guid? Id { get; set; }
 
         public Guid DefinitionId { get; set; }
 
-        public Object Value { get; set; }
+        public List<IContentFilter> Filters { get; } = new List<IContentFilter>();
 
         public string ToolTip { get; set; }
-
-        public ContentItem()
-        {
-            
-        }
-
-        public virtual string GetStringValue()
-        {
-            return Value.ToString();
-        }
-
-        public virtual string GetHtmlString()
-        {
-            return Value.ToString();
-        }
-
-        List<IContentFilter> filters = new List<IContentFilter>();
-        public List<IContentFilter> Filters {
-            get { return filters; }
-        }
-
 
         public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters)
         {
@@ -53,8 +32,12 @@ namespace FCms.Content
                     return false;
                 }
             }
-            
+
             return true;
         }
+
+        public abstract object GetValue();
+
+        public abstract string GetHtmlString();
     }
 }

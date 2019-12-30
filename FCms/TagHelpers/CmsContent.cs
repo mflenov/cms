@@ -22,7 +22,7 @@ namespace FCms.Extensions
         {
             ContentEngine engine = new ContentEngine(repositoryName);
             ContentItem item = engine.GetContents(contentName, filters).FirstOrDefault();
-            return new HtmlString(item == null ? "" : item.GetStringValue());
+            return new HtmlString(item == null ? "" : item.GetValue().ToString());
         }
     }
 }
