@@ -1,10 +1,17 @@
-﻿using System;
-namespace FCms.Content
+﻿namespace FCms.Content
 {
-    public class StringContentItem
+    public class StringContentItem: ContentItem
     {
-        public StringContentItem()
+        public string Data { get; set; }
+
+        public override object GetValue()
         {
+            return Data;
+        }
+
+        public override string GetHtmlString()
+        {
+            return Data;
         }
     }
 }

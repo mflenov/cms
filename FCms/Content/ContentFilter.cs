@@ -9,8 +9,7 @@ namespace FCms.Content
 
         public int Index { get; set; }
 
-        private List<object> values = new List<object>();
-        public List<object> Values { get { return values; } }
+        public List<object> Values { get; } = new List<object>();
 
         public IFilter Filter { get; set; }
 
@@ -28,7 +27,7 @@ namespace FCms.Content
 
         public object GetValue(int index)
         {
-            if (values.Count > index) { return values[index]; }
+            if (Values.Count > index) { return Values[index]; }
             return null;
         }
         public string GetStringValue(int index)

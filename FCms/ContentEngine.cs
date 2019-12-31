@@ -25,13 +25,13 @@ namespace FCms
                 return "";
             }
 
-            return contentItem == null ? "" : contentItem.GetStringValue();
+            return contentItem == null ? "" : contentItem.GetValue().ToString();
         }
 
         public IEnumerable<string> GetContentStrings(string contentName)
         {
             IContentDefinition definition = repo.GetByName(contentName);
-            return contentStore.GetDefaultByDefinitionId(definition.DefinitionId).Select(m => m.GetStringValue());
+            return contentStore.GetDefaultByDefinitionId(definition.DefinitionId).Select(m => m.GetValue().ToString());
         }
 
         public IEnumerable<ContentItem> GetContents(string contentName, object filters)

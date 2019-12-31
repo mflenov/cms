@@ -118,3 +118,7 @@
     margin:12px 0px;
 }
 
+.fcms #folderconfigurator .foldervaluelist {
+    padding: 12px 12px 1px 12px;
+    background: #fff;
+}

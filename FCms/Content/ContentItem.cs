@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FCms.Content
 {
-    public abstract class Content: IContent
+    public abstract class ContentItem: IContent
     {
         public Guid? Id { get; set; }
 

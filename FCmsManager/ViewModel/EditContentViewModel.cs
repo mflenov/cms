@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FCms.Content;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,13 +19,12 @@ namespace FCmsManager.ViewModel
 
         public IContentDefinition ContentDefinition { get; set; }
 
-        ContentItem item = new ContentItem();
-        public ContentItem Item { get { return item;  } set { item = value; } }
+        public ContentItem Item { get; set; } = new StringContentItem();
         
         public IEnumerable<FilterValueViewModel> ContentFilters {
             get {
                 int index = 1;
-                foreach (ContentFilter filter in item.Filters)
+                foreach (ContentFilter filter in Item.Filters)
                 {
                     yield return new FilterValueViewModel()
                     {
@@ -44,7 +42,10 @@ namespace FCmsManager.ViewModel
             model.DefinitionId = Guid.Parse(Utility.GetRequestValueDef(request, "DefinitionId", ""));
             model.Id = Item.Id ?? Guid.NewGuid();
             if (request.Form.ContainsKey("Value")) {
-                model.Value = Utility.GetRequestValueDef(request, "Value", "");
+                if (model is StringContentItem)
+                {
+                    (model as StringContentItem).Data = Utility.GetRequestValueDef(request, "Value", "");
+                }
             }
 
             if (request.Form.ContainsKey("numbderoffilters"))
@@ -87,7 +88,6 @@ namespace FCmsManager.ViewModel
 
         public IEnumerable<SelectListItem> GlobalFilters {
             get {
-                var manager = CmsManager.Load();
                 foreach (var filter in manager.Filters)
                 {
                     yield return new SelectListItem { Text = filter.Name, Value = filter.Id.ToString() };
