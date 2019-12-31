@@ -18,5 +18,9 @@ namespace FCms.Content
         public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters);
 
         string GetHtmlString();
+
+        string GetTypeName();
+
+        object GetValue();
     }
 }

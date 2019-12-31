@@ -13,5 +13,10 @@
         {
             return Data;
         }
+
+        public override string GetTypeName()
+        {
+            return "String";
+        }
     }
 }

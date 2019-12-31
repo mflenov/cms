@@ -20,9 +20,9 @@ namespace FCms.Factory
         }
 
 
-        public static IContentDefinition CreateContentDefinition(string type)
+        public static IContentDefinition CreateContentDefinition(string typeName)
         {
-            if (type.ToLower() == "string")
+            if ((typeName != null) && (typeName.ToLower() == "string"))
             {
                 return new StringContentDefinition();
             }

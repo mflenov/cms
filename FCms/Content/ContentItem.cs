@@ -39,5 +39,7 @@ namespace FCms.Content
         public abstract object GetValue();
 
         public abstract string GetHtmlString();
+
+        public abstract string GetTypeName();
     }
 }

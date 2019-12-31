@@ -1,7 +1,6 @@
-﻿@model FCmsManager.ViewModel.EditContentViewModel
+﻿@model Tuple<IContent, IContentDefinition>
 
 <div class="form-group">
-    <label for="definisionNameInput">Value</label>
-    <input type="text" name="Value" class="form-control" id="definisionNameInput" placeholder="Default Value" value="@Model.Item.GetValue()" />
-    <small class="form-text error">@Html.ValidationMessage("DefaultValue")</small>
+    <label for="definisionNameInput">@Model.Item2.Name</label>
+    <input type="text" name="Value@(Model.Item2.DefinitionId)" class="form-control" id="definisionNameInput" placeholder="Default Value" value="@Model.Item1.GetValue()" />
 </div>
