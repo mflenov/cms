@@ -1,11 +1,3 @@
-﻿@model FCmsManager.ViewModel.FolderItemViewModel
+﻿@model FCmsManager.ViewModel.ContentDefinitionItemViewModel
 
-@{
-    Layout = null;
-}
-
-<div class="form-group">
-    <input type="hidden" name="childtype@(Model.Index)" value="String" />
-    <input type="hidden" name="childid@(Model.Index)" value="@Model.Id" />
-    <input type="text" name="childname@(Model.Index)" data-index="@(Model.Index)" class="form-control folderitem" placeholder="name" value="@Model.Name" />
-</div>
+<h3>String</h3>

@@ -1,10 +1,12 @@
 ﻿class FolderRepo {
-    typedropdown = '.fcms #folderconfigurator [data-object="filtertypedropdown"]';
-    folderdefinition = '.fcms #folderconfigurator [data-object="folderdefinition"]'
-    addvaluebutton = '.fcms #folderconfigurator [data-object="addvalue"]'
-    numbderoffvalues = '.fcms #folderconfigurator #numbderoffvalues';
-    folderitem = '.fcms #folderconfigurator .folderitem';
-    valuelist = '.fcms #folderconfigurator [data-object="values-list"]';
+    typedropdown = '.fcms #filterconfigurator [data-object="filtertypedropdown"]';
+    valuetype = '.fcms #filterconfigurator [data-object="valuetype"]'
+    addvaluebutton = '.fcms #filterconfigurator [data-object="addvalue"]'
+    numbderoffilters = '.fcms #filterconfigurator #numbderoffilters';
+    filtervalue = '.fcms #filterconfigurator .filtervalue';
+    valuelist = '.fcms #filterconfigurator [data-object="values-list"]';
+
+    itemtemplate = '<input type="text" name="Values" data-index="{index}" class="form-control filtervalue" placeholder="Value" />';
 
     public change(event: any) {
         let type = $(event.target).val();
@@ -17,31 +19,26 @@
     }
 
     public hideValueList() {
-        $(this.folderdefinition).hide();
+        $(this.valuetype).hide();
     }
 
     public showValueList() {
-        $(this.folderdefinition).show();
+        $(this.valuetype).show();
     }
 
     public addvalue() {
         let lastindex: number = 0;
 
-        $(this.folderitem).each(function () {
+        $(this.filtervalue).each(function () {
             var value = parseFloat($(this).attr('data-index'));
             lastindex = (value > lastindex) ? value : lastindex;
         });
 
         let self = this;
         lastindex++;
+        $(self.valuelist).append(this.itemtemplate.replace(/{index}/g, lastindex.toString()));
 
-        $.post("/fcmsmanager/definition/addchild",
-            { contenttype: "String", index: lastindex },
-            function (data) {
-                $(self.valuelist).append(data);
-            });
-
-        $(this.numbderoffvalues).val(lastindex);
+        $(this.numbderoffilters).val(lastindex);
     }
 
     public processForm() {

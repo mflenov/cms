@@ -33,17 +33,6 @@ namespace FCmsManager.Controllers
             });
         }
 
-        [HttpPost("fcmsmanager/definition/addchild", Name = "fcmsdefinitionaddchild")]
-        public IActionResult addchild(string contenttype, int index)
-        {
-            return View(contenttype + "Value", new FolderItemViewModel()
-            {
-                Id = Guid.NewGuid(),
-                Index = index
-            });
-        }
-
-
         [HttpGet("fcmsmanager/definition/edit", Name = "fcmsdefinitionedit")]
         public IActionResult edit(Guid repositoryid, Guid id)
         {
@@ -74,10 +63,10 @@ namespace FCmsManager.Controllers
                 }
                 IRepository repository = manager.Repositories[repoindex];
                 if (model.DefinitionId == null) {
-                    repository.ContentDefinitions.Add(model.MapToModel(null, this.Request));
+                    repository.ContentDefinitions.Add(model.MapToModel(null));
                 }
                 else {
-                    model.MapToModel(repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault(), this.Request);
+                    model.MapToModel(repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault());
                 }
 
 

@@ -9,7 +9,10 @@ namespace FCms.Content
     {
         public Guid RepositoryId { get; set; }
 
-        public List<ContentItem> Items { get; } = new List<ContentItem>();
+        List<ContentItem> items = new List<ContentItem>();
+        public List<ContentItem> Items {
+            get { return items; } 
+        }
 
         public void Save()
         {
