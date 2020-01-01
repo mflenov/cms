@@ -13,7 +13,7 @@ namespace FCms.Factory
 
             if (definition is FolderContentDefinition)
             {
-                return new ContentFolder();
+                return new ContentFolderItem();
             }
 
             return new StringContentItem();

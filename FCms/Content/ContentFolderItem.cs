@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FCms.Content
 {
-    public class ContentFolder: ContentItem
+    public class ContentFolderItem: ContentItem
     {
         public List<IContent> Childeren { get; } = new List<IContent>();
 

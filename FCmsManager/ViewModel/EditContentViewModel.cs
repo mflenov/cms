@@ -17,6 +17,8 @@ namespace FCmsManager.ViewModel
 
         public Guid RepositoryId { get; set; }
 
+        public Guid DefinitionId { get; set; }
+
         public IContentDefinition ContentDefinition { get; set; }
 
         public ContentItem Item { get; set; } = new StringContentItem();
@@ -41,11 +43,14 @@ namespace FCmsManager.ViewModel
         {
             model.DefinitionId = Guid.Parse(Utility.GetRequestValueDef(request, "DefinitionId", ""));
             model.Id = Item.Id ?? Guid.NewGuid();
-            if (request.Form.ContainsKey("Value")) {
-                if (model is StringContentItem)
-                {
-                    (model as StringContentItem).Data = Utility.GetRequestValueDef(request, "Value", "");
-                }
+
+            if (model is ContentFolderItem)
+            {
+                MapFolder(model, request);
+            }
+            else
+            {
+                MapScalar(model, request);
             }
 
             if (request.Form.ContainsKey("numbderoffilters"))
@@ -54,6 +59,33 @@ namespace FCmsManager.ViewModel
             }
 
             return model;
+        }
+
+        private void MapScalar(ContentItem model, HttpRequest request)
+        {
+            if (model is StringContentItem)
+            {
+                (model as StringContentItem).Data = Utility.GetRequestValueDef(request, "Value" + model.DefinitionId.ToString(), "");
+            }
+        }
+
+        private void MapFolder(ContentItem model, HttpRequest request) {
+            ((ContentFolderItem)model).Childeren.Clear();
+
+            foreach (var definition in (this.ContentDefinition as FolderContentDefinition).Definitions)
+            {
+                if (definition is StringContentDefinition)
+                {
+                    ((ContentFolderItem)model).Childeren.Add(
+                        new StringContentItem()
+                        {
+                            DefinitionId = definition.DefinitionId,
+                            Data = Utility.GetRequestValueDef(request, "Value" + definition.DefinitionId.ToString(), ""),
+                            Id = Utility.GetRequestGuidDefNew(request, "Id" + definition.DefinitionId.ToString())
+                        }
+                        );
+                }
+            }
         }
 
         private void MapFilters(ContentItem model, HttpRequest request)

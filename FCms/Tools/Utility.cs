@@ -21,6 +21,15 @@ namespace FCms.Tools
             return int.TryParse(value, out var intValue) ? intValue : defValue;
         }
 
+        public static Guid GetRequestGuidDefNew(HttpRequest request, string name) {
+            string value = Utility.GetRequestValueDef(request, name, "");
+            if (value == "")
+            {
+                return Guid.NewGuid();
+            }
+            return Guid.Parse(value);
+        }
+
         public static string GetRequestValueDef(HttpRequest request, string name, string defaultvalue)
         {
             if (request?.Form == null)
@@ -46,6 +55,7 @@ namespace FCms.Tools
             }
             return new List<string>();
         }
+
         public static int GetRequestIntValueDef(HttpRequest request, string name, int defaultvalue)
         {
             return Utility.StringToIntDef(Utility.GetRequestValueDef(request, name, ""), defaultvalue);

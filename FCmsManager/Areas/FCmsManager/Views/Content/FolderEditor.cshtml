@@ -5,7 +5,7 @@
 {
     <div>
         @await Html.PartialAsync(item.GetTypeName() + "Editor",
-            new Tuple<IContent, IContentDefinition>((Model.Item1 as ContentFolder).Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
+            new Tuple<IContent, IContentDefinition>((Model.Item1 as ContentFolderItem).Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
         )
     </div>
 }

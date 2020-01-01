@@ -15,7 +15,9 @@ namespace FCms.Content
         {
             System.IO.File.WriteAllText(RepositoryId.ToString() + ".json", JsonConvert.SerializeObject(this, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+
             }));
         }
 
@@ -35,6 +37,7 @@ namespace FCms.Content
         {
             return Items.Where(m => m.Filters.Count == 0 && m.DefinitionId == definitionId);
         }
+
         public IEnumerable<ContentItem> GetByDefinitionId(Guid definitionId)
         {
             return Items.Where(m => m.DefinitionId == definitionId);
