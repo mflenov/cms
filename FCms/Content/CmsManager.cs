@@ -33,7 +33,8 @@ namespace FCms.Content
         {
             System.IO.File.WriteAllText(filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
             }));
         }
 
@@ -82,7 +83,7 @@ namespace FCms.Content
             if (File.Exists(filename))
             {
                 IContentStore store = JsonConvert.DeserializeObject<ContentStore>(File.ReadAllText(filename),
-                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented });
                 MapFilters(store);
                 return store;
             }

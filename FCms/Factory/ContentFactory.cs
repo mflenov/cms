@@ -8,10 +8,25 @@ namespace FCms.Factory
         {
             if (definition is StringContentDefinition)
             {
-                return new StringContentValue();
+                return new StringContentItem();
             }
 
-            return new StringContentValue();
+            if (definition is FolderContentDefinition)
+            {
+                return new ContentFolderItem();
+            }
+
+            return new StringContentItem();
+        }
+
+
+        public static IContentDefinition CreateContentDefinition(string typeName)
+        {
+            if ((typeName != null) && (typeName.ToLower() == "string"))
+            {
+                return new StringContentDefinition();
+            }
+            return new StringContentDefinition();
         }
     }
 }

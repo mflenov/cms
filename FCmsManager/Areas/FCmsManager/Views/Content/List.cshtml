@@ -11,7 +11,21 @@
         @foreach (ContentItem content in Model.Items)
         {
             <tr>
-                <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">@content.Value</a></td>
+                <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
+                        @if (content is ContentFolderItem)
+                        {
+                            <ul>
+                            @foreach (var item in (content as ContentFolderItem).Childeren)
+                            {
+                                <li>@item.GetValue()</li>
+                            }
+                            </ul>
+                        }
+                        else
+                        {
+                            @content.GetValue()
+                        }
+                    </a></td>
                 <td>
                     <ul>
                     @foreach (var filter in content.Filters)

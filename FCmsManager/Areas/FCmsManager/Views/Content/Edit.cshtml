@@ -12,7 +12,7 @@
         <input type="hidden" name="DefinitionId" value="@Model.Item.DefinitionId" />
         <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
         <div>
-            @await Html.PartialAsync(Model.ContentDefinition.GetTypeName() + "Editor", Model)
+            @await Html.PartialAsync(Model.ContentDefinition.GetTypeName() + "Editor", new Tuple<IContent, IContentDefinition>(Model.Item, Model.ContentDefinition))
         </div>
 
         <h2>Filters</h2>

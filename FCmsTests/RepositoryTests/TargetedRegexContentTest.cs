@@ -47,11 +47,11 @@ namespace FCmsTests
         void CreateTextContentValue()
         {
             contentStore = manager.GetContentStore(repositoryId);
-            var contentItem = new ContentItem()
+            var contentItem = new StringContentItem()
             {
                 Id = Guid.NewGuid(),
                 DefinitionId = definitionId,
-                Value = contentName
+                Data = contentName
             };
             var contentFilter = new ContentFilter()
             {

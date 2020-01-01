@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
@@ -32,6 +33,35 @@ namespace FCmsManager.Controllers
             });
         }
 
+        [HttpPost("fcmsmanager/definition/addchild", Name = "fcmsdefinitionaddchild")]
+        public IActionResult addchild(string contenttype, int index)
+        {
+            return View(contenttype + "Value", new FolderItemViewModel()
+            {
+                Id = Guid.NewGuid(),
+                Index = index
+            });
+        }
+
+
+        [HttpGet("fcmsmanager/definition/edit", Name = "fcmsdefinitionedit")]
+        public IActionResult edit(Guid repositoryid, Guid id)
+        {
+            ICmsManager manager = CmsManager.Load();
+            var repo = manager.GetRepositoryById(repositoryid);
+            IContentDefinition definition = repo?.ContentDefinitions.Where(m => m.DefinitionId == id).FirstOrDefault();
+            if (definition == null)
+                return Redirect("/fcmsmanager/repository");
+
+            ContentDefinitionViewModel model = new ContentDefinitionViewModel()
+            {
+                RepositoryId = repositoryid
+            };
+            model.MapFromModel(definition);
+
+            return View("Edit", model);
+        }
+
         [HttpPost("fcmsmanager/definition/save"), ValidateAntiForgeryToken]
         public IActionResult saveDefinition(ContentDefinitionViewModel model)
         {
@@ -44,8 +74,12 @@ namespace FCmsManager.Controllers
                 }
                 IRepository repository = manager.Repositories[repoindex];
                 if (model.DefinitionId == null) {
-                    repository.ContentDefinitions.Add(model.MapToModel(null));
+                    repository.ContentDefinitions.Add(model.MapToModel(null, this.Request));
                 }
+                else {
+                    model.MapToModel(repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault(), this.Request);
+                }
+
 
                 manager.Save();
                 return Redirect("/fcmsmanager/definition?repositoryid=" + model.RepositoryId);
