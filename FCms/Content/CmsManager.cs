@@ -24,6 +24,15 @@ namespace FCms.Content
             }
         }
 
+        public void AddRepository(IRepository repository)
+        {
+            if (repository != null && repositories.Select(x => x.Name).Contains(repository.Name))
+            {
+                throw new Exception($"The repository {repository.Name} already exists");
+            }
+            repositories.Add(repository);
+        }
+
         private CmsManager()
         {
 
@@ -56,16 +65,11 @@ namespace FCms.Content
             return Repositories.Where(m => m.Id == id).FirstOrDefault();
         }
 
-        public int GetIndexById(Guid id) {
-            int index = 0;
-            foreach (var repo in this.Repositories)
-            {
-                if (repo.Id == id)
-                    return index;
-                index++;
-            }
-            return -1;
-        }
+        public int GetIndexById(Guid id) 
+            => repositories
+              .Select((repos, id) => (repos, id))
+              .Single(tuple => tuple.repos.Id == id).id;
+
 
         void MapFilters(IContentStore store)
         {
