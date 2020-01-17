@@ -18,29 +18,35 @@ namespace FCmsManager.Controllers
 
 
         [HttpGet("fcmsmanager/repository/add", Name = "fcmsrepositoryadd")]
-        public IActionResult add()
+        public IActionResult Add()
         {
             return View("Edit", new RepositoryViewModel());
         }
 
         [HttpPost("fcmsmanager/repository/save"), ValidateAntiForgeryToken]
-        public IActionResult savePost(RepositoryViewModel model)
+        public IActionResult SavePost(RepositoryViewModel model)
         {
             if (ModelState.IsValid)
             {
                 ICmsManager manager = CmsManager.Load();
-                if (model.Id == null)
+                
+                if (model.IsItANewRepository())
                 {
-                    manager.Repositories.Add(model.MapToModel(new Repository()));
+                    var newRrepository = model.MapToModel(new Repository());
+                    manager.AddRepository(newRrepository);
                 }
                 else
                 {
-                    int repoindex = manager.GetIndexById(model.Id.Value);
-                    if (repoindex < 0)
+                    try
+                    {
+                        int repoindex = manager.GetIndexById(model.Id.Value);
+                        model.MapToModel(manager.Repositories[repoindex]);
+                    }
+                    catch (InvalidOperationException ex)
                     {
                         throw new Exception("The content definition not found");
                     }
-                    model.MapToModel(manager.Repositories[repoindex]);
+
                 }
                 manager.Save();
                 return Redirect("/fcmsmanager/repository");

@@ -21,6 +21,9 @@ namespace FCmsManager.ViewModel
             return model;
         }
 
+        public bool IsItANewRepository() 
+            => this.Id.HasValue == false;
+
         public void MapToFrom(IRepository model)
         {
             this.Name = model.Name;

@@ -403,6 +403,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-
-
+/FCmsManager/package-lock.json
+/FCmsManager/package.json
 FCmsManager/wwwroot/js/cms/*.js
