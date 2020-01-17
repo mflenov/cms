@@ -9,16 +9,15 @@ namespace FCms.Content
     {
         public Guid RepositoryId { get; set; }
 
-        List<ContentItem> items = new List<ContentItem>();
-        public List<ContentItem> Items {
-            get { return items; } 
-        }
+        public List<ContentItem> Items { get; } = new List<ContentItem>();
 
         public void Save()
         {
             System.IO.File.WriteAllText(RepositoryId.ToString() + ".json", JsonConvert.SerializeObject(this, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+
             }));
         }
 
@@ -38,6 +37,7 @@ namespace FCms.Content
         {
             return Items.Where(m => m.Filters.Count == 0 && m.DefinitionId == definitionId);
         }
+
         public IEnumerable<ContentItem> GetByDefinitionId(Guid definitionId)
         {
             return Items.Where(m => m.DefinitionId == definitionId);

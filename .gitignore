@@ -405,3 +405,4 @@ ASALocalRun/
 .localhistory/
 /FCmsManager/package-lock.json
 /FCmsManager/package.json
+FCmsManager/wwwroot/js/cms/*.js

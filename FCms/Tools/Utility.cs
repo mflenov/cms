@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,15 @@ namespace FCms.Tools
         public static int StringToIntDef(string value, int defValue)
         {
             return int.TryParse(value, out var intValue) ? intValue : defValue;
+        }
+
+        public static Guid GetRequestGuidDefNew(HttpRequest request, string name) {
+            string value = Utility.GetRequestValueDef(request, name, "");
+            if (value == "")
+            {
+                return Guid.NewGuid();
+            }
+            return Guid.Parse(value);
         }
 
         public static string GetRequestValueDef(HttpRequest request, string name, string defaultvalue)
@@ -45,9 +55,24 @@ namespace FCms.Tools
             }
             return new List<string>();
         }
+
         public static int GetRequestIntValueDef(HttpRequest request, string name, int defaultvalue)
         {
             return Utility.StringToIntDef(Utility.GetRequestValueDef(request, name, ""), defaultvalue);
+        }
+
+        public static bool? StringToBoolean(string value)
+        {
+            if (bool.TryParse(value, out var boolValue))
+                return boolValue;
+            return null;
+        }
+
+        public static DateTime? StringToDateTime(string value)
+        {
+            if (DateTime.TryParse(value, out var dateValue))
+                return dateValue;
+            return null;
         }
     }
 }

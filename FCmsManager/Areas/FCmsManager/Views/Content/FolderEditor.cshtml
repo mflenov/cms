@@ -1,0 +1,11 @@
+﻿@model Tuple<IContent, IContentDefinition>
+
+
+@foreach(var item in (Model.Item2 as FolderContentDefinition).Definitions)
+{
+    <div>
+        @await Html.PartialAsync(item.GetTypeName() + "Editor",
+            new Tuple<IContent, IContentDefinition>((Model.Item1 as ContentFolderItem).Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
+        )
+    </div>
+}

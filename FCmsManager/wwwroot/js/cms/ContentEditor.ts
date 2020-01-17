@@ -1,29 +1,31 @@
 ﻿class ContentFilter {
-    filterType: JQuery;
-    filtersList: JQuery;
-    repositoryid: String;
+    addButton = '.fcms #cmsfilterlist [data-object="addfilterbutton"]';
+    filterSelect = '.fcms #cmsfilterlist [data-object="filter-select"]';
+    filterList = '.fcms #cmsfilterlist [data-object="filters-list"]';
+    filterValue = '.fcms #cmsfilterlist .cmsfiltervalue';
+    numbderoffilters = '.fcms #cmsfilterlist #numbderoffilters';
 
     loadFilter(event: any) {
-        let filtertype = $('.cmsfilterlist [data-object="filter-select"]').val();
+        let filtertype = $(this.filterSelect).val();
         let lastindex: number = 0;
 
-        $('.cmsfilterlist .cmsfiltervalue').each(function () {
+        $(this.filterValue).each(function () {
             var value = parseFloat($(this).attr('data-index'));
             lastindex = (value > lastindex) ? value : lastindex;
         });
 
+        let self = this;
         $.post("/fcmsmanager/content/filter",
             { filterid: filtertype, index: lastindex + 1 },
             function (data) {
-                $('.cmsfilterlist [data-object="filters-list"]').append(data);
+                $(self.filterList).append(data);
             });
 
-        $('.fcms #numbderoffilters').val(lastindex + 1);
+        $(this.numbderoffilters).val(lastindex + 1);
     }
 
-
     public processForm() {
-        $('.cmsfilterlist [data-object="addfilterbutton"]').on('click', this.loadFilter);
+        $(this.addButton).click(this.loadFilter.bind(this));
     }
 }
 

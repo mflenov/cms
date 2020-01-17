@@ -12,15 +12,20 @@
         <input type="hidden" name="DefinitionId" value="@Model.Item.DefinitionId" />
         <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
         <div>
-            @await Html.PartialAsync(Model.ContentDefinition.GetTypeName() + "Editor", Model)
+            @await Html.PartialAsync(Model.ContentDefinition.GetTypeName() + "Editor", new Tuple<IContent, IContentDefinition>(Model.Item, Model.ContentDefinition))
         </div>
 
         <h2>Filters</h2>
-        <div class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
+        <div id="cmsfilterlist" class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
             <div class="col-md-12" data-object="filters-list">
                 @foreach (var contentFilter in Model.ContentFilters)
                 {
                     await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
+                    <div class="cmsfiltervalue" data-index="@contentFilter.Index">
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text>checked="checked"</text> } /> Include
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text>checked="checked"</text> } /> Exclude
+                    </div>
+                    <hr/>
                 }
             </div>
             <did class="col-md-8">

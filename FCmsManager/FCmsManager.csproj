@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\Style.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.7.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

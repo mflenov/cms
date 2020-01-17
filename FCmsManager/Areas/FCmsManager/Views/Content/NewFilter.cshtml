@@ -1,0 +1,12 @@
+﻿@{
+    Layout = null;
+}
+
+@model FCmsManager.ViewModel.FilterValueViewModel
+
+@{await Html.RenderPartialAsync("Filter" + Model.FilterDefinition.Type.ToString(), Model);}
+<div class="cmsfiltervalue" data-index="@Model.Index">
+    <input type="radio" name="contentfiltertype@(Model.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (Model.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text> checked="checked" </text> } /> Include
+    <input type="radio" name="contentfiltertype@(Model.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (Model.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text> checked="checked" </text> } /> Exclude
+</div>
+<hr />

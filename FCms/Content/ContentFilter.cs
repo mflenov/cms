@@ -9,8 +9,7 @@ namespace FCms.Content
 
         public int Index { get; set; }
 
-        private List<object> values = new List<object>();
-        public List<object> Values { get { return values; } }
+        public List<object> Values { get; } = new List<object>();
 
         public IFilter Filter { get; set; }
 
@@ -22,13 +21,18 @@ namespace FCms.Content
 
         public virtual bool Validate(object value)
         {
-            return Filter.Validate(Values, value);
+            bool isValid = Filter.Validate(Values, value);
+            return FilterType == IContentFilter.ContentFilterType.Include ? isValid : !isValid;
         }
 
-        public string GetValue(int index)
+        public object GetValue(int index)
         {
-            if (values.Count > index) { return values[index].ToString(); }
-            return "";
+            if (Values.Count > index) { return Values[index]; }
+            return null;
+        }
+        public string GetStringValue(int index)
+        {
+            return (GetValue(index) ?? "").ToString();
         }
     }
 }

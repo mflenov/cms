@@ -68,6 +68,12 @@
     border: 1px solid #ccc;
 }
 
+.fcms .cmstable ul {
+    margin-left: 0px;
+    padding-left: 20px;
+}
+
+
 .fcms .cmsbutton {
     display: inline-block;
     padding: 0px 20px 0px 20px;
@@ -112,3 +118,7 @@
     margin:12px 0px;
 }
 
+.fcms #folderconfigurator .foldervaluelist {
+    padding: 12px 12px 1px 12px;
+    background: #fff;
+}

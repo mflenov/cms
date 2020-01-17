@@ -6,7 +6,9 @@
     "target": "es6"
   },
   "files": [
-    "./ContentEditor.ts"
+    "./ContentEditor.ts",
+    "./Filter.ts",
+    "./FolderRepo.ts"
   ],
   "compileOnSave": true
 }

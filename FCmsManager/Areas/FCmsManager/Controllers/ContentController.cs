@@ -71,10 +71,13 @@ namespace FCmsManager.Controllers
                 ICmsManager manager = CmsManager.Load();
                 IContentStore contentStore = manager.GetContentStore(model.RepositoryId);
                 ContentItem item = contentStore.Items.Where(m => m.Id == model.Item.Id).FirstOrDefault();
+
+                IRepository repository = manager.GetRepositoryById(model.RepositoryId);
+                model.ContentDefinition = repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault();
+
                 if (item == null)
                 {
-                    IRepository repository = manager.GetRepositoryById(model.RepositoryId);
-                    item = FCms.Factory.ContentFactory.CreateContentByType(repository.ContentDefinitions.Where(m => m.DefinitionId == model.Item.DefinitionId).FirstOrDefault());
+                    item = FCms.Factory.ContentFactory.CreateContentByType(model.ContentDefinition);
                     model.MapToModel(item, Request);
                     contentStore.Items.Add(item);
                 }
@@ -126,7 +129,7 @@ namespace FCmsManager.Controllers
                 return new ContentResult();
             }
 
-            return View("Filter" + model.FilterDefinition.Type.ToString(), model);
+            return View("NewFilter", model);
         }
     }
 }
