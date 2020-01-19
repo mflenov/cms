@@ -69,7 +69,7 @@ namespace FCmsTests
             CreateBooleanContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
             Assert.AreEqual(0, items.Count());
         }
 
@@ -80,10 +80,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = true }).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
@@ -97,10 +97,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
             Assert.AreEqual(1, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = true }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = true }).ToList();
             Assert.AreEqual(0, items.Count());
         }
     }

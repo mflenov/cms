@@ -10,7 +10,12 @@ namespace FCms.Content
 
         public string GetTypeName()
         {
-            return "String";
+            return GetDefinitionType().ToString();
+        }
+
+        public ContentDefinitionType GetDefinitionType()
+        {
+            return ContentDefinitionType.String;
         }
     }
 }

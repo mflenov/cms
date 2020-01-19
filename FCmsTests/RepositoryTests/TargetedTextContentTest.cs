@@ -69,7 +69,7 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
             Assert.AreEqual(0, items.Count());
         }
 
@@ -80,10 +80,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Card = "NotFoundCard" }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Card = "MyCoolCard" }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
@@ -96,10 +96,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Card = "NotFoundCard" }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
             Assert.AreEqual(1, items.Count());
 
-            items = engine.GetContents(contentName, new { Card = "MyCoolCard" }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
             Assert.AreEqual(0, items.Count());
         }
 

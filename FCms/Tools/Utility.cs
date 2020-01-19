@@ -23,7 +23,7 @@ namespace FCms.Tools
 
         public static Guid GetRequestGuidDefNew(HttpRequest request, string name) {
             string value = Utility.GetRequestValueDef(request, name, "");
-            if (value == "")
+            if (String.IsNullOrEmpty(value))
             {
                 return Guid.NewGuid();
             }

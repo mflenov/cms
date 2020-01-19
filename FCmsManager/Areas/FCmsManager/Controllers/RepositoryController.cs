@@ -42,7 +42,7 @@ namespace FCmsManager.Controllers
                         int repoindex = manager.GetIndexById(model.Id.Value);
                         model.MapToModel(manager.Repositories[repoindex]);
                     }
-                    catch (InvalidOperationException ex)
+                    catch (InvalidOperationException)
                     {
                         throw new Exception("The content definition not found");
                     }
