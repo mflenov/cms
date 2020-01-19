@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System; 
 
 namespace FCms.Content
 {
@@ -10,6 +12,17 @@ namespace FCms.Content
         public override object GetValue()
         {
             return Childeren;
+        }
+
+        public FolderContentDefinition Definition { get; set; }
+
+        public IContent GetItem(Guid? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return Childeren.Where(m => m.DefinitionId == id).FirstOrDefault();
         }
 
         public override string GetHtmlString()

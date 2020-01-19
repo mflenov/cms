@@ -1,10 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true });
+    FCms.ContentEngine contentEngine = new FCms.ContentEngine(SiteGlobals.BASE_REPOSITORY_NAME);
 }
 
-    <div class="text-center">
-        <h1 class="display-4">@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true })</h1>
-
-
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center">
+    <h1 class="display-4">@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true })</h1>
+    <div class="row">
+        @foreach (var folder in contentEngine.GetFolderItems("Ads", null))
+        {
+            <div class="col-md-4">
+                <h3>@contentEngine.GetFolderItem(folder, "Title").GetHtmlString()</h3>
+            </div>
+        }
     </div>
+</div>

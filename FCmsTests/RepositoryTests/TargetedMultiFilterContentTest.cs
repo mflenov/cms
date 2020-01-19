@@ -83,16 +83,16 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@gmail.com" }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com" }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
         }
 
@@ -103,7 +103,7 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = true}).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true}).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
@@ -118,16 +118,16 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
@@ -141,16 +141,16 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
             Assert.AreEqual(1, items.Count());
         }
     }

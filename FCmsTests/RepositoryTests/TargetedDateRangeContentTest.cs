@@ -70,7 +70,7 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
             Assert.AreEqual(0, items.Count());
         }
 
@@ -81,13 +81,13 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
             Assert.AreEqual(0, items.Count());
 
-            items = engine.GetContents(contentName, new { Active = DateTime.Now }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
             Assert.AreEqual(1, items.Count());
         }
 
@@ -100,13 +100,13 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
             Assert.AreEqual(1, items.Count());
 
-            items = engine.GetContents(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
             Assert.AreEqual(1, items.Count());
 
-            items = engine.GetContents(contentName, new { Active = DateTime.Now }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
             Assert.AreEqual(0, items.Count());
         }
     }

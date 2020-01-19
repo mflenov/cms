@@ -13,9 +13,15 @@ namespace FCms.Content
         public List<IContentDefinition> Definitions {
             get { return definitions; }
         }
+
         public string GetTypeName()
         {
-            return "Folder";
+            return GetDefinitionType().ToString();
+        }
+
+        public ContentDefinitionType GetDefinitionType()
+        {
+            return ContentDefinitionType.Folder;
         }
     }
 }

@@ -34,7 +34,27 @@ namespace FCms
             return contentStore.GetDefaultByDefinitionId(definition.DefinitionId).Select(m => m.GetValue().ToString());
         }
 
-        public IEnumerable<ContentItem> GetContents(string contentName, object filters)
+        public IEnumerable<ContentItem> GetContentItems(string contentName, object filters)
+        {
+            return GetContents<ContentItem>(contentName, filters);
+        }
+
+        public IEnumerable<ContentFolderItem> GetFolderItems(string contentName, object filters)
+        {
+            return GetContents<ContentFolderItem>(contentName, filters);
+        }
+
+        public IContent? GetFolderItem(ContentFolderItem folder, string itemname)
+        {
+            var folderDefinition = repo.ContentDefinitions.Where(m => m.DefinitionId == folder.DefinitionId).FirstOrDefault();
+            if (folderDefinition.GetDefinitionType() != ContentDefinitionType.Folder)
+            {
+                return null;
+            }
+            return folder.GetItem((folderDefinition as FolderContentDefinition).Definitions.Where(m => m.Name == itemname).FirstOrDefault()?.DefinitionId);
+        }
+
+        public IEnumerable<T> GetContents<T>(string contentName, object filters) where T: ContentItem
         {
             if (filters == null)
             {
@@ -46,7 +66,7 @@ namespace FCms
 
             var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
 
-            foreach (ContentItem contentitem in contentitems)
+            foreach (T contentitem in contentitems)
             {
                 if (contentitem.ValidateFilters(filterProperties, filters))
                 {

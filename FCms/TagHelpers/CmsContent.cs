@@ -21,7 +21,7 @@ namespace FCms.Extensions
         public static IHtmlContent GetContentAsString(this IHtmlHelper htmlHelper, string repositoryName, string contentName, object filters)
         {
             ContentEngine engine = new ContentEngine(repositoryName);
-            ContentItem item = engine.GetContents(contentName, filters).FirstOrDefault();
+            ContentItem item = engine.GetContents<ContentItem>(contentName, filters).FirstOrDefault();
             return new HtmlString(item == null ? "" : item.GetValue().ToString());
         }
     }
