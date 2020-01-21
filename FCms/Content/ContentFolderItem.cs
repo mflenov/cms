@@ -7,6 +7,8 @@ namespace FCms.Content
 {
     public class ContentFolderItem: ContentItem
     {
+        public string Name { get; set; }
+
         public List<IContent> Childeren { get; } = new List<IContent>();
 
         public override object GetValue()

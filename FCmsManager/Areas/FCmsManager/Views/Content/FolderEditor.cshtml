@@ -1,11 +1,22 @@
 ﻿@model Tuple<IContent, IContentDefinition>
 
+@{
+    var folderdefinition = (Model.Item2 as FolderContentDefinition);
+    var folder = (Model.Item1 as ContentFolderItem);
+}
 
-@foreach(var item in (Model.Item2 as FolderContentDefinition).Definitions)
+
+<div class="form-group">
+    <label for="FolderName@(folderdefinition.DefinitionId)">Name:</label>
+    <input type="text" name="FolderName@(folderdefinition.DefinitionId)" class="form-control" placeholder="Display name" value="@folder.Name" />
+</div>
+
+
+@foreach (var item in folderdefinition.Definitions)
 {
     <div>
         @await Html.PartialAsync(item.GetTypeName() + "Editor",
-            new Tuple<IContent, IContentDefinition>((Model.Item1 as ContentFolderItem).Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
-        )
+                      new Tuple<IContent, IContentDefinition>(folder.Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
+                  )
     </div>
 }

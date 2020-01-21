@@ -14,12 +14,7 @@
                 <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
                         @if (content is ContentFolderItem)
                         {
-                            <ul>
-                            @foreach (var item in (content as ContentFolderItem).Childeren)
-                            {
-                                <li>@item.GetValue()</li>
-                            }
-                            </ul>
+                            @((content as ContentFolderItem).Name)
                         }
                         else
                         {

@@ -71,6 +71,7 @@ namespace FCmsManager.ViewModel
 
         private void MapFolder(ContentItem model, HttpRequest request) {
             ((ContentFolderItem)model).Childeren.Clear();
+            ((ContentFolderItem)model).Name = Utility.GetRequestValueDef(request, "FolderName" + model.DefinitionId, "");
 
             foreach (var definition in (this.ContentDefinition as FolderContentDefinition).Definitions)
             {
