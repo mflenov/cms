@@ -7,14 +7,42 @@ namespace FCms
     public class ContentEngine
     {
         readonly ICmsManager manager = CmsManager.Load();
-        readonly IRepository repo;
-        readonly IContentStore contentStore;
+        IRepository repo;
+        IContentStore contentStore;
+        const string REPO_CACHE_KEY = "FCMS_MANAGER";
+        const string REPO_CACHE_STORE = "FCMS_STORE";
 
         public ContentEngine(string repositoryName)
         {
-            repo = manager.GetRepositoryByName(repositoryName);
-            contentStore = manager.GetContentStore(repo.Id);
+            this.RepositoryName = repositoryName;
         }
+
+        public string RepositoryName
+        {
+            get { return repo.Name; }
+            private set {
+                if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_KEY) )
+                {
+                    repo = HttpContext.RequestCache[REPO_CACHE_KEY] as IRepository;
+                }
+                else
+                {
+                    repo = manager.GetRepositoryByName(value);
+                    HttpContext.RequestCache[REPO_CACHE_KEY] = repo;
+                }
+
+                if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_STORE + repo.Id))
+                {
+                    contentStore = HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] as IContentStore;
+                }
+                else
+                {
+                    contentStore = manager.GetContentStore(repo.Id);
+                    HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] = contentStore;
+                }
+            }
+        }
+
 
         public string GetContentString(string contentName)
         {            
