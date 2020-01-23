@@ -11,28 +11,28 @@
         @foreach (ContentItem content in Model.Items)
         {
             <tr>
-                <td><a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
+                <td>
+                    <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
                         @if (content is ContentFolderItem)
                         {
-                            <ul>
-                            @foreach (var item in (content as ContentFolderItem).Childeren)
-                            {
-                                <li>@item.GetValue()</li>
-                            }
-                            </ul>
+                            @((content as ContentFolderItem).Name)
                         }
                         else
                         {
                             @content.GetValue()
                         }
-                    </a></td>
+                    </a>
+                </td>
                 <td>
                     <ul>
-                    @foreach (var filter in content.Filters)
-                    {
-                        <li>@filter.Filter.Name = @filter.GetValue(0) @if (filter.Values.Count > 1) { <text> - </text> }
-                            @filter.GetValue(1)</li>
-                    }
+                        @foreach (var filter in content.Filters)
+                        {
+                            <li>
+                                @filter.Filter.Name = @filter.GetValue(0) @if (filter.Values.Count > 1)
+                                {<text> - </text>}
+                                @filter.GetValue(1)
+                            </li>
+                        }
                     </ul>
                 </td>
                 <td></td>
@@ -42,3 +42,7 @@
     <hr />
     <a href="/fcmsmanager/content/add?repositoryid=@Model.RepositoryId&definitionid=@Model.DefinitionId" class="cmsbutton">Add</a>
 </div>
+
+@section Breadcrump {
+    <span>Repository: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
+}

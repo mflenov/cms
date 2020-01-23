@@ -3,6 +3,7 @@
   "Items": [
     {
       "$type": "FCms.Content.ContentFolderItem, FCms",
+      "Name": "Surface Pro Ad",
       "Childeren": [
         {
           "$type": "FCms.Content.StringContentItem, FCms",
@@ -21,6 +22,7 @@
           "ToolTip": null
         }
       ],
+      "Definition": null,
       "Id": "d5f5640e-0a9f-4a47-9042-a26729befc64",
       "DefinitionId": "80013e0d-868f-45fe-bd50-fe3714f529f7",
       "Filters": [],
@@ -36,6 +38,7 @@
     },
     {
       "$type": "FCms.Content.ContentFolderItem, FCms",
+      "Name": "Surface Pro X Ad",
       "Childeren": [
         {
           "$type": "FCms.Content.StringContentItem, FCms",
@@ -54,6 +57,7 @@
           "ToolTip": null
         }
       ],
+      "Definition": null,
       "Id": "819da3c5-29cd-4595-87c8-bd3076a8409a",
       "DefinitionId": "80013e0d-868f-45fe-bd50-fe3714f529f7",
       "Filters": [],
@@ -61,6 +65,7 @@
     },
     {
       "$type": "FCms.Content.ContentFolderItem, FCms",
+      "Name": "Xbox One X Discount",
       "Childeren": [
         {
           "$type": "FCms.Content.StringContentItem, FCms",
@@ -79,6 +84,7 @@
           "ToolTip": null
         }
       ],
+      "Definition": null,
       "Id": "5f6bdb37-2253-47bf-8ba2-33eab831c3fc",
       "DefinitionId": "80013e0d-868f-45fe-bd50-fe3714f529f7",
       "Filters": [],
