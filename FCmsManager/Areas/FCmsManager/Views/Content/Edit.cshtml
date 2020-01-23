@@ -22,10 +22,10 @@
                 {
                     await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
                     <div class="cmsfiltervalue" data-index="@contentFilter.Index">
-                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text>checked="checked"</text> } /> Include
-                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text>checked="checked"</text> } /> Exclude
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text> checked="checked" </text> } /> Include
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text> checked="checked" </text> } /> Exclude
                     </div>
-                    <hr/>
+                    <hr />
                 }
             </div>
             <did class="col-md-8">
@@ -50,4 +50,9 @@
 
 @section Scripts {
     <script src="~/_content/FCmsManager/js/cms/ContentEditor.js"></script>
+}
+
+@section Breadcrump {
+    <span>Repository: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
+    <span>Content: <a href="/fcmsmanager/content/list?repositoryid=@(Model.RepositoryId)&definitionid=@(Model.Item.DefinitionId)">@Model.ContentDefinition.Name</a></span>
 }

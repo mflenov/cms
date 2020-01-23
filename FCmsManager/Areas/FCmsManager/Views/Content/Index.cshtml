@@ -2,8 +2,8 @@
 @model FCmsManager.ViewModel.ContentViewModel
 
 <div>
-    <h1>Content Editor</h1>
-        <table class="cmstable">
+    <h1>Repository @Model.RepositoryName</h1>
+    <table class="cmstable">
         <tr>
             <th style="width:40%">Name</th>
             <th style="width:40%">Type</th>
@@ -11,11 +11,11 @@
         </tr>
         @foreach (IContentDefinition content in Model.ContentDefinitions)
         {
-        <tr>
-            <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></td>
-            <td>@content.GetTypeName()</td>
-            <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a></td>
-        </tr>
+            <tr>
+                <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></td>
+                <td>@content.GetTypeName()</td>
+                <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a></td>
+            </tr>
         }
-        </table>
+    </table>
 </div>

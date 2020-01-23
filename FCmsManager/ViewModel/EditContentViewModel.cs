@@ -17,6 +17,8 @@ namespace FCmsManager.ViewModel
 
         public Guid RepositoryId { get; set; }
 
+        public string RepositoryName { get; set; }
+
         public Guid DefinitionId { get; set; }
 
         public IContentDefinition ContentDefinition { get; set; }

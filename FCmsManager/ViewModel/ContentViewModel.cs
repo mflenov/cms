@@ -8,6 +8,9 @@ namespace FCmsManager.ViewModel
     public class ContentViewModel
     {
         public Guid RepositoryId { get; set; }
+
+        public string RepositoryName { get; set; }
+
         public List<IContentDefinition> ContentDefinitions { get; set; }
     }
 }

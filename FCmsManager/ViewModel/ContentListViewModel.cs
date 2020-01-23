@@ -9,6 +9,8 @@ namespace FCmsManager.ViewModel
     {
         public Guid RepositoryId { get; set; }
 
+        public string RepositoryName { get; set; }
+
         public Guid DefinitionId { get; set; }
 
         List<ContentItem> items = new List<ContentItem>();

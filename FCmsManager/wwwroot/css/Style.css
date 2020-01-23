@@ -35,7 +35,7 @@
 .fcms .page {
     min-height: 300px;
     background: #f5f5f5;
-    padding: 20px 0px;
+    padding-bottom: 12px;
 }
 
 .fcms .footer {
@@ -50,6 +50,7 @@
 
 .fcms h1 {
     margin-bottom: 1.5rem;
+    font-size: 1.8rem;
 }
 
 .fcms .cmstable {
@@ -121,4 +122,14 @@
 .fcms #folderconfigurator .foldervaluelist {
     padding: 12px 12px 1px 12px;
     background: #fff;
+}
+
+.fcms .breadcrump {
+    padding: 10px;
+    border-bottom: 1px solid #aaa;
+    text-align: right;
+    margin-bottom: 10px;
+}
+.fcms span {
+    margin-left: 10px;
 }

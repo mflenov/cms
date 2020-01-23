@@ -19,6 +19,7 @@ namespace FCmsManager.Controllers
             }
             ContentViewModel model = new ContentViewModel();
             model.RepositoryId = repositoryid;
+            model.RepositoryName = repository.Name;
             model.ContentDefinitions = repository.ContentDefinitions;
 
             return View("Index", model);
@@ -35,6 +36,7 @@ namespace FCmsManager.Controllers
             IContentStore contentStore = CmsManager.Load().GetContentStore(repositoryid);
             ContentListViewModel model = new ContentListViewModel();
             model.RepositoryId = repositoryid;
+            model.RepositoryName = repository.Name;
             model.DefinitionId = definitionid;
             model.ContentDefinition = repository.ContentDefinitions.Where(m => m.DefinitionId == definitionid).FirstOrDefault();
             model.Items = contentStore.Items.Where(m => m.DefinitionId == definitionid).ToList();
@@ -53,6 +55,7 @@ namespace FCmsManager.Controllers
             IContentStore contentStore = manager.GetContentStore(repositoryid);
 
             EditContentViewModel model = new EditContentViewModel();
+            model.RepositoryName = repository.Name;
             model.Item = contentStore.Items.Where(m => m.Id == contentid).FirstOrDefault();
             if (model.Item == null)
                 return Redirect("/fcmsmanager/repository?d=" + contentid);
