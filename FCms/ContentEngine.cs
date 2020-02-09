@@ -6,14 +6,21 @@ namespace FCms
 {
     public class ContentEngine
     {
-        readonly ICmsManager manager = CmsManager.Load();
+        readonly ICmsManager manager;
         IRepository repo;
         IContentStore contentStore;
-        const string REPO_CACHE_KEY = "FCMS_MANAGER";
+        const string MANAGER_CACHE_KEY = "FCMS_MANAGER";
+        const string REPO_CACHE_KEY = "FCMS_REPO";
         const string REPO_CACHE_STORE = "FCMS_STORE";
 
         public ContentEngine(string repositoryName)
         {
+            manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
+            if (manager == null)
+            {
+                manager = CmsManager.Load();
+                Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
+            }
             this.RepositoryName = repositoryName;
         }
 
@@ -21,28 +28,42 @@ namespace FCms
         {
             get { return repo.Name; }
             private set {
-                if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_KEY) )
-                {
-                    repo = HttpContext.RequestCache[REPO_CACHE_KEY] as IRepository;
-                }
-                else
-                {
-                    repo = manager.GetRepositoryByName(value);
-                    HttpContext.RequestCache[REPO_CACHE_KEY] = repo;
-                }
-
-                if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_STORE + repo.Id))
-                {
-                    contentStore = HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] as IContentStore;
-                }
-                else
-                {
-                    contentStore = manager.GetContentStore(repo.Id);
-                    HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] = contentStore;
-                }
+                GetRepository(value);
+                LoadContentStore(repo);
             }
         }
 
+        private void GetRepository(string value)
+        {
+            string key = REPO_CACHE_KEY + "_" + value;
+            if (HttpContext.RequestCache.ContainsKey(key))
+            {
+                repo = HttpContext.RequestCache[key] as IRepository;
+                return;
+            }
+            object cacherepo = Tools.Cacher.Get("key");
+            if (cacherepo != null)
+            {
+                repo = cacherepo as IRepository;
+                return;
+            }
+            repo = manager.GetRepositoryByName(value);
+            HttpContext.RequestCache[key] = repo;
+        }
+
+        private void LoadContentStore(IRepository repo)
+        {
+            if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_STORE + repo.Id))
+            {
+                contentStore = HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] as IContentStore;
+            }
+            else
+            {
+                contentStore = manager.GetContentStore(repo.Id);
+                HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] = contentStore;
+                Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, CmsManager.GetContentStoreFilename(repo.Id));
+            }
+        }
 
         public string GetContentString(string contentName)
         {            
@@ -72,8 +93,10 @@ namespace FCms
             return GetContents<ContentFolderItem>(contentName, filters);
         }
 
-        public IContent? GetFolderItem(ContentFolderItem folder, string itemname)
+        public IContent GetFolderItem(ContentFolderItem folder, string itemname)
         {
+            if (folder == null)
+                return null;
             var folderDefinition = repo.ContentDefinitions.Where(m => m.DefinitionId == folder.DefinitionId).FirstOrDefault();
             if (folderDefinition.GetDefinitionType() != ContentDefinitionType.Folder)
             {

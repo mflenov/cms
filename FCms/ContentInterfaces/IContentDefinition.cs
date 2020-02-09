@@ -2,7 +2,9 @@
 
 namespace FCms.Content
 {
+#pragma warning disable CA1720 // Identifier contains type name
     public enum ContentDefinitionType { String, Folder };
+#pragma warning restore CA1720 // Identifier contains type name
 
     public interface IContentDefinition
     {
