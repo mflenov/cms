@@ -10,11 +10,16 @@ namespace FCms.Content
     public class CmsManager : ICmsManager
     {
         static string filename = "./cms.json";
+
         List<IRepository> repositories = new List<IRepository>();
         public List<IRepository> Repositories {
             get {
                 return this.repositories;
             }
+        }
+
+        public string Filename {
+            get { return filename; }
         }
 
         List<IFilter> filters = new List<IFilter>();
@@ -81,9 +86,13 @@ namespace FCms.Content
             }
         }
 
+        public static string GetContentStoreFilename(Guid repositoryid)
+        {
+            return repositoryid.ToString() + ".json";
+        }
         public IContentStore GetContentStore(Guid repositoryid)
         {
-            string filename = repositoryid.ToString() + ".json";
+            string filename = GetContentStoreFilename(repositoryid);
             if (File.Exists(filename))
             {
                 IContentStore store = JsonConvert.DeserializeObject<ContentStore>(File.ReadAllText(filename),

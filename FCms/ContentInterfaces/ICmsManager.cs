@@ -5,6 +5,10 @@ namespace FCms.Content
 {
     public interface ICmsManager
     {
+        public string Filename {
+            get;
+        }
+
         public List<IRepository> Repositories {
             get;
         }
