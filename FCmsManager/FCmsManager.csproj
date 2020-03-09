@@ -21,4 +21,10 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\FCmsManager\Views\Login\" />
+  </ItemGroup>
 </Project>

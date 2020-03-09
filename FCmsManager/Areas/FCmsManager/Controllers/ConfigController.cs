@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FCmsManager.Areas.FCmsManager.Controllers
 {
-    [Area("fcmsmanager")]
+    [Authorize(AuthenticationSchemes = "fcms")]
+    [Authorize]
     public class ConfigController : Controller
     {
         [HttpGet("fcmsmanager/config", Name = "fcmsconfig")]

@@ -26,10 +26,11 @@ namespace FCms.Content
             foreach (string item in list ?? new List<string>())
             {
                 bool? value = FCms.Tools.Utility.StringToBoolean(item);
-                if (value != null)
-                {
-                    result.Add(value);
-                }
+                result.Add(value == true);
+            }
+            if (list.Count == 0)
+            {
+                result.Add(false);
             }
             return result;
         }

@@ -20,4 +20,7 @@
   <ItemGroup>
     <Compile Remove="Content\StringContentValue.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Auth\" />
+  </ItemGroup>
 </Project>
