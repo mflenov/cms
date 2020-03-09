@@ -1,0 +1,31 @@
+﻿@model FCmsManager.ViewModel.LoginViewModel
+
+<div>
+    <h1>
+        Login
+    </h1>
+
+    <form method="post" action="/fcmsmanager/login">
+        <div id="cmsfilterlist" class="">
+            <div>
+                <div class="form-group">
+                    <label for="userNameInput">Username</label>
+                    <input type="text" name="Username" class="form-control" id="repositoryNameInput" placeholder="name" value="@Model.Username" />
+                    <small class="form-text error">@Html.ValidationMessage("Username")</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="userNameInput">Password</label>
+                    <input type="password" name="Password" class="form-control" id="repositoryNameInput" placeholder="name" value="" />
+                    <small class="form-text error">@Html.ValidationMessage("Password")</small>
+                </div>
+            </div>
+
+
+            <div class="cmscontrols">
+                <button class="cmsbutton">Login</button>
+            </div>
+        </div>
+</form>
+</div>
+

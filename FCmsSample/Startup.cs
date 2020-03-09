@@ -23,6 +23,13 @@ namespace FCmsSample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("fcms").AddCookie("fcms", config =>
+            {
+                config.Cookie.Name = "FcmsAuth.Cookie";
+                config.LoginPath = "/fcmsmanager/login";
+                config.AccessDeniedPath = "/fcmsmanager/";
+            });
+
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -31,7 +38,7 @@ namespace FCmsSample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            FCms.HttpContext.Configure(app.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
+            FCms.ServiceCollection.Configure(app);
 
             if (env.IsDevelopment())
             {

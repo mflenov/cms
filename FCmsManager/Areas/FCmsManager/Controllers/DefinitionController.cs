@@ -3,12 +3,13 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FCmsManager.Controllers
 {
     [Area("fcmsmanager")]
+    [Authorize(AuthenticationSchemes = "fcms")]
     public class DefinitionController : Controller
     {
         [HttpGet("fcmsmanager/definition", Name = "fcmsdefinition")]

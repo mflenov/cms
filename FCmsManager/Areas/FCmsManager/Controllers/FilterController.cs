@@ -3,10 +3,12 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManager.ViewModel;
 using FCms.Content;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FCmsManager.Areas.FCmsManager.Controllers
 {
     [Area("fcmsmanager")]
+    [Authorize(AuthenticationSchemes = "fcms")]
     public class FilterController : Controller
     {
         [HttpGet("fcmsmanager/filter", Name = "fcmsfilter")]
