@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FCms.Auth.Abstract;
+using FCms.Auth.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,16 @@ namespace FCmsSample
                 config.AccessDeniedPath = "/fcmsmanager/";
             });
 
+            // DI area
+            services.AddScoped<ICmsMember, CmsMember>();
+            services.AddScoped<ICmsAuthentication, ConfigAuthentication>();
+                        
+            // config inject way
+            var adminAuthConfig = new AdminAuthConfig();
+            Configuration.GetSection("FCmsAuth").GetSection("Admin").Bind(adminAuthConfig);
+            services.AddSingleton<AdminAuthConfig>(adminAuthConfig);
+            
+            
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
