@@ -1,5 +1,4 @@
-﻿using System;
-namespace FCms.Auth
+﻿namespace FCms.Auth.Abstract
 {
     public interface ICmsAuthentication
     {
