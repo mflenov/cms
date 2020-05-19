@@ -1,25 +1,27 @@
 ﻿@model FCms.Content.CmsManager
 
 <div>
-    <h1>Repositories</h1>
+    <h1>Pages / Content storages</h1>
     
     <table class="cmstable">
         <tr>
             <th style="width:50%">Name</th>
+            <th>Type</th>
             <th>Commands</th>
         </tr>
         @foreach (IRepository repository in Model.Repositories)
         {
-            <tr>
-                <td><a href="~/fcmsmanager/content?repositoryid=@repository.Id">@repository.Name</a></td>
-                <td><a href="~/fcmsmanager/definition?repositoryid=@repository.Id">Content Definition</a></td>
-            </tr>
+    <tr>
+        <td><a href="~/fcmsmanager/content?repositoryid=@repository.Id">@repository.Name</a></td>
+        <td>@repository.ReporitoryType.ToString()</td>
+        <td><a href="~/fcmsmanager/definition?repositoryid=@repository.Id">@repository.ReporitoryType.ToString() structure</a></td>
+    </tr>
         }
     </table>
 
     @if (Model.Repositories.Count == 0)
     {
-        <p>You don't have a repository yet. Start by creating one</p>
+        <p>You don't have any pages yet. Start by creating one</p>
     }
     <hr/>
     <a href="~/fcmsmanager/repository/add" class="cmsbutton">Add</a>
