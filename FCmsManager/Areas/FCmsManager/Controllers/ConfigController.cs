@@ -7,10 +7,11 @@ namespace FCmsManager.Areas.FCmsManager.Controllers
     [Authorize]
     public class ConfigController : Controller
     {
+        [Area("fcmsmanager")]
         [HttpGet("fcmsmanager/config", Name = "fcmsconfig")]
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
     }
 }

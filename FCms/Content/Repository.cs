@@ -13,6 +13,8 @@ namespace FCms.Content
 
         public string Name { get; set; }
 
+        public ReporitoryType ReporitoryType { get; set; }
+
         List<IContentDefinition> contentDefinitions = new List<IContentDefinition>();
         public List<IContentDefinition> ContentDefinitions {
             get { return contentDefinitions; }

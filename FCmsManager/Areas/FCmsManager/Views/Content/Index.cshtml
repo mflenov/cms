@@ -3,19 +3,27 @@
 
 <div>
     <h1>Repository @Model.RepositoryName</h1>
-    <table class="cmstable">
-        <tr>
-            <th style="width:40%">Name</th>
-            <th style="width:40%">Type</th>
-            <th>Edit</th>
-        </tr>
-        @foreach (IContentDefinition content in Model.ContentDefinitions)
-        {
+
+    @if (Model.ContentDefinitions.Count == 0)
+    {
+        <p>You dont have anything defined on this page. Pls tell us what should be on this page structure: <a href="/definition?repositoryid=@Model.RepositoryId">here</a></p>
+    }
+    else
+    {
+        <table class="cmstable">
             <tr>
-                <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></td>
-                <td>@content.GetTypeName()</td>
-                <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a></td>
+                <th style="width:40%">Name</th>
+                <th style="width:40%">Type</th>
+                <th>Edit</th>
             </tr>
-        }
-    </table>
+            @foreach (IContentDefinition content in Model.ContentDefinitions)
+            {
+                <tr>
+                    <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></td>
+                    <td>@content.GetTypeName()</td>
+                    <td><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a></td>
+                </tr>
+            }
+        </table>
+    }
 </div>

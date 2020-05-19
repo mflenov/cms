@@ -4,6 +4,7 @@
       "$type": "FCms.Content.Repository, FCms",
       "Id": "c8b2e117-de49-4e51-80b1-5dae3ad48c02",
       "Name": "Home Page",
+      "ReporitoryType": 0,
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
@@ -38,6 +39,7 @@
       "$type": "FCms.Content.Repository, FCms",
       "Id": "76189477-fd51-4e0a-8c5a-8309d1155bde",
       "Name": "Contact Us",
+      "ReporitoryType": 0,
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
@@ -55,8 +57,16 @@
           "Name": "ThankYou"
         }
       ]
+    },
+    {
+      "$type": "FCms.Content.Repository, FCms",
+      "Id": "ca740d08-eb0e-43ea-ba55-0dc3f6dfbe65",
+      "Name": "Test",
+      "ReporitoryType": 1,
+      "ContentDefinitions": []
     }
   ],
+  "Filename": "./cms.json",
   "Filters": [
     {
       "$type": "FCms.Content.BooleanFilter, FCms",
@@ -75,6 +85,12 @@
       "Id": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
       "Name": "DateRange",
       "Type": "DateRange"
+    },
+    {
+      "$type": "FCms.Content.BooleanFilter, FCms",
+      "Id": "127a08cc-140d-40d0-9f95-72b799d16a0b",
+      "Name": "IsActive",
+      "Type": "Boolean"
     }
   ]
 }

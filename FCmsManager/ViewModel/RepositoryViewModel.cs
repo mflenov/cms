@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using FCms.Content;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FCmsManager.ViewModel
 {
-    public class RepositoryViewModel: IValidatableObject
+    public class RepositoryViewModel : IValidatableObject
     {
         public Guid? Id { get; set; }
 
@@ -14,10 +14,14 @@ namespace FCmsManager.ViewModel
         [StringLength(100)]
         public string Name { get; set; }
 
+        [Required]
+        public ReporitoryType ReporitoryType { get; set; }
+
         public IRepository MapToModel(IRepository model)
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
+            model.ReporitoryType = this.ReporitoryType;
             return model;
         }
 
@@ -28,6 +32,7 @@ namespace FCmsManager.ViewModel
         {
             this.Name = model.Name;
             this.Id = model.Id;
+            this.ReporitoryType = model.ReporitoryType;
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -40,5 +45,18 @@ namespace FCmsManager.ViewModel
             
             yield break;
         }
+
+        public IEnumerable<SelectListItem> RepositoryTypeList
+        {
+            get
+            {
+                return new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Page", Value = "Page"},
+                        new SelectListItem { Text = "Content Storage", Value = "Content"},
+                    };
+            }
+        }
+
     }
 }
