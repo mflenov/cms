@@ -43,6 +43,16 @@ namespace FCms.Content
             return ContentDefinitions.Where(m => m.Name == contentName).FirstOrDefault();
         }
 
+        public void DeleteDefinition(Guid id)
+        {
+            var item = ContentDefinitions.Where(m => m.DefinitionId == id).FirstOrDefault();
+            if (item != null)
+            {
+                ContentDefinitions.Remove(item);
+            }
+
+        }
+
         #endregion
     }
 }

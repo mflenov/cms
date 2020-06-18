@@ -62,6 +62,15 @@ namespace FCms.Content
             return new CmsManager();
         }
 
+        public void DeleteRepository(Guid repositoryid)
+        {
+            var item = Repositories.Where(m => m.Id == repositoryid).FirstOrDefault();
+            if (item != null)
+            {
+                Repositories.Remove(item);
+            }
+        }
+
         public IRepository GetRepositoryByName(string name)
         {
             return Repositories.Where(m => m.Name == name).FirstOrDefault();

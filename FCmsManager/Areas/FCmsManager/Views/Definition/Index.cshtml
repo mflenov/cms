@@ -16,7 +16,9 @@
                     <td>@definition.GetTypeName()</td>
                     <td>
                         <a href="/fcmsmanager/definition/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">Structure</a><br />
-                        <a href="/fcmsmanager/content/list?repositoryid=@Model.Id&definitionid=@definition.DefinitionId">List content</a>
+                        <a href="/fcmsmanager/content/list?repositoryid=@Model.Id&definitionid=@definition.DefinitionId">List content</a><br />
+                        <a href="/fcmsmanager/definition/deletedefinition?repositoryid=@Model.Id&id=@definition.DefinitionId">Delete</a>
+
                     </td>
                 </tr>
             }

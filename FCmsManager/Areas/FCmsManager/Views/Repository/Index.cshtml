@@ -6,7 +6,7 @@
     <table class="cmstable">
         <tr>
             <th style="width:50%">Name</th>
-            <th>Type</th>
+            <th style="width:20%">Type</th>
             <th>Commands</th>
         </tr>
         @foreach (IRepository repository in Model.Repositories)
@@ -14,7 +14,10 @@
     <tr>
         <td><a href="~/fcmsmanager/content?repositoryid=@repository.Id">@repository.Name</a></td>
         <td>@repository.ReporitoryType.ToString()</td>
-        <td><a href="~/fcmsmanager/definition?repositoryid=@repository.Id">@repository.ReporitoryType.ToString() structure</a></td>
+        <td>
+            <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">@repository.ReporitoryType.ToString() structure</a><br/>
+            <a href="~/fcmsmanager/definition/delete?repositoryid=@repository.Id">Delete</a>
+        </td>
     </tr>
         }
     </table>
