@@ -18,5 +18,7 @@ namespace FCms.Content
         List<IContentDefinition> ContentDefinitions { get; }
 
         IContentDefinition GetByName(string contentName);
+
+        void DeleteDefinition(Guid id);
     }
 }

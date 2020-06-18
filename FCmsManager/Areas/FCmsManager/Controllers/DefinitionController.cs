@@ -26,8 +26,30 @@ namespace FCmsManager.Controllers
             return View("Index", repository);
         }
 
+        [HttpGet("fcmsmanager/definition/delete", Name = "fcmsrepodelete")]
+        public IActionResult delete(Guid repositoryid)
+        {
+            var cmsManager = CmsManager.Load();
+            cmsManager.DeleteRepository(repositoryid);
+            cmsManager.Save();
+
+            return Redirect("/fcmsmanager/repository");
+        }
+
+        [HttpGet("fcmsmanager/definition/deletedefinition", Name = "fcmsdefinitiondelete")]
+        public IActionResult deletedefinition(Guid repositoryid, Guid id)
+        {
+            var cmsManager = CmsManager.Load();
+            var repository = cmsManager.GetRepositoryById(repositoryid);
+            repository.DeleteDefinition(id);
+            cmsManager.Save();
+
+            return Redirect("/fcmsmanager/definition?repositoryid=" + repositoryid);
+        }
+
+
         [HttpGet("fcmsmanager/definition/add", Name = "fcmsdefinitionadd")]
-        public IActionResult add(Guid repositoryid)
+        public IActionResult add(Guid repositoryid, Guid id)
         {
             return View("Edit", new ContentDefinitionViewModel() { 
                 RepositoryId = repositoryid
