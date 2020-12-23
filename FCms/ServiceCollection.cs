@@ -17,7 +17,9 @@ namespace FCms
 
         public static object GetRequiredService<T>()
         {
-            return app.ApplicationServices.GetRequiredService<T>();
+            if (app != null)
+                return app.ApplicationServices.GetRequiredService<T>();
+            return null;
         }
     }
 }

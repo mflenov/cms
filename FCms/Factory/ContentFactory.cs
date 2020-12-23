@@ -1,4 +1,5 @@
-﻿using FCms.Content;
+﻿using System.Globalization;
+using FCms.Content;
 
 namespace FCms.Factory
 {
@@ -22,7 +23,7 @@ namespace FCms.Factory
 
         public static IContentDefinition CreateContentDefinition(string typeName)
         {
-            if ((typeName != null) && (typeName.ToLower() == "string"))
+            if ((typeName != null) && (typeName.ToLower(CultureInfo.InvariantCulture) == "string"))
             {
                 return new StringContentDefinition();
             }

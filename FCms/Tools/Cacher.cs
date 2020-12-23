@@ -40,7 +40,7 @@ namespace FCms.Tools
 
         public static void Set(string cachekey, object value, string filename)
         {
-            Set(cachekey, value, int.MaxValue, new string[] { System.IO.Directory.GetCurrentDirectory() + filename.TrimStart('.') });
+            Set(cachekey, value, int.MaxValue, new string[] { System.IO.Directory.GetCurrentDirectory() + (filename ?? "").TrimStart('.') });
         }
 
         static void Set(string cachekey, object value, int seconds, string[] filedependencies = null, bool sliding = false, CacheItemPriority priority = CacheItemPriority.Default)
