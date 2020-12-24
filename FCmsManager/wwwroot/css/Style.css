@@ -6,6 +6,14 @@
     color: #f07b66;
 }
 
+.fcms h2 {
+    font-size:130%;
+}
+
+.fcms h3 {
+    font-size:120%;
+}
+
 .fcms a:visited {
     color: #f07b66;
 }
@@ -130,6 +138,27 @@
     text-align: right;
     margin-bottom: 10px;
 }
-.fcms span {
-    margin-left: 10px;
+
+.fcms .cmsrepository {
+    border: 1px solid #999;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.fcms .cmsrepository {
+    border: 1px solid #999;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.fcms .cmsrepository .cmssubline {
+    color: #999;
+}
+
+.fcms .cmssubline {
+    display: block;
+    color: #777;
+    border-bottom: 1px solid #777;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
 }
