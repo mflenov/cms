@@ -14,7 +14,7 @@ namespace FCms.Factory
 
             if (definition is FolderContentDefinition)
             {
-                return new ContentFolderItem();
+                return new FolderContentItem();
             }
 
             return new StringContentItem();
@@ -23,7 +23,7 @@ namespace FCms.Factory
 
         public static IContentDefinition CreateContentDefinition(string typeName)
         {
-            if ((typeName != null) && (typeName.ToLower(CultureInfo.InvariantCulture) == "string"))
+            if ((typeName != null) && (typeName.ToUpperInvariant() == "STRING"))
             {
                 return new StringContentDefinition();
             }

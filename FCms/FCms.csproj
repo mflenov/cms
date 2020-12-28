@@ -22,5 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
+    <Folder Include="Content\ContentDefinition\" />
+    <Folder Include="Content\Content\" />
   </ItemGroup>
 </Project>

@@ -6,9 +6,9 @@
     {
         <div class="cmsrepository">
             <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
-                @if (content is ContentFolderItem)
+                @if (content is FolderContentItem)
                 {
-                    @((content as ContentFolderItem).Name)
+                    @((content as FolderContentItem).Name)
                 }
                 else
                 {

@@ -5,7 +5,7 @@ using System;
 
 namespace FCms.Content
 {
-    public class ContentFolderItem: ContentItem
+    public class FolderContentItem : ContentItem
     {
         public string Name { get; set; }
 

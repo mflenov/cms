@@ -32,9 +32,10 @@ namespace FCmsManager.Controllers
             {
                 ICmsManager manager = CmsManager.Load();
                 
-                if (model.IsItANewRepository())
+                if (model.IsNewRepository)
                 {
                     var newRrepository = model.MapToModel(new Repository());
+                    model.ApplyTemplate(newRrepository);
                     manager.AddRepository(newRrepository);
                 }
                 else

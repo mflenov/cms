@@ -53,6 +53,17 @@ namespace FCms.Content
 
         }
 
+        public void AddDefinition(string name, IContentDefinition.DefinitionType type)
+        {
+            if (contentDefinitions.Any(m => m.Name == name))
+            {
+                return;
+            }
+            var definition = ContentDefinitionFactory.CreateContentDefinition(type);
+            definition.Name = name;
+            contentDefinitions.Add(definition);
+        }
+
         #endregion
     }
 }

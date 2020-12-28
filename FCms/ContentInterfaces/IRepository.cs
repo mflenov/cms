@@ -7,6 +7,8 @@ namespace FCms.Content
 
     public enum ReporitoryType { Page, Content }
 
+    public enum ReporitoryTypeTemplate { EmptyPage, SimplePage, Content }
+
     public interface IRepository
     {
         Guid Id { get; set; }
@@ -20,5 +22,7 @@ namespace FCms.Content
         IContentDefinition GetByName(string contentName);
 
         void DeleteDefinition(Guid id);
+
+        void AddDefinition(string name, IContentDefinition.DefinitionType type);
     }
 }
