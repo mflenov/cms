@@ -15,24 +15,40 @@ namespace FCmsManager.ViewModel
         public string Name { get; set; }
 
         [Required]
-        public ReporitoryType ReporitoryType { get; set; }
+        public ReporitoryTypeTemplate Template { get; set; }
 
         public IRepository MapToModel(IRepository model)
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
-            model.ReporitoryType = this.ReporitoryType;
             return model;
         }
 
-        public bool IsItANewRepository() 
+        public void ApplyTemplate(IRepository model)
+        {
+            model.ReporitoryType = this.Template == ReporitoryTypeTemplate.Content ? ReporitoryType.Content : ReporitoryType.Page;
+
+            if (this.Template == ReporitoryTypeTemplate.SimplePage)
+            {
+                ApplySimpleTemplate(model);
+            }
+        }
+
+        void ApplySimpleTemplate(IRepository model)
+        {
+            model.AddDefinition("Title", IContentDefinition.DefinitionType.String);
+            model.AddDefinition("Description", IContentDefinition.DefinitionType.String);
+            model.AddDefinition("Content", IContentDefinition.DefinitionType.LongString);
+        }
+
+        public bool IsNewRepository
             => this.Id.HasValue == false;
 
         public void MapToFrom(IRepository model)
         {
             this.Name = model.Name;
             this.Id = model.Id;
-            this.ReporitoryType = model.ReporitoryType;
+            this.Template = model.ReporitoryType == ReporitoryType.Content ? ReporitoryTypeTemplate.Content  : ReporitoryTypeTemplate.EmptyPage;
         }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -46,13 +62,14 @@ namespace FCmsManager.ViewModel
             yield break;
         }
 
-        public IEnumerable<SelectListItem> RepositoryTypeList
+        public IEnumerable<SelectListItem> RepositoryTypeTemplateList
         {
             get
             {
                 return new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Page", Value = "Page"},
+                        new SelectListItem { Text = "Empty Page", Value = "EmptyPage"},
+                        new SelectListItem { Text = "Simple Page", Value = "SimplePage"},
                         new SelectListItem { Text = "Content Storage", Value = "Content"},
                     };
             }

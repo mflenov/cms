@@ -88,12 +88,12 @@ namespace FCms
             return GetContents<ContentItem>(contentName, filters);
         }
 
-        public IEnumerable<ContentFolderItem> GetFolderItems(string contentName, object filters)
+        public IEnumerable<FolderContentItem> GetFolderItems(string contentName, object filters)
         {
-            return GetContents<ContentFolderItem>(contentName, filters);
+            return GetContents<FolderContentItem>(contentName, filters);
         }
 
-        public IContent GetFolderItem(ContentFolderItem folder, string itemname)
+        public IContent GetFolderItem(FolderContentItem folder, string itemname)
         {
             if (folder == null)
                 return null;

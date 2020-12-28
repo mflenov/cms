@@ -46,7 +46,7 @@ namespace FCmsManager.ViewModel
             model.DefinitionId = Guid.Parse(Utility.GetRequestValueDef(request, "DefinitionId", ""));
             model.Id = Item.Id ?? Guid.NewGuid();
 
-            if (model is ContentFolderItem)
+            if (model is FolderContentItem )
             {
                 MapFolder(model, request);
             }
@@ -72,14 +72,14 @@ namespace FCmsManager.ViewModel
         }
 
         private void MapFolder(ContentItem model, HttpRequest request) {
-            ((ContentFolderItem)model).Childeren.Clear();
-            ((ContentFolderItem)model).Name = Utility.GetRequestValueDef(request, "FolderName" + model.DefinitionId, "");
+            ((FolderContentItem )model).Childeren.Clear();
+            ((FolderContentItem )model).Name = Utility.GetRequestValueDef(request, "FolderName" + model.DefinitionId, "");
 
             foreach (var definition in (this.ContentDefinition as FolderContentDefinition).Definitions)
             {
                 if (definition is StringContentDefinition)
                 {
-                    ((ContentFolderItem)model).Childeren.Add(
+                    ((FolderContentItem )model).Childeren.Add(
                         new StringContentItem()
                         {
                             DefinitionId = definition.DefinitionId,
