@@ -11,7 +11,7 @@
 }
 
 .fcms h3 {
-    font-size:120%;
+    font-size:110%;
 }
 
 .fcms a:visited {
@@ -161,4 +161,10 @@
     border-bottom: 1px solid #777;
     padding-bottom: 8px;
     margin-bottom: 8px;
+}
+
+.fcms .cmsbadge {
+    float: right;
+    background: #1ca;
+    padding: 2px 10px;
 }

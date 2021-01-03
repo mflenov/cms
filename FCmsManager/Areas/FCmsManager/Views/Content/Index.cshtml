@@ -13,11 +13,14 @@
         @foreach (IContentDefinition content in Model.ContentDefinitions)
         {
             <div class="cmsrepository">
+                <div class="cmsbadge">@content.GetTypeName()</div>
                 <h2><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></h2>
-                <div class="cmssubline">@content.GetTypeName()</div>
+                <div class="cmscontent">
+                    @Html.GetContentAsHtml(Model.RepositoryName, content.Name, null)
+                </div>
 
                 <div class="cmscontrols">
-                    <a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a>
+                    <a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">Edit Content</a>
                 </div>
             </div>
         }

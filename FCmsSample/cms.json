@@ -57,13 +57,6 @@
           "Name": "ThankYou"
         }
       ]
-    },
-    {
-      "$type": "FCms.Content.Repository, FCms",
-      "Id": "ca740d08-eb0e-43ea-ba55-0dc3f6dfbe65",
-      "Name": "Test",
-      "ReporitoryType": 1,
-      "ContentDefinitions": []
     }
   ],
   "Filename": "./cms.json",

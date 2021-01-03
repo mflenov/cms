@@ -107,21 +107,23 @@ namespace FCms
 
         public IEnumerable<T> GetContents<T>(string contentName, object filters) where T: ContentItem
         {
-            if (filters == null)
-            {
-                filters = new { };
-            }
-
             IContentDefinition definition = repo.GetByName(contentName);
             List<ContentItem> contentitems = contentStore.GetByDefinitionId(definition.DefinitionId).ToList();
 
-            var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
-
-            foreach (T contentitem in contentitems)
+            if (filters == null)
             {
-                if (contentitem.ValidateFilters(filterProperties, filters))
-                {
+                foreach (T contentitem in contentitems.OrderBy(m => m.Filters.Count))
                     yield return contentitem;
+            }
+            else
+            {
+                var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
+                foreach (T contentitem in contentitems)
+                {
+                    if (contentitem.ValidateFilters(filterProperties, filters))
+                    {
+                        yield return contentitem;
+                    }
                 }
             }
 

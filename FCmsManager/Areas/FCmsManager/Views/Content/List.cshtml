@@ -5,16 +5,17 @@
     @foreach (ContentItem content in Model.Items)
     {
         <div class="cmsrepository">
-            <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
-                @if (content is FolderContentItem)
-                {
-                    @((content as FolderContentItem).Name)
-                }
-                else
-                {
-                    @content.GetValue()
-                }
-            </a>
+            @if (content is FolderContentItem)
+            {
+                <text>
+                    <div>Name: @((content as FolderContentItem).Name)</div>
+                    <div>Value: @Html.Raw(((content as FolderContentItem).GetHtmlString()))</div>
+                </text>
+            }
+            else
+            {
+                <div>@content.GetValue()</div>
+            }
             <hr/>
             <h3>Filters:</h3>
             <ul>
@@ -28,6 +29,9 @@
                 }
             </ul>
 
+            <div class="cmscontrols">
+                <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">Edit</a>
+            </div>
         </div>
     }
     <hr />
