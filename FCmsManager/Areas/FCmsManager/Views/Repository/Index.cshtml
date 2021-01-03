@@ -6,8 +6,8 @@
     @foreach (IRepository repository in Model.Repositories)
     {
         <div class="cmsrepository">
+            <div class="cmsbadge">@repository.ReporitoryType.ToString()</div>
             <h2><a href="~/fcmsmanager/content?repositoryid=@repository.Id">@repository.Name</a></h2>
-            <div class="cmssubline">@repository.ReporitoryType.ToString()</div>
 
             <div class="cmscontrols">
                 <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">@repository.ReporitoryType.ToString() structure</a> |
