@@ -2,7 +2,7 @@
   "RepositoryId": "c8b2e117-de49-4e51-80b1-5dae3ad48c02",
   "Items": [
     {
-      "$type": "FCms.Content.ContentFolderItem, FCms",
+      "$type": "FCms.Content.FolderContentItem, FCms",
       "Name": "Surface Pro Ad",
       "Childeren": [
         {
@@ -54,7 +54,7 @@
       "ToolTip": null
     },
     {
-      "$type": "FCms.Content.ContentFolderItem, FCms",
+      "$type": "FCms.Content.FolderContentItem, FCms",
       "Name": "Surface Pro X Ad",
       "Childeren": [
         {
@@ -81,7 +81,7 @@
       "ToolTip": null
     },
     {
-      "$type": "FCms.Content.ContentFolderItem, FCms",
+      "$type": "FCms.Content.FolderContentItem, FCms",
       "Name": "Xbox One X Discount",
       "Childeren": [
         {
