@@ -12,6 +12,7 @@ namespace FCmsTests.Helpers
             {
                 System.IO.File.Delete(Constants.CmsFilename);
             }
+            FCms.Tools.Cacher.Clear();
         }
     }
 }

@@ -69,5 +69,10 @@ namespace FCms.Tools
         {
             Cacher.Current.Remove(key);
         }
+
+        public static void Clear()
+        {
+            Cacher.Current.Trim(100);
+        }
     }
 }
