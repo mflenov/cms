@@ -12,7 +12,7 @@ namespace FCms
         {
             app = appBuilder;
 
-            HttpContext.Configure(app.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
+            HttpContext.Configure(app?.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
         }
 
         public static object GetRequiredService<T>()

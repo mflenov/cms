@@ -5,13 +5,19 @@
 .fcms a {
     color: #f07b66;
 }
-
+.fcms b{
+    font-weight: 500;
+}
 .fcms h2 {
     font-size:130%;
 }
 
 .fcms h3 {
     font-size:120%;
+}
+
+.fcms h4 {
+    font-size: 100%;
 }
 
 .fcms a:visited {
@@ -107,8 +113,16 @@
     padding-right: 12px;
 }
 
+.fcms .cmssecondcontrols {
+    text-align:right;
+}
+
 .fcms .cmscontrols > * {
-    margin-right:12px;
+    margin: 0px 10px;
+}
+
+.fcms .cmscontrols > a:nth-of-type(1) {
+    margin-left:0px;
 }
 
 .fcms .cmsnote {
@@ -143,6 +157,7 @@
     border: 1px solid #999;
     padding: 10px;
     margin-bottom: 10px;
+    box-shadow: 0px 1px 5px #aaa;
 }
 
 .fcms .cmsrepository {
@@ -161,4 +176,19 @@
     border-bottom: 1px solid #777;
     padding-bottom: 8px;
     margin-bottom: 8px;
+}
+
+.fcms .cmshidden {
+    display:none;
+}
+
+.fcms .cmseditsectionfolder {
+    background: #fff;
+}
+
+.fcms .cmseditsectionfolder > .fcmsdata {
+    padding: 0px 8px;
+}
+.fcms .cmsright {
+    float:right;
 }

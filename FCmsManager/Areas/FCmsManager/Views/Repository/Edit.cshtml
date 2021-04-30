@@ -2,7 +2,7 @@
 
 <div>
     <h1>
-        Page
+        Content Item
         @if (String.IsNullOrEmpty(Model.Name))
         {
             <i>New</i>
@@ -22,16 +22,32 @@
                 <input type="text" name="Name" class="form-control" id="repositoryNameInput" placeholder="name" value="@Model.Name" />
                 <small class="form-text error">@Html.ValidationMessage("Name")</small>
             </div>
+        </div>
 
 
+        @if (Model.IsItANewRepository()) {
             <div class="form-group">
                 <label for="repositoryNameInput">Type</label>
-                @Html.DropDownListFor(model => model.ReporitoryType, Model.RepositoryTypeList, htmlAttributes: new { @class = "form-control", data_object = "filtertypedropdown" })
+                @Html.DropDownListFor(model => model.Template, Model.Templates, htmlAttributes: new { @class = "form-control", data_object = "filtertypedropdown" })
 
                 <small class="form-text error">@Html.ValidationMessage("Type")</small>
             </div>
+        }
 
-        </div>
         <button class="cmsbutton">Save</button>
     </form>
 </div>
+
+
+@section Breadcrump {
+    <span><a href="/fcmsmanager/repository">Content</a>:
+        @if (String.IsNullOrEmpty(Model.Name))
+        {
+            <i>New Content Item</i>
+        }
+        else
+        {
+            <text>@Model.Name</text>
+        }
+    </span>
+}

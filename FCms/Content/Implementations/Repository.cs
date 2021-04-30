@@ -13,8 +13,6 @@ namespace FCms.Content
 
         public string Name { get; set; }
 
-        public ReporitoryType ReporitoryType { get; set; }
-
         List<IContentDefinition> contentDefinitions = new List<IContentDefinition>();
         public List<IContentDefinition> ContentDefinitions {
             get { return contentDefinitions; }
@@ -51,6 +49,17 @@ namespace FCms.Content
                 ContentDefinitions.Remove(item);
             }
 
+        }
+
+        public void AddDefinition(string name, IContentDefinition.DefinitionType type)
+        {
+            if (contentDefinitions.Any(m => m.Name == name))
+            {
+                return;
+            }
+            var definition = ContentDefinitionFactory.CreateContentDefinition(type);
+            definition.Name = name;
+            contentDefinitions.Add(definition);
         }
 
         #endregion

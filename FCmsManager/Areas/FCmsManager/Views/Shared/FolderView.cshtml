@@ -1,0 +1,16 @@
+﻿@model Tuple<IContent, IContentDefinition>
+
+@{
+    var folderdefinition = (Model.Item2 as FolderContentDefinition);
+    var folder = (Model.Item1 as ContentFolderItem);
+}
+
+
+@foreach (var item in folderdefinition.Definitions)
+{
+    <div class="fcmsdata">
+        @await Html.PartialAsync(item.GetTypeName() + "View",
+                new Tuple<IContent, IContentDefinition>(folder.Childeren.Where(m => m.DefinitionId == item.DefinitionId).FirstOrDefault() ?? FCms.Factory.ContentFactory.CreateContentByType(item), item)
+            )
+    </div>
+}

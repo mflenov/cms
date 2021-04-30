@@ -23,7 +23,7 @@ namespace FCms.Factory
 
         public static IContentDefinition CreateContentDefinition(string typeName)
         {
-            if ((typeName != null) && (typeName.ToLower(CultureInfo.InvariantCulture) == "string"))
+            if ((typeName != null) && (typeName.ToUpperInvariant() == "STRING"))
             {
                 return new StringContentDefinition();
             }

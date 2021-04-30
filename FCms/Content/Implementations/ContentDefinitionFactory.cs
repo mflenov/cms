@@ -16,6 +16,8 @@ namespace FCms.Content
             {
                 case "string":
                     return new StringContentDefinition();
+                case "longstring":
+                    return new StringContentDefinition();
                 case "folder":
                     return new FolderContentDefinition();
             }

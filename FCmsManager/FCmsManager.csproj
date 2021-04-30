@@ -19,12 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
-
   <ItemGroup>
-    <Compile Remove="Startup.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\FCmsManager\Views\Login\" />
+    <Folder Include="Areas\FCmsManager\Views\Shared\" />
   </ItemGroup>
 </Project>

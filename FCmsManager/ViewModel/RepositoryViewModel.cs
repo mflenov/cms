@@ -8,6 +8,8 @@ namespace FCmsManager.ViewModel
 {
     public class RepositoryViewModel : IValidatableObject
     {
+        public enum PageTypeTemplate { EmptyPage, SimplePage }
+
         public Guid? Id { get; set; }
 
         [Required]
@@ -15,13 +17,12 @@ namespace FCmsManager.ViewModel
         public string Name { get; set; }
 
         [Required]
-        public ReporitoryType ReporitoryType { get; set; }
+        public string Template { get; set; }
 
         public IRepository MapToModel(IRepository model)
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
-            model.ReporitoryType = this.ReporitoryType;
             return model;
         }
 
@@ -32,8 +33,23 @@ namespace FCmsManager.ViewModel
         {
             this.Name = model.Name;
             this.Id = model.Id;
-            this.ReporitoryType = model.ReporitoryType;
         }
+
+        public void ApplyTemplate(IRepository model)
+        {
+            if (this.Template == PageTypeTemplate.SimplePage.ToString())
+            {
+                ApplySimpleTemplate(model);
+            }
+        }
+
+        void ApplySimpleTemplate(IRepository model)
+        {
+            model.AddDefinition("Title", IContentDefinition.DefinitionType.String);
+            model.AddDefinition("Description", IContentDefinition.DefinitionType.String);
+            model.AddDefinition("Content", IContentDefinition.DefinitionType.LongString);
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             ICmsManager cmsmanager = CmsManager.Load();
@@ -46,17 +62,16 @@ namespace FCmsManager.ViewModel
             yield break;
         }
 
-        public IEnumerable<SelectListItem> RepositoryTypeList
+        public IEnumerable<SelectListItem> Templates
         {
             get
             {
                 return new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Page", Value = "Page"},
-                        new SelectListItem { Text = "Content Storage", Value = "Content"},
+                        new SelectListItem { Text = "Empty Page", Value = PageTypeTemplate.EmptyPage.ToString() },
+                        new SelectListItem { Text = "Content Storage", Value = PageTypeTemplate.SimplePage.ToString() },
                     };
             }
         }
-
     }
 }

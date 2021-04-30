@@ -1,25 +1,28 @@
 ﻿@model FCms.Content.CmsManager
 
 <div>
-    <h1>Pages / Content storages</h1>
-    
+    <h1>Content storages</h1>
+
     @foreach (IRepository repository in Model.Repositories)
     {
-        <div class="cmsrepository">
-            <h2><a href="~/fcmsmanager/content?repositoryid=@repository.Id">@repository.Name</a></h2>
-            <div class="cmssubline">@repository.ReporitoryType.ToString()</div>
+<div class="cmsrepository">
+    <h2>@repository.Name</h2>
+    <div class="cmssubline"></div>
 
-            <div class="cmscontrols">
-                <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">@repository.ReporitoryType.ToString() structure</a> |
-                <a href="~/fcmsmanager/definition/delete?repositoryid=@repository.Id">Delete</a>
-            </div>
-        </div>
-    }
+    <div class="cmscontrols">
+        <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">Content structure</a> |
+        <a href="~/fcmsmanager/contenteditor?repositoryid=@repository.Id">Edit</a> |
+        <a href="~/fcmsmanager/definition/delete?repositoryid=@repository.Id">Delete</a>
+    </div>
+</div>}
 
     @if (Model.Repositories.Count == 0)
     {
-        <p>You don't have any pages yet. Start by creating one</p>
-    }
-    <hr/>
+<p>You don't have any pages yet. Start by creating one</p>}
+    <hr />
     <a href="~/fcmsmanager/repository/add" class="cmsbutton">Add</a>
 </div>
+
+@section Breadcrump {
+    <span>Content</span>
+}
