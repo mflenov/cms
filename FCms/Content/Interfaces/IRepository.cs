@@ -3,19 +3,15 @@ using System.Collections.Generic;
 
 namespace FCms.Content
 {
+    public enum PageTypeTemplate { EmptyPage, SimplePage }
+
     public enum RepositoryStorageType { Json }
-
-    public enum ReporitoryType { Page, Content }
-
-    public enum ReporitoryTypeTemplate { EmptyPage, SimplePage, Content }
 
     public interface IRepository
     {
         Guid Id { get; set; }
 
         string Name { get; set; }
-
-        ReporitoryType ReporitoryType { get; set; }
 
         List<IContentDefinition> ContentDefinitions { get; }
 

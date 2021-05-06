@@ -12,15 +12,15 @@ namespace FCms.Content
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>")]
         public static IContentDefinition CreateContentDefinition(string contentTypeName)
         {
-            string cleartypename = (contentTypeName ?? "").Trim().ToUpperInvariant();
-            if (IContentDefinition.DefinitionType.String.ToString().ToUpperInvariant() == cleartypename)
-                return new StringContentDefinition();
-
-            if (IContentDefinition.DefinitionType.LongString.ToString().ToUpperInvariant() == cleartypename)
-                return new StringContentDefinition();
-
-            if (IContentDefinition.DefinitionType.Folder.ToString().ToUpperInvariant() == cleartypename)
-                return new FolderContentDefinition();
+            switch ((contentTypeName ?? "").ToLower().Trim())
+            {
+                case "string":
+                    return new StringContentDefinition();
+                case "longstring":
+                    return new StringContentDefinition();
+                case "folder":
+                    return new FolderContentDefinition();
+            }
 
             throw new NotSupportedException();
         }

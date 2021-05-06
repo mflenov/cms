@@ -24,12 +24,5 @@ namespace FCms.Extensions
             ContentItem item = engine.GetContents<ContentItem>(contentName, filters).FirstOrDefault();
             return new HtmlString(item == null ? "" : item.GetValue().ToString());
         }
-
-        public static IHtmlContent GetContentAsHtml(this IHtmlHelper htmlHelper, string repositoryName, string contentName, object filters)
-        {
-            ContentEngine engine = new ContentEngine(repositoryName);
-            ContentItem item = engine.GetContents<ContentItem>(contentName, filters).FirstOrDefault();
-            return new HtmlString(item == null ? "" : item.GetHtmlString());
-        }
     }
 }

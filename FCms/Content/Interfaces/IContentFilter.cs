@@ -22,5 +22,7 @@ namespace FCms.Content
         object GetValue(int index);
 
         string GetStringValue(int index);
+
+        string GetHashValue();
     }
 }

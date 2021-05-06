@@ -88,12 +88,12 @@ namespace FCms
             return GetContents<ContentItem>(contentName, filters);
         }
 
-        public IEnumerable<FolderContentItem> GetFolderItems(string contentName, object filters)
+        public IEnumerable<ContentFolderItem> GetFolderItems(string contentName, object filters)
         {
-            return GetContents<FolderContentItem>(contentName, filters);
+            return GetContents<ContentFolderItem>(contentName, filters);
         }
 
-        public IContent GetFolderItem(FolderContentItem folder, string itemname)
+        public IContent GetFolderItem(ContentFolderItem folder, string itemname)
         {
             if (folder == null)
                 return null;
@@ -107,23 +107,21 @@ namespace FCms
 
         public IEnumerable<T> GetContents<T>(string contentName, object filters) where T: ContentItem
         {
+            if (filters == null)
+            {
+                filters = new { };
+            }
+
             IContentDefinition definition = repo.GetByName(contentName);
             List<ContentItem> contentitems = contentStore.GetByDefinitionId(definition.DefinitionId).ToList();
 
-            if (filters == null)
+            var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
+
+            foreach (T contentitem in contentitems)
             {
-                foreach (T contentitem in contentitems.OrderBy(m => m.Filters.Count))
-                    yield return contentitem;
-            }
-            else
-            {
-                var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
-                foreach (T contentitem in contentitems)
+                if (contentitem.ValidateFilters(filterProperties, filters))
                 {
-                    if (contentitem.ValidateFilters(filterProperties, filters))
-                    {
-                        yield return contentitem;
-                    }
+                    yield return contentitem;
                 }
             }
 

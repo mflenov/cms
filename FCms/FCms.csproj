@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Auth\" />
     <Folder Include="Content\ContentDefinition\" />
-    <Folder Include="Content\Content\" />
+    <Folder Include="Content\Interfaces\" />
+    <Folder Include="Content\Implementations\" />
   </ItemGroup>
 </Project>

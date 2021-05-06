@@ -3,8 +3,7 @@
     {
       "$type": "FCms.Content.Repository, FCms",
       "Id": "c8b2e117-de49-4e51-80b1-5dae3ad48c02",
-      "Name": "Home Page",
-      "ReporitoryType": 0,
+      "Name": "Home Page Content",
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
@@ -39,7 +38,6 @@
       "$type": "FCms.Content.Repository, FCms",
       "Id": "76189477-fd51-4e0a-8c5a-8309d1155bde",
       "Name": "Contact Us",
-      "ReporitoryType": 0,
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
@@ -55,6 +53,28 @@
           "$type": "FCms.Content.StringContentDefinition, FCms",
           "DefinitionId": "9cc2c5ff-8ab0-4483-b3d2-cb2e8fe401dd",
           "Name": "ThankYou"
+        }
+      ]
+    },
+    {
+      "$type": "FCms.Content.Repository, FCms",
+      "Id": "e92572ab-0134-4ae0-ad77-bd0b816ea20b",
+      "Name": "About",
+      "ContentDefinitions": [
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "Name": "Description"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "Name": "Content"
         }
       ]
     }

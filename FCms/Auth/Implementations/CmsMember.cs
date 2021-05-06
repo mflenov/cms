@@ -18,7 +18,7 @@ namespace FCms.Auth.Concrete
 
         public bool Authenticate(string username, string password)
         {
-            this.IsLoggedIn = _cmsAuthentication.Authenticate(username, password);
+            this.IsLoggedIn = _cmsAuthentication.Authenticate(username?.Trim(), password?.Trim());
             if (this.IsLoggedIn)
             {
                 this.Username = username;

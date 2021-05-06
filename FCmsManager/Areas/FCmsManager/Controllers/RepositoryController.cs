@@ -4,8 +4,6 @@ using FCmsManager.ViewModel;
 using FCms.Content;
 using Microsoft.AspNetCore.Authorization;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FCmsManager.Controllers
 {
     [Area("fcmsmanager")]
@@ -32,7 +30,7 @@ namespace FCmsManager.Controllers
             {
                 ICmsManager manager = CmsManager.Load();
                 
-                if (model.IsNewRepository)
+                if (model.IsItANewRepository())
                 {
                     var newRrepository = model.MapToModel(new Repository());
                     model.ApplyTemplate(newRrepository);

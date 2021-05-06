@@ -34,5 +34,9 @@ namespace FCms.Content
         {
             return (GetValue(index) ?? "").ToString();
         }
+        public string GetHashValue()
+        {
+            return Filter.Id + String.Join("-", Values);
+        }
     }
 }

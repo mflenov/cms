@@ -15,6 +15,24 @@ namespace FCms.Content
 
         public string ToolTip { get; set; }
 
+        public bool MatchFilters(List<IContentFilter> filters)
+        {
+            if (filters == null || Filters.Count != filters.Count)
+            {
+                return false;
+            }
+            var lookup = Filters.ToLookup(m => m.GetHashValue());
+            foreach (var filter in filters)
+            {
+                if (!lookup.Contains(filter.GetHashValue()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters)
         {
             if (filterProperties == null)
