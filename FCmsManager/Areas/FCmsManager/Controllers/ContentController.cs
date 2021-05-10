@@ -46,6 +46,26 @@ namespace FCmsManager.Controllers
             return View("List", model);
         }
 
+        [HttpGet("fcmsmanager/content/delete", Name = "fcmscontentdelete")]
+        public IActionResult Delete(Guid repositoryid, Guid contentid)
+        {
+            ICmsManager manager = CmsManager.Load();
+            IRepository repository = manager.GetRepositoryById(repositoryid);
+            if (repository == null)
+                return Redirect("/fcmsmanager/repository");
+
+            IContentStore contentStore = manager.GetContentStore(repositoryid);
+
+            var item = contentStore.Items.Where(m => m.Id == contentid).FirstOrDefault();
+            if (item == null)
+                return Redirect("/fcmsmanager/repository?d=" + contentid);
+
+            contentStore.Items.Remove(item);
+            contentStore.Save();
+
+            return Redirect("/fcmsmanager/content/list?repositoryid=" + repositoryid + "&definitionid=" + item.DefinitionId.ToString());
+        }
+
         [HttpGet("fcmsmanager/content/edit", Name = "fcmscontentedit")]
         public IActionResult Edit(Guid repositoryid, Guid contentid)
         {
@@ -69,7 +89,7 @@ namespace FCmsManager.Controllers
         }
 
         [HttpPost("fcmsmanager/content/save"), ValidateAntiForgeryToken]
-        public IActionResult savecontentPost(EditContentViewModel model)
+        public IActionResult EditContentSave(EditContentViewModel model)
         {
             if (ModelState.IsValid)
             {

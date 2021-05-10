@@ -8,6 +8,8 @@ namespace FCmsManager.ViewModel
 {
     public class RepositoryViewModel : IValidatableObject
     {
+        public enum PageTypeTemplate { EmptyPage, SimplePage }
+
         public Guid? Id { get; set; }
 
         [Required]
@@ -15,7 +17,7 @@ namespace FCmsManager.ViewModel
         public string Name { get; set; }
 
         [Required]
-        public ReporitoryTypeTemplate Template { get; set; }
+        public string Template { get; set; }
 
         public IRepository MapToModel(IRepository model)
         {
@@ -24,11 +26,18 @@ namespace FCmsManager.ViewModel
             return model;
         }
 
+        public bool IsItANewRepository() 
+            => this.Id.HasValue == false;
+
+        public void MapToFrom(IRepository model)
+        {
+            this.Name = model.Name;
+            this.Id = model.Id;
+        }
+
         public void ApplyTemplate(IRepository model)
         {
-            model.ReporitoryType = this.Template == ReporitoryTypeTemplate.Content ? ReporitoryType.Content : ReporitoryType.Page;
-
-            if (this.Template == ReporitoryTypeTemplate.SimplePage)
+            if (this.Template == PageTypeTemplate.SimplePage.ToString())
             {
                 ApplySimpleTemplate(model);
             }
@@ -41,15 +50,6 @@ namespace FCmsManager.ViewModel
             model.AddDefinition("Content", IContentDefinition.DefinitionType.LongString);
         }
 
-        public bool IsNewRepository
-            => this.Id.HasValue == false;
-
-        public void MapToFrom(IRepository model)
-        {
-            this.Name = model.Name;
-            this.Id = model.Id;
-            this.Template = model.ReporitoryType == ReporitoryType.Content ? ReporitoryTypeTemplate.Content  : ReporitoryTypeTemplate.EmptyPage;
-        }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             ICmsManager cmsmanager = CmsManager.Load();
@@ -62,18 +62,16 @@ namespace FCmsManager.ViewModel
             yield break;
         }
 
-        public IEnumerable<SelectListItem> RepositoryTypeTemplateList
+        public IEnumerable<SelectListItem> Templates
         {
             get
             {
                 return new List<SelectListItem>
                     {
-                        new SelectListItem { Text = "Empty Page", Value = "EmptyPage"},
-                        new SelectListItem { Text = "Simple Page", Value = "SimplePage"},
-                        new SelectListItem { Text = "Content Storage", Value = "Content"},
+                        new SelectListItem { Text = "Empty Page", Value = PageTypeTemplate.EmptyPage.ToString() },
+                        new SelectListItem { Text = "Content Storage", Value = PageTypeTemplate.SimplePage.ToString() },
                     };
             }
         }
-
     }
 }

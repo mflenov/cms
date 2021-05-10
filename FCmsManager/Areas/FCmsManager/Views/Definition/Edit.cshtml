@@ -50,3 +50,16 @@
 @section Scripts {
     <script src="~/_content/FCmsManager/js/cms/FolderRepo.js"></script>
 }
+
+@section Breadcrump {
+    <span><a href="/fcmsmanager/repository">Content</a>:
+        @if (String.IsNullOrEmpty(Model.Name))
+        {
+            <i>New</i>
+        }
+        else
+        {
+            <text>@Model.Name</text>
+        }
+    </span>
+}

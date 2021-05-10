@@ -5,19 +5,21 @@
     @foreach (ContentItem content in Model.Items)
     {
         <div class="cmsrepository">
-            @if (content is FolderContentItem)
-            {
-                <text>
-                    <div>Name: @((content as FolderContentItem).Name)</div>
-                    <div>Value: @Html.Raw(((content as FolderContentItem).GetHtmlString()))</div>
-                </text>
-            }
-            else
-            {
-                <div>@content.GetValue()</div>
-            }
+            <div class="cmsright">
+                <a href="/fcmsmanager/content/delete?repositoryid=@Model.RepositoryId&contentid=@content.Id">[ Delete ]</a>
+            </div>
+            <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
+                @if (content is ContentFolderItem)
+                {
+                    @((content as ContentFolderItem).Name)
+                }
+                else
+                {
+                    @content.GetValue()
+                }
+            </a>
             <hr/>
-            <h3>Filters:</h3>
+            <h4>Filters:</h4>
             <ul>
                 @foreach (var filter in content.Filters)
                 {
@@ -29,9 +31,6 @@
                 }
             </ul>
 
-            <div class="cmscontrols">
-                <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">Edit</a>
-            </div>
         </div>
     }
     <hr />
@@ -39,5 +38,5 @@
 </div>
 
 @section Breadcrump {
-    <span>Repository: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
+    <span><a hhref="/fcmsmanager/repository">Repository</a>: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
 }

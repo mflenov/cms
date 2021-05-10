@@ -10,13 +10,9 @@ namespace FCms
 
         public static void Configure(IApplicationBuilder appBuilder)
         {
-            if (appBuilder == null)
-            {
-                return;
-            }
             app = appBuilder;
 
-            HttpContext.Configure(app.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
+            HttpContext.Configure(app?.ApplicationServices.GetRequiredService<Microsoft.AspNetCore.Http.IHttpContextAccessor>());
         }
 
         public static object GetRequiredService<T>()

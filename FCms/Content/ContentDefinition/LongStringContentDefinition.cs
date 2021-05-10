@@ -1,9 +1,22 @@
-﻿namespace FCms.Content.ContentDefinition
+﻿using System;
+
+namespace FCms.Content
 {
-    public class LongStringContentDefinition: StringContentDefinition
+    public class LongStringContentDefinition : IContentDefinition
     {
-        public LongStringContentDefinition()
+        public Guid DefinitionId { get; set; }
+
+        public string Name { get; set; }
+
+        public string GetTypeName()
         {
+            return GetDefinitionType().ToString();
+        }
+
+        public ContentDefinitionType GetDefinitionType()
+        {
+            return ContentDefinitionType.LongString;
         }
     }
+
 }
