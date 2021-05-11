@@ -2,15 +2,7 @@
 
 <div>
     <h1>
-        Repository
-        @if (String.IsNullOrEmpty(Model.Name))
-        {
-            <i>New</i>
-        }
-        else
-        {
-            <text>@Model.Name</text>
-        }
+        Filter @if (String.IsNullOrEmpty(Model.Name)) { <i>New</i> } else { <text>@Model.Name</text> }
     </h1>
 
     <form method="post" action="/fcmsmanager/filter/save" id="filterconfigurator">
@@ -43,4 +35,8 @@
 
 @section Scripts {
     <script src="~/_content/FCmsManager/js/cms/Filter.js"></script>
+}
+
+@section Breadcrump {
+    <span><a href="/fcmsmanager/filter">Filters</a> : @if (String.IsNullOrEmpty(Model.Name)) { <text>New</text> } else { <text>@Model.Name</text> }</span>
 }
