@@ -69,7 +69,7 @@ namespace FCmsManager.ViewModel
                 return new List<SelectListItem>
                     {
                         new SelectListItem { Text = "Empty Page", Value = PageTypeTemplate.EmptyPage.ToString() },
-                        new SelectListItem { Text = "Content Storage", Value = PageTypeTemplate.SimplePage.ToString() },
+                        new SelectListItem { Text = "Simple Page", Value = PageTypeTemplate.SimplePage.ToString() },
                     };
             }
         }
