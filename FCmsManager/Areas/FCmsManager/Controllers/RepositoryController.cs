@@ -10,13 +10,6 @@ namespace FCmsManager.Controllers
     [Authorize(AuthenticationSchemes = "fcms")]
     public class RepositoryController : Controller
     {
-        [HttpGet("fcmsmanager/repository", Name = "fcmsrepository")]
-        public IActionResult Index()
-        {
-            return View("Index", CmsManager.Load());
-        }
-
-
         [HttpGet("fcmsmanager/repository/add", Name = "fcmsrepositoryadd")]
         public IActionResult Add()
         {
@@ -29,19 +22,21 @@ namespace FCmsManager.Controllers
             if (ModelState.IsValid)
             {
                 ICmsManager manager = CmsManager.Load();
+                IRepository repo;
                 
                 if (model.IsItANewRepository())
                 {
-                    var newRrepository = model.MapToModel(new Repository());
-                    model.ApplyTemplate(newRrepository);
-                    manager.AddRepository(newRrepository);
+                    repo = model.MapToModel(new Repository());
+                    model.ApplyTemplate(repo);
+                    manager.AddRepository(repo);
                 }
                 else
                 {
                     try
                     {
                         int repoindex = manager.GetIndexById(model.Id.Value);
-                        model.MapToModel(manager.Repositories[repoindex]);
+                        repo = manager.Repositories[repoindex];
+                        model.MapToModel(repo);
                     }
                     catch (InvalidOperationException)
                     {
@@ -50,10 +45,23 @@ namespace FCmsManager.Controllers
 
                 }
                 manager.Save();
-                return Redirect("/fcmsmanager/repository");
+                return Redirect("/fcmsmanager/" + ViewModelHelpers.GetRepositoryBaseUrl(repo));
             }
 
             return View("Edit", new RepositoryViewModel());
+        }
+
+        [HttpGet("fcmsmanager/repository/delete", Name = "fcmsrepodelete")]
+        public IActionResult delete(Guid repositoryid)
+        {
+            var cmsManager = CmsManager.Load();
+            var repo = cmsManager.GetRepositoryById(repositoryid);
+            if (repo != null) {
+                cmsManager.DeleteRepository(repositoryid);
+                cmsManager.Save();
+            }
+
+            return Redirect("/fcmsmanager/" + ViewModelHelpers.GetRepositoryBaseUrl(repo));
         }
     }
 }

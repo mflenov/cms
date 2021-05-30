@@ -11,20 +11,26 @@ namespace FCmsManager.Controllers
     [Authorize(AuthenticationSchemes = "fcms")]
     public class ContentController : Controller
     {
-        [HttpGet("fcmsmanager/content", Name = "fcmscontent")]
-        public IActionResult Index(Guid repositoryid)
+        [HttpGet("fcmsmanager/content", Name = "fcmscontentindex")]
+        public IActionResult Index()
+        {
+            return View("index", CmsManager.Load());
+        }
+
+        [HttpGet("fcmsmanager/content/show", Name = "fcmscontent")]
+        public IActionResult Show(Guid repositoryid)
         {
             IRepository repository = CmsManager.Load().GetRepositoryById(repositoryid);
             if (repository == null)
             {
-                return Redirect("/fcmsmanager/repository");
+                return Redirect("/fcmsmanager/content");
             }
             ContentViewModel model = new ContentViewModel();
             model.RepositoryId = repositoryid;
             model.RepositoryName = repository.Name;
             model.ContentDefinitions = repository.ContentDefinitions;
 
-            return View("Index", model);
+            return View("Show", model);
         }
 
         [HttpGet("fcmsmanager/content/list", Name = "fcmscontentlist")]
@@ -33,7 +39,7 @@ namespace FCmsManager.Controllers
             IRepository repository = CmsManager.Load().GetRepositoryById(repositoryid);
             if (repository == null)
             {
-                return Redirect("/fcmsmanager/repository");
+                return Redirect("/fcmsmanager/content");
             }
             IContentStore contentStore = CmsManager.Load().GetContentStore(repositoryid);
             ContentListViewModel model = new ContentListViewModel();
@@ -52,7 +58,7 @@ namespace FCmsManager.Controllers
             ICmsManager manager = CmsManager.Load();
             IRepository repository = manager.GetRepositoryById(repositoryid);
             if (repository == null)
-                return Redirect("/fcmsmanager/repository");
+                return Redirect("/fcmsmanager/home");
 
             IContentStore contentStore = manager.GetContentStore(repositoryid);
 
@@ -72,7 +78,7 @@ namespace FCmsManager.Controllers
             ICmsManager manager = CmsManager.Load();
             IRepository repository = manager.GetRepositoryById(repositoryid);
             if (repository == null)
-                return Redirect("/fcmsmanager/repository");
+                return Redirect("/fcmsmanager/home");
 
             IContentStore contentStore = manager.GetContentStore(repositoryid);
 

@@ -1,0 +1,12 @@
+﻿@model Tuple<IContent, IContentDefinition>
+
+@{
+    var content = (Model.Item1 == null) ? new StringContentItem() : Model.Item1;
+}
+
+<div class="form-group">
+    <label for="definisionNameInput@(Model.Item2.DefinitionId)">@Model.Item2.Name</label>
+    <input type="hidden" name="Id@(Model.Item2.DefinitionId)" value="@content.Id" />
+
+    <textarea type="text" name="Value@(Model.Item2.DefinitionId)" class="form-control" id="definisionNameInput@(Model.Item2.DefinitionId)">@content.GetValue()</textarea>
+</div>

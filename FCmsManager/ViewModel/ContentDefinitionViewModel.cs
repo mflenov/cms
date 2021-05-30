@@ -30,6 +30,7 @@ namespace FCmsManager.ViewModel
                 return new List<SelectListItem>
                     {
                         new SelectListItem { Text = "String", Value = "String"},
+                        new SelectListItem { Text = "Long String", Value = "LongString"},
                         new SelectListItem { Text = "Folder", Value = "Folder"},
                     };
             }

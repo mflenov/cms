@@ -8,7 +8,7 @@ namespace FCmsManager.ViewModel
 {
     public class RepositoryViewModel : IValidatableObject
     {
-        public enum PageTypeTemplate { EmptyPage, SimplePage }
+        public enum PageTypeTemplate { EmptyPage, SimplePage, EmptyContent }
 
         public Guid? Id { get; set; }
 
@@ -23,6 +23,8 @@ namespace FCmsManager.ViewModel
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
+            model.ContentType = Template == PageTypeTemplate.EmptyPage.ToString() ||
+                                Template == PageTypeTemplate.SimplePage.ToString() ? ContentType.Page : ContentType.Content;
             return model;
         }
 
@@ -70,6 +72,7 @@ namespace FCmsManager.ViewModel
                     {
                         new SelectListItem { Text = "Empty Page", Value = PageTypeTemplate.EmptyPage.ToString() },
                         new SelectListItem { Text = "Simple Page", Value = PageTypeTemplate.SimplePage.ToString() },
+                        new SelectListItem { Text = "Content", Value = PageTypeTemplate.EmptyContent.ToString() },
                     };
             }
         }

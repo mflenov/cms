@@ -26,16 +26,6 @@ namespace FCmsManager.Controllers
             return View("Index", repository);
         }
 
-        [HttpGet("fcmsmanager/definition/delete", Name = "fcmsrepodelete")]
-        public IActionResult delete(Guid repositoryid)
-        {
-            var cmsManager = CmsManager.Load();
-            cmsManager.DeleteRepository(repositoryid);
-            cmsManager.Save();
-
-            return Redirect("/fcmsmanager/repository");
-        }
-
         [HttpGet("fcmsmanager/definition/deletedefinition", Name = "fcmsdefinitiondelete")]
         public IActionResult deletedefinition(Guid repositoryid, Guid id)
         {

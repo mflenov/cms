@@ -3,7 +3,7 @@
 
 <div class="cmsfilterswidget">
     <h2>Filters</h2>
-    <form method="post" action="/fcmsmanager/contenteditor">
+    <form method="post" action="/fcmsmanager/page/edit">
         <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
         <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
         <div id="cmsfilterlist" class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
@@ -36,7 +36,7 @@
 </div>
 
 
-<form method="post" action="/fcmsmanager/contenteditor/save">
+<form method="post" action="/fcmsmanager/page/save">
     <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
 
 
@@ -72,7 +72,7 @@
 
 
 @section Breadcrump {
-    <span><a href="/fcmsmanager/repository">Content</a>: @Model.RepositoryName</span>
+    <span><a href="/fcmsmanager/repository">Page</a>: @Model.RepositoryName</span>
 }
 
 @section Scripts {

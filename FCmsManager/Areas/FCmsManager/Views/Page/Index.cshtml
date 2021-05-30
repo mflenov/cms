@@ -1,16 +1,16 @@
 ﻿@model FCms.Content.CmsManager
 
 <div>
-    <h1>Content</h1>
+    <h1>Pages</h1>
 
-    @foreach (IRepository repository in Model.Repositories.Where(m => m.ContentType == ContentType.Content))
+    @foreach (IRepository repository in Model.Repositories.Where(m => m.ContentType == ContentType.Page))
     {
         <div class="cmsrepository">
             <h2>@repository.Name</h2>
             <div class="cmssubline"></div>
 
             <div class="cmscontrols">
-                <a href="~/fcmsmanager/content/show?repositoryid=@repository.Id">Edit</a> |
+                <a href="~/fcmsmanager/page/edit?repositoryid=@repository.Id">Edit</a> |
                 <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">Page structure</a> |
                 <a href="~/fcmsmanager/repository/delete?repositoryid=@repository.Id">Delete</a>
             </div>
@@ -26,5 +26,5 @@
 </div>
 
 @section Breadcrump {
-    <span>Content</span>
+    <span>Pages</span>
 }
