@@ -1,39 +1,39 @@
 ﻿@model FCmsManager.ViewModel.ContentEditorViewModel
 
 
-<h2>Filters</h2>
-<form method="post" action="/fcmsmanager/contenteditor">
-    <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
-    <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
-    <div id="cmsfilterlist" class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
-        <div class="col-md-12" data-object="filters-list">
-            @foreach (var contentFilter in Model.ContentFilters)
-            {
-                await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
-                <div class="cmsfiltervalue" data-index="@contentFilter.Index">
-                    <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text> checked="checked" </text> } /> Include
-                    <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text> checked="checked" </text> } /> Exclude
-                </div>
-                <hr />
-            }
-        </div>
-        <did class="col-md-8">
-            <select class="form-control" data-object="filter-select">
-                <option value="">Select Filter to add</option>
-                @foreach (SelectListItem item in Model.GlobalFilters)
+<div class="cmsfilterswidget">
+    <h2>Filters</h2>
+    <form method="post" action="/fcmsmanager/contenteditor">
+        <input type="hidden" name="numbderoffilters" id="numbderoffilters" value="@Model.GlobalFilters.Count()" />
+        <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
+        <div id="cmsfilterlist" class="cmsfilterlist row" data-repositoryid="@Model.RepositoryId">
+            <div class="col-md-12" data-object="filters-list">
+                @foreach (var contentFilter in Model.ContentFilters)
                 {
-                    <option value="@item.Value">@item.Text</option>
+                    await Html.RenderPartialAsync("Filter" + contentFilter.ContentFilter.Filter.Type.ToString(), contentFilter);
+                    <div class="cmsfiltervalue" data-index="@contentFilter.Index">
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Include)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Include) { <text> checked="checked" </text> } /> Include
+                        <input type="radio" name="contentfiltertype@(contentFilter.Index)" value="@((int)IContentFilter.ContentFilterType.Exclude)" @if (contentFilter.ContentFilter.FilterType == IContentFilter.ContentFilterType.Exclude) { <text> checked="checked" </text> } /> Exclude
+                    </div>
+                    <hr />
                 }
-            </select>
-        </did>
-        <did class="col-md-4"><a href="javascript:void(0)" data-object="addfilterbutton" class="cmsbutton">Add filter</a></did>
-    </div>
-    <div class="cmscontrols">
-        <button class="cmsbutton">Apply filters</button>
-    </div>
-</form>
-
-<hr />
+            </div>
+            <did class="col-md-8">
+                <select class="form-control" data-object="filter-select">
+                    <option value="">Select Filter to add</option>
+                    @foreach (SelectListItem item in Model.GlobalFilters)
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                </select>
+            </did>
+            <did class="col-md-4"><a href="javascript:void(0)" data-object="addfilterbutton" class="cmsbutton">Add filter</a></did>
+        </div>
+        <div class="cmscontrols">
+            <button class="cmsbutton">Apply filters</button>
+        </div>
+    </form>
+</div>
 
 
 <form method="post" action="/fcmsmanager/contenteditor/save">
@@ -51,6 +51,7 @@
                     <h2>@definition.Name</h2>
                     @Html.Partial(definition.GetTypeName() + "View", new Tuple<IContent, IContentDefinition>(contentItem, definition))
                     <a class="cmsbutton" href="/fcmsmanager/content/edit?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Edit</a>
+                    <a class="cmsbutton" href="/fcmsmanager/content/delete?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Delete</a>
                 </div>
             }
             <div class="cmscontrols cmssecondcontrols">
