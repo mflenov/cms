@@ -15,7 +15,7 @@
         });
 
         let self = this;
-        $.post("/fcmsmanager/content/filter",
+        $.post("/fcmsmanager/pagecontent/filter",
             { filterid: filtertype, index: lastindex + 1 },
             function (data) {
                 $(self.filterList).append(data);

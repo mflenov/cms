@@ -1,4 +1,4 @@
-﻿@model FCmsManager.ViewModel.ContentEditorViewModel
+﻿@model FCmsManager.ViewModel.PageEditorViewModel
 
 
 <div class="cmsfilterswidget">
@@ -50,18 +50,18 @@
                 <div class="cmsrepository cmseditsection@(definition.GetTypeName().ToLower())">
                     <h2>@definition.Name</h2>
                     @Html.Partial(definition.GetTypeName() + "View", new Tuple<IContent, IContentDefinition>(contentItem, definition))
-                    <a class="cmsbutton" href="/fcmsmanager/content/edit?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Edit</a>
-                    <a class="cmsbutton" href="/fcmsmanager/content/delete?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Delete</a>
+                    <a class="cmsbutton" href="/fcmsmanager/pagecontent/edit?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Edit</a>
+                    <a class="cmsbutton" href="/fcmsmanager/pagecontent/delete?repositoryid=@(Model.RepositoryId)&contentid=@(contentItem.Id)">Delete</a>
                 </div>
             }
             <div class="cmscontrols cmssecondcontrols">
-                <a class="cmsbutton" href="/fcmsmanager/content/add?repositoryid=@(Model.RepositoryId)&definitionid=@(definition.DefinitionId)">Add @definition.Name</a>
+                <a class="cmsbutton" href="/fcmsmanager/pagecontent/add?repositoryid=@(Model.RepositoryId)&definitionid=@(definition.DefinitionId)">Add @definition.Name</a>
             </div>
             <hr />
         }
         else
         {
-            <span class="cmsright"><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@definition.DefinitionId">List all versions</a></span>
+            <span class="cmsright"><a href="/fcmsmanager/pagecontent/list?repositoryid=@Model.RepositoryId&definitionid=@definition.DefinitionId">List all versions</a></span>
             @Html.Partial(definition.GetTypeName() + "Editor", new Tuple<IContent, IContentDefinition>(Model.ContentItems.FirstOrDefault(m => m.DefinitionId == definition.DefinitionId), definition))
         }
     }

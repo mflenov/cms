@@ -24,7 +24,7 @@ namespace FCmsManager.Controllers
 
             IContentStore contentStore = CmsManager.Load().GetContentStore(repositoryid);
 
-            ContentEditorViewModel model = new ContentEditorViewModel() {
+            PageEditorViewModel model = new PageEditorViewModel() {
                 RepositoryId = repositoryid,
                 RepositoryName = repository.Name,
                 ContentDefinitions = repository.ContentDefinitions,
@@ -44,7 +44,7 @@ namespace FCmsManager.Controllers
 
             var filters = ViewModelHelpers.GetFilters(Request);
 
-            ContentEditorViewModel model = new ContentEditorViewModel() {
+            PageEditorViewModel model = new PageEditorViewModel() {
                 RepositoryId = filter.RepositoryId,
                 RepositoryName = repository.Name,
                 ContentDefinitions = repository.ContentDefinitions,
@@ -56,7 +56,7 @@ namespace FCmsManager.Controllers
         }
 
         [HttpPost("fcmsmanager/page/save", Name = "fcmscontenteditorsave")]
-        public IActionResult SaveAction(ContentEditorViewModel model)
+        public IActionResult SaveAction(PageEditorViewModel model)
         {
             IRepository repository = CmsManager.Load().GetRepositoryById(model.RepositoryId);
             if (repository == null)

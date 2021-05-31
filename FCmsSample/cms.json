@@ -80,6 +80,24 @@
           "Name": "Content"
         }
       ]
+    },
+    {
+      "$type": "FCms.Content.Repository, FCms",
+      "Id": "5393ccc0-d1e3-410f-b859-ac901a437ef1",
+      "Name": "Blog",
+      "ContentType": 1,
+      "ContentDefinitions": [
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "35451e2c-e48b-4727-9c11-1db069b24f9e",
+          "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "30cdb563-9b3e-444b-9772-b58dca4a918c",
+          "Name": "Text"
+        }
+      ]
     }
   ],
   "Filename": "./cms.json",

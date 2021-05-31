@@ -22,5 +22,6 @@
   <ItemGroup>
     <Folder Include="Areas\FCmsManager\Views\Shared\" />
     <Folder Include="Areas\FCmsManager\Views\Page\" />
+    <Folder Include="Areas\FCmsManager\Views\PageContent\" />
   </ItemGroup>
 </Project>

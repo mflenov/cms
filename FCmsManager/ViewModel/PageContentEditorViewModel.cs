@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FCmsManager.ViewModel
 {
-    public class ContentEditorViewModel
+    public class PageEditorViewModel
     {
         ICmsManager manager = CmsManager.Load();
 
-        public ContentEditorViewModel()
+        public PageEditorViewModel()
         {
         }
 
