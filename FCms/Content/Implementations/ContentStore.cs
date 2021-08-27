@@ -21,16 +21,16 @@ namespace FCms.Content
             }));
         }
 
-        public int GetIndexById(Guid id)
+        public ContentItem GetById(Guid id)
         {
             int index = 0;
             foreach (var item in this.Items)
             {
                 if (item.Id == id)
-                    return index;
+                    return item;
                 index++;
             }
-            return -1;
+            return null;
         }
 
         public IEnumerable<ContentItem> GetDefaultByDefinitionId(Guid definitionId)

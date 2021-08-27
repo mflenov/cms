@@ -3,7 +3,7 @@
 <div>
     <h1>Content</h1>
 
-    @foreach (IRepository repository in Model.Repositories.Where(m => m.ContentType == ContentType.Content))
+    @foreach (IRepository repository in Model.Repositories.Where(m => m.ContentType == ContentType.DbContent))
     {
         <div class="cmsrepository">
             <h2>@repository.Name</h2>

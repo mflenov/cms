@@ -9,9 +9,9 @@ namespace FCmsManager.Controllers
 {
     [Area("fcmsmanager")]
     [Authorize(AuthenticationSchemes = "fcms")]
-    public class ContentController : Controller
+    public class DbContentController : Controller
     {
-        [HttpGet("fcmsmanager/content")]
+        [HttpGet("fcmsmanager/dbcontent")]
         public IActionResult Index()
         {
             return View("index", CmsManager.Load());

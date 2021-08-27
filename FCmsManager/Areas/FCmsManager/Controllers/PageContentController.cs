@@ -108,7 +108,7 @@ namespace FCmsManager.Controllers
                 }
                 else
                 {
-                    model.MapToModel(contentStore.Items[contentStore.GetIndexById((Guid)model.Item.Id)], Request);
+                    model.MapToModel(contentStore.GetById((Guid)model.Item.Id), Request);
                 }
                 contentStore.Save();
                 return Redirect("/fcmsmanager/pagecontent/list?repositoryid=" + model.RepositoryId + "&definitionid=" + item.DefinitionId.ToString());

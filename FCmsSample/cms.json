@@ -83,19 +83,14 @@
     },
     {
       "$type": "FCms.Content.Repository, FCms",
-      "Id": "5393ccc0-d1e3-410f-b859-ac901a437ef1",
+      "Id": "c309d5a2-7f95-4649-ac8c-6db1bb716a54",
       "Name": "Blog",
       "ContentType": 1,
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
-          "DefinitionId": "35451e2c-e48b-4727-9c11-1db069b24f9e",
+          "DefinitionId": "7a10b1df-acfe-44fd-ab36-7ef72ba68a18",
           "Name": "Title"
-        },
-        {
-          "$type": "FCms.Content.LongStringContentDefinition, FCms",
-          "DefinitionId": "30cdb563-9b3e-444b-9772-b58dca4a918c",
-          "Name": "Text"
         }
       ]
     }

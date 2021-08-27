@@ -5,7 +5,7 @@ namespace FCms.Content
 {
     public enum ContentTemplate { EmptyPage, SimplePage }
 
-    public enum ContentType { Page, Content }
+    public enum ContentType { Page, DbContent }
 
     public enum RepositoryStorageType { Json }
 
