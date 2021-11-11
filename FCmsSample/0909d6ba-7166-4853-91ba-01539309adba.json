@@ -1,0 +1,29 @@
+{
+  "RepositoryId": "0909d6ba-7166-4853-91ba-01539309adba",
+  "Items": [
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "About the site",
+      "Id": "0db63aad-5f9d-4dc2-aa1a-d7f82ea64d5f",
+      "DefinitionId": "48759ed2-38e3-40a1-83a5-874f5053c03b",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "This is the about the site page",
+      "Id": "95bdebea-3987-4f77-b9c6-3613a6b7fa97",
+      "DefinitionId": "48f8efd8-0d35-465a-95d6-e6ccab410b45",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "Welcome to our web site",
+      "Id": "2d35b08b-33b5-4047-a67b-78ced2a4108d",
+      "DefinitionId": "940b927f-84fb-4af1-8460-bffc6fbfe4f7",
+      "Filters": [],
+      "ToolTip": null
+    }
+  ]
+}

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace FCms.Content
 {
-    public enum PageTypeTemplate { EmptyPage, SimplePage }
+    public enum ContentTemplate { EmptyPage, SimplePage }
+
+    public enum ContentType { Page, DbContent }
 
     public enum RepositoryStorageType { Json }
 
@@ -12,6 +14,8 @@ namespace FCms.Content
         Guid Id { get; set; }
 
         string Name { get; set; }
+
+        ContentType ContentType { get; set; }
 
         List<IContentDefinition> ContentDefinitions { get; }
 

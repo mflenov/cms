@@ -1,0 +1,30 @@
+﻿@model FCms.Content.CmsManager
+
+<div>
+    <h1>Pages</h1>
+
+    @foreach (IRepository repository in Model.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
+    {
+        <div class="cmsrepository">
+            <h2>@repository.Name</h2>
+            <div class="cmssubline"></div>
+
+            <div class="cmscontrols">
+                <a href="~/fcmsmanager/page/edit?repositoryid=@repository.Id">Edit</a> |
+                <a href="~/fcmsmanager/definition?repositoryid=@repository.Id">Page structure</a> |
+                <a href="~/fcmsmanager/repository/delete?repositoryid=@repository.Id">Delete</a>
+            </div>
+        </div>
+     }
+
+     @if (Model.Data.Repositories.Count == 0)
+     {
+        <p>You don't have any pages yet. Start by creating one</p>
+     }
+     <hr />
+     <a href="~/fcmsmanager/repository/add" class="cmsbutton">Add</a>
+</div>
+
+@section Breadcrump {
+    <span>Pages</span>
+}

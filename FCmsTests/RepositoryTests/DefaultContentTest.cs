@@ -21,13 +21,13 @@ namespace FCmsTests
         {
             Tools.DeleteCmsFile();
 
-            manager = CmsManager.Load();
+            manager = new CmsManager();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
             IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(IContentDefinition.DefinitionType.String);
             definition.DefinitionId = definitionId;
             definition.Name = contentName;
             repository.ContentDefinitions.Add(definition);
-            manager.Repositories.Add(repository);
+            manager.Data.Repositories.Add(repository);
             manager.Save();
         }
 

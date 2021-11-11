@@ -15,7 +15,7 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/definition", Name = "fcmsdefinition")]
         public IActionResult Definition(Guid repositoryid)
         {
-            var cmsManager = CmsManager.Load();
+            var cmsManager = new CmsManager();
             IRepository repository = cmsManager.GetRepositoryById(repositoryid);
 
             if (repository == null)
@@ -26,20 +26,10 @@ namespace FCmsManager.Controllers
             return View("Index", repository);
         }
 
-        [HttpGet("fcmsmanager/definition/delete", Name = "fcmsrepodelete")]
-        public IActionResult delete(Guid repositoryid)
-        {
-            var cmsManager = CmsManager.Load();
-            cmsManager.DeleteRepository(repositoryid);
-            cmsManager.Save();
-
-            return Redirect("/fcmsmanager/repository");
-        }
-
         [HttpGet("fcmsmanager/definition/deletedefinition", Name = "fcmsdefinitiondelete")]
         public IActionResult deletedefinition(Guid repositoryid, Guid id)
         {
-            var cmsManager = CmsManager.Load();
+            var cmsManager = new CmsManager();
             var repository = cmsManager.GetRepositoryById(repositoryid);
             repository.DeleteDefinition(id);
             cmsManager.Save();
@@ -70,7 +60,7 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/definition/edit", Name = "fcmsdefinitionedit")]
         public IActionResult edit(Guid repositoryid, Guid id)
         {
-            ICmsManager manager = CmsManager.Load();
+            ICmsManager manager = new CmsManager();
             var repo = manager.GetRepositoryById(repositoryid);
             IContentDefinition definition = repo?.ContentDefinitions.Where(m => m.DefinitionId == id).FirstOrDefault();
             if (definition == null)
@@ -90,12 +80,12 @@ namespace FCmsManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICmsManager manager = CmsManager.Load();
+                ICmsManager manager = new CmsManager();
                 int repoindex = manager.GetIndexById(model.RepositoryId.Value);   
                 if (repoindex < 0) {
                     throw new Exception("The content definition not found");
                 }
-                IRepository repository = manager.Repositories[repoindex];
+                IRepository repository = manager.Data.Repositories[repoindex];
                 if (model.DefinitionId == null) {
                     repository.ContentDefinitions.Add(model.MapToModel(null, this.Request));
                 }

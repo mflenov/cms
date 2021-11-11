@@ -8,6 +8,10 @@ namespace FCmsManager.ViewModel
 {
     public static class ViewModelHelpers
     {
+        public static string GetRepositoryBaseUrl(IRepository repo)
+        {
+            return repo.ContentType.ToString().ToLowerInvariant();
+        }
 
         public static List<IContentFilter> GetFilters(HttpRequest request)
         {

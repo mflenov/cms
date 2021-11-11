@@ -5,7 +5,7 @@
         Edit @Model.ContentDefinition.Name
     </h1>
 
-    <form method="post" action="/fcmsmanager/content/save">
+    <form method="post" action="/fcmsmanager/pagecontent/save">
         @Html.AntiForgeryToken()
         <input type="hidden" name="Item.Id" value="@Model.Item.Id" />
         <input type="hidden" name="RepositoryId" value="@Model.RepositoryId" />
@@ -53,6 +53,6 @@
 }
 
 @section Breadcrump {
-    <span>Repository: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
-    <span>Content: <a href="/fcmsmanager/content/list?repositoryid=@(Model.RepositoryId)&definitionid=@(Model.Item.DefinitionId)">@Model.ContentDefinition.Name</a></span>
+    <span>Repository: <a href="/fcmsmanager/pagecontent?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
+    <span>Content: <a href="/fcmsmanager/pagecontent/list?repositoryid=@(Model.RepositoryId)&definitionid=@(Model.Item.DefinitionId)">@Model.ContentDefinition.Name</a></span>
 }

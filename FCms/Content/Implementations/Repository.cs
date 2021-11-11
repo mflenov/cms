@@ -13,6 +13,8 @@ namespace FCms.Content
 
         public string Name { get; set; }
 
+        public ContentType ContentType { get; set; }
+
         List<IContentDefinition> contentDefinitions = new List<IContentDefinition>();
         public List<IContentDefinition> ContentDefinitions {
             get { return contentDefinitions; }
@@ -58,6 +60,7 @@ namespace FCms.Content
                 return;
             }
             var definition = ContentDefinitionFactory.CreateContentDefinition(type);
+            definition.DefinitionId = Guid.NewGuid();
             definition.Name = name;
             contentDefinitions.Add(definition);
         }

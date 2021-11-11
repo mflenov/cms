@@ -26,17 +26,17 @@ namespace FCmsTests
         {
             Tools.DeleteCmsFile();
 
-            manager = CmsManager.Load();
+            manager = new CmsManager();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
             IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(IContentDefinition.DefinitionType.String);
             definition.DefinitionId = definitionId;
             definition.Name = contentName;
             repository.ContentDefinitions.Add(definition);
-            manager.Repositories.Add(repository);
+            manager.Data.Repositories.Add(repository);
 
             // filters
-            manager.Filters.Add(new RegExFilter() { Id = regexFilterId, Name = "Email" });
-            manager.Filters.Add(new BooleanFilter() { Id = booleanFilterId, Name = "IsLoggedIn" });
+            manager.Data.Filters.Add(new RegExFilter() { Id = regexFilterId, Name = "Email" });
+            manager.Data.Filters.Add(new BooleanFilter() { Id = booleanFilterId, Name = "IsLoggedIn" });
 
             manager.Save();
         }

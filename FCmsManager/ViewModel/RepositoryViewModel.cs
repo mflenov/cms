@@ -8,7 +8,7 @@ namespace FCmsManager.ViewModel
 {
     public class RepositoryViewModel : IValidatableObject
     {
-        public enum PageTypeTemplate { EmptyPage, SimplePage }
+        public enum PageTypeTemplate { EmptyPage, SimplePage, DbContent }
 
         public Guid? Id { get; set; }
 
@@ -23,6 +23,7 @@ namespace FCmsManager.ViewModel
         {
             model.Name = this.Name;
             model.Id = this.Id ?? Guid.NewGuid();
+            model.ContentType = Template == PageTypeTemplate.DbContent.ToString() ? ContentType.DbContent : ContentType.Page;
             return model;
         }
 
@@ -52,7 +53,7 @@ namespace FCmsManager.ViewModel
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            ICmsManager cmsmanager = CmsManager.Load();
+            ICmsManager cmsmanager = new CmsManager();
             IRepository repository = cmsmanager.GetRepositoryByName(this.Name);
             if (repository != null && repository.Id != this.Id)
             {
@@ -69,7 +70,8 @@ namespace FCmsManager.ViewModel
                 return new List<SelectListItem>
                     {
                         new SelectListItem { Text = "Empty Page", Value = PageTypeTemplate.EmptyPage.ToString() },
-                        new SelectListItem { Text = "Content Storage", Value = PageTypeTemplate.SimplePage.ToString() },
+                        new SelectListItem { Text = "Simple Page", Value = PageTypeTemplate.SimplePage.ToString() },
+                        new SelectListItem { Text = "Database Content", Value = PageTypeTemplate.DbContent.ToString() },
                     };
             }
         }

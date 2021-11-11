@@ -14,8 +14,8 @@ namespace FCmsManager.Areas.FCmsManager.Controllers
         [HttpGet("fcmsmanager/filter", Name = "fcmsfilter")]
         public IActionResult Index()
         {
-            var maanger = CmsManager.Load();
-            return View("Index", maanger.Filters);
+            var maanger = new CmsManager();
+            return View("Index", maanger.Data.Filters);
         }
 
         [HttpGet("fcmsmanager/filter/add", Name = "fcmsfilteradd")]
@@ -29,20 +29,20 @@ namespace FCmsManager.Areas.FCmsManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICmsManager manager = CmsManager.Load();
+                ICmsManager manager = new CmsManager();
                 if (model.Id == null)
                 {
                     IFilter filtermodel = FCms.Factory.FilterFactory.CreateFilterByType((IFilter.FilterType)Enum.Parse(typeof(IFilter.FilterType), model.Type));
-                    manager.Filters.Add(model.MapToModel(filtermodel));
+                    manager.Data.Filters.Add(model.MapToModel(filtermodel));
                 }
                 else
                 {
-                    int repoindex = manager.Filters.Select((v, i) => new { filter = v, Index = i }).FirstOrDefault(x => x.filter.Id == model.Id)?.Index ?? -1;
+                    int repoindex = manager.Data.Filters.Select((v, i) => new { filter = v, Index = i }).FirstOrDefault(x => x.filter.Id == model.Id)?.Index ?? -1;
                     if (repoindex < 0)
                     {
                         throw new Exception("The filter definition not found");
                     }
-                    model.MapToModel(manager.Filters[repoindex]);
+                    model.MapToModel(manager.Data.Filters[repoindex]);
                 }
                 manager.Save();
                 return Redirect("/fcmsmanager/filter");

@@ -1,4 +1,4 @@
-﻿@model FCmsManager.ViewModel.ContentListViewModel
+﻿@model FCmsManager.ViewModel.PageContentListViewModel
 
 <div>
     <h1>Values for: @Model.ContentDefinition.Name</h1>
@@ -6,9 +6,9 @@
     {
         <div class="cmsrepository">
             <div class="cmsright">
-                <a href="/fcmsmanager/content/delete?repositoryid=@Model.RepositoryId&contentid=@content.Id">[ Delete ]</a>
+                <a href="/fcmsmanager/pagecontent/delete?repositoryid=@Model.RepositoryId&contentid=@content.Id">[ Delete ]</a>
             </div>
-            <a href="/fcmsmanager/content/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
+            <a href="/fcmsmanager/pagecontent/edit?repositoryid=@Model.RepositoryId&contentid=@content.Id">
                 @if (content is ContentFolderItem)
                 {
                     @((content as ContentFolderItem).Name)
@@ -34,9 +34,9 @@
         </div>
     }
     <hr />
-    <a href="/fcmsmanager/content/add?repositoryid=@Model.RepositoryId&definitionid=@Model.DefinitionId" class="cmsbutton">Add</a>
+    <a href="/fcmsmanager/pagecontent/add?repositoryid=@Model.RepositoryId&definitionid=@Model.DefinitionId" class="cmsbutton">Add</a>
 </div>
 
 @section Breadcrump {
-    <span><a hhref="/fcmsmanager/repository">Repository</a>: <a href="/fcmsmanager/content?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
+    <span><a hhref="/fcmsmanager/repository">Repository</a>: <a href="/fcmsmanager/pagecontent?repositoryid=@Model.RepositoryId">@Model.RepositoryName</a></span>
 }

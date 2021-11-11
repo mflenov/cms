@@ -11,7 +11,7 @@ namespace FCms.Content
 
         void Save();
 
-        int GetIndexById(Guid id);
+        ContentItem GetById(Guid id);
 
         IEnumerable<ContentItem> GetDefaultByDefinitionId(Guid definitionId);
 

@@ -157,13 +157,8 @@
     border: 1px solid #999;
     padding: 10px;
     margin-bottom: 10px;
+    background: #fff;
     box-shadow: 0px 1px 5px #aaa;
-}
-
-.fcms .cmsrepository {
-    border: 1px solid #999;
-    padding: 10px;
-    margin-bottom: 10px;
 }
 
 .fcms .cmsrepository .cmssubline {
@@ -191,4 +186,14 @@
 }
 .fcms .cmsright {
     float:right;
+}
+.fcms .cmsfilterswidget {
+    padding:8px;
+    border: 1px solid #777;
+    background: #f5f5f0;
+    margin-bottom: 12px;
+}
+.fcms .cmsfilterswidget .cmsfilterlist {
+    border: 0px;
+    background: none;
 }

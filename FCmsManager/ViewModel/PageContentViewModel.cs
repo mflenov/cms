@@ -5,7 +5,7 @@ using FCms.Content;
 
 namespace FCmsManager.ViewModel
 {
-    public class ContentViewModel
+    public class PageContentViewModel
     {
         public Guid RepositoryId { get; set; }
 

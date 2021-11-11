@@ -5,19 +5,24 @@
     <div class="">
         @foreach (FCms.Content.IContentDefinition definition in Model.ContentDefinitions)
         {
-<div class="cmsrepository">
-    <h2><a href="/fcmsmanager/definition/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">@definition.Name</a></h2>
-    <div class="cmssubline">@definition.GetTypeName()</div>
+            <div class="cmsrepository">
+                <h2><a href="/fcmsmanager/definition/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">@definition.Name</a></h2>
+                <div class="cmssubline">@definition.GetTypeName()</div>
 
-    <div class="cmscontrols">
-        <a href="/fcmsmanager/definition/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">Definition</a> |
-        <a href="/fcmsmanager/content/list?repositoryid=@Model.Id&definitionid=@definition.DefinitionId">List content</a> |
-        <a href="/fcmsmanager/definition/deletedefinition?repositoryid=@Model.Id&id=@definition.DefinitionId">Delete</a>
-    </div>
-</div>}
+                <div class="cmscontrols">
+                    <a href="/fcmsmanager/definition/edit?repositoryid=@Model.Id&id=@definition.DefinitionId">Definition</a> |
+                    @if (Model.ContentType == ContentType.Page) {
+                        <text><a href="/fcmsmanager/pagecontent/list?repositoryid=@Model.Id&definitionid=@definition.DefinitionId">List content</a> |</text>
+                    }
+                    <a href="/fcmsmanager/definition/deletedefinition?repositoryid=@Model.Id&id=@definition.DefinitionId">Delete</a>
+                </div>
+            </div>
+        }
+
         @if (Model.ContentDefinitions.Count == 0)
         {
-<p>You don't have content definitions yet. Start by creating one</p>}
+            <p>You don't have content definitions yet. Start by creating one</p>
+        }
         <hr />
         <a href="~/fcmsmanager/definition/add?repositoryid=@Model.Id" class="cmsbutton">Add</a>
     </div>

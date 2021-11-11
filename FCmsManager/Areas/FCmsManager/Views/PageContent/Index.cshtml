@@ -1,7 +1,7 @@
-﻿@model FCmsManager.ViewModel.ContentViewModel
+﻿@model FCmsManager.ViewModel.PageContentViewModel
 
 <div>
-    <h1>Repository: @Model.RepositoryName</h1>
+    <h1>Content repositiry: @Model.RepositoryName</h1>
 
     @if (Model.ContentDefinitions.Count == 0)
     {
@@ -12,11 +12,11 @@
         @foreach (IContentDefinition content in Model.ContentDefinitions)
         {
             <div class="cmsrepository">
-                <h2><a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></h2>
+                <h2><a href="/fcmsmanager/pagecontent/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">@content.Name</a></h2>
                 <div class="cmssubline">@content.GetTypeName()</div>
 
                 <div class="cmscontrols">
-                    <a href="/fcmsmanager/content/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a>
+                    <a href="/fcmsmanager/pagecontent/list?repositoryid=@Model.RepositoryId&definitionid=@content.DefinitionId">List Content</a>
                 </div>
             </div>
         }
