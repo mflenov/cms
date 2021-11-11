@@ -7,7 +7,7 @@ namespace FCmsManager.ViewModel
 {
     public class FilterSelectorViewModel
     {
-        ICmsManager manager = CmsManager.Load();
+        ICmsManager manager = new CmsManager();
 
         public FilterSelectorViewModel()
         {
@@ -19,7 +19,7 @@ namespace FCmsManager.ViewModel
 
 		public IEnumerable<SelectListItem> GlobalFilters {
             get {
-                foreach (var filter in manager.Filters)
+                foreach (var filter in manager.Data.Filters)
                 {
                     yield return new SelectListItem { Text = filter.Name, Value = filter.Id.ToString() };
                 }

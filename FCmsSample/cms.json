@@ -95,7 +95,6 @@
       ]
     }
   ],
-  "Filename": "./cms.json",
   "Filters": [
     {
       "$type": "FCms.Content.BooleanFilter, FCms",

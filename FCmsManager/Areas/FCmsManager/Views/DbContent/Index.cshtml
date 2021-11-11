@@ -3,7 +3,7 @@
 <div>
     <h1>Content</h1>
 
-    @foreach (IRepository repository in Model.Repositories.Where(m => m.ContentType == ContentType.DbContent))
+    @foreach (IRepository repository in Model.Data.Repositories.Where(m => m.ContentType == ContentType.DbContent))
     {
         <div class="cmsrepository">
             <h2>@repository.Name</h2>
@@ -17,7 +17,7 @@
         </div>
      }
 
-     @if (Model.Repositories.Count == 0)
+     @if (Model.Data.Repositories.Count == 0)
      {
         <p>You don't have any pages yet. Start by creating one</p>
      }

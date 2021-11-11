@@ -53,7 +53,7 @@ namespace FCmsManager.ViewModel
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            ICmsManager cmsmanager = CmsManager.Load();
+            ICmsManager cmsmanager = new CmsManager();
             IRepository repository = cmsmanager.GetRepositoryByName(this.Name);
             if (repository != null && repository.Id != this.Id)
             {

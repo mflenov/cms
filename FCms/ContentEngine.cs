@@ -18,7 +18,7 @@ namespace FCms
             manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
             if (manager == null)
             {
-                manager = CmsManager.Load();
+                manager = new CmsManager();
                 Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
             }
             this.RepositoryName = repositoryName;

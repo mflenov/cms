@@ -21,7 +21,7 @@ namespace FCmsManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                ICmsManager manager = CmsManager.Load();
+                ICmsManager manager = new CmsManager();
                 IRepository repo;
                 
                 if (model.IsItANewRepository())
@@ -35,7 +35,7 @@ namespace FCmsManager.Controllers
                     try
                     {
                         int repoindex = manager.GetIndexById(model.Id.Value);
-                        repo = manager.Repositories[repoindex];
+                        repo = manager.Data.Repositories[repoindex];
                         model.MapToModel(repo);
                     }
                     catch (InvalidOperationException)
@@ -54,7 +54,7 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/repository/delete", Name = "fcmsrepodelete")]
         public IActionResult delete(Guid repositoryid)
         {
-            var cmsManager = CmsManager.Load();
+            var cmsManager = new CmsManager();
             var repo = cmsManager.GetRepositoryById(repositoryid);
             if (repo != null) {
                 cmsManager.DeleteRepository(repositoryid);

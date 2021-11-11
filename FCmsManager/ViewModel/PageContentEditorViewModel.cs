@@ -8,7 +8,7 @@ namespace FCmsManager.ViewModel
 {
     public class PageEditorViewModel
     {
-        ICmsManager manager = CmsManager.Load();
+        ICmsManager manager = new CmsManager();
 
         public PageEditorViewModel()
         {
@@ -18,7 +18,7 @@ namespace FCmsManager.ViewModel
 
         public IEnumerable<SelectListItem> GlobalFilters {
             get {
-                foreach (var filter in manager.Filters)
+                foreach (var filter in manager.Data.Filters)
                 {
                     yield return new SelectListItem { Text = filter.Name, Value = filter.Id.ToString() };
                 }
@@ -33,7 +33,7 @@ namespace FCmsManager.ViewModel
                     yield return new FilterValueViewModel()
                     {
                         ContentFilter = filter,
-                        FilterDefinition = manager.Filters.Where(m => m.Id == filter.FilterDefinitionId).FirstOrDefault(),
+                        FilterDefinition = manager.Data.Filters.Where(m => m.Id == filter.FilterDefinitionId).FirstOrDefault(),
                         Index = index
                     };
                     index++;

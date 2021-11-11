@@ -14,15 +14,15 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/page", Name = "fcmspageindex")]
         public IActionResult Index()
         {
-            return View("index", CmsManager.Load());
+            return View("index", new CmsManager());
         }
 
         [HttpGet("fcmsmanager/page/edit", Name = "fcmscontenteditorindex")]
         public IActionResult IndexAction(Guid repositoryid)
         {
-            IRepository repository = CmsManager.Load().GetRepositoryById(repositoryid);
+            IRepository repository = new CmsManager().GetRepositoryById(repositoryid);
 
-            IContentStore contentStore = CmsManager.Load().GetContentStore(repositoryid);
+            IContentStore contentStore = new CmsManager().GetContentStore(repositoryid);
 
             PageEditorViewModel model = new PageEditorViewModel() {
                 RepositoryId = repositoryid,
@@ -38,9 +38,9 @@ namespace FCmsManager.Controllers
         [HttpPost("fcmsmanager/page/edit", Name = "fcmscontenteditorindexpost")]
         public IActionResult PostAction(FilteredContentViewModel filter)
         {
-            IRepository repository = CmsManager.Load().GetRepositoryById(filter.RepositoryId);
+            IRepository repository = new CmsManager().GetRepositoryById(filter.RepositoryId);
 
-            IContentStore contentStore = CmsManager.Load().GetContentStore(filter.RepositoryId);
+            IContentStore contentStore = new CmsManager().GetContentStore(filter.RepositoryId);
 
             var filters = ViewModelHelpers.GetFilters(Request);
 
@@ -58,13 +58,13 @@ namespace FCmsManager.Controllers
         [HttpPost("fcmsmanager/page/save", Name = "fcmscontenteditorsave")]
         public IActionResult SaveAction(PageEditorViewModel model)
         {
-            IRepository repository = CmsManager.Load().GetRepositoryById(model.RepositoryId);
+            IRepository repository = new CmsManager().GetRepositoryById(model.RepositoryId);
             if (repository == null)
             {
                 return Redirect("/fcmsmanager/page");
             }
 
-            IContentStore contentStore = CmsManager.Load().GetContentStore(model.RepositoryId);
+            IContentStore contentStore = new CmsManager().GetContentStore(model.RepositoryId);
             model.RepositoryName = repository.Name;
             model.ContentDefinitions = repository.ContentDefinitions;
             model.ContentItems = contentStore.Items.Where(m => m.Filters.Count == 0).ToList();

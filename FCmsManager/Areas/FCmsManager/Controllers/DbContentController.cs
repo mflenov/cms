@@ -14,7 +14,7 @@ namespace FCmsManager.Controllers
         [HttpGet("fcmsmanager/dbcontent")]
         public IActionResult Index()
         {
-            return View("index", CmsManager.Load());
+            return View("index", new CmsManager());
         }
     }
 }

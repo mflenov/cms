@@ -9,11 +9,7 @@ namespace FCms.Content
             get;
         }
 
-        public List<IRepository> Repositories {
-            get;
-        }
-
-        public List<IFilter> Filters {
+        public CmsData Data {
             get;
         }
 
