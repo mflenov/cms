@@ -1,0 +1,41 @@
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 cmslogo">
+                <a href="/">Home</a>
+            </div>
+            <div class="col-sm-9 cmsmenu">
+                <ul class='nav nav-pills'>
+                    <li><a [routerLink]="['/page']" class='nav-link'>Pages</a></li>
+                    <li><a [routerLink]="['/config']" class='nav-link'>Config</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="content">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <p>fCms is an Open Source .NET Core Smart CMS </p>
+                <p>Created by Mikhail Flenov from <a href="http://www.profwebdev.com">ProfWebDev</a></p>
+            </div>
+            <div class="col-md-3">
+
+            </div>
+        </div>
+    </div>
+</div>
