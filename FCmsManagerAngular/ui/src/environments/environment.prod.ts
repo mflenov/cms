@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiCmsServiceEndpoint: 'http://localhost:56710/'
 };
