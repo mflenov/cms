@@ -61,7 +61,7 @@ namespace FCms
             {
                 contentStore = manager.GetContentStore(repo.Id);
                 HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] = contentStore;
-                Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, CmsManager.GetContentStoreFilename(repo.Id));
+                Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.GetContentStoreFilename(repo.Id));
             }
         }
 

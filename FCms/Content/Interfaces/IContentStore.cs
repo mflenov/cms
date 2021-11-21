@@ -9,8 +9,6 @@ namespace FCms.Content
 
         List<ContentItem> Items { get; }
 
-        void Save();
-
         ContentItem GetById(Guid id);
 
         IEnumerable<ContentItem> GetDefaultByDefinitionId(Guid definitionId);

@@ -8,6 +8,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 import { ConfigModule } from './modules/config/config.module';
+import { PagesModule } from './modules/pages/pages.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ConfigModule } from './modules/config/config.module';
       { path: 'notfound', component: NotfoundComponent },
       { path: '**', component: NotfoundComponent },
     ]),
-    ConfigModule
+    ConfigModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
