@@ -25,6 +25,8 @@ namespace FCms.Content
         
         IContentStore GetContentStore(Guid repositoryid);
 
+        void SaveContentStore(IContentStore store);
+
         int GetIndexById(Guid id);
 
         void AddRepository(IRepository repository);

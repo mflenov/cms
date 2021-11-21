@@ -11,7 +11,7 @@
             <a [routerLink]="['/config/filter', filter.id]">{{filter.name}}</a>
         </td>
         <td>{{filter.type}}</td>
-        <td><span class="fa fa-trash link" (click)="deleteRow('filter.id')"></span></td>
+        <td><span class="fa fa-trash link" (click)="deleteRow(filter.id)"></span></td>
     </tr>
 </table>
 <br/>

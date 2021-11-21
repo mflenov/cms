@@ -29,7 +29,6 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.pagesSubs.unsubscribe();
   }
 
-  deleteRow(id: string) : void {
-    
+  deleteRow(id: string|undefined) : void {
   }  
 }

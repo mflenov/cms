@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/jquery": "^3.5.5"
+  },
+  "dependencies": {
+    "typescript": "^4.5.2"
   }
 }
