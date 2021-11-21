@@ -58,13 +58,14 @@ namespace FCmsManager.Controllers
         [HttpPost("fcmsmanager/page/save", Name = "fcmscontenteditorsave")]
         public IActionResult SaveAction(PageEditorViewModel model)
         {
-            IRepository repository = new CmsManager().GetRepositoryById(model.RepositoryId);
+            var manager = new CmsManager();
+            IRepository repository = manager.GetRepositoryById(model.RepositoryId);
             if (repository == null)
             {
                 return Redirect("/fcmsmanager/page");
             }
 
-            IContentStore contentStore = new CmsManager().GetContentStore(model.RepositoryId);
+            IContentStore contentStore = manager.GetContentStore(model.RepositoryId);
             model.RepositoryName = repository.Name;
             model.ContentDefinitions = repository.ContentDefinitions;
             model.ContentItems = contentStore.Items.Where(m => m.Filters.Count == 0).ToList();
@@ -86,7 +87,7 @@ namespace FCmsManager.Controllers
                     }
                 }
 
-                contentStore.Save();
+                manager.SaveContentStore(contentStore);
                 return Redirect("/fcmsmanager/page");
             }
 

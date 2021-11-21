@@ -61,7 +61,7 @@ namespace FCmsManager.Controllers
                 return Redirect("/fcmsmanager/repository?d=" + contentid);
 
             contentStore.Items.Remove(item);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             return Redirect("/fcmsmanager/pagecontent/list?repositoryid=" + repositoryid + "&definitionid=" + item.DefinitionId.ToString());
         }
@@ -110,7 +110,7 @@ namespace FCmsManager.Controllers
                 {
                     model.MapToModel(contentStore.GetById((Guid)model.Item.Id), Request);
                 }
-                contentStore.Save();
+                manager.SaveContentStore(contentStore);
                 return Redirect("/fcmsmanager/pagecontent/list?repositoryid=" + model.RepositoryId + "&definitionid=" + item.DefinitionId.ToString());
             }
 
