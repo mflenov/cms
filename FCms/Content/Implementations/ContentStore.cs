@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,16 +9,6 @@ namespace FCms.Content
         public Guid RepositoryId { get; set; }
 
         public List<ContentItem> Items { get; } = new List<ContentItem>();
-
-        public void Save()
-        {
-            System.IO.File.WriteAllText(RepositoryId.ToString() + ".json", JsonConvert.SerializeObject(this, new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Auto,
-                Formatting = Formatting.Indented
-
-            }));
-        }
 
         public ContentItem GetById(Guid id)
         {

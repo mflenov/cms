@@ -10,6 +10,7 @@ namespace FCms.Content
     public class CmsManager : ICmsManager
     {
         const string filename = "cms.json";
+        string path = "./"; 
 
         private CmsData data;
         public CmsData Data {
@@ -17,7 +18,7 @@ namespace FCms.Content
         }
 
         public string Filename {
-            get { return filename; }
+            get { return this.path + filename; }
         }
 
         public CmsManager(): this("./")
@@ -27,9 +28,10 @@ namespace FCms.Content
 
         public CmsManager(string location)
         {
+            path = location;
             if (File.Exists(location + filename))
             {
-                data = JsonConvert.DeserializeObject<CmsData>(File.ReadAllText(filename),
+                data = JsonConvert.DeserializeObject<CmsData>(File.ReadAllText(path + filename),
                     new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
             }
             else {
@@ -49,7 +51,7 @@ namespace FCms.Content
 
         public void Save()
         {
-            System.IO.File.WriteAllText(filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings()
+            System.IO.File.WriteAllText(path + filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.Auto,
                 Formatting = Formatting.Indented
@@ -89,9 +91,9 @@ namespace FCms.Content
             }
         }
 
-        public static string GetContentStoreFilename(Guid repositoryid)
+        public string GetContentStoreFilename(Guid repositoryid)
         {
-            return repositoryid.ToString() + ".json";
+            return path + repositoryid.ToString() + ".json";
         }
 
         public IContentStore GetContentStore(Guid repositoryid)
@@ -108,5 +110,18 @@ namespace FCms.Content
                 RepositoryId = repositoryid
             };
         }
+
+        public void SaveContentStore(IContentStore store)
+        {
+            if (store == null) {
+                return;
+            }
+            System.IO.File.WriteAllText(path + store.RepositoryId.ToString() + ".json", JsonConvert.SerializeObject(store, new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+            }));
+        }
+
     }
 }
