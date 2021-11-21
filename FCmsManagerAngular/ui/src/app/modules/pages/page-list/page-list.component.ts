@@ -30,6 +30,5 @@ export class PageListComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined) : void {
-    alert(id);
   }  
 }
