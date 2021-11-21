@@ -19,6 +19,7 @@ namespace FCmsManagerAngular.Controllers
         }
 
         ViewModelsTestData.FilterViewModelTestData model = new ViewModelsTestData.FilterViewModelTestData();
+        
         [Route("api/v1/config/filters")]
         public IEnumerable<FilterViewModel> Filters()
         {

@@ -1,0 +1,16 @@
+<h1>Pages</h1>
+
+<table class="cmstable">
+    <tr>
+        <th style="width:60%">Name</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let page of pages" [attr.id]="page.id">
+        <td>
+            <a [routerLink]="['/pages/edit', page.id]">{{page.name}}</a>
+        </td>
+        <td><span class="fa fa-trash link" (click)="deleteRow('page.id')"></span></td>
+    </tr>
+</table>
+<br/>
+<a [routerLink]="['/pages/add']" class="cmsbutton">Add</a>
