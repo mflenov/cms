@@ -51,7 +51,7 @@ namespace FCms.Content
 
         public void Save()
         {
-            System.IO.File.WriteAllText(path + filename, JsonConvert.SerializeObject(this, new JsonSerializerSettings()
+            System.IO.File.WriteAllText(path + filename, JsonConvert.SerializeObject(this.Data, new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.Auto,
                 Formatting = Formatting.Indented
