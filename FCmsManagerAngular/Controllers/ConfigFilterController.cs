@@ -53,5 +53,20 @@ namespace FCmsManagerAngular.Controllers
             ICmsManager manager = new CmsManager(config["DataLocation"]);
             model.Update(manager);
         }
+
+        [HttpDelete]
+        [Route("api/v1/config/filter/{id}")]
+        public FilterViewModel Delete(string id)
+        {
+            var maanger = new CmsManager(config["DataLocation"]);
+            Guid guid;
+            if (Guid.TryParse(id, out guid)) {
+                var filter = maanger.Data.Filters.Where(n => n.Id == guid).FirstOrDefault();
+                if (filter != null) {
+                    maanger.Data.Filters.Remove(filter);
+                }
+            }
+            return null;
+        }
     }
 }

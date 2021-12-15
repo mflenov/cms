@@ -4,7 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 
-import { IFilterModel } from './filter-model';
+import { IFilterModel, IFilterModelData } from './filter-model';
+import { IApiRequest } from '../../../models/api-request-model'
 
 
 @Injectable()
@@ -18,8 +19,8 @@ export class FiltersService {
 
   }
 
-  getFilters(): Observable<IFilterModel[]> {
-    return this.httpClient.get<IFilterModel[]>(environment.apiCmsServiceEndpoint + this.listurl).pipe(
+  getFilters(): Observable<IFilterModel> {
+    return this.httpClient.get<IFilterModel>(environment.apiCmsServiceEndpoint + this.listurl).pipe(
       tap(),
       catchError(this.handleError)
     );
@@ -31,7 +32,13 @@ export class FiltersService {
     );
   }
 
-  save(model: IFilterModel): Observable<any> {
+  deleteById(id: string): Observable<IApiRequest> {
+    return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.geturl + id).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  save(model: IFilterModelData): Observable<any> {
     if (model.id)
       return this.httpClient.put(environment.apiCmsServiceEndpoint + this.saveUrl, model);
     else 
