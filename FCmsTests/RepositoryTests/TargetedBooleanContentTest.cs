@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [TestClass]
-    public class TargetedBooleanContentTest
+    [Collection("Sequential")]
+    public class TargetedBooleanContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -19,8 +19,7 @@ namespace FCmsTests
         ICmsManager manager;
         IContentStore contentStore;
 
-        [TestInitialize]
-        public void InitTest()
+        public TargetedBooleanContentTest()
         {
             Tools.DeleteCmsFile();
 
@@ -38,10 +37,10 @@ namespace FCmsTests
             manager.Save();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         void CreateBooleanContentValue()
@@ -63,17 +62,17 @@ namespace FCmsTests
             manager.SaveContentStore(contentStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueNotFoundTest()
         {
             CreateBooleanContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueBooleanFilterTest()
         {
             CreateBooleanContentValue();
@@ -81,13 +80,13 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = true }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueExcludeBooleanFilterTest()
         {
             CreateBooleanContentValue();
@@ -98,10 +97,10 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = true }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
     }
 }

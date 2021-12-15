@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
+    [Collection("Sequential")]
     // tests with more than one filter
-    [TestClass]
-    public class TargetedMultiFilterContentTest
+    public class TargetedMultiFilterContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -21,8 +21,7 @@ namespace FCmsTests
         ICmsManager manager;
         IContentStore contentStore;
 
-        [TestInitialize]
-        public void InitTest()
+        public TargetedMultiFilterContentTest()
         {
             Tools.DeleteCmsFile();
 
@@ -41,10 +40,10 @@ namespace FCmsTests
             manager.Save();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         void CreateTextContentValue()
@@ -77,26 +76,26 @@ namespace FCmsTests
             manager.SaveContentStore(contentStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueNotFoundTest()
         {
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com" }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueStringFilterTest()
         {
             CreateTextContentValue();
@@ -104,11 +103,11 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true}).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Equal(1, items.Count());
         }
 
         // exclude gmail and logged in users
-        [TestMethod]
+        [Fact]
         public void TargetedValueExcludeStringFilterTest()
         {
             CreateTextContentValue();
@@ -119,20 +118,20 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Equal(1, items.Count());
         }
 
         // exclude gmail include logged in users
-        [TestMethod]
+        [Fact]
         public void TargetedValue_ExcludeRegEx_IncludeBoolean_StringFilterTest()
         {
             CreateTextContentValue();
@@ -142,16 +141,16 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Equal(0, items.Count());
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Equal(1, items.Count());
         }
     }
 }
