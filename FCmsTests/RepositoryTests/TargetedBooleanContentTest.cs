@@ -60,7 +60,7 @@ namespace FCmsTests
             contentFilter.Values.Add(true);
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace FCmsTests
         {
             CreateBooleanContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
 
             ContentEngine engine = new ContentEngine(repositoryName);

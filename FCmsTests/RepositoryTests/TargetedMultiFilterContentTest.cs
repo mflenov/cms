@@ -74,7 +74,7 @@ namespace FCmsTests
             contentItem.Filters.Add(isloggedincontentFilter);
 
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace FCmsTests
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
             contentStore.Items[0].Filters[1].FilterType = IContentFilter.ContentFilterType.Exclude;
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
@@ -137,7 +137,7 @@ namespace FCmsTests
         {
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
 

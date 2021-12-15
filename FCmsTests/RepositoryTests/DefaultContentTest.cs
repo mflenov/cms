@@ -56,7 +56,7 @@ namespace FCmsTests
                 Data = "UniqueValue"
             };
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
             Assert.AreEqual("UniqueValue", engine.GetContentString(contentName));
@@ -79,7 +79,7 @@ namespace FCmsTests
                 DefinitionId = definitionId,
                 Data = "Second"
             });
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             // check GetContentString
             ContentEngine engine = new ContentEngine(repositoryName);
