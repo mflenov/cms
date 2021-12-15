@@ -65,7 +65,7 @@ namespace FCmsTests
 
             // load and make sure it is there
             ICmsManager loadedmanager = new CmsManager();
-            Assert.Equal(1, loadedmanager.Data.Filters.Count);
+            Assert.Single(loadedmanager.Data.Filters);
 
             Assert.Equal(filter1, loadedmanager.Data.Filters[0].Id);
             Assert.Equal("ValueList Filter", loadedmanager.Data.Filters[0].Name);

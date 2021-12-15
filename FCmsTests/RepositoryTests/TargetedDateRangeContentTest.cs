@@ -70,7 +70,7 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
         }
 
         [Fact]
@@ -81,13 +81,13 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
         }
 
         [Fact]
@@ -100,13 +100,13 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
         }
     }
 }

@@ -83,16 +83,16 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com" }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { IsLoggedIn = false }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true}).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
         }
 
         // exclude gmail and logged in users
@@ -118,16 +118,16 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
         }
 
         // exclude gmail include logged in users
@@ -141,16 +141,16 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = true }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = false }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@gmail.com", IsLoggedIn = false }).ToList();
-            Assert.Equal(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Email = "test@hotmail.com", IsLoggedIn = true }).ToList();
-            Assert.Equal(1, items.Count());
+            Assert.Single(items);
         }
     }
 }
