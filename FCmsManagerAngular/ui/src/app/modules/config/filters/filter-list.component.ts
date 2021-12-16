@@ -30,8 +30,12 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filtersSubs.unsubscribe();
   }
 
-  deleteRow(id: string|undefined): void {
-    const index = this.filters.findIndex(m => m.id == id);
-    this.filters.splice(index, 1);
+  deleteRow(id: string | undefined): void {
+    this.filtersService.deleteById(id!).subscribe({
+      next: result => {
+        const index = this.filters.findIndex(m => m.id == id);
+        this.filters.splice(index, 1);
+      }
+    });
   }
 }
