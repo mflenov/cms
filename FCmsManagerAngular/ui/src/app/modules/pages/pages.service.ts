@@ -6,10 +6,13 @@ import { IPageModel } from './models/pagemodel';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
+import { IApiRequest } from '../../models/api-request-model'
+
 @Injectable()
 
 export class PagesService {
   private listUrl: string = 'api/v1/pages';
+  private url:  string = 'api/v1/page/';
 
   constructor(private httpClient: HttpClient) 
   { }
@@ -17,6 +20,12 @@ export class PagesService {
   getPages(): Observable<IPageModel[]> {
     return this.httpClient.get<IPageModel[]>(environment.apiCmsServiceEndpoint + this.listUrl).pipe(
       tap(),
+      catchError(this.handleError)
+    );
+  }
+
+  deleteById(id: string): Observable<IApiRequest> {
+    return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
       catchError(this.handleError)
     );
   }

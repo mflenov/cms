@@ -12,8 +12,7 @@ import { IApiRequest } from '../../../models/api-request-model'
 
 export class FiltersService {
   private listurl: string = 'api/v1/config/filters';
-  private geturl:  string = 'api/v1/config/filter/';
-  private saveUrl: string = 'api/v1/config/filter';
+  private url:  string = 'api/v1/config/filter/';
 
   constructor(private httpClient: HttpClient) {
 
@@ -27,22 +26,22 @@ export class FiltersService {
   }
 
   getById(id: string): Observable<IFilterModel> {
-    return this.httpClient.get<IFilterModel>(environment.apiCmsServiceEndpoint + this.geturl + id).pipe(
+    return this.httpClient.get<IFilterModel>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteById(id: string): Observable<IApiRequest> {
-    return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.geturl + id).pipe(
+    return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
       catchError(this.handleError)
     );
   }
 
   save(model: IFilterModelData): Observable<any> {
     if (model.id)
-      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.saveUrl, model);
+      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
     else 
-      return this.httpClient.post(environment.apiCmsServiceEndpoint + this.saveUrl, model);
+      return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse): Observable<never> {

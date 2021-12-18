@@ -30,5 +30,11 @@ export class PageListComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined) : void {
+    this.pagesSubs = this.pagesService.deleteById(id!).subscribe({
+      next: data => {
+        const index = this.pages.findIndex(m => m.id == id);
+        this.pages.splice(index, 1);
+      }
+    });
   }  
 }

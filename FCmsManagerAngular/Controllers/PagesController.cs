@@ -31,5 +31,20 @@ namespace FCmsManagerAngular.Controllers
                 };
             }
         }
+
+        [HttpDelete]
+        [Route("api/v1/page/{id}")]
+        public ApiResultModel Delete(string id) {
+            var maanger = new CmsManager(config["DataLocation"]);
+
+            Guid guid;
+            if (Guid.TryParse(id, out guid)) {
+                maanger.DeleteRepository(guid);
+                maanger.Save();
+                return new ApiResultModel(ApiResultModel.SUCCESS);
+            }
+
+            return new ApiResultModel(ApiResultModel.NOT_FOUND);
+        }
     }
 }
