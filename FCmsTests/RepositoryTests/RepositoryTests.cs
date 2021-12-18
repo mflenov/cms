@@ -1,26 +1,25 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 
 namespace FCmsTests
 {
-    [TestClass]
-    public class RepositoryTests
+    [Collection("Sequential")]
+    public class RepositoryTests: IDisposable
     {
-        [TestInitialize] 
-        public void InitTest()
+        public RepositoryTests()
         {
             Tools.DeleteCmsFile();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
-        [TestMethod]
+        [Fact]
         public void AddRepositoryTest()
         {
             // create repository
@@ -37,9 +36,9 @@ namespace FCmsTests
 
             // load manager and make sure the first repo is there
             ICmsManager loadedmanager = new CmsManager();
-            Assert.AreEqual(1, loadedmanager.Data.Repositories.Count);
-            Assert.AreEqual(repositoryId1, loadedmanager.Data.Repositories[0].Id);
-            Assert.AreEqual("Test 1", loadedmanager.Data.Repositories[0].Name);
+            Assert.Single(loadedmanager.Data.Repositories);
+            Assert.Equal(repositoryId1, loadedmanager.Data.Repositories[0].Id);
+            Assert.Equal("Test 1", loadedmanager.Data.Repositories[0].Name);
 
             // add one more repo
             Guid repositoryId2 = Guid.NewGuid();
@@ -54,11 +53,11 @@ namespace FCmsTests
 
             // load manager and make sure the first repo is there
             loadedmanager = new CmsManager();
-            Assert.AreEqual(2, loadedmanager.Data.Repositories.Count);
-            Assert.AreEqual(repositoryId1, loadedmanager.Data.Repositories[0].Id);
-            Assert.AreEqual("Test 1", loadedmanager.Data.Repositories[0].Name);
-            Assert.AreEqual(repositoryId2, loadedmanager.Data.Repositories[1].Id);
-            Assert.AreEqual("Test 2", loadedmanager.Data.Repositories[1].Name);
+            Assert.Equal(2, loadedmanager.Data.Repositories.Count);
+            Assert.Equal(repositoryId1, loadedmanager.Data.Repositories[0].Id);
+            Assert.Equal("Test 1", loadedmanager.Data.Repositories[0].Name);
+            Assert.Equal(repositoryId2, loadedmanager.Data.Repositories[1].Id);
+            Assert.Equal("Test 2", loadedmanager.Data.Repositories[1].Name);
 
             manager.Save();
         }

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { FiltersService } from './filters.service';
-import { IFilterModel } from './filter-model';
+import { IFilterModel, IFilterModelData } from './filter-model';
 
 @Component({
   selector: 'app-filters',
@@ -12,7 +12,7 @@ import { IFilterModel } from './filter-model';
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
-  filters: IFilterModel[] = [];
+  filters: IFilterModelData[] = [];
   filtersSubs!: Subscription;
 
   constructor(private filtersService: FiltersService) {
@@ -21,7 +21,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filtersSubs = this.filtersService.getFilters().subscribe({
       next: filters => {
-        this.filters = filters;
+        this.filters = filters.data;
       }
     });
   }
@@ -30,8 +30,12 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filtersSubs.unsubscribe();
   }
 
-  deleteRow(id: string|undefined): void {
-    const index = this.filters.findIndex(m => m.id == id);
-    this.filters.splice(index, 1);
+  deleteRow(id: string | undefined): void {
+    this.filtersService.deleteById(id!).subscribe({
+      next: result => {
+        const index = this.filters.findIndex(m => m.id == id);
+        this.filters.splice(index, 1);
+      }
+    });
   }
 }

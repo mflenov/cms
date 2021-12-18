@@ -19,11 +19,13 @@ namespace FCmsManagerAngular.Controllers
         }
         
         [Route("api/v1/config/filters")]
-        public IEnumerable<FilterViewModel> Filters()
+        public ApiResultModel Filters()
         {
             var maanger = new CmsManager(config["DataLocation"]);
 
-            return maanger.Data.Filters.Select(m => new FilterViewModel(m));
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                 Data = maanger.Data.Filters.Select(m => new FilterViewModel(m))
+            };
         }
 
         [HttpGet]
@@ -52,6 +54,23 @@ namespace FCmsManagerAngular.Controllers
         {
             ICmsManager manager = new CmsManager(config["DataLocation"]);
             model.Update(manager);
+        }
+
+        [HttpDelete]
+        [Route("api/v1/config/filter/{id}")]
+        public ApiResultModel Delete(string id)
+        {
+            var maanger = new CmsManager(config["DataLocation"]);
+            Guid guid;
+            if (Guid.TryParse(id, out guid)) {
+                var filter = maanger.Data.Filters.Where(n => n.Id == guid).FirstOrDefault();
+                if (filter != null) {
+                    maanger.Data.Filters.Remove(filter);
+                    maanger.Save();
+                    return new ApiResultModel(ApiResultModel.SUCCESS);
+                }
+            }
+            return new ApiResultModel(ApiResultModel.NOT_FOUND);
         }
     }
 }

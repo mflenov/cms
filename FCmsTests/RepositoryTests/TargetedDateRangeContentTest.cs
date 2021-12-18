@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [TestClass]
-    public class TargetedDateRangeContentTest
+    [Collection("Sequential")]
+    public class TargetedDateRangeContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -19,8 +19,7 @@ namespace FCmsTests
         ICmsManager manager;
         IContentStore contentStore;
 
-        [TestInitialize]
-        public void InitTest()
+        public TargetedDateRangeContentTest()
         {
             Tools.DeleteCmsFile();
 
@@ -38,10 +37,10 @@ namespace FCmsTests
             manager.Save();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         void CreateTextContentValue()
@@ -61,20 +60,20 @@ namespace FCmsTests
             contentFilter.Values.Add(DateTime.Today.AddDays(10));
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueNotFoundTest()
         {
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueDateTimeFilterTest()
         {
             CreateTextContentValue();
@@ -82,32 +81,32 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueExcludeDateTimeFilterTest()
         {
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
     }
 }

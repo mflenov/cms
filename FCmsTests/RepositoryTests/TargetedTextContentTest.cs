@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,8 +8,8 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [TestClass]
-    public class TargetedTextContentTest
+    [Collection("Sequential")]
+    public class TargetedTextContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -19,8 +19,7 @@ namespace FCmsTests
         ICmsManager manager;
         IContentStore contentStore;
 
-        [TestInitialize]
-        public void InitTest()
+        public TargetedTextContentTest()
         {
             Tools.DeleteCmsFile();
 
@@ -38,10 +37,10 @@ namespace FCmsTests
             manager.Save();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         void CreateTextContentValue()
@@ -60,20 +59,20 @@ namespace FCmsTests
             contentFilter.Values.Add("MyCoolCard");
             contentItem.Filters.Add(contentFilter);
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueNotFoundTest()
         {
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueStringFilterTest()
         {
             CreateTextContentValue();
@@ -81,26 +80,26 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
         }
 
-        [TestMethod]
+        [Fact]
         public void TargetedValueExcludeStringFilterTest()
         {
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
-            Assert.AreEqual(1, items.Count());
+            Assert.Single(items);
 
             items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
-            Assert.AreEqual(0, items.Count());
+            Assert.Empty(items);
         }
 
     }

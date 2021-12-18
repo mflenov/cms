@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
 
 namespace FCmsTests
 {
-    [TestClass]
-    public class DefaultContentTest
+    [Collection("Sequential")]
+    public class DefaultContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
         const string contentName = "Title";
@@ -16,8 +16,7 @@ namespace FCmsTests
         Guid definitionId = Guid.NewGuid();
         ICmsManager manager;
 
-        [TestInitialize]
-        public void InitTest()
+        public DefaultContentTest()
         {
             Tools.DeleteCmsFile();
 
@@ -31,21 +30,21 @@ namespace FCmsTests
             manager.Save();
         }
 
-        [TestCleanup]
-        public void CleanupTest()
+        public void Dispose()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
-        [TestMethod]
+        [Fact]
         public void DefaultContentNotFoundTest()
         {
             ContentEngine engine = new ContentEngine(repositoryName);
             
-            Assert.AreEqual("", engine.GetContentString(contentName));
+            Assert.Equal("", engine.GetContentString(contentName));
         }
 
-        [TestMethod]
+        [Fact]
         public void DefaultContentExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
@@ -56,14 +55,14 @@ namespace FCmsTests
                 Data = "UniqueValue"
             };
             contentStore.Items.Add(contentItem);
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            Assert.AreEqual("UniqueValue", engine.GetContentString(contentName));
-            Assert.AreEqual(1, engine.GetContentStrings(contentName).Count());
+            Assert.Equal("UniqueValue", engine.GetContentString(contentName));
+            Assert.Single(engine.GetContentStrings(contentName));
         }
 
-        [TestMethod]
+        [Fact]
         public void DefaultContenExistTwoFoundTest()
         {
             IContentStore contentStore = manager.GetContentStore(repositoryId);
@@ -79,17 +78,17 @@ namespace FCmsTests
                 DefinitionId = definitionId,
                 Data = "Second"
             });
-            contentStore.Save();
+            manager.SaveContentStore(contentStore);
 
             // check GetContentString
             ContentEngine engine = new ContentEngine(repositoryName);
-            Assert.AreEqual("First", engine.GetContentString(contentName));
+            Assert.Equal("First", engine.GetContentString(contentName));
 
             // check GetContentStrings
             var list = engine.GetContentStrings(contentName).ToList();
-            Assert.AreEqual(2, list.Count);
-            Assert.AreEqual("First", list[0]);
-            Assert.AreEqual("Second", list[1]);
+            Assert.Equal(2, list.Count);
+            Assert.Equal("First", list[0]);
+            Assert.Equal("Second", list[1]);
         }
     }
 }

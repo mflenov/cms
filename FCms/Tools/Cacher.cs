@@ -16,6 +16,11 @@ namespace FCms.Tools
             }
         }
 
+        public static void Clear()
+        {
+            cache = null;
+        }
+
         public static object Get(string cachekey)
         {
             if (Cacher.Current.Contains(cachekey))
