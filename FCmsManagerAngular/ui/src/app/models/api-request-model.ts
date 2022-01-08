@@ -1,4 +1,7 @@
 export interface IApiRequest {
     status: number;
-    description: string;
+
+   description: string;
+
+    data: any;
 }

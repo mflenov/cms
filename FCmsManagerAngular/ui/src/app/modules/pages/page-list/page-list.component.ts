@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { IPageModel } from '../models/pagemodel';
+import { IPageModel } from '../models/page.model';
 import { PagesService } from '../pages.service';
 
 @Component({

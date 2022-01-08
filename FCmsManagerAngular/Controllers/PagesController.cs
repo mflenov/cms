@@ -32,6 +32,39 @@ namespace FCmsManagerAngular.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/v1/page/structure/{id}")]
+        public ApiResultModel Get(string id)
+        {
+            var maanger = new CmsManager(config["DataLocation"]);
+            Guid repositoryid;
+            if (!Guid.TryParse(id, out repositoryid))
+            {
+                return new ApiResultModel(ApiResultModel.FAIL) {
+                    Description = "Incorrect id: " + id
+                    };
+            }
+
+            IRepository repository = maanger.GetRepositoryById(repositoryid);
+            if (repository == null)
+            {
+                return new ApiResultModel(ApiResultModel.NOT_FOUND);
+            }
+
+            return new ApiResultModel(ApiResultModel.SUCCESS)
+            {
+                Data = new PageStructureViewModel() {
+                    Id = repository.Id,
+                    Name = repository.Name,
+                    ContentDefinitions = repository.ContentDefinitions.Select(m => new ContentDefinitionViewModel() {
+                        DefinitionId = m.DefinitionId,
+                        Name = m.Name,
+                        TypeName = m.GetTypeName()
+                        })
+                    }
+            };
+         }
+
         [HttpDelete]
         [Route("api/v1/page/{id}")]
         public ApiResultModel Delete(string id) {

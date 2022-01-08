@@ -6,8 +6,8 @@
     <div class="cmssubline"></div>
 
     <div class="cmscontrols">
-        <a [routerLink]="['/pages/edit', page.id]">View content</a> |
-        <a [routerLink]="['/pages/edit', page.id]">Define content</a> |
+        <a [routerLink]="['/pages/view-content', page.id]">View content</a> |
+        <a [routerLink]="['/pages/structure', page.id]">Page structure</a> |
         <a href="javascript:void()" (click)="deleteRow(page.id)">Delete</a>
     </div>
 </div>

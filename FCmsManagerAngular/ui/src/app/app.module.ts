@@ -9,6 +9,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 
 import { ConfigModule } from './modules/config/config.module';
 import { PagesModule } from './modules/pages/pages.module';
+import { ContentDefinitionComponent } from './modules/pages/content-definition/content-definition.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { PagesModule } from './modules/pages/pages.module';
     AppComponent,
     NotfoundComponent,
     WelcomeComponent,
+    ContentDefinitionComponent,
   ],
   imports: [
     BrowserModule,

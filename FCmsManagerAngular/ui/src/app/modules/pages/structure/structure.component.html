@@ -1,0 +1,17 @@
+<h1>"{{model.name}}" page structure</h1>
+<div class="cmsrepository">
+    <table class="cmstable ">
+        <tr>
+            <th style="width:60%">Name</th>
+            <th>Type</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let content of model.contentDefinitions" [attr.id]="content.definitionId">
+            <td>
+                <a [routerLink]="['/pages/definition/', content.definitionId]">{{content.name}}</a>
+            </td>
+            <td>{{content.typename}}</td>
+            <td><span class="fa fa-trash link" (click)="deleteRow(content.definitionId)"></span></td>
+        </tr>
+    </table>
+</div>
