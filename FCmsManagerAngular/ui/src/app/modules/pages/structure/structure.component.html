@@ -8,10 +8,15 @@
         </tr>
         <tr *ngFor="let content of model.contentDefinitions" [attr.id]="content.definitionId">
             <td>
-                <a [routerLink]="['/pages/definition/', content.definitionId]">{{content.name}}</a>
+                <input name="name" class="form-control" [(ngModel)]="content.name" />
             </td>
-            <td>{{content.typename}}</td>
+            <td>
+                <select name="filterType" class="form-control" [(ngModel)]="content.typeName">
+                    <option *ngFor="let type of dataTypes | async" value="{{type}}">{{type}}</option>
+                </select>
+            </td>
             <td><span class="fa fa-trash link" (click)="deleteRow(content.definitionId)"></span></td>
         </tr>
     </table>
+    <button class="cmsbutton" (click)="onSubmit()">Save</button>
 </div>

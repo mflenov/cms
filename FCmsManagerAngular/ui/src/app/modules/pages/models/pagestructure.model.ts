@@ -1,7 +1,7 @@
 export interface IContentDefinitions {
   definitionId?: string;
   name: string;
-  typename: string;
+  typeName: string;
 }
 
 export interface IPageStructureModel {
