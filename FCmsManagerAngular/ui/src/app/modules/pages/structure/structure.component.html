@@ -1,22 +1,37 @@
 <h1>"{{model.name}}" page structure</h1>
-<div class="cmsrepository">
-    <table class="cmstable ">
-        <tr>
-            <th style="width:60%">Name</th>
-            <th>Type</th>
-            <th></th>
-        </tr>
-        <tr *ngFor="let content of model.contentDefinitions" [attr.id]="content.definitionId">
-            <td>
-                <input name="name" class="form-control" [(ngModel)]="content.name" />
-            </td>
-            <td>
-                <select name="filterType" class="form-control" [(ngModel)]="content.typeName">
-                    <option *ngFor="let type of dataTypes | async" value="{{type}}">{{type}}</option>
-                </select>
-            </td>
-            <td><span class="fa fa-trash link" (click)="deleteRow(content.definitionId)"></span></td>
-        </tr>
-    </table>
-    <button class="cmsbutton" (click)="onSubmit()">Save</button>
+<div *ngFor="let content of model.contentDefinitions" [attr.id]="content.definitionId" class="cmsrepository">
+    <div class="cmsright fa fa-times link" (click)="deleteRow(content.definitionId)"></div>
+    <div class="row">
+        <div class="col-md-5">
+            <label for="name">Name</label>
+            <input name="name" class="form-control" [(ngModel)]="content.name" />
+        </div>
+
+        <div class="col-md-5">
+            <label for="name">Type</label>
+            <select name="filterType" class="form-control" [(ngModel)]="content.typeName">
+                <option *ngFor="let type of dataTypes | async" value="{{type}}">{{type}}</option>
+            </select>
+        </div>
+
+        <div *ngIf="content.typeName == 'Folder'" class="cmsfolder">
+            <div *ngFor="let folder of content.contentDefinitions" [attr.id]="folder.definitionId">
+                <div class="cmsright fa fa-times link" (click)="deleteRow(folder.definitionId)"></div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="name">Name</label>
+                        <input name="name" class="form-control" [(ngModel)]="folder.name" />
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="name">Type</label>
+                        <select name="filterType" class="form-control" [(ngModel)]="folder.typeName">
+                            <option *ngFor="let type of dataTypes | async" value="{{type}}">{{type}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
 </div>
+<button class="cmsbutton" (click)="onSubmit()">Save</button>

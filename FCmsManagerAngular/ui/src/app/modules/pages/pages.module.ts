@@ -5,14 +5,16 @@ import { SharedModule } from '../../shared/shared.module';
 import { ContentDefinitionComponent } from './content-definition/content-definition.component';
 
 import { PageListComponent } from './page-list/page-list.component';
-import { StructureComponent } from './structure/structure.component'
+import { StructureComponent } from './structure/structure.component';
+import { FolderdefinitionComponent } from './structure/folderdefinition.component'
 
 
 
 @NgModule({
   declarations: [
     PageListComponent,
-    StructureComponent
+    StructureComponent,
+    FolderdefinitionComponent
   ],
   imports: [
     SharedModule,

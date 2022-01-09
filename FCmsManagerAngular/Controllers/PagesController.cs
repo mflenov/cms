@@ -56,11 +56,7 @@ namespace FCmsManagerAngular.Controllers
                 Data = new PageStructureViewModel() {
                     Id = repository.Id,
                     Name = repository.Name,
-                    ContentDefinitions = repository.ContentDefinitions.Select(m => new ContentDefinitionViewModel() {
-                        DefinitionId = m.DefinitionId,
-                        Name = m.Name,
-                        TypeName = m.GetTypeName()
-                        })
+                    ContentDefinitions = repository.ContentDefinitions.Select(m => new ContentDefinitionViewModel(m) {})
                     }
             };
          }

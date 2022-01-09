@@ -210,3 +210,10 @@
 .fcms .form-group{
     padding: 10px 0px;
 }
+
+.fcms .cmsfolder {
+    background:#f5f5f5;
+    border:1px solid #bbb;
+    padding: 8px 8px 8px 0px;
+    margin-top: 10px;
+}
