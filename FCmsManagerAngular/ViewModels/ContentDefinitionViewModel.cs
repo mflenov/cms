@@ -1,4 +1,6 @@
 ﻿using System;
+using FCms.Content;
+
 namespace FCmsManagerAngular.ViewModels
 {
     public class ContentDefinitionViewModel
@@ -8,5 +10,13 @@ namespace FCmsManagerAngular.ViewModels
         public string Name { get; set; }
 
         public string TypeName { get; set; }
+
+        public IContentDefinition ConvertToContentDefinition()
+        {
+            IContentDefinition definition = FCms.Factory.ContentFactory.CreateContentDefinition(TypeName);
+            definition.DefinitionId = DefinitionId;
+            definition.Name = Name;            
+            return definition;
+        }
     }
 }

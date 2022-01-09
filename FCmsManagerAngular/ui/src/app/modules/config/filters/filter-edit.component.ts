@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 
 import { FiltersService } from './filters.service';
 import { IFilterModel, IFilterModelData } from './filter-model';
-import { CmsenumsService } from '../cmsenums.service'
-import { IEnumsModel } from '../enums-model'
+import { CmsenumsService } from '../../../services/cmsenums.service'
+import { IEnumsModel } from '../../../models/enums-model'
 
 
 @Component({
@@ -30,8 +30,10 @@ export class FilterComponent implements OnInit, OnDestroy {
   modelSubs!: Subscription;
   filterTypeSubs!: Subscription;
 
-  constructor(private filtersService: FiltersService, private route: ActivatedRoute,
-    private router: Router, private cmsenumsService: CmsenumsService) {
+  constructor(private filtersService: FiltersService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cmsenumsService: CmsenumsService) {
   }
 
   ngOnInit(): void {

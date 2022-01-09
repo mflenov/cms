@@ -5,11 +5,14 @@ namespace FCmsManagerAngular.ViewModels
 {
     public class EnumViewModel
     {
-        public IEnumerable<string> filterTypes
+        public IEnumerable<string> dilterTypes
         {
-            get {
-                return Enum.GetNames(typeof(FCms.Content.IFilter.FilterType));
-            }
+            get { return Enum.GetNames(typeof(FCms.Content.IFilter.FilterType)); }
+        }
+
+        public IEnumerable<string> contentDataTypes
+        {
+            get { return Enum.GetNames(typeof(FCms.Content.ContentDefinitionType)); }
         }
     }
 }

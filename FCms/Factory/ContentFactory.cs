@@ -23,11 +23,20 @@ namespace FCms.Factory
 
         public static IContentDefinition CreateContentDefinition(string typeName)
         {
-            if ((typeName != null) && (typeName.ToUpperInvariant() == "STRING"))
-            {
+            if (typeName == null) {
                 return new StringContentDefinition();
             }
-            return new StringContentDefinition();
+
+            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.String.ToString().ToUpperInvariant()) {
+                return new StringContentDefinition();
+            }
+            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.LongString.ToString().ToUpperInvariant()) {
+                return new LongStringContentDefinition();
+            }
+            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.Folder.ToString().ToUpperInvariant()) {
+                return new FolderContentDefinition();
+            }
+            throw new System.Exception("Not supported type");
         }
     }
 }

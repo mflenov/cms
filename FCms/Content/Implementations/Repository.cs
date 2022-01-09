@@ -65,6 +65,11 @@ namespace FCms.Content
             contentDefinitions.Add(definition);
         }
 
+        public void UpdateDefinitions(List<IContentDefinition> definitions)
+        {
+            this.contentDefinitions = definitions;
+        }
+
         #endregion
     }
 }

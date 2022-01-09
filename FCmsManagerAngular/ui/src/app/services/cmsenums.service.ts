@@ -4,8 +4,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators'
 
-import { IEnumsModel } from './enums-model'
-import { environment } from '../../../environments/environment';
+import { IEnumsModel } from '../models/enums-model'
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -14,8 +14,11 @@ import { environment } from '../../../environments/environment';
 
 
 export class CmsenumsService {
-  private url = 'api/v1/data/enums'
+  private enumurl = 'api/v1/data/enums'
+  private datatypeurl = 'api/v1/data/datatypes'
+
   private enumModel?: IEnumsModel
+  private contentTypeModel?: IEnumsModel
 
   constructor(private httpClient: HttpClient) { 
   }
@@ -25,7 +28,7 @@ export class CmsenumsService {
       return of(this.enumModel!);
     }
 
-    return this.httpClient.get<IEnumsModel>(environment.apiCmsServiceEndpoint + this.url).pipe(
+    return this.httpClient.get<IEnumsModel>(environment.apiCmsServiceEndpoint + this.enumurl).pipe(
       tap(data => this.enumModel = data),
       catchError(this.handleError)
     );

@@ -15,6 +15,7 @@
     <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="ui\src\app\modules\pages\page-definition\" />
+    <None Remove="ui\src\app\services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
@@ -23,5 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ui\src\app\modules\pages\content-definition\" />
+    <Folder Include="ui\src\app\services\" />
   </ItemGroup>
 </Project>

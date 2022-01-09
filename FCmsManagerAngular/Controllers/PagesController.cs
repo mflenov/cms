@@ -21,9 +21,9 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/pages")]
         public IEnumerable<PageViewModel> Index()
         {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
 
-            foreach (IRepository repository in maanger.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
+            foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
             {
                 yield return new PageViewModel(){
                     Id = repository.Id,
@@ -36,7 +36,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/page/structure/{id}")]
         public ApiResultModel Get(string id)
         {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
             Guid repositoryid;
             if (!Guid.TryParse(id, out repositoryid))
             {
@@ -45,7 +45,7 @@ namespace FCmsManagerAngular.Controllers
                     };
             }
 
-            IRepository repository = maanger.GetRepositoryById(repositoryid);
+            IRepository repository = manager.GetRepositoryById(repositoryid);
             if (repository == null)
             {
                 return new ApiResultModel(ApiResultModel.NOT_FOUND);
@@ -65,15 +65,32 @@ namespace FCmsManagerAngular.Controllers
             };
          }
 
+        [HttpPut]
+        [Route("api/v1/page")]
+        public ApiResultModel Put(PageStructureViewModel model)
+        {
+            var manager = new CmsManager(config["DataLocation"]);
+
+            IRepository repository = manager.GetRepositoryById(model.Id);
+            if (repository == null)
+            {
+                return new ApiResultModel(ApiResultModel.NOT_FOUND);
+            }
+            model.MapToModel(repository);
+            manager.Save();
+
+            return new ApiResultModel(ApiResultModel.SUCCESS);
+         }
+
         [HttpDelete]
         [Route("api/v1/page/{id}")]
         public ApiResultModel Delete(string id) {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
 
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
-                maanger.DeleteRepository(guid);
-                maanger.Save();
+                manager.DeleteRepository(guid);
+                manager.Save();
                 return new ApiResultModel(ApiResultModel.SUCCESS);
             }
 

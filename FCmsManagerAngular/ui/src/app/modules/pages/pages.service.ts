@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { IPageModel } from './models/page.model';
+import { IPageStructureModel } from './models/pagestructure.model'
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -36,6 +37,13 @@ export class PagesService {
     return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
       catchError(this.handleError)
     );
+  }
+
+  save(model: IPageStructureModel): Observable<any> {
+    if (model.id)
+      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
+    else
+      return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse):Observable<never>  {

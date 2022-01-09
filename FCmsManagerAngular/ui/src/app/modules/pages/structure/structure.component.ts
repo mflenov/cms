@@ -1,10 +1,11 @@
 import { NgForm } from '@angular/forms'
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of, Observable } from 'rxjs';
 
-import { PagesService } from '../pages.service';
-//import { cmsenumsService } from '../'
+import { CmsenumsService } from '../../../services/cmsenums.service'
+import { PagesService } from '../pages.service'
+import { IEnumsModel } from '../../../models/enums-model'
 import { IPageStructureModel } from '../models/pagestructure.model'
 
 @Component({
@@ -14,17 +15,23 @@ import { IPageStructureModel } from '../models/pagestructure.model'
   providers: [PagesService]
 })
 
-export class StructureComponent implements OnInit {
+export class StructureComponent implements OnInit, OnDestroy {
   private modelSubs!: Subscription;
+  private dataTypesSubs!: Subscription;
+
   dataTypes!: Observable<string[]>
 
   model: IPageStructureModel = {} as IPageStructureModel;
 
-  constructor(private route: ActivatedRoute, private pagesService: PagesService,
-     ) { }
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private pagesService: PagesService,
+    private cmsenumsService: CmsenumsService) { }
 
   ngOnInit(): void {
-    //this.dataTypes = this.
+    this.dataTypesSubs = this.cmsenumsService.getEnums().subscribe({
+      next: model => { this.dataTypes = of(model.contentDataTypes) }
+    });
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -38,11 +45,24 @@ export class StructureComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.dataTypesSubs) {
+      this.dataTypesSubs.unsubscribe();
+    }
+    if (this.modelSubs) {
+      this.modelSubs.unsubscribe();
+    }
+  }
+
   deleteRow(id: string | undefined): void {
 
   }
 
   onSubmit(): void {
-    debugger;
+    this.pagesService.save(this.model).subscribe({
+      next: data => {
+        this.router.navigate(['/pages']);
+      }
+    });
   }
 }
