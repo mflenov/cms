@@ -18,6 +18,7 @@ namespace FCms.Content
         List<IContentDefinition> contentDefinitions = new List<IContentDefinition>();
         public List<IContentDefinition> ContentDefinitions {
             get { return contentDefinitions; }
+            set { contentDefinitions = value.ToList(); }
         }
 
 
@@ -48,7 +49,7 @@ namespace FCms.Content
             var item = ContentDefinitions.Where(m => m.DefinitionId == id).FirstOrDefault();
             if (item != null)
             {
-                ContentDefinitions.Remove(item);
+                contentDefinitions.Remove(item);
             }
 
         }
@@ -63,11 +64,6 @@ namespace FCms.Content
             definition.DefinitionId = Guid.NewGuid();
             definition.Name = name;
             contentDefinitions.Add(definition);
-        }
-
-        public void UpdateDefinitions(List<IContentDefinition> definitions)
-        {
-            this.contentDefinitions = definitions;
         }
 
         #endregion

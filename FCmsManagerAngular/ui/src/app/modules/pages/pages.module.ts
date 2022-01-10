@@ -6,7 +6,8 @@ import { ContentDefinitionComponent } from './content-definition/content-definit
 
 import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
-import { FolderdefinitionComponent } from './structure/folderdefinition.component'
+import { FolderdefinitionComponent } from './structure/folderdefinition.component';
+import { ContentdefinitionComponent } from './structure/contentdefinition.component'
 
 
 
@@ -14,7 +15,8 @@ import { FolderdefinitionComponent } from './structure/folderdefinition.componen
   declarations: [
     PageListComponent,
     StructureComponent,
-    FolderdefinitionComponent
+    FolderdefinitionComponent,
+    ContentdefinitionComponent
   ],
   imports: [
     SharedModule,

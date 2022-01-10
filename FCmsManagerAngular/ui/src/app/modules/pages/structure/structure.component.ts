@@ -54,11 +54,8 @@ export class StructureComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteRow(id: string | undefined): void {
-
-  }
-
   onSubmit(): void {
+    debugger;
     this.pagesService.save(this.model).subscribe({
       next: data => {
         this.router.navigate(['/pages']);

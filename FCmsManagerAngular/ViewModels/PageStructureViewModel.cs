@@ -16,9 +16,8 @@ namespace FCmsManagerAngular.ViewModels
 
         public void MapToModel(IRepository repository)
         {
-            repository.UpdateDefinitions(ContentDefinitions.Select(m => m.ConvertToContentDefinition()).ToList());
+            repository.ContentDefinitions = ContentDefinitions.Select(m => m.ConvertToContentDefinition()).ToList();
             repository.Name = Name;
-
         }
     }
 }

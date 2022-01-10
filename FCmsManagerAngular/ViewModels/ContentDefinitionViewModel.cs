@@ -34,7 +34,11 @@ namespace FCmsManagerAngular.ViewModels
         {
             IContentDefinition definition = FCms.Factory.ContentFactory.CreateContentDefinition(TypeName);
             definition.DefinitionId = DefinitionId;
-            definition.Name = Name;            
+            definition.Name = Name;
+            if (definition is FolderContentDefinition)
+            {
+                (definition as FolderContentDefinition).Definitions = ContentDefinitions.Select(m => m.ConvertToContentDefinition()).ToList();
+            }
             return definition;
         }
     }
