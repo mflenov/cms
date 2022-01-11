@@ -6,8 +6,8 @@ import { ContentDefinitionComponent } from './content-definition/content-definit
 
 import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
-import { FolderdefinitionComponent } from './structure/folderdefinition.component';
-import { ContentdefinitionComponent } from './structure/contentdefinition.component'
+import { ContentdefinitionComponent } from './structure/content-definition.component';
+import { EditpageComponent } from './editpage/editpage.component'
 
 
 
@@ -15,8 +15,8 @@ import { ContentdefinitionComponent } from './structure/contentdefinition.compon
   declarations: [
     PageListComponent,
     StructureComponent,
-    FolderdefinitionComponent,
-    ContentdefinitionComponent
+    ContentdefinitionComponent,
+    EditpageComponent
   ],
   imports: [
     SharedModule,
@@ -25,7 +25,8 @@ import { ContentdefinitionComponent } from './structure/contentdefinition.compon
         { path: 'pages', component: PageListComponent },
         { path: 'pages/add', component: StructureComponent },
         { path: 'pages/structure/:id', component: StructureComponent },
-        { path: 'pages/definition/:id', component: ContentDefinitionComponent }
+        { path: 'pages/definition/:id', component: ContentDefinitionComponent },
+        { path: 'pages/edit/:id', component: EditpageComponent }
       ]
     )
   ]

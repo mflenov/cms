@@ -1,18 +1,17 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IContentDefinitions } from '../models/pagestructure.model'
+import { IContentDefinitionsModel } from '../models/content-definitions.model'
 import { Subscription, of, Observable } from 'rxjs';
 
 import { CmsenumsService } from '../../../services/cmsenums.service'
-import { IEnumsModel } from '../../../models/enums-model'
 
 
 @Component({
-  selector: 'app-contentdefinition',
-  templateUrl: './contentdefinition.component.html',
-  styleUrls: ['./contentdefinition.component.css']
+  selector: 'app-content-definition',
+  templateUrl: './content-definition.component.html',
+  styleUrls: ['./content-definition.component.css']
 })
 export class ContentdefinitionComponent implements OnInit, OnDestroy {
-  @Input() content: IContentDefinitions = {} as IContentDefinitions;
+  @Input() content: IContentDefinitionsModel = {} as IContentDefinitionsModel;
 
   dataTypes!: Observable<string[]>
 

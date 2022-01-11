@@ -14,7 +14,7 @@
 
     <div *ngIf="content.typeName == 'Folder'" class="cmsfolder">
         <div *ngFor="let folder of content.contentDefinitions" [attr.id]="folder.definitionId">
-            <app-contentdefinition [content]='folder'></app-contentdefinition>
+            <app-content-definition [content]='folder'></app-content-definition>
         </div>
     </div>
 </div>

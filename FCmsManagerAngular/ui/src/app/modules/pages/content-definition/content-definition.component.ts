@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, of } from 'rxjs';
 
-import { PagesService } from '../pages.service';
-import { IPageStructureModel } from '../models/pagestructure.model'
+import { PagesService } from '../services/pages.service';
+import { IPageStructureModel } from '../models/page-structure.model'
 
 @Component({
   selector: 'app-content-definition',

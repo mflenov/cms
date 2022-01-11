@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { IPageModel } from '../models/page.model';
-import { PagesService } from '../pages.service';
+import { PagesService } from '../services/pages.service';
 
 @Component({
   selector: 'app-page-list',

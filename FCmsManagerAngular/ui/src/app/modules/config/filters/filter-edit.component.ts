@@ -6,10 +6,8 @@ import { Observable } from 'rxjs';
 
 
 import { FiltersService } from './filters.service';
-import { IFilterModel, IFilterModelData } from './filter-model';
+import { IFilterModel } from '../../../models/filter-model';
 import { CmsenumsService } from '../../../services/cmsenums.service'
-import { IEnumsModel } from '../../../models/enums-model'
-
 
 @Component({
   selector: 'app-filter',
@@ -19,7 +17,7 @@ import { IEnumsModel } from '../../../models/enums-model'
 })
 
 export class FilterComponent implements OnInit, OnDestroy {
-  model: IFilterModelData = {
+  model: IFilterModel = {
     name : '',
     type : 'string'
   };
@@ -44,7 +42,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.modelSubs = this.filtersService.getById(id).subscribe({
-        next: model => { this.model = model.data[0] }
+        next: model => {  this.model = model }
       });
     }
   }

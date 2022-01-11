@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of, Observable } from 'rxjs';
 
 import { CmsenumsService } from '../../../services/cmsenums.service'
-import { PagesService } from '../pages.service'
+import { PagesService } from '../services/pages.service'
 import { IEnumsModel } from '../../../models/enums-model'
-import { IPageStructureModel } from '../models/pagestructure.model'
+import { IPageStructureModel } from '../models/page-structure.model'
 
 @Component({
   selector: 'app-structure',
@@ -55,7 +55,6 @@ export class StructureComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    debugger;
     this.pagesService.save(this.model).subscribe({
       next: data => {
         this.router.navigate(['/pages']);

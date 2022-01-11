@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { FiltersService } from './filters.service';
-import { IFilterModel, IFilterModelData } from './filter-model';
+import { IFilterModel } from '../../../models/filter-model';
 
 @Component({
   selector: 'app-filters',
@@ -12,7 +12,7 @@ import { IFilterModel, IFilterModelData } from './filter-model';
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
-  filters: IFilterModelData[] = [];
+  filters: IFilterModel[] = [];
   filtersSubs!: Subscription;
 
   constructor(private filtersService: FiltersService) {
@@ -21,7 +21,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.filtersSubs = this.filtersService.getFilters().subscribe({
       next: filters => {
-        this.filters = filters.data;
+        this.filters = filters.data as IFilterModel[];
       }
     });
   }

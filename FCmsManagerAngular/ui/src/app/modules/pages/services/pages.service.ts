@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
-import { IPageModel } from './models/page.model';
-import { IPageStructureModel } from './models/pagestructure.model'
+import { IPageModel } from '../models/page.model';
+import { IPageStructureModel } from '../models/page-structure.model'
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
-import { IApiRequest } from '../../models/api-request-model'
+import { IApiRequestModel } from 'src/app/models/api-request-model'
 
 @Injectable()
 
@@ -26,15 +26,15 @@ export class PagesService {
     );
   }
 
-  getPage(id: string): Observable<IApiRequest> {
-    return this.httpClient.get<IApiRequest>(environment.apiCmsServiceEndpoint + this.definitionurl + id).pipe(
+  getPage(id: string): Observable<IApiRequestModel> {
+    return this.httpClient.get<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.definitionurl + id).pipe(
       tap(),
       catchError(this.handleError)
     );
   }
 
-  deleteById(id: string): Observable<IApiRequest> {
-    return this.httpClient.delete<IApiRequest>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
+  deleteById(id: string): Observable<IApiRequestModel> {
+    return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
       catchError(this.handleError)
     );
   }
