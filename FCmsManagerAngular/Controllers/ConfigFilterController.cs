@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManagerAngular.ViewModels;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +17,7 @@ namespace FCmsManagerAngular.Controllers
             this.config = config;
         }
         
+        [HttpGet]
         [Route("api/v1/config/filters")]
         public ApiResultModel Filters()
         {
