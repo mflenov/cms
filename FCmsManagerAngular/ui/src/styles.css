@@ -32,6 +32,10 @@
   color: #f07b66;
 }
 
+.fcms label {
+  color:#555;
+}
+
 .fcms a:hover {
   color: #f07b66;
   text-decoration: underline;
@@ -216,4 +220,8 @@
     border:1px solid #bbb;
     padding: 8px 8px 8px 0px;
     margin-top: 10px;
+}
+
+.fcms .cmsfolder h3 {
+  padding-left: 12px;
 }

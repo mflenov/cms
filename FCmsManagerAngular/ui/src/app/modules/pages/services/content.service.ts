@@ -1,25 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { HttpClient, HttpErrorResponse, HttpHandler } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-import { IApiRequest } from 'src/app/models/api-request-model'
+import { environment } from 'src/environments/environment';
+import { IApiRequestModel } from 'src/app/models/api-request-model'
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class ContentService {
-  private editpageurl: string = 'api/v1/content/';
+    private editpageurl: string = 'api/v1/content';
 
-  constructor(private httpClient: HttpClient) { 
-  }
+    constructor(private httpClient: HttpClient) {
+    }
 
-  getPageContent(id: string): Observable<IApiRequest> {
-    return this.httpClient.get<IApiRequest>(environment.apiCmsServiceEndpoint + this.editpageurl + id).pipe(
-      tap(),
-      catchError(this.handleError)
-    );
-  }
+    getPageContent(id: string): Observable<IApiRequestModel> {
+        const headers = { 
+            'content-type': 'application/json',
+            'accept': 'text/plain' 
+        } ;
+        return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editpageurl, 
+            {
+                repositoryid: id,
+                filters: null
+            },
+            { 'headers' : headers });
+    }
+
+    handleError(err: HttpErrorResponse): Observable<never> {
+        let errorMessage = '';
+        if (err.error instanceof ErrorEvent) {
+            // network error
+            errorMessage = `An error occurred: ${err.error.message}`;
+        } else {
+            // bad response code
+            errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+        }
+        console.error(errorMessage);
+        return throwError(errorMessage);
+    }
 }

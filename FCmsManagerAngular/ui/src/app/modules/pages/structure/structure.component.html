@@ -1,5 +1,5 @@
 <h1>"{{model.name}}" page structure</h1>
-<div *ngFor="let content of model.contentDefinitions" [attr.id]="content.definitionId" class="cmsrepository">
-    <app-content-definition [content]='content'></app-content-definition>
+<div *ngFor="let definition of model.contentDefinitions" [attr.id]="definition.definitionId" class="cmsrepository">
+    <app-content-definition [definition]='definition'></app-content-definition>
 </div>
 <button class="cmsbutton" (click)="onSubmit()">Save</button>

@@ -1,9 +1,11 @@
-import { IContentFilterModel } from './contentfilter.model';
+import { IContentFilterModel } from './content-filter.model';
 
 export interface IContentItemModel {
-  id?: string;
-  definitionId?: string;
-  toolTip?: string;
-  values: string[];
-  filters: IContentFilterModel;
+    id?: string;
+    definitionId: string;
+    toolTip?: string;
+    data: any;
+    isFolder: boolean;
+    filters: IContentFilterModel;
+    children: IContentItemModel[];
 }

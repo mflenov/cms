@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 namespace FCmsManagerAngular.Controllers
 {
     [ApiController]
-    public class ContentController
+    public class ContentController : ControllerBase
     {
         IConfiguration config;
 
@@ -16,22 +16,22 @@ namespace FCmsManagerAngular.Controllers
             this.config = config;
         }
 
-        [HttpGet]
-        [Route("api/v1/content/{repositoryid}")]
-        public ApiResultModel Index(Guid repositoryid, Guid definitionid)
+        [HttpPost]
+        [Route("api/v1/content")]
+        public ApiResultModel Index(ContentRequestModel request)
         {
             CmsManager manager = new CmsManager(config["DataLocation"]);
-            IRepository repository = manager.GetRepositoryById(repositoryid);
+            IRepository repository = manager.GetRepositoryById(request.repositoryid);
 
-            IContentStore contentStore = manager.GetContentStore(repositoryid);
+            IContentStore contentStore = manager.GetContentStore(request.repositoryid);
 
-            ContentListViewModel model = new ContentListViewModel() {
-                RepositoryId = repositoryid,
-                RepositoryName = repository.Name,
-                ContentDefinitions = repository.ContentDefinitions,
-                ContentItems = contentStore.Items.Where(m => m.Filters.Count == 0).ToList()
+            IEnumerable<ContentItem> contentItems = request.filters == null ?
+                contentStore.Items.Where(m => m.Filters.Count == 0):
+                contentStore.Items.Where(m => m.MatchFilters(request.filters));
+
+            PageContentViewModel model = new PageContentViewModel() {
+                ContentItems = contentItems.Select(m => new ContentViewModel(m))
                 };
-
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
                 Data = model

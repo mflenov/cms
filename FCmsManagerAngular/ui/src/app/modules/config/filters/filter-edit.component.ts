@@ -10,57 +10,57 @@ import { IFilterModel } from '../../../models/filter-model';
 import { CmsenumsService } from '../../../services/cmsenums.service'
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter-edit.component.html',
-  styleUrls: ['./filter-edit.component.css'],
-  providers: [FiltersService]
+    selector: 'app-filter',
+    templateUrl: './filter-edit.component.html',
+    styleUrls: ['./filter-edit.component.css'],
+    providers: [FiltersService]
 })
 
 export class FilterComponent implements OnInit, OnDestroy {
-  model: IFilterModel = {
-    name : '',
-    type : 'string'
-  };
+    model: IFilterModel = {
+        name: '',
+        type: 'string'
+    };
 
-  filterTypes!: Observable<string[]>;
+    filterTypes!: Observable<string[]>;
 
 
-  modelSubs!: Subscription;
-  filterTypeSubs!: Subscription;
+    modelSubs!: Subscription;
+    filterTypeSubs!: Subscription;
 
-  constructor(private filtersService: FiltersService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private cmsenumsService: CmsenumsService) {
-  }
-
-  ngOnInit(): void {
-    this.filterTypeSubs = this.cmsenumsService.getEnums().subscribe({
-      next: model => { this.filterTypes = of(model.filterTypes); }
-    });
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.modelSubs = this.filtersService.getById(id).subscribe({
-        next: model => {  this.model = model }
-      });
+    constructor(private filtersService: FiltersService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private cmsenumsService: CmsenumsService) {
     }
-  }
 
-  ngOnDestroy(): void {
-    if (this.modelSubs) {
-      this.modelSubs.unsubscribe();
-    }
-    if (this.filterTypeSubs) {
-      this.filterTypeSubs.unsubscribe();
-    }
-  }
+    ngOnInit(): void {
+        this.filterTypeSubs = this.cmsenumsService.getEnums().subscribe({
+            next: model => { this.filterTypes = of(model.filterTypes); }
+        });
 
-  onSubmit(form: NgForm): void {
-    this.filtersService.save(this.model).subscribe({
-      next: data => {
-        this.router.navigate(['/config/filters']);
-      }
-    });
-  }
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.modelSubs = this.filtersService.getById(id).subscribe({
+                next: model => { this.model = model }
+            });
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.modelSubs) {
+            this.modelSubs.unsubscribe();
+        }
+        if (this.filterTypeSubs) {
+            this.filterTypeSubs.unsubscribe();
+        }
+    }
+
+    onSubmit(form: NgForm): void {
+        this.filtersService.save(this.model).subscribe({
+            next: data => {
+                this.router.navigate(['/config/filters']);
+            }
+        });
+    }
 }

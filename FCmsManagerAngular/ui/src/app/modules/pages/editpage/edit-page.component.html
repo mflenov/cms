@@ -1,0 +1,8 @@
+<h1>"{{definition.name}}" content</h1>
+
+<ng-container *ngFor="let definition of definition.contentDefinitions">
+    <div [attr.id]="definition.definitionId" class="cmsrepository">
+        <app-page-content [definition]='definition' [data]='data.contentItems'></app-page-content>
+    </div>
+</ng-container>
+<button class="cmsbutton" (click)="onSubmit()">Save</button>

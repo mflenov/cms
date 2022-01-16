@@ -15,6 +15,8 @@ namespace FCms.Content
 
         public string ToolTip { get; set; }
 
+        public string Data { get { return this.GetValue().ToString(); } }
+
         public bool MatchFilters(List<IContentFilter> filters);
 
         public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters);
