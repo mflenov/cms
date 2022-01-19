@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { IContentItemModel } from '../models/content-item.model';
 
 import { IPageContentModel  } from '../models/page-content.model';
@@ -26,27 +26,25 @@ export class EditpageComponent implements OnInit, OnDestroy {
     constructor(
         private contentService: ContentService,
         private pagesService: PagesService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
         ) { }
 
     ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
 
-        if (id) {        
-            this.contentSubs = this.contentService.getPageContent(id).subscribe({
-                next: model => {
-                    for (const item in this.data.contentItems) {
-                        const definitionId = this.data.contentItems[item].definitionId
+        if (id) {
+            this.contentService.getPageContent(id).subscribe(content => {
+                this.pagesService.getPage(id).subscribe(definition => {
+                    if (definition.status == 1 && definition.data) {
+                        this.definition = definition.data as IPageStructureModel;
+
+                        this.data = (content.data as IPageContentModel);
+                        for (const item in this.data.contentItems) {
+                            const definitionId = this.data.contentItems[item].definitionId;
+                        }
                     }
-                    this.data = (model.data as IPageContentModel)
-                }
-            });
-            this.definitionSubs = this.pagesService.getPage(id).subscribe({
-                next: result => {
-                    if (result.status == 1 && result.data) {
-                        this.definition = result.data as IPageStructureModel;
-                    }
-                }
+                })
             })
         }
     }
@@ -61,6 +59,10 @@ export class EditpageComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(): void {
-
+        this.contentService.save(this.data).subscribe({
+            next: data => {
+                this.router.navigate(['/pages']);
+            }
+        });
     }
 }

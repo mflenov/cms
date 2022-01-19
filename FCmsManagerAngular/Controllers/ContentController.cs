@@ -30,8 +30,42 @@ namespace FCmsManagerAngular.Controllers
                 contentStore.Items.Where(m => m.MatchFilters(request.filters));
 
             PageContentViewModel model = new PageContentViewModel() {
+                RepositoryId = request.repositoryid,
                 ContentItems = contentItems.Select(m => new ContentViewModel(m))
                 };
+
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                Data = model
+            };
+        }
+
+        [HttpPut]
+        [Route("api/v1/content")]
+        public ApiResultModel Save(PageContentViewModel model)
+        {
+            CmsManager manager = new CmsManager(config["DataLocation"]);
+            IRepository repository = manager.GetRepositoryById(model.RepositoryId);
+            IContentStore contentStore = manager.GetContentStore(model.RepositoryId);
+
+            var definitionCache = repository.ContentDefinitions.ToDictionary(m => m.DefinitionId, m => m);
+            var storeItems = contentStore.Items.Where(m => model.ContentItems.Any(c => c.Id == m.Id)).ToDictionary(m => m.Id, m => m);
+
+            foreach (var item in model.ContentItems)
+            {
+                var definition = definitionCache[item.DefinitionId];
+                if (storeItems.ContainsKey(item.Id))
+                {
+                    item.MapToModel(storeItems[item.Id], definition);
+                }
+                else
+                {
+                    var newitem = FCms.Factory.ContentFactory.CreateContentByType(definition);
+                    item.MapToModel(newitem, definition);
+                    contentStore.Items.Add(newitem);
+                }
+
+            }
+            manager.SaveContentStore(contentStore);
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
                 Data = model

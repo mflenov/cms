@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
+import { IPageContentModel } from '../models/page-content.model';
 
 
 @Injectable({
@@ -28,6 +29,10 @@ export class ContentService {
                 filters: null
             },
             { 'headers' : headers });
+    }
+
+    save(model: IPageContentModel): Observable<any> {
+        return this.httpClient.put(environment.apiCmsServiceEndpoint + this.editpageurl, model);
     }
 
     handleError(err: HttpErrorResponse): Observable<never> {

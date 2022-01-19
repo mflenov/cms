@@ -17,9 +17,14 @@ namespace FCmsManagerAngular.ViewModels {
 
         public IEnumerable<ContentFilterViewModel> Filters { get; set; } = new List<ContentFilterViewModel>();
 
-        public IEnumerable<ContentViewModel> Children { get; set; }
+        public IEnumerable<ContentViewModel> Children { get; set; } = new List<ContentViewModel>();
 
         public bool IsFolder { get; set; }
+
+        public ContentViewModel()
+        {
+
+        }
 
         public ContentViewModel(IContent contentItem)
         {
@@ -34,6 +39,28 @@ namespace FCmsManagerAngular.ViewModels {
                 FilterType = m.FilterType,
                 Values = m.Values
             });
+        }
+
+        public void MapToModel(ContentItem model, IContentDefinition contentDefinition)
+        {
+            if (model is ContentFolderItem)
+            {
+                MapFolder(model, contentDefinition);
+            }
+            else
+            {
+                MapScalar(model);
+            }
+        }
+        private void MapScalar(ContentItem model)
+        {
+            if (model is StringContentItem)
+            {
+                (model as StringContentItem).Data = Data.ToString();
+            }
+        }
+
+        private  void MapFolder(ContentItem model, IContentDefinition contentDefinition) {
         }
     }
 }
