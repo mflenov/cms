@@ -6,14 +6,13 @@
         <ng-template #thenBlock>
             <app-content-editor [definition]='definition' [content]='content[definition.definitionId]'></app-content-editor>
         </ng-template>
-        <ng-template #elseBlock>
-            <h3>{{definition.name}}</h3>
-            <div>Value for {{definition.name}} not found.</div>
-            <button class="cmsbutton" (click)="addValue(definition.definitionId)">Add value</button>
+        <ng-template #elseBlock >
+            <div *ngIf="isNewItemVisible">
+                <h3>{{definition.name}}</h3>
+                <div>Value for {{definition.name}} not found.</div>
+                <button class="cmsbutton" (click)="addValue(definition.definitionId)">Add value</button>
+            </div>
         </ng-template>
-
-
+        <ng-template newContentItem></ng-template>
     </div>
 </div>
-
-<ng-template newContentItem></ng-template>

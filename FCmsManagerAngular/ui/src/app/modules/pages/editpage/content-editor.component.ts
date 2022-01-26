@@ -4,16 +4,16 @@ import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 
 @Component({
-    selector: 'app-content-editor',
-    templateUrl: './content-editor.component.html',
-    styleUrls: ['./content-editor.component.css']
+  selector: 'app-content-editor',
+  templateUrl: './content-editor.component.html',
+  styleUrls: ['./content-editor.component.css']
 })
 export class ContentEditorComponent implements OnInit {
-    @Input() definition!: IContentDefinitionsModel;
-    @Input() content!: any;
+  @Input() definition!: IContentDefinitionsModel;
+  @Input() content!: any;
 
-    constructor() { }
+  constructor() { }
 
-    ngOnInit(): void {
-    }
+  ngOnInit(): void {
+  }
 }

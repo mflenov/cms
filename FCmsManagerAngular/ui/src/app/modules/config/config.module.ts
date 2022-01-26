@@ -10,21 +10,21 @@ import { FilterComponent } from './filters/filter-edit.component';
 
 
 @NgModule({
-    declarations: [
-        FiltersComponent,
-        HomeComponent,
-        FilterComponent
-    ],
-    imports: [
-        SharedModule,
-        RouterModule.forChild(
-            [
-                { path: 'config', component: HomeComponent },
-                { path: 'config/filters', component: FiltersComponent },
-                { path: 'config/filter/:id', component: FilterComponent },
-                { path: 'config/filter', component: FilterComponent },
-            ]
-        )
-    ]
+  declarations: [
+    FiltersComponent,
+    HomeComponent,
+    FilterComponent
+  ],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(
+      [
+        { path: 'config', component: HomeComponent },
+        { path: 'config/filters', component: FiltersComponent },
+        { path: 'config/filter/:id', component: FilterComponent },
+        { path: 'config/filter', component: FilterComponent },
+      ]
+    )
+  ]
 })
 export class ConfigModule { }

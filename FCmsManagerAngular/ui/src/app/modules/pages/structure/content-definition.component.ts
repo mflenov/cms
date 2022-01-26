@@ -6,33 +6,33 @@ import { CmsenumsService } from '../../../services/cmsenums.service'
 
 
 @Component({
-    selector: 'app-content-definition',
-    templateUrl: './content-definition.component.html',
-    styleUrls: ['./content-definition.component.css']
+  selector: 'app-content-definition',
+  templateUrl: './content-definition.component.html',
+  styleUrls: ['./content-definition.component.css']
 })
 
 export class ContentdefinitionComponent implements OnInit, OnDestroy {
-    @Input() definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
+  @Input() definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
 
-    dataTypes!: Observable<string[]>
+  dataTypes!: Observable<string[]>
 
-    private dataTypesSubs!: Subscription;
+  private dataTypesSubs!: Subscription;
 
-    constructor(private cmsenumsService: CmsenumsService) { }
+  constructor(private cmsenumsService: CmsenumsService) { }
 
-    ngOnInit(): void {
-        this.dataTypesSubs = this.cmsenumsService.getEnums().subscribe({
-            next: model => { this.dataTypes = of(model.contentDataTypes) }
-        });
+  ngOnInit(): void {
+    this.dataTypesSubs = this.cmsenumsService.getEnums().subscribe({
+      next: model => { this.dataTypes = of(model.contentDataTypes) }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataTypesSubs) {
+      this.dataTypesSubs.unsubscribe();
     }
+  }
 
-    ngOnDestroy(): void {
-        if (this.dataTypesSubs) {
-            this.dataTypesSubs.unsubscribe();
-        }
-    }
+  deleteRow(id: string | undefined): void {
 
-    deleteRow(id: string | undefined): void {
-
-    }
+  }
 }

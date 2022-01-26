@@ -9,6 +9,7 @@ import { ContentdefinitionComponent } from './structure/content-definition.compo
 import { EditpageComponent } from './editpage/edit-page.component';
 import { PageContentComponent } from './editpage/page-content.component';
 import { ContentEditorComponent } from './editpage/content-editor.component'
+import { ContentPlaceholderDirective } from './editpage/content-placeholder.directive';
 
 
 
@@ -19,7 +20,9 @@ import { ContentEditorComponent } from './editpage/content-editor.component'
     ContentdefinitionComponent,
     EditpageComponent,
     PageContentComponent,
-    ContentEditorComponent
+    ContentEditorComponent,
+    ContentPlaceholderDirective
+
   ],
   imports: [
     SharedModule,

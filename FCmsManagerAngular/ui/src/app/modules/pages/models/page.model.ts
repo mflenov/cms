@@ -1,4 +1,4 @@
 export interface IPageModel {
-    id?: string;
-    name: string;
+  id?: string;
+  name: string;
 }
