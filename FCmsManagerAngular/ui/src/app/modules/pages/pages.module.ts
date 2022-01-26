@@ -7,7 +7,8 @@ import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
 import { ContentdefinitionComponent } from './structure/content-definition.component';
 import { EditpageComponent } from './editpage/edit-page.component';
-import { PageContentComponent } from './editpage/page-content.component'
+import { PageContentComponent } from './editpage/page-content.component';
+import { ContentEditorComponent } from './editpage/content-editor.component'
 
 
 
@@ -17,7 +18,8 @@ import { PageContentComponent } from './editpage/page-content.component'
     StructureComponent,
     ContentdefinitionComponent,
     EditpageComponent,
-    PageContentComponent
+    PageContentComponent,
+    ContentEditorComponent
   ],
   imports: [
     SharedModule,

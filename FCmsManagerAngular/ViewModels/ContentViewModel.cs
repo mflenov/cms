@@ -57,6 +57,7 @@ namespace FCmsManagerAngular.ViewModels {
             if (model is StringContentItem)
             {
                 (model as StringContentItem).Data = Data.ToString();
+                (model as StringContentItem).DefinitionId = DefinitionId;
             }
         }
 

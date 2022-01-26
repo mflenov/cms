@@ -48,14 +48,14 @@ namespace FCmsManagerAngular.Controllers
             IContentStore contentStore = manager.GetContentStore(model.RepositoryId);
 
             var definitionCache = repository.ContentDefinitions.ToDictionary(m => m.DefinitionId, m => m);
-            var storeItems = contentStore.Items.Where(m => model.ContentItems.Any(c => c.Id == m.Id)).ToDictionary(m => m.Id, m => m);
+            var storeItems = contentStore.Items.Where(m => model.ContentItems.Any(c => c.Id == m.Id)).ToDictionary(m => m.Id ?? System.Guid.NewGuid(), m => m);
 
             foreach (var item in model.ContentItems)
             {
                 var definition = definitionCache[item.DefinitionId];
-                if (storeItems.ContainsKey(item.Id))
+                if (item.Id != null && storeItems.ContainsKey(item.Id.Value))
                 {
-                    item.MapToModel(storeItems[item.Id], definition);
+                    item.MapToModel(storeItems[item.Id.Value], definition);
                 }
                 else
                 {
