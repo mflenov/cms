@@ -4,8 +4,8 @@
     <ng-container *ngIf="content[definition.definitionId]; then thenBlock else elseBlock"></ng-container>
     <ng-template #thenBlock>
         <ng-container *ngIf="definition.typeName != 'Folder'" >
-            <div class="col-md-5">
-                <label for="name">{{definition.name}}</label>
+            <div class="col-md-12">
+                <h3>{{definition.name}}</h3>
                 <input name="name" class="form-control" [(ngModel)]="content[definition.definitionId].data" />
             </div>
         </ng-container>
@@ -20,9 +20,10 @@
         </ng-container>
     </ng-template>
     <ng-template #elseBlock>
-        <div class="col-md-5">
-            <label for="name">{{definition.name}}</label>
-            <div>Value for {{definition.name}} not found. <button class="cmsbutton">Add value</button></div>
+        <div class="col-md-12">
+            <h3>{{definition.name}}</h3>
+            <div>Value for {{definition.name}} not found.</div>
+            <button class="cmsbutton">Add value</button>
         </div>
     </ng-template>
 </div>

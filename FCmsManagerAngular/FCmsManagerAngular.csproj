@@ -24,7 +24,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ui\src\app\modules\pages\content-definition\" />
     <Folder Include="ui\src\app\services\" />
     <Folder Include="ui\src\app\modules\pages\services\" />
   </ItemGroup>
