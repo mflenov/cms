@@ -1,4 +1,4 @@
-<div class="cmsright fa fa-times link" (click)="deleteRow(definition.definitionId)"></div>
+<div class="cms-right fa fa-times link" (click)="deleteRow(definition.definitionId)"></div>
 <div class="row">
     <div class="col-md-5">
         <label for="name">Name</label>
@@ -12,7 +12,7 @@
         </select>
     </div>
 
-    <div *ngIf="definition.typeName == 'Folder'" class="cmsfolder">
+    <div *ngIf="definition.typeName == 'Folder'" class="cms-folder">
         <div *ngFor="let folder of definition.contentDefinitions" [attr.id]="folder.definitionId">
             <stre-content-definition [definition]='folder'></stre-content-definition>
         </div>

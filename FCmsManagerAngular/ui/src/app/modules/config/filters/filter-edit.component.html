@@ -1,5 +1,5 @@
 <h2>Edit filter</h2>
-<div class="cmsrepository">
+<div class="cms-repository">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
         <div class="form-group">
             <label for="name">Name</label>
@@ -11,6 +11,6 @@
                 <option *ngFor="let type of filterTypes | async" value="{{type}}">{{type}}</option>
             </select>
         </div>
-        <button class="cmsbutton">Save</button>
+        <button class="cms-button">Save</button>
     </form>
 </div>

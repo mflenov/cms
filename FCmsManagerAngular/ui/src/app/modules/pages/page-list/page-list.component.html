@@ -1,9 +1,9 @@
 <h1>Pages</h1>
 
 
-<div class="cmsrepository" *ngFor="let page of pages" [attr.id]="page.id">
+<div class="cms-repository" *ngFor="let page of pages" [attr.id]="page.id">
     <h2>{{page.name}}</h2>
-    <div class="cmssubline"></div>
+    <div class="cms-subline"></div>
 
     <div class="cmscontrols">
         <a [routerLink]="['/pages/edit', page.id]">Edit page</a> |
@@ -13,4 +13,4 @@
 </div>
 
 <br/>
-<a [routerLink]="['/pages/add']" class="cmsbutton">Add</a>
+<a [routerLink]="['/pages/add']" class="cms-button">Add</a>

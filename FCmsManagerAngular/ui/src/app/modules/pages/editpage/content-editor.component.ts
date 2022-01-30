@@ -16,4 +16,8 @@ export class ContentEditorComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  showFilters(id: string): void {
+
+  }
 }
