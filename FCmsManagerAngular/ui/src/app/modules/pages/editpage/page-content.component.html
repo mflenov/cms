@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <ng-container *ngIf="content[definition.definitionId]; then thenBlock else elseBlock"></ng-container>
         <ng-template #thenBlock>
-            <app-content-editor [definition]='definition' [content]='content[definition.definitionId]'></app-content-editor>
+            <pg-content-editor [definition]='definition' [content]='content[definition.definitionId]'></pg-content-editor>
         </ng-template>
         <ng-template #elseBlock >
             <div *ngIf="isNewItemVisible">

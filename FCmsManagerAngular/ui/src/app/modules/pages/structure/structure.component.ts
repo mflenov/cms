@@ -9,7 +9,7 @@ import { IEnumsModel } from '../../../models/enums-model'
 import { IPageStructureModel } from '../models/page-structure.model'
 
 @Component({
-  selector: 'app-structure',
+  selector: 'stre-structure',
   templateUrl: './structure.component.html',
   styleUrls: ['./structure.component.css'],
   providers: [PagesService]

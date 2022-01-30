@@ -6,7 +6,7 @@ import { CmsenumsService } from '../../../services/cmsenums.service'
 
 
 @Component({
-  selector: 'app-content-definition',
+  selector: 'stre-content-definition',
   templateUrl: './content-definition.component.html',
   styleUrls: ['./content-definition.component.css']
 })

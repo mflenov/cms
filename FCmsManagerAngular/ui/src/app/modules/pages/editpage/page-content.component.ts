@@ -7,7 +7,7 @@ import { ContentEditorComponent } from './content-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 
 @Component({
-  selector: 'app-page-content',
+  selector: 'pg-page-content',
   templateUrl: './page-content.component.html',
   styleUrls: ['./page-content.component.css']
 })

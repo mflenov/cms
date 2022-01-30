@@ -10,7 +10,7 @@ import { PagesService } from '../services/pages.service';
 import { PageContentComponent } from './page-content.component'
 
 @Component({
-  selector: 'app-editpage',
+  selector: 'pg-editpage',
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.css'],
   providers: [ContentService, PagesService]

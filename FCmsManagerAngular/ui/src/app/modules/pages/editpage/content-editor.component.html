@@ -6,8 +6,8 @@
 <ng-container *ngIf="definition.typeName == 'Folder'">
     <h3>{{definition.name}}</h3>
     <div class="cmsfolder" *ngFor="let folderitem of content">
-        <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId">
-            <app-page-content [definition]='folder' [data]='folderitem.children'></app-page-content>
+        <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcmsforlderitem">
+            <pg-page-content [definition]='folder' [data]='folderitem.children'></pg-page-content>
         </div>
     </div>
 </ng-container>

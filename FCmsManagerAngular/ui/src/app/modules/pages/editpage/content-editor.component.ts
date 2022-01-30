@@ -4,7 +4,7 @@ import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 
 @Component({
-  selector: 'app-content-editor',
+  selector: 'pg-content-editor',
   templateUrl: './content-editor.component.html',
   styleUrls: ['./content-editor.component.css']
 })
