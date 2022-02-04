@@ -7,7 +7,7 @@ import { IPageContentModel } from '../models/page-content.model';
 import { IPageStructureModel } from '../models/page-structure.model';
 import { ContentService } from '../services/content.service'
 import { PagesService } from '../services/pages.service';
-import { PageContentComponent } from './page-content.component'
+import { ContentItemComponent } from './content-item.component'
 
 @Component({
   selector: 'pg-editpage',

@@ -6,12 +6,14 @@ import { IPageContentModel } from '../models/page-content.model';
 import { ContentEditorComponent } from './content-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 
+
 @Component({
-  selector: 'pg-page-content',
-  templateUrl: './page-content.component.html',
-  styleUrls: ['./page-content.component.css']
+  selector: 'pg-content-item',
+  templateUrl: './content-item.component.html',
+  styleUrls: ['./content-item.component.css']
 })
-export class PageContentComponent implements OnInit {
+
+export class ContentItemComponent implements OnInit {
   @Input() definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
   @Input() data: IContentItemModel[] = [];
 
@@ -68,9 +70,7 @@ export class PageContentComponent implements OnInit {
 
   createContentComponent(model: IContentItemModel) {
     this.placeholder.viewContainerRef.clear();
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(
-      ContentEditorComponent
-    );
+    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentEditorComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
 
     (<ContentEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;

@@ -1,0 +1,8 @@
+<ng-container *ngIf="isVisible">
+    <div class="fcms-modal-screen">
+        <div class="fcms-slideout">
+            <ng-content select="[pane]"></ng-content>
+            <button class="cms-button" (click)="close()">{{closeCaption}}</button>
+        </div>
+    </div>
+</ng-container>

@@ -2,7 +2,7 @@
 
 <ng-container *ngFor="let definition of definition.contentDefinitions">
     <div [attr.id]="definition.definitionId" class="cms-repository">
-        <pg-page-content [definition]='definition' [data]='data.contentItems'></pg-page-content>
+        <pg-content-item [definition]='definition' [data]='data.contentItems'></pg-content-item>
     </div>
 </ng-container>
 <button class="cms-button" (click)="onSubmit()">Save</button>

@@ -7,11 +7,17 @@
     <h3>{{definition.name}}</h3>
     <div class="cms-folder" *ngFor="let folderitem of content">
         <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcmsforlderitem">
-            <pg-page-content [definition]='folder' [data]='folderitem.children'></pg-page-content>
-        </div>  
+            <pg-content-item [definition]='folder' [data]='folderitem.children'></pg-content-item>
+        </div>
     </div>
 </ng-container>
 
 <div class="cms-controls">
     <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
 </div>
+
+<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" closeCaption="Save">
+    <div pane>
+        <ng-template contentplaceholder></ng-template>
+    </div>
+</sh-slide-panel>

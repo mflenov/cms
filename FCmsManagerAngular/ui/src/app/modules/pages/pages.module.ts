@@ -7,11 +7,10 @@ import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
 import { ContentdefinitionComponent } from './structure/content-definition.component';
 import { EditpageComponent } from './editpage/edit-page.component';
-import { PageContentComponent } from './editpage/page-content.component';
-import { ContentEditorComponent } from './editpage/content-editor.component'
+import { ContentItemComponent } from './editpage/content-item.component';
+import { ContentEditorComponent } from './editpage/content-editor.component';
 import { ContentPlaceholderDirective } from './editpage/content-placeholder.directive';
-
-
+import { FiltersComponent } from './editpage/filters.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +18,10 @@ import { ContentPlaceholderDirective } from './editpage/content-placeholder.dire
     StructureComponent,
     ContentdefinitionComponent,
     EditpageComponent,
-    PageContentComponent,
+    ContentItemComponent,
     ContentEditorComponent,
-    ContentPlaceholderDirective
-
+    ContentPlaceholderDirective,
+    FiltersComponent
   ],
   imports: [
     SharedModule,
