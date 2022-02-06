@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
-import { FiltersComponent } from './filters.component';
+import { EditFiltersComponent } from './edit-filters.component';
 
 @Component({
   selector: 'pg-content-editor',
@@ -33,7 +33,7 @@ export class ContentEditorComponent implements OnInit {
 
   createFiltersComponent() {
     this.placeholder.viewContainerRef.clear();
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(FiltersComponent);
+    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(EditFiltersComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
   }
 }

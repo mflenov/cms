@@ -27,7 +27,7 @@ namespace FCmsManagerAngular.Controllers
 
             IEnumerable<ContentItem> contentItems = request.filters == null ?
                 contentStore.Items.Where(m => m.Filters.Count == 0):
-                contentStore.Items.Where(m => m.MatchFilters(request.filters));
+                contentStore.Items.Where(m => m.MatchFilters(request.getFiltersModel().ToList()));
 
             PageContentViewModel model = new PageContentViewModel() {
                 RepositoryId = request.repositoryid,

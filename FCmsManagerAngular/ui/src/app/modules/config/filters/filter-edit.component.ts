@@ -4,10 +4,9 @@ import { Subscription, of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-
-import { FiltersService } from './filters.service';
 import { IFilterModel } from '../../../models/filter-model';
-import { CmsenumsService } from '../../../services/cmsenums.service'
+import { CmsenumsService } from '../../../services/cmsenums.service';
+import { FiltersService } from '../../../services/filters.service';
 
 @Component({
   selector: 'app-filter',

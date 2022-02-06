@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { FiltersService } from './filters.service';
+import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
 
 @Component({

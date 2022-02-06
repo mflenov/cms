@@ -1,1 +1,15 @@
-<p>filters works!</p>
+<h2>Filter:</h2>
+
+<div>
+    <select [(ngModel)]="selectedFilter" class="form-control">
+        <option id="">- select value -</option>
+        <option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.name}}</option>
+    </select>
+    <br />
+    <button class="cms-button" (click)="addFilter()">Add filter</button>
+</div>
+
+<hr />
+
+<ng-template contentplaceholder></ng-template>
+<button class="cms-button" (click)="search()">Search</button>

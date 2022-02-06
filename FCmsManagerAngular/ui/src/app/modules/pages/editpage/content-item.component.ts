@@ -22,8 +22,10 @@ export class ContentItemComponent implements OnInit {
   content: any = {};
   isNewItemVisible: boolean = true;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef) { }
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef
+  ) { }
 
   ngOnInit(): void {
     if (this.data && this.data.length > 0) {

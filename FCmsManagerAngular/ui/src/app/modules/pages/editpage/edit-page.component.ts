@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { IContentFilterModel } from '../models/content-filter.model';
 import { IContentItemModel } from '../models/content-item.model';
 
 import { IPageContentModel } from '../models/page-content.model';
@@ -17,11 +18,11 @@ import { ContentItemComponent } from './content-item.component'
 })
 
 export class EditpageComponent implements OnInit, OnDestroy {
+  private id: string = "";
+  filters: IContentFilterModel[] = [];
+
   data: IPageContentModel = {} as IPageContentModel;
   definition: IPageStructureModel = {} as IPageStructureModel;
-
-  private contentSubs!: Subscription;
-  private definitionSubs!: Subscription;
 
   constructor(
     private contentService: ContentService,
@@ -31,18 +32,16 @@ export class EditpageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    const idvalue = this.route.snapshot.paramMap.get('id');
 
-    if (id) {
-      this.contentService.getPageContent(id).subscribe(content => {
-        this.pagesService.getPage(id).subscribe(definition => {
+    if (idvalue) {
+      this.id = idvalue;
+
+      this.contentService.getPageContent(this.id, this.filters).subscribe(content => {
+        this.pagesService.getPage(this.id).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
             this.definition = definition.data as IPageStructureModel;
-
             this.data = (content.data as IPageContentModel);
-            for (const item in this.data.contentItems) {
-              const definitionId = this.data.contentItems[item].definitionId;
-            }
           }
         })
       })
@@ -50,12 +49,6 @@ export class EditpageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.contentSubs) {
-      this.contentSubs.unsubscribe();
-    }
-    if (this.definitionSubs) {
-      this.definitionSubs.unsubscribe();
-    }
   }
 
   onSubmit(): void {
@@ -64,5 +57,11 @@ export class EditpageComponent implements OnInit, OnDestroy {
         this.router.navigate(['/pages']);
       }
     });
+  }
+
+  onFilter(filters: IContentFilterModel[]): void {
+    this.filters = filters;
+
+    this.ngOnInit();
   }
 }

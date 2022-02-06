@@ -25,7 +25,7 @@ namespace FCms.Content
             List<object> result = new List<object>();
             foreach (string item in list ?? new List<string>())
             {
-                bool? value = FCms.Tools.Utility.StringToBoolean(item);
+                bool? value = Tools.Utility.StringToBoolean(item);
                 result.Add(value == true);
             }
             if (list.Count == 0)

@@ -9,6 +9,8 @@ namespace FCmsManagerAngular.ViewModels
     
         public IEnumerable<object> Values { get; set; } = new List<object>();
 
-        public FCms.Content.IContentFilter.ContentFilterType FilterType { get; set; }
+        public string FilterType { get; set; }
+
+        public string DataType { get; set; }
     }
 }

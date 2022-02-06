@@ -2,10 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../environments/environment';
 
-import { IFilterModel } from '../../../models/filter-model';
-import { IApiRequestModel } from '../../../models/api-request-model'
+import { IFilterModel } from '../models/filter-model';
+import { IApiRequestModel } from '../models/api-request-model'
 
 
 @Injectable()

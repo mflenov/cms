@@ -36,7 +36,7 @@ namespace FCmsManagerAngular.ViewModels {
             IsFolder = contentItem is ContentFolderItem;
             Filters = contentItem.Filters.Select(m => new ContentFilterViewModel() {
                 FilterDefinitionId = m.FilterDefinitionId,
-                FilterType = m.FilterType,
+                FilterType = m.FilterType.ToString(),
                 Values = m.Values
             });
         }

@@ -11,6 +11,9 @@ import { ContentItemComponent } from './editpage/content-item.component';
 import { ContentEditorComponent } from './editpage/content-editor.component';
 import { ContentPlaceholderDirective } from './editpage/content-placeholder.directive';
 import { FiltersComponent } from './editpage/filters.component';
+import { EditFiltersComponent } from './editpage/edit-filters.component';
+import { TextFilterEditorComponent } from './editpage/filter-controls/text-filter-editor.component';
+import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filter-editor.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { FiltersComponent } from './editpage/filters.component';
     ContentItemComponent,
     ContentEditorComponent,
     ContentPlaceholderDirective,
-    FiltersComponent
+    FiltersComponent,
+    EditFiltersComponent,
+    TextFilterEditorComponent,
+    BoolFilterEditorComponent
   ],
   imports: [
     SharedModule,

@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
 import { IPageContentModel } from '../models/page-content.model';
+import { IContentFilterModel } from '../models/content-filter.model';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ContentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getPageContent(id: string): Observable<IApiRequestModel> {
+  getPageContent(id: string, filters: IContentFilterModel[] ): Observable<IApiRequestModel> {
     const headers = {
       'content-type': 'application/json',
       'accept': 'text/plain'
@@ -26,7 +27,7 @@ export class ContentService {
     return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editpageurl,
       {
         repositoryid: id,
-        filters: null
+        filters: filters
       },
       { 'headers': headers });
   }

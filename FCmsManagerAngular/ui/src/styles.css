@@ -185,3 +185,9 @@
   padding-top: 4px;
 }
 
+.fcms .fcms-filter-item {
+    padding:8px;
+    background:#eee;
+    border: 1px solid #ddd;
+    margin-bottom:8px;
+}
