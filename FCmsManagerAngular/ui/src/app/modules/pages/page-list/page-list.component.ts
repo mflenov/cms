@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { IPageModel } from '../models/pagemodel';
-import { PagesService } from '../pages.service';
+import { IPageModel } from '../models/page.model';
+import { PagesService } from '../services/pages.service';
 
 @Component({
   selector: 'app-page-list',
@@ -30,5 +30,11 @@ export class PageListComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined) : void {
+    this.pagesSubs = this.pagesService.deleteById(id!).subscribe({
+      next: data => {
+        const index = this.pages.findIndex(m => m.id == id);
+        this.pages.splice(index, 1);
+      }
+    });
   }  
 }

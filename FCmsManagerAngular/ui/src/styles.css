@@ -32,6 +32,10 @@
   color: #f07b66;
 }
 
+.fcms label {
+  color:#555;
+}
+
 .fcms a:hover {
   color: #f07b66;
   text-decoration: underline;
@@ -42,11 +46,7 @@
   padding: 20px 0px;
 }
 
-.fcms .header .logo a {
-  color: #fff;
-}
-
-.fcms .header .logo {
+.fcms .header .cms-logo {
   font-size: 140%;
 }
 
@@ -76,29 +76,29 @@
   font-size: 1.8rem;
 }
 
-.fcms .cmstable {
+.fcms .cms-table {
   width: 100%;
 }
 
-.fcms .cmstable th {
+.fcms .cms-table th {
   width: 100%;
   background: #fff;
   padding: 4px 12px;
   border: 1px solid #ccc;
 }
 
-.fcms .cmstable td {
+.fcms .cms-table td {
   padding: 4px 12px;
   border: 1px solid #ccc;
 }
 
-.fcms .cmstable ul {
+.fcms .cms-table ul {
   margin-left: 0px;
   padding-left: 20px;
 }
 
 
-.fcms .cmsbutton {
+.fcms .cms-button {
   display: inline-block;
   padding: 0px 20px 0px 20px;
   color: #f07b66;
@@ -116,50 +116,21 @@
     cursor: pointer;
 }
 
-.fcms .cmsbutton:hover {
+.fcms .cms-button:hover {
   color: white;
   text-decoration: none;
   background: #f07b66;
 }
 
-.fcms .cmsmenu a {
+.fcms .cms-menu {
+    font-size:120%;
+}
+
+.fcms .cms-menu a {
   padding-right: 12px;
 }
 
-.fcms .cmssecondcontrols {
-  text-align: right;
-}
-
-.fcms .cmscontrols > * {
-  margin: 0px 10px;
-}
-
-.fcms .cmscontrols > a:nth-of-type(1) {
-  margin-left: 0px;
-}
-
-.fcms .cmsnote {
-  color: #00bbaa;
-  margin: 10px 0px;
-}
-
-.fcms .cmsfilterlist {
-  margin: 10px 0px;
-  background: #eee;
-  padding: 12px 0px;
-  border: 1px solid #ccc;
-}
-
-.fcms .cmsfiltervalue {
-  margin: 12px 0px;
-}
-
-.fcms #folderconfigurator .foldervaluelist {
-  padding: 12px 12px 1px 12px;
-  background: #fff;
-}
-
-.fcms .cmsrepository {
+.fcms .cms-repository {
   border: 1px solid #999;
   padding: 10px;
   margin-bottom: 10px;
@@ -167,11 +138,11 @@
   box-shadow: 0px 1px 5px #aaa;
 }
 
-.fcms .cmsrepository .cmssubline {
+.fcms .cms-repository .cms-subline {
   color: #999;
 }
 
-.fcms .cmssubline {
+.fcms .cms-subline {
   display: block;
   color: #777;
   border-bottom: 1px solid #777;
@@ -179,34 +150,44 @@
   margin-bottom: 8px;
 }
 
-.fcms .cmshidden {
+.fcms .cms-hidden {
   display: none;
 }
 
-.fcms .cmseditsectionfolder {
-  background: #fff;
-}
-
-.fcms .cmseditsectionfolder > .fcmsdata {
-  padding: 0px 8px;
-}
-
-.fcms .cmsright {
+.fcms .cms-right {
   float: right;
 }
 
-.fcms .cmsfilterswidget {
-  padding: 8px;
-  border: 1px solid #777;
-  background: #f5f5f0;
-  margin-bottom: 12px;
-}
-
-.fcms .cmsfilterswidget .cmsfilterlist {
-  border: 0px;
-  background: none;
+.fcms .cms-controls {
+  margin: 10px 10px 10px 0px;
 }
 
 .fcms .form-group{
     padding: 10px 0px;
+}
+
+.fcms .cms-folder {
+    background:#f5f5f5;
+    border:1px solid #bbb;
+    padding: 8px 8px 8px 0px;
+    margin-top: 10px;
+}
+
+.fcms .cms-folder h3 {
+  padding-left: 12px;
+}
+
+.fcms .fcms-forlder-item {
+    padding-top:12px;
+}
+
+.fcms .fcms-forlder-item:nth-of-type(1) {
+  padding-top: 4px;
+}
+
+.fcms .fcms-filter-item {
+    padding:8px;
+    background:#eee;
+    border: 1px solid #ddd;
+    margin-bottom:8px;
 }

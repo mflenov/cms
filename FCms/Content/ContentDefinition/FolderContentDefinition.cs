@@ -12,6 +12,7 @@ namespace FCms.Content
         List<IContentDefinition> definitions = new List<IContentDefinition>();
         public List<IContentDefinition> Definitions {
             get { return definitions; }
+            set { definitions = value; }
         }
 
         public string GetTypeName()

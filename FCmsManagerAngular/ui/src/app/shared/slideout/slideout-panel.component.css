@@ -1,0 +1,21 @@
+.fcms-slideout {
+  position: fixed;
+  top: 10px;
+  right: 0px;
+  bottom: 10px;
+  left: 40%;
+  background: #fff;
+  border: 8px solid #f1f1f1;
+  box-shadow: 10px 0px 10px #888;
+  padding: 12px;
+  z-index:999;
+}
+
+.fcms-modal-screen {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(200, 200, 200, .8);
+}

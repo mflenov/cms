@@ -1,0 +1,15 @@
+<h1>"{{definition.name}}" content</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <ng-container *ngFor="let definition of definition.contentDefinitions">
+            <div [attr.id]="definition.definitionId" class="cms-repository">
+                <pg-content-item [definition]='definition' [data]='data.contentItems'></pg-content-item>
+            </div>
+        </ng-container>
+        <button class="cms-button" (click)="onSubmit()">Save</button>
+    </div>
+    <div class="col-md-4">
+        <pg-filters (onFilter)="onFilter($event)"></pg-filters>
+    </div>
+</div>

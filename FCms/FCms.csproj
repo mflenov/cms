@@ -25,5 +25,9 @@
     <Folder Include="Content\ContentDefinition\" />
     <Folder Include="Content\Interfaces\" />
     <Folder Include="Content\Implementations\" />
+    <Folder Include="Content\ContentData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Content\ContentData\" />
   </ItemGroup>
 </Project>

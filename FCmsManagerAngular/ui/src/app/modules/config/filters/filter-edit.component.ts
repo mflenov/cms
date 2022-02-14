@@ -4,12 +4,9 @@ import { Subscription, of } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-
-import { FiltersService } from './filters.service';
-import { IFilterModel, IFilterModelData } from './filter-model';
-import { CmsenumsService } from '../cmsenums.service'
-import { IEnumsModel } from '../enums-model'
-
+import { IFilterModel } from '../../../models/filter-model';
+import { CmsenumsService } from '../../../services/cmsenums.service';
+import { FiltersService } from '../../../services/filters.service';
 
 @Component({
   selector: 'app-filter',
@@ -19,19 +16,20 @@ import { IEnumsModel } from '../enums-model'
 })
 
 export class FilterComponent implements OnInit, OnDestroy {
-  model: IFilterModelData = {
-    name : '',
-    type : 'string'
+  model: IFilterModel = {
+    name: '',
+    type: 'string'
   };
 
   filterTypes!: Observable<string[]>;
 
-
   modelSubs!: Subscription;
   filterTypeSubs!: Subscription;
 
-  constructor(private filtersService: FiltersService, private route: ActivatedRoute,
-    private router: Router, private cmsenumsService: CmsenumsService) {
+  constructor(private filtersService: FiltersService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cmsenumsService: CmsenumsService) {
   }
 
   ngOnInit(): void {
@@ -42,7 +40,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.modelSubs = this.filtersService.getById(id).subscribe({
-        next: model => { this.model = model.data[0] }
+        next: model => { this.model = model }
       });
     }
   }

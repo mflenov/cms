@@ -17,7 +17,7 @@ namespace FCms.Content
 
         ContentType ContentType { get; set; }
 
-        List<IContentDefinition> ContentDefinitions { get; }
+        List<IContentDefinition> ContentDefinitions { get; set; }
 
         IContentDefinition GetByName(string contentName);
 

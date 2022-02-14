@@ -1,4 +1,5 @@
-export interface IApiRequest {
-    status: number;
-    description: string;
+export interface IApiRequestModel {
+  status: number;
+  description: string;
+  data: any;
 }

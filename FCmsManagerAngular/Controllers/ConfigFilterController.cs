@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManagerAngular.ViewModels;
 using Microsoft.Extensions.Configuration;
@@ -18,13 +17,14 @@ namespace FCmsManagerAngular.Controllers
             this.config = config;
         }
         
+        [HttpGet]
         [Route("api/v1/config/filters")]
         public ApiResultModel Filters()
         {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
-                 Data = maanger.Data.Filters.Select(m => new FilterViewModel(m))
+                 Data = manager.Data.Filters.Select(m => new FilterViewModel(m))
             };
         }
 
@@ -32,10 +32,10 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter/{id}")]
         public FilterViewModel Get(string id)
         {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
-                return maanger.Data.Filters.Where(n => n.Id == guid).Select(m => new FilterViewModel(m)).FirstOrDefault();
+                return manager.Data.Filters.Where(n => n.Id == guid).Select(m => new FilterViewModel(m)).FirstOrDefault();
             }
             return null;
         }
@@ -60,13 +60,13 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter/{id}")]
         public ApiResultModel Delete(string id)
         {
-            var maanger = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager(config["DataLocation"]);
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
-                var filter = maanger.Data.Filters.Where(n => n.Id == guid).FirstOrDefault();
+                var filter = manager.Data.Filters.Where(n => n.Id == guid).FirstOrDefault();
                 if (filter != null) {
-                    maanger.Data.Filters.Remove(filter);
-                    maanger.Save();
+                    manager.Data.Filters.Remove(filter);
+                    manager.Save();
                     return new ApiResultModel(ApiResultModel.SUCCESS);
                 }
             }
