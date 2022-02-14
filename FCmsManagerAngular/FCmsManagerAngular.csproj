@@ -19,6 +19,7 @@
     <None Remove="ui\src\app\modules\pages\services\" />
     <None Remove="ui\src\app\shared\slideout\" />
     <None Remove="ui\src\app\modules\pages\editpage\filter-controls\" />
+    <None Remove="ui\src\app\modules\pages\newpage\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
@@ -30,5 +31,6 @@
     <Folder Include="ui\src\app\modules\pages\services\" />
     <Folder Include="ui\src\app\shared\slideout\" />
     <Folder Include="ui\src\app\modules\pages\editpage\filter-controls\" />
+    <Folder Include="ui\src\app\modules\pages\newpage\" />
   </ItemGroup>
 </Project>

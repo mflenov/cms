@@ -3,11 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { IPageModel } from '../models/page.model';
-import { IPageStructureModel } from '../models/page-structure.model'
+import { IPageStructureModel } from '../models/page-structure.model';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
 import { IApiRequestModel } from 'src/app/models/api-request-model'
+import { INewPageModel } from '../models/new-page.model';
 
 @Injectable()
 
@@ -34,16 +35,15 @@ export class PagesService {
   }
 
   deleteById(id: string): Observable<IApiRequestModel> {
-    return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.url + id).pipe(
-      catchError(this.handleError)
-    );
+    return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.url + id);
   }
 
   save(model: IPageStructureModel): Observable<any> {
-    if (model.id)
-      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
-    else
-      return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
+    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
+  }
+
+  create(model: INewPageModel): Observable<any> {
+    return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse):Observable<never>  {

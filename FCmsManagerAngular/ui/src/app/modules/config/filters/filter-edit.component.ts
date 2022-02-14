@@ -23,7 +23,6 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   filterTypes!: Observable<string[]>;
 
-
   modelSubs!: Subscription;
   filterTypeSubs!: Subscription;
 

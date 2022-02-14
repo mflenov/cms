@@ -14,6 +14,8 @@ import { FiltersComponent } from './editpage/filters.component';
 import { EditFiltersComponent } from './editpage/edit-filters.component';
 import { TextFilterEditorComponent } from './editpage/filter-controls/text-filter-editor.component';
 import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filter-editor.component';
+import { DaterangeFilterEditorComponent } from './editpage/filter-controls/daterange-filter-editor.component';
+import { NewPageComponent } from './newpage/new-page.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,16 @@ import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filte
     FiltersComponent,
     EditFiltersComponent,
     TextFilterEditorComponent,
-    BoolFilterEditorComponent
+    BoolFilterEditorComponent,
+    DaterangeFilterEditorComponent,
+    NewPageComponent
   ],
   imports: [
     SharedModule,
     RouterModule.forChild(
       [
         { path: 'pages', component: PageListComponent },
-        { path: 'pages/add', component: StructureComponent },
+        { path: 'pages/add', component: NewPageComponent },
         { path: 'pages/structure/:id', component: StructureComponent },
         { path: 'pages/edit/:id', component: EditpageComponent }
       ]

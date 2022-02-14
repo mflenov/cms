@@ -6,6 +6,7 @@ import { ContentPlaceholderDirective } from './content-placeholder.directive';
 import { TextFilterEditorComponent } from './filter-controls/text-filter-editor.component'
 import { IContentFilterModel } from '../models/content-filter.model';
 import { BoolFilterEditorComponent } from './filter-controls/bool-filter-editor.component';
+import { DaterangeFilterEditorComponent } from './filter-controls/daterange-filter-editor.component'
 
 @Component({
   selector: 'pg-filters',
@@ -47,6 +48,7 @@ export class FiltersComponent implements OnInit {
       this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
       this.createFilterEditor(item);
     }
+    this.selectedFilter = "";
   }
 
   createFilterEditor(filter: IFilterModel): void {
@@ -57,14 +59,7 @@ export class FiltersComponent implements OnInit {
       values: [""]
     } as IContentFilterModel;
 
-    let component = null as any;
-    if (filter.type == "Text") {
-      component = this.componentFactoryResolver.resolveComponentFactory(TextFilterEditorComponent);
-    }
-
-    if (filter.type == "Boolean") {
-      component = this.componentFactoryResolver.resolveComponentFactory(BoolFilterEditorComponent);
-    }
+    let component = this.createComponent(filter.type);
 
     if (component) {
       let componentRef = this.placeholder.viewContainerRef.createComponent(component);
@@ -72,6 +67,21 @@ export class FiltersComponent implements OnInit {
       (<any>(componentRef.instance)).title = filter.name;
       this.contentFilters.push(model);
     }
+  }
+
+  createComponent(type: string): any {
+    if (type == "Text") {
+      return this.componentFactoryResolver.resolveComponentFactory(TextFilterEditorComponent);
+    }
+
+    if (type == "Boolean") {
+      return this.componentFactoryResolver.resolveComponentFactory(BoolFilterEditorComponent);
+    }
+
+    if (type == "DateRange") {
+      return this.componentFactoryResolver.resolveComponentFactory(DaterangeFilterEditorComponent);
+    }
+    return null;
   }
 
   search(): void {

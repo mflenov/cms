@@ -78,6 +78,27 @@ namespace FCmsManagerAngular.Controllers
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
 
+        [HttpPost]
+        [Route("api/v1/page")]
+        public ApiResultModel Post(NewPageViewModel model)
+        {
+            var manager = new CmsManager(config["DataLocation"]);
+
+            var repository = new Repository();
+            repository.Name = model.Name;
+            repository.Id = Guid.NewGuid();
+            repository.ContentType = model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page;
+            if (model.Template == EnumViewModel.SIMPLE_PAGE)
+            {
+                RepositoryTemplate.ApplyTemplate(ContentTemplate.SimplePage, repository);
+            }
+            manager.AddRepository(repository);
+            manager.Save();
+
+            return new ApiResultModel(ApiResultModel.SUCCESS);
+         }
+
+
         [HttpDelete]
         [Route("api/v1/page/{id}")]
         public ApiResultModel Delete(string id) {
