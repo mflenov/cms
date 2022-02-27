@@ -45,7 +45,7 @@ export class FiltersComponent implements OnInit {
     const item = this.allfilters.find(x => x.id == this.selectedFilter);
     if (item) {
       this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
-      this.contentFilters.push(this.filterControlService.createFilterEditor(item, this.placeholder));
+      this.contentFilters.push(this.filterControlService.createFilterEditor(item, this.filterControlService.createModel(item), this.placeholder));
     }
     this.selectedFilter = "";
   }

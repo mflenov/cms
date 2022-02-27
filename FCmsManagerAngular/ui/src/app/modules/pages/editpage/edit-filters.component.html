@@ -4,18 +4,9 @@
 	loading...
 </div>
 <ng-template #loadedBlock>
-	<div *ngIf="nofilters; else elseBlock">
+	<div *ngIf="nofilters">
 		<p>No filters found.</p>
 	</div>
-
-	<ng-template #elseBlock>
-		<div *ngFor="let filter of model">
-			<div class="cms-repository">
-				<h3>{{filterDefinitions[filter.filterDefinitionId ?? ""].name}}</h3>
-				<div>Filter Value: {{filterDefinitions[filter.filterDefinitionId ?? ""].values}}</div>
-			</div>
-		</div>	
-	</ng-template>
 </ng-template>
 
 <ng-template contentplaceholder></ng-template>

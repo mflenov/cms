@@ -40,6 +40,14 @@ export class EditFiltersComponent implements OnInit {
           this.filterDefinitions[filter.id] = filter;
         }
 
+        for (const key in this.model){ 
+          const item = this.availableFilters.find(x => x.id == this.model[key].filterDefinitionId);
+          if (item) {
+            this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
+            this.filterControlService.createFilterEditor(item, this.model[key], this.placeholder);
+          }      
+        }
+
         this.isLoaded = false;
         this.nofilters = this.model?.length == 0;
       }
@@ -50,8 +58,7 @@ export class EditFiltersComponent implements OnInit {
     const item = this.availableFilters.find(x => x.id == this.selectedFilter);
     if (item) {
       this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
-      //this.contentFilters.push(model);
-      this.filterControlService.createFilterEditor(item, this.placeholder);
+      this.model.push(this.filterControlService.createFilterEditor(item, this.filterControlService.createModel(item), this.placeholder));
     }
     this.selectedFilter = "";
     this.nofilters = false;

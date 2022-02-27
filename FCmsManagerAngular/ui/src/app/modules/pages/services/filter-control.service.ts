@@ -16,14 +16,17 @@ export class FilterControlService {
 	) 
   { }
 
-  createFilterEditor(filter: IFilterModel, placeholder?: ContentPlaceholderDirective): IContentFilterModel {
+  createModel(filter: IFilterModel) : IContentFilterModel {
     const model = {
       filterDefinitionId: filter.id,
       filterType: "Include",
       dataType: filter.type,
       values: [""]
     } as IContentFilterModel;
+    return model;
+  }
 
+  createFilterEditor(filter: IFilterModel, model: IContentFilterModel, placeholder?: ContentPlaceholderDirective): IContentFilterModel {
     let component = this.createComponent(filter.type);
 
     if (component && placeholder) {
