@@ -18,4 +18,5 @@
   bottom: 0px;
   left: 0px;
   background: rgba(200, 200, 200, .8);
+  z-index: 1;
 }

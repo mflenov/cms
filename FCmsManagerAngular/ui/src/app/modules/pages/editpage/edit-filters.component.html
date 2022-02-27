@@ -1,1 +1,19 @@
-<p>edit-filters works!</p>
+<h2>Filters</h2>
+
+<div *ngIf="isLoaded == true; else loadedBlock">
+	loading...
+</div>
+<ng-template #loadedBlock>
+	<div *ngIf="model?.length == 0; else elseBlock">
+		<p>No filters found.</p>
+	</div>
+
+	<ng-template #elseBlock>
+		<div *ngFor="let filter of model">
+			<div class="cms-repository">
+				<h3>{{filterDefinitions[filter.filterDefinitionId ?? ""].name}}</h3>
+				<p>Filter Value: {{filterDefinitions[filter.filterDefinitionId ?? ""].values}}</p>
+			</div>
+		</div>	
+	</ng-template>
+</ng-template>

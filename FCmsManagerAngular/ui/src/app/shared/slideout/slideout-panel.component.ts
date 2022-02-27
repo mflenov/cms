@@ -10,8 +10,13 @@ export class SlidePanelComponent {
   @Input() isVisible: boolean = false;
   @Input() closeCaption: string = "Close";
   @Output() onSave: EventEmitter<any> = new EventEmitter();
+  @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
   close() {
     this.onSave.emit();
+  }
+
+  cancel() {
+    this.onCancel.emit();
   }
 }

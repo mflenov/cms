@@ -27,6 +27,10 @@ export class ContentEditorComponent implements OnInit {
     this.isFiltersPanelVisible = true;
   }
 
+  onCancelFilters(): void {
+    this.isFiltersPanelVisible = false;
+  }
+
   onSaveFilters() {
     this.isFiltersPanelVisible = false;
   }
@@ -35,5 +39,6 @@ export class ContentEditorComponent implements OnInit {
     this.placeholder.viewContainerRef.clear();
     let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(EditFiltersComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
+    (<EditFiltersComponent>(contentEditorComponentRef.instance)).model = this.content.filters;
   }
 }

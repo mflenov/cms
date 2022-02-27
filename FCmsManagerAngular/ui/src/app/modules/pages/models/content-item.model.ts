@@ -6,6 +6,6 @@ export interface IContentItemModel {
   toolTip?: string;
   data: any;
   isFolder: boolean;
-  filters: IContentFilterModel;
+  filters: IContentFilterModel[];
   children: IContentItemModel[];
 }

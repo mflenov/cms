@@ -1,8 +1,13 @@
 <ng-container *ngIf="isVisible">
     <div class="fcms-modal-screen">
         <div class="fcms-slideout">
-            <ng-content select="[pane]"></ng-content>
-            <button class="cms-button" (click)="close()">{{closeCaption}}</button>
+            <div class="fcms-fullscreen">
+                <ng-content select="[pane]"></ng-content>
+            </div>
+            <div class="cms-controls buttons">
+                <button class="cms-button" (click)="close()">{{closeCaption}}</button>
+                <button class="cms-button" (click)="cancel()">Cancel</button>
+            </div>
         </div>
     </div>
 </ng-container>
