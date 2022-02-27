@@ -4,7 +4,7 @@
 	loading...
 </div>
 <ng-template #loadedBlock>
-	<div *ngIf="model?.length == 0; else elseBlock">
+	<div *ngIf="nofilters; else elseBlock">
 		<p>No filters found.</p>
 	</div>
 
@@ -12,8 +12,17 @@
 		<div *ngFor="let filter of model">
 			<div class="cms-repository">
 				<h3>{{filterDefinitions[filter.filterDefinitionId ?? ""].name}}</h3>
-				<p>Filter Value: {{filterDefinitions[filter.filterDefinitionId ?? ""].values}}</p>
+				<div>Filter Value: {{filterDefinitions[filter.filterDefinitionId ?? ""].values}}</div>
 			</div>
 		</div>	
 	</ng-template>
 </ng-template>
+
+<ng-template contentplaceholder></ng-template>
+
+<select [(ngModel)]="selectedFilter" class="form-control">
+	<option id="">- select value -</option>
+	<option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.name}}</option>
+</select>
+
+<button class="cms-button" (click)="addfilter()">Add filter</button>

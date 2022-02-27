@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
-import { IContentItemModel } from '../models/content-item.model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 

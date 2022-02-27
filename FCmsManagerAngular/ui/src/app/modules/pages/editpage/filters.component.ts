@@ -3,16 +3,14 @@ import { Component, OnInit, ComponentFactoryResolver, ViewChild, Output, EventEm
 import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
-import { TextFilterEditorComponent } from './filter-controls/text-filter-editor.component'
 import { IContentFilterModel } from '../models/content-filter.model';
-import { BoolFilterEditorComponent } from './filter-controls/bool-filter-editor.component';
-import { DaterangeFilterEditorComponent } from './filter-controls/daterange-filter-editor.component'
+import { FilterControlService } from '../services/filter-control.service';
 
 @Component({
   selector: 'pg-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.css'],
-  providers: [FiltersService]
+  providers: [FiltersService, FilterControlService]
 })
 
 export class FiltersComponent implements OnInit {
@@ -28,7 +26,8 @@ export class FiltersComponent implements OnInit {
 
   constructor(
     private filtersService: FiltersService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private filterControlService: FilterControlService
   ) {
   }
 
@@ -46,42 +45,9 @@ export class FiltersComponent implements OnInit {
     const item = this.allfilters.find(x => x.id == this.selectedFilter);
     if (item) {
       this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
-      this.createFilterEditor(item);
+      this.contentFilters.push(this.filterControlService.createFilterEditor(item, this.placeholder));
     }
     this.selectedFilter = "";
-  }
-
-  createFilterEditor(filter: IFilterModel): void {
-    const model = {
-      filterDefinitionId: filter.id,
-      filterType: "Include",
-      dataType: filter.type,
-      values: [""]
-    } as IContentFilterModel;
-
-    let component = this.createComponent(filter.type);
-
-    if (component) {
-      let componentRef = this.placeholder.viewContainerRef.createComponent(component);
-      (<any>(componentRef.instance)).model = model;
-      (<any>(componentRef.instance)).title = filter.name;
-      this.contentFilters.push(model);
-    }
-  }
-
-  createComponent(type: string): any {
-    if (type == "Text") {
-      return this.componentFactoryResolver.resolveComponentFactory(TextFilterEditorComponent);
-    }
-
-    if (type == "Boolean") {
-      return this.componentFactoryResolver.resolveComponentFactory(BoolFilterEditorComponent);
-    }
-
-    if (type == "DateRange") {
-      return this.componentFactoryResolver.resolveComponentFactory(DaterangeFilterEditorComponent);
-    }
-    return null;
   }
 
   search(): void {

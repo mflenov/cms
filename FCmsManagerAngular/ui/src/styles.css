@@ -97,8 +97,12 @@
   padding-left: 20px;
 }
 
-.fcms .buttons .cms-button {
+.fcms .cms-buttons .cms-button {
   margin-right: 12px;
+}
+
+.fcms .cms-right {
+  float:right;
 }
 
 .fcms .cms-button {
@@ -135,7 +139,7 @@
 
 .fcms .cms-repository {
   border: 1px solid #999;
-  padding: 10px 10px 0px 10px ;
+  padding: 10px;
   margin-bottom: 10px;
   background: #fff;
   box-shadow: 0px 1px 5px #aaa;
@@ -162,7 +166,7 @@
 }
 
 .fcms .cms-controls {
-  margin: 10px 10px 10px 0px;
+  padding: 4px 4px 4px 0px;
 }
 
 .fcms .form-group{

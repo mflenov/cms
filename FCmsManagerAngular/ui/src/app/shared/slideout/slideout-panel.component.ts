@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter} from '@angular/core';
 
 export class SlidePanelComponent {
   @Input() isVisible: boolean = false;
-  @Input() closeCaption: string = "Close";
+  @Input() closeCaption: string = "Save";
   @Output() onSave: EventEmitter<any> = new EventEmitter();
   @Output() onCancel: EventEmitter<any> = new EventEmitter();
 
