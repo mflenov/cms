@@ -1,14 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
 import { IContentFilterModel } from '../models/content-filter.model';
-import { IContentItemModel } from '../models/content-item.model';
 
 import { IPageContentModel } from '../models/page-content.model';
 import { IPageStructureModel } from '../models/page-structure.model';
 import { ContentService } from '../services/content.service'
 import { PagesService } from '../services/pages.service';
-import { ContentItemComponent } from './content-item.component'
 
 @Component({
   selector: 'pg-editpage',

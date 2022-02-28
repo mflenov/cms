@@ -1,1 +1,19 @@
-<p>edit-filters works!</p>
+<h2>Filters</h2>
+
+<div *ngIf="isLoaded == true; else loadedBlock">
+	loading...
+</div>
+<ng-template #loadedBlock>
+	<div *ngIf="nofilters">
+		<p>No filters found.</p>
+	</div>
+</ng-template>
+
+<ng-template contentplaceholder></ng-template>
+
+<select [(ngModel)]="selectedFilter" class="form-control">
+	<option id="">- select value -</option>
+	<option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.name}}</option>
+</select>
+
+<button class="cms-button" (click)="addfilter()">Add filter</button>

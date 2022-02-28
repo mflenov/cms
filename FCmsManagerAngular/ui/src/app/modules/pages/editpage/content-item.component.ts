@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewCont
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
-import { IPageContentModel } from '../models/page-content.model';
 import { ContentEditorComponent } from './content-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 

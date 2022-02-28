@@ -1,12 +1,10 @@
 <h2>Filter:</h2>
 
 <div>
-    <select [(ngModel)]="selectedFilter" class="form-control">
+    <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
         <option id="">- select value -</option>
         <option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.name}}</option>
     </select>
-    <br />
-    <button class="cms-button" (click)="addFilter()">Add filter</button>
 </div>
 
 <hr />

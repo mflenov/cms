@@ -16,7 +16,7 @@
     <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
 </div>
 
-<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" closeCaption="Save">
+<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" (onCancel)="onCancelFilters()" >
     <div pane>
         <ng-template contentplaceholder></ng-template>
     </div>
