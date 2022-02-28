@@ -18,7 +18,6 @@ export class EditFiltersComponent implements OnInit {
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
-  
   availableFilters: IFilterModel[] = [];
   filterDefinitions: any = [];
   filtersSubs!: Subscription;
@@ -31,6 +30,8 @@ export class EditFiltersComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.filterControlService.onDelete.subscribe(item => this.onDeleteFilter(item))
+
     this.filtersSubs = this.filtersService.getFilters().subscribe({
       next: filters => {
         this.availableFilters = filters.data as IFilterModel[];
@@ -52,6 +53,11 @@ export class EditFiltersComponent implements OnInit {
         this.nofilters = this.model?.length == 0;
       }
     });
+  }
+
+  onDeleteFilter(id: string): void {
+    const index = this.model.findIndex(m => m.filterDefinitionId == id);
+    this.model.splice(index, 1);
   }
 
   addfilter(): void {

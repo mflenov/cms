@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
@@ -26,12 +26,13 @@ export class FiltersComponent implements OnInit {
 
   constructor(
     private filtersService: FiltersService,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private filterControlService: FilterControlService
   ) {
   }
 
   ngOnInit(): void {
+    this.filterControlService.onDelete.subscribe(item => this.onDeleteFilter(item))
+
     const filtersSubs = this.filtersService.getFilters().subscribe({
       next: filters => {
         this.allfilters = filters.data as IFilterModel[];
@@ -39,6 +40,12 @@ export class FiltersComponent implements OnInit {
         filtersSubs.unsubscribe;
       }
     });
+  }
+
+  onDeleteFilter(id: string): void {
+    const index = this.contentFilters.findIndex(m => m.filterDefinitionId == id);
+    this.contentFilters.splice(index, 1);
+    this.availableFilters.push(this.allfilters.find(m => m.id == id)!);
   }
 
   addFilter(): void {

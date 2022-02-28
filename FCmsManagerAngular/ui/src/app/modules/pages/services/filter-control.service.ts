@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable, EventEmitter, Output } from '@angular/core';
 
 import { IContentFilterModel } from '../models/content-filter.model';
 import { IFilterModel } from 'src/app/models/filter-model';
@@ -11,7 +11,9 @@ import { DaterangeFilterEditorComponent } from '../editpage/filter-controls/date
 @Injectable()
 
 export class FilterControlService {
-	constructor(
+  @Output() onDelete: EventEmitter<string> = new EventEmitter();
+
+  constructor(
 		private componentFactoryResolver: ComponentFactoryResolver
 	) 
   { }
@@ -33,8 +35,13 @@ export class FilterControlService {
       let componentRef = placeholder.viewContainerRef.createComponent(component);
       (<any>(componentRef.instance)).model = model;
       (<any>(componentRef.instance)).title = filter.name;
+      ((<any>(componentRef.instance)).onDelete as EventEmitter<string>).subscribe(item => this.onFilterDelete(item));
     }
     return model;
+  }
+
+  onFilterDelete(id: string) {
+    this.onDelete.emit(id);
   }
 
   createComponent(type: string): any {
