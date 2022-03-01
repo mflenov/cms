@@ -1,0 +1,31 @@
+<ng-container *ngIf="definition.typeName == 'String'">
+    <h3>{{definition.name}}</h3>
+    <input name="name" class="form-control" [(ngModel)]="content.data" />
+</ng-container>
+
+<ng-container *ngIf="definition.typeName == 'Folder'">
+    <h3>{{definition.name}}</h3>
+    <div class="cms-folder" *ngFor="let folderitem of content">
+        <div class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
+
+        <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcms-forlder-item">
+            <pg-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></pg-content-item>
+        </div>
+    
+        <div class="cms-controls">
+            <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
+        </div>    
+    </div>
+</ng-container>
+
+<ng-container *ngIf="folderItemEditor == false && definition.typeName != 'Folder'">
+    <div class="cms-controls">
+        <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
+    </div>
+</ng-container>
+
+<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" (onCancel)="onCancelFilters()" >
+    <div pane>
+        <ng-template contentplaceholder></ng-template>
+    </div>
+</sh-slide-panel>

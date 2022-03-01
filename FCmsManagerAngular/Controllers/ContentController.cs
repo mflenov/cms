@@ -50,7 +50,8 @@ namespace FCmsManagerAngular.Controllers
             var definitionCache = repository.ContentDefinitions.ToDictionary(m => m.DefinitionId, m => m);
             var storeItems = contentStore.Items.Where(m => model.ContentItems.Any(c => c.Id == m.Id)).ToDictionary(m => m.Id ?? System.Guid.NewGuid(), m => m);
 
-            foreach (var item in model.ContentItems)
+            contentStore.Items.RemoveAll(m => model.ContentItems.Any(n => n.IsDeleted && n.Id == m.Id));
+            foreach (var item in model.ContentItems.Where(m => !m.IsDeleted))
             {
                 var definition = definitionCache[item.DefinitionId];
                 if (item.Id != null && storeItems.ContainsKey(item.Id.Value))

@@ -8,7 +8,7 @@ import { StructureComponent } from './structure/structure.component';
 import { ContentdefinitionComponent } from './structure/content-definition.component';
 import { EditpageComponent } from './editpage/edit-page.component';
 import { ContentItemComponent } from './editpage/content-item.component';
-import { ContentEditorComponent } from './editpage/content-editor.component';
+import { ContentItemEditorComponent } from './editpage/content-item-editor.component';
 import { ContentPlaceholderDirective } from './editpage/content-placeholder.directive';
 import { FiltersComponent } from './editpage/filters.component';
 import { EditFiltersComponent } from './editpage/edit-filters.component';
@@ -24,7 +24,7 @@ import { NewPageComponent } from './newpage/new-page.component';
     ContentdefinitionComponent,
     EditpageComponent,
     ContentItemComponent,
-    ContentEditorComponent,
+    ContentItemEditorComponent,
     ContentPlaceholderDirective,
     FiltersComponent,
     EditFiltersComponent,

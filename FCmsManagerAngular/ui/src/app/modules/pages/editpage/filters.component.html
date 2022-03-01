@@ -1,5 +1,9 @@
 <h2>Filter:</h2>
 
+<ng-template contentplaceholder></ng-template>
+
+<hr />
+
 <div>
     <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
         <option id="">- select value -</option>
@@ -7,7 +11,4 @@
     </select>
 </div>
 
-<hr />
-
-<ng-template contentplaceholder></ng-template>
 <button class="cms-button" (click)="search()">Search</button>
