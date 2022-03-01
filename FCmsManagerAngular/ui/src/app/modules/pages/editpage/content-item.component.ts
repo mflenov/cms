@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewCont
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
-import { ContentEditorComponent } from './content-editor.component';
+import { ContentItemEditorComponent } from './content-item-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 
 
@@ -15,6 +15,7 @@ import { ContentPlaceholderDirective } from './content-placeholder.directive';
 export class ContentItemComponent implements OnInit {
   @Input() definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
   @Input() data: IContentItemModel[] = [];
+  @Input() folderItem: Boolean = false;
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
@@ -30,10 +31,6 @@ export class ContentItemComponent implements OnInit {
     if (this.data && this.data.length > 0) {
       this.buildContentMap();
     }
-  }
-
-  deleteRow(id: string | undefined): void {
-    debugger;
   }
 
   buildContentMap() {
@@ -71,10 +68,15 @@ export class ContentItemComponent implements OnInit {
 
   createContentComponent(model: IContentItemModel) {
     this.placeholder.viewContainerRef.clear();
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentEditorComponent);
-    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
+    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentItemEditorComponent);
+    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(ContentItemEditorComponent);
 
-    (<ContentEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;
-    (<ContentEditorComponent>(contentEditorComponentRef.instance)).content = model;
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).content = model;
+  }
+
+  onDelete(id: string): void {
+    const index = this.data.findIndex(m => m.id == id);
+    this.data[index].isDeleted = true;
   }
 }

@@ -15,6 +15,8 @@ namespace FCmsManagerAngular.ViewModels {
 
         public object Data { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public IEnumerable<ContentFilterViewModel> Filters { get; set; } = new List<ContentFilterViewModel>();
 
         public IEnumerable<ContentViewModel> Children { get; set; } = new List<ContentViewModel>();
@@ -46,7 +48,7 @@ namespace FCmsManagerAngular.ViewModels {
         {
             // map content
             if (model is ContentFolderItem)
-                MapFolder(model, contentDefinition);
+                MapFolder(model as ContentFolderItem, contentDefinition);
             else
                 MapScalar(model);
 
@@ -88,7 +90,7 @@ namespace FCmsManagerAngular.ViewModels {
             }
         }
 
-        private  void MapFolder(ContentItem model, IContentDefinition contentDefinition) {
+        private  void MapFolder(ContentFolderItem model, IContentDefinition contentDefinition) {
         }
     }
 }
