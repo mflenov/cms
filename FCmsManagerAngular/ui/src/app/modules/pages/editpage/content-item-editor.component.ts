@@ -24,8 +24,8 @@ export class ContentItemEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showFilters(id: string): void {
-    this.createFiltersComponent();
+  showFilters(filters: any): void {
+    this.createFiltersComponent(filters);
     this.isFiltersPanelVisible = true;
   }
 
@@ -37,11 +37,11 @@ export class ContentItemEditorComponent implements OnInit {
     this.isFiltersPanelVisible = false;
   }
 
-  createFiltersComponent() {
+  createFiltersComponent(filters: any) {
     this.placeholder.viewContainerRef.clear();
     let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(EditFiltersComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
-    (<EditFiltersComponent>(contentEditorComponentRef.instance)).model = this.content.filters;
+    (<EditFiltersComponent>(contentEditorComponentRef.instance)).model = filters;
   }
 
   deleteFolderItem(id: string | undefined): void {
