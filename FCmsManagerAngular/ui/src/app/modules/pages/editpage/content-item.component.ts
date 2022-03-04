@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentFilterModel } from '../models/content-filter.model';
 import { IContentItemModel } from '../models/content-item.model';
+import { ContentItemService } from '../services/contentitem.service';
 import { ContentItemEditorComponent } from './content-item-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 
@@ -16,6 +18,7 @@ export class ContentItemComponent implements OnInit {
   @Input() definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
   @Input() data: IContentItemModel[] = [];
   @Input() folderItem: Boolean = false;
+  @Input() filters: IContentFilterModel[] = [];
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
@@ -24,7 +27,8 @@ export class ContentItemComponent implements OnInit {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private contentItemService: ContentItemService
   ) { }
 
   ngOnInit(): void {
@@ -49,30 +53,40 @@ export class ContentItemComponent implements OnInit {
   }
 
   addValue(definitionId: string) {
-    const model = this.createEditModel(definitionId);
-    this.createContentComponent(model);
-    this.isNewItemVisible = false;
+    if (this.definition.typeName == 'Folder') {
+      const model = this.contentItemService.getFolderModel(definitionId, this.definition);
+      model.filters = this.filters;
+      this.data.push(model);
+      this.createContentComponent([model]);
+    }
+    else {
+      const model = this.createEditModel(definitionId);
+      this.data.push(model);
+      this.createContentComponent(model);
+    }
+    this.isNewItemVisible = false;  
   }
 
   createEditModel(definitionId: string): IContentItemModel {
     const newitem = {} as IContentItemModel;
     newitem.definitionId = definitionId;
-
+    newitem.filters = this.filters;
+    newitem.isFolder = false;
     if (this.definition.typeName == 'String') {
-      newitem.isFolder = false;
       newitem.data = 'new string';
     }
-    this.data.push(newitem);
     return newitem;
   }
 
-  createContentComponent(model: IContentItemModel) {
+  createContentComponent(model: any) {
     this.placeholder.viewContainerRef.clear();
     let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentItemEditorComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(ContentItemEditorComponent);
 
-    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).content = model;
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).onAddFolder.subscribe(this.onAddFolder);
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).onDelete.subscribe(this.onDelete);
   }
 
   onDelete(id: string): void {
