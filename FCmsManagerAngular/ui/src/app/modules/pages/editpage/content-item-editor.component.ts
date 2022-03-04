@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentItemModel } from '../models/content-item.model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 
@@ -15,6 +16,7 @@ export class ContentItemEditorComponent implements OnInit {
   @Input() folderItemEditor: Boolean = false;
 
   @Output() onDelete: EventEmitter<string> = new EventEmitter();
+  @Output() onAddFolder: EventEmitter<any> = new EventEmitter();
   isFiltersPanelVisible: boolean = false;
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
@@ -48,5 +50,37 @@ export class ContentItemEditorComponent implements OnInit {
     const index = (this.content as [any]).findIndex(m => m.id == id);
     (this.content as [any]).splice(index, 1);
     this.onDelete.emit(id);
+  }
+
+  addFolderValue(id: string| undefined): void {
+    if (id) {
+      const newFilderItem = this.getFolderModel(id);
+      (this.content as [any]).push(newFilderItem);
+      this.onAddFolder.emit(newFilderItem);
+    }
+  }
+
+  getFolderModel(id: string) : IContentItemModel {
+    let model: IContentItemModel = {
+      definitionId: id,
+      isFolder: true,
+      isDeleted: false,
+      filters: [],
+      data: null,
+      children: []
+    };
+    for (const key in this.definition.contentDefinitions) {
+      model.children.push(
+        {
+          definitionId: this.definition.contentDefinitions[key].definitionId,
+          isFolder: false,
+          isDeleted: false,
+          filters: [],
+          data: null,
+          children: []
+        }
+      );
+    }
+    return model;
   }
 }

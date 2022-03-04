@@ -170,6 +170,11 @@
   padding: 4px 4px 4px 0px;
 }
 
+.fcms .cms-right-controls {
+  text-align: right;
+  padding: 4px 0px 4px 0px;
+}
+
 .fcms .form-group{
     padding: 10px 0px;
 }

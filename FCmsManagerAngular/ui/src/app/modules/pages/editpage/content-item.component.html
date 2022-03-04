@@ -1,6 +1,6 @@
 <ng-container *ngIf="content[definition.definitionId]; then thenBlock else elseBlock"></ng-container>
 <ng-template #thenBlock>
-    <pg-content-item-editor [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId]' (onDelete)="onDelete($event)" ></pg-content-item-editor>
+    <pg-content-item-editor [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId]' (onAddFolder)='onAddFolder($event)' (onDelete)="onDelete($event)" ></pg-content-item-editor>
 </ng-template>
 
 <ng-template #elseBlock>
