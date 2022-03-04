@@ -13,14 +13,17 @@
         </div>
     
         <div class="cms-controls">
-            <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
+            <button class="cms-button" (click)="showFilters(folderitem.filters)">Filters</button>
         </div>    
+    </div>
+    <div class="cms-right-controls">
+        <button class="cms-button" (click)="addFolderValue(definition.definitionId)">Add new value</button>
     </div>
 </ng-container>
 
 <ng-container *ngIf="folderItemEditor == false && definition.typeName != 'Folder'">
     <div class="cms-controls">
-        <button class="cms-button" (click)="showFilters(definition.definitionId)">Filters</button>
+        <button class="cms-button" (click)="showFilters(content.filters)">Filters</button>
     </div>
 </ng-container>
 

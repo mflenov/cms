@@ -79,4 +79,8 @@ export class ContentItemComponent implements OnInit {
     const index = this.data.findIndex(m => m.id == id);
     this.data[index].isDeleted = true;
   }
+
+  onAddFolder(folder: any): void {
+    this.data.push(folder);
+  }
 }

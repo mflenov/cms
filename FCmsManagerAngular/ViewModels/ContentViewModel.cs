@@ -91,6 +91,26 @@ namespace FCmsManagerAngular.ViewModels {
         }
 
         private  void MapFolder(ContentFolderItem model, IContentDefinition contentDefinition) {
+            model.Childeren.Clear();
+            model.DefinitionId = this.DefinitionId;
+            model.Id = this.Id ?? Guid.NewGuid();
+
+            foreach (var definition in (contentDefinition as FolderContentDefinition).Definitions)
+            {
+                ContentViewModel content = this.Children.Where(m => m.DefinitionId == definition.DefinitionId).FirstOrDefault();
+                if (content == null) {
+                    continue;
+                }
+                if (definition is StringContentDefinition)
+                {
+                    model.Childeren.Add(new StringContentItem(){
+                        DefinitionId = definition.DefinitionId,
+                        Data = content.Data.ToString(),
+                        Id = content.Id ?? Guid.NewGuid()
+                        }
+                    );
+                }
+            }
         }
     }
 }
