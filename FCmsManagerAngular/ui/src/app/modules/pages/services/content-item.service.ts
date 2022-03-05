@@ -20,7 +20,7 @@ export class ContentItemService {
 		for (const key in definition.contentDefinitions) {
 		  model.children.push(
 			{
-			  definitionId: definition.contentDefinitions[key].definitionId,
+			  definitionId: definition.contentDefinitions[key].definitionId!,
 			  isFolder: false,
 			  isDeleted: false,
 			  filters: [],

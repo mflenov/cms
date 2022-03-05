@@ -2,4 +2,10 @@
 <div *ngFor="let definition of model.contentDefinitions" [attr.id]="definition.definitionId" class="cms-repository">
     <stre-content-definition [definition]='definition'></stre-content-definition>
 </div>
-<button class="cms-button" (click)="onSubmit()">Save</button>
+
+<ng-template contentplaceholder></ng-template>
+
+<div class="cms-buttons">
+    <button class="cms-button" (click)="onSubmit()">Save</button>
+    <button class="cms-button" (click)="onAddValue()">Add value</button>
+</div>

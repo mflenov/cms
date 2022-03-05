@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewCont
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { IContentItemModel } from '../models/content-item.model';
-import { ContentItemService } from '../services/contentitem.service';
+import { ContentItemService } from '../services/content-item.service';
 import { ContentItemEditorComponent } from './content-item-editor.component';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 

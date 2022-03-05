@@ -1,12 +1,12 @@
-import { NgForm } from '@angular/forms'
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of, Observable } from 'rxjs';
 
 import { CmsenumsService } from '../../../services/cmsenums.service'
 import { PagesService } from '../services/pages.service'
-import { IEnumsModel } from '../../../models/enums-model'
 import { IPageStructureModel } from '../models/page-structure.model'
+import { ContentPlaceholderDirective } from '../editpage/content-placeholder.directive';
+import { IContentDefinitionsModel } from '../models/content-definitions.model';
 
 @Component({
   selector: 'stre-structure',
@@ -23,10 +23,13 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   model: IPageStructureModel = {} as IPageStructureModel;
 
+  @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
+
   constructor(private route: ActivatedRoute,
     private router: Router,
     private pagesService: PagesService,
-    private cmsenumsService: CmsenumsService) { }
+    private cmsenumsService: CmsenumsService
+    ) { }
 
   ngOnInit(): void {
     this.dataTypesSubs = this.cmsenumsService.getEnums().subscribe({
@@ -60,5 +63,14 @@ export class StructureComponent implements OnInit, OnDestroy {
         this.router.navigate(['/pages']);
       }
     });
+  }
+
+  onAddValue(): void {
+    const model = {
+      name: "",
+      typeName: "String",
+      contentDefinitions: []
+    } as IContentDefinitionsModel;
+    this.model.contentDefinitions.push(model);
   }
 }
