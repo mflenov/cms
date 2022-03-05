@@ -1,5 +1,6 @@
 <h1>"{{model.name}}" page structure</h1>
 <div *ngFor="let definition of model.contentDefinitions" [attr.id]="definition.definitionId" class="cms-repository">
+    <div class="cms-right fa fa-times link" (click)="deleteRow(definition.definitionId)"></div>
     <stre-content-definition [definition]='definition'></stre-content-definition>
 </div>
 

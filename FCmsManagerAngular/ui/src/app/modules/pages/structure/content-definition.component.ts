@@ -31,8 +31,4 @@ export class ContentdefinitionComponent implements OnInit, OnDestroy {
       this.dataTypesSubs.unsubscribe();
     }
   }
-
-  deleteRow(id: string | undefined): void {
-
-  }
 }
