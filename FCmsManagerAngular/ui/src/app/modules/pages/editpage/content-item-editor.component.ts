@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, 
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
+import { ContentItemService } from '../services/contentitem.service';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 
@@ -21,7 +22,8 @@ export class ContentItemEditorComponent implements OnInit {
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+      private contentItemService: ContentItemService) { }
 
   ngOnInit(): void {
   }
@@ -54,33 +56,9 @@ export class ContentItemEditorComponent implements OnInit {
 
   addFolderValue(id: string| undefined): void {
     if (id) {
-      const newFilderItem = this.getFolderModel(id);
+      const newFilderItem = this.contentItemService.getFolderModel(id, this.definition);
       (this.content as [any]).push(newFilderItem);
       this.onAddFolder.emit(newFilderItem);
     }
-  }
-
-  getFolderModel(id: string) : IContentItemModel {
-    let model: IContentItemModel = {
-      definitionId: id,
-      isFolder: true,
-      isDeleted: false,
-      filters: [],
-      data: null,
-      children: []
-    };
-    for (const key in this.definition.contentDefinitions) {
-      model.children.push(
-        {
-          definitionId: this.definition.contentDefinitions[key].definitionId,
-          isFolder: false,
-          isDeleted: false,
-          filters: [],
-          data: null,
-          children: []
-        }
-      );
-    }
-    return model;
   }
 }
