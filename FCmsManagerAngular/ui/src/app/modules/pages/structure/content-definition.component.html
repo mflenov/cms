@@ -13,7 +13,11 @@
 
     <div *ngIf="definition.typeName == 'Folder'" class="cms-folder">
         <div *ngFor="let folder of definition.contentDefinitions" [attr.id]="folder.definitionId">
+            <div class="cms-right fa fa-times link" (click)="deleteRow(folder.definitionId)"></div>
             <stre-content-definition [definition]='folder'></stre-content-definition>
+        </div>
+        <div class="cms-buttons">
+            <button class="cms-button" (click)="onAddValue()">Add value</button>
         </div>
     </div>
 </div>

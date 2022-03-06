@@ -31,4 +31,20 @@ export class ContentdefinitionComponent implements OnInit, OnDestroy {
       this.dataTypesSubs.unsubscribe();
     }
   }
+
+  onAddValue(): void {
+    const model = {
+      name: "",
+      typeName: "String",
+      contentDefinitions: []
+    } as IContentDefinitionsModel;
+    this.definition.contentDefinitions.push(model);
+  }
+
+  deleteRow(id: string|undefined) {
+    if (id) {
+      const index = this.definition.contentDefinitions.findIndex(m => m.definitionId == id);
+      this.definition.contentDefinitions.splice(index, 1);
+    }
+  }
 }

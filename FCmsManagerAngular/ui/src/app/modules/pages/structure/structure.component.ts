@@ -75,7 +75,6 @@ export class StructureComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string | undefined): void {
-    debugger;
     const index = this.model.contentDefinitions.findIndex(m => m.definitionId == id);
     this.model.contentDefinitions.splice(index, 1);
   }
