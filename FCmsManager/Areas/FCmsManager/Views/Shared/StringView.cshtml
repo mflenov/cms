@@ -1,7 +1,0 @@
-﻿@model Tuple<IContent, IContentDefinition>
-
-@{
-    var content = (Model.Item1 == null) ? new StringContentItem() : Model.Item1;
-}
-
-<b>@Model.Item2.Name</b>: @content.GetValue()
