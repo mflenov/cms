@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
@@ -14,6 +15,28 @@ namespace FCmsManagerAngular.Controllers
 
         public ContentController(IConfiguration config) {
             this.config = config;
+        }
+
+        [HttpGet]
+        [Route("api/v1/content/list/{repositoryId}/{definitionId}")]
+        public ApiResultModel List(Guid repositoryId, Guid definitionId) {
+            CmsManager manager = new CmsManager(config["DataLocation"]);
+            IRepository repository = manager.GetRepositoryById(repositoryId);
+            IContentStore contentStore = manager.GetContentStore(repositoryId);
+
+            IEnumerable<ContentItem> contentItems = 
+                contentStore.Items.Where(m => m.DefinitionId == definitionId);
+            var contentDefinition = repository.ContentDefinitions.Where(m => m.DefinitionId == definitionId).Select(m => new ContentDefinitionViewModel(m) {}).FirstOrDefault();
+
+            ContentListViewModel model = new ContentListViewModel() {
+                ContentItems = contentItems.Select(m => new ContentViewModel(m)),
+                Definition = contentDefinition,
+                RepositoryName = repository.Name
+                };
+
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                Data = model
+            };
         }
 
         [HttpPost]

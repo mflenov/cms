@@ -30,26 +30,10 @@
     },
     {
       "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "This is FCms Test Web Site 2020",
+      "Data": "This is FCms Test Web Site 2019",
       "Id": "14c9d315-ec74-4f7d-82b5-3633a59ef026",
       "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
       "Filters": [
-        {
-          "$type": "FCms.Content.ContentFilter, FCms",
-          "FilterDefinitionId": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
-          "Index": 0,
-          "Values": [
-            "2019-01-01T00:00:00",
-            "2019-12-01T00:00:00"
-          ],
-          "Filter": {
-            "$type": "FCms.Content.DateRangeFilter, FCms",
-            "Id": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
-            "Name": "DateRange",
-            "Type": "DateRange"
-          },
-          "FilterType": 0
-        },
         {
           "$type": "FCms.Content.ContentFilter, FCms",
           "FilterDefinitionId": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
