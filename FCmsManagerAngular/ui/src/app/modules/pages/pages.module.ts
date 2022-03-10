@@ -16,6 +16,7 @@ import { TextFilterEditorComponent } from './editpage/filter-controls/text-filte
 import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filter-editor.component';
 import { DaterangeFilterEditorComponent } from './editpage/filter-controls/daterange-filter-editor.component';
 import { NewPageComponent } from './newpage/new-page.component';
+import { ListPageContentComponent } from './list-content/list-page-content.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NewPageComponent } from './newpage/new-page.component';
     TextFilterEditorComponent,
     BoolFilterEditorComponent,
     DaterangeFilterEditorComponent,
-    NewPageComponent
+    NewPageComponent,
+    ListPageContentComponent,
   ],
   imports: [
     SharedModule,
@@ -40,7 +42,8 @@ import { NewPageComponent } from './newpage/new-page.component';
         { path: 'pages', component: PageListComponent },
         { path: 'pages/add', component: NewPageComponent },
         { path: 'pages/structure/:id', component: StructureComponent },
-        { path: 'pages/edit/:id', component: EditpageComponent }
+        { path: 'pages/edit/:id', component: EditpageComponent },
+        { path: 'pages/list/:repo/:id', component: ListPageContentComponent }
       ]
     )
   ]

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { IContentFilterModel } from '../models/content-filter.model';
@@ -24,16 +25,20 @@ export class ContentItemComponent implements OnInit {
 
   content: any = {};
   isNewItemVisible: boolean = true;
+  repositoryId: string = '';
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef,
-    private contentItemService: ContentItemService
+    private contentItemService: ContentItemService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     if (this.data && this.data.length > 0) {
       this.buildContentMap();
+    }
+    if (this.route.snapshot.paramMap.get("id")) {
+      this.repositoryId = this.route.snapshot.paramMap.get("id")!;
     }
   }
 

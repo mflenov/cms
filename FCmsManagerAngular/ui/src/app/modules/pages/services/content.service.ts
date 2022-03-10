@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHandler } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
@@ -14,6 +15,7 @@ import { IContentFilterModel } from '../models/content-filter.model';
 
 export class ContentService {
   private editpageurl: string = 'api/v1/content';
+  private listUrl: string = 'api/v1/content/list/';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -29,6 +31,14 @@ export class ContentService {
         filters: filters
       },
       { 'headers': headers });
+  }
+
+  listPageContent(repositoryId: string, definitionId: string): Observable<IApiRequestModel> {
+    return this.httpClient.get<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.listUrl + 
+      repositoryId + "/" + definitionId).pipe(
+      tap(),
+      catchError(this.handleError)
+    );
   }
 
   save(model: IPageContentModel): Observable<any> {

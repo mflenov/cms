@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using FCms.Content;
-using FCms.Factory;
 
 namespace FCmsManagerAngular.ViewModels
 {
