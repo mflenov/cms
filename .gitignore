@@ -11,6 +11,9 @@ autom4te.cache/
 tarballs/
 test-results/
 
+.vscode/
+FCmsAdmin/ui/.angular/
+
 # Mac bundle stuff
 *.dmg
 *.app
