@@ -3,6 +3,12 @@
     <input name="name" class="form-control" [(ngModel)]="content.data" />
 </ng-container>
 
+<ng-container *ngIf="definition.typeName == 'LongString'">
+    <h3>{{definition.name}}</h3>
+    <editor apiKey="test" [init]="{plugins: 'link'}" [(ngModel)]="content.data"></editor>
+</ng-container>
+
+
 <ng-container *ngIf="definition.typeName == 'Folder'">
     <h3>{{definition.name}}</h3>
     <div class="cms-folder" *ngFor="let folderitem of content">

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { EditorModule } from '@tinymce/tinymce-angular';
 import { SharedModule } from '../../shared/shared.module';
 
 import { PageListComponent } from './page-list/page-list.component';
@@ -37,6 +37,7 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
   ],
   imports: [
     SharedModule,
+    EditorModule,
     RouterModule.forChild(
       [
         { path: 'pages', component: PageListComponent },
