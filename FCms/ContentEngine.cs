@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FCms.Content;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace FCms
 {
@@ -13,12 +14,14 @@ namespace FCms
         const string REPO_CACHE_KEY = "FCMS_REPO";
         const string REPO_CACHE_STORE = "FCMS_STORE";
 
+        public IConfiguration config = (IConfiguration)ServiceCollection.GetRequiredService<IConfiguration>();
+
         public ContentEngine(string repositoryName)
         {
             manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
             if (manager == null)
             {
-                manager = new CmsManager();
+                manager = new CmsManager(config["DataLocation"]);
                 Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
             }
             this.RepositoryName = repositoryName;
