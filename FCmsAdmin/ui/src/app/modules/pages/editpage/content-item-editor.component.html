@@ -5,7 +5,7 @@
 
 <ng-container *ngIf="definition.typeName == 'LongString'">
     <h3>{{definition.name}}</h3>
-    <editor apiKey="test" [init]="{plugins: 'link'}" [(ngModel)]="content.data"></editor>
+    <textarea id="mytextarea" [(ngModel)]="content.data"></textarea>
 </ng-container>
 
 

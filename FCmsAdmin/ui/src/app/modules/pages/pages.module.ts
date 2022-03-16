@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EditorModule } from '@tinymce/tinymce-angular';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { SharedModule } from '../../shared/shared.module';
 
 import { PageListComponent } from './page-list/page-list.component';
@@ -47,6 +47,9 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
         { path: 'pages/list/:repo/:id', component: ListPageContentComponent }
       ]
     )
+  ],
+  providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ]
 })
 export class PagesModule { }
