@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { SharedModule } from '../../shared/shared.module';
+
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { NgxTinymceModule } from 'ngx-tinymce';
 
 import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
@@ -38,6 +40,9 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
   imports: [
     SharedModule,
     EditorModule,
+    NgxTinymceModule.forRoot({
+      baseURL: '/tinymce/'
+    }),
     RouterModule.forChild(
       [
         { path: 'pages', component: PageListComponent },

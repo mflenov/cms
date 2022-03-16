@@ -5,7 +5,7 @@
 
 <ng-container *ngIf="definition.typeName == 'LongString'">
     <h3>{{definition.name}}</h3>
-    <textarea id="mytextarea" [(ngModel)]="content.data"></textarea>
+    <tinymce [(ngModel)]="content.data"></tinymce>
 </ng-container>
 
 
