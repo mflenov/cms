@@ -9,6 +9,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 
 import { ConfigModule } from './modules/config/config.module';
 import { PagesModule } from './modules/pages/pages.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PagesModule } from './modules/pages/pages.module';
       { path: '**', component: NotfoundComponent },
     ]),
     ConfigModule,
-    PagesModule
+    PagesModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PageListComponent } from './page-list/page-list.component';
 import { StructureComponent } from './structure/structure.component';
@@ -40,6 +41,7 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
   imports: [
     SharedModule,
     EditorModule,
+    NgbModule,
     NgxTinymceModule.forRoot({
       baseURL: '/tinymce/'
     }),
