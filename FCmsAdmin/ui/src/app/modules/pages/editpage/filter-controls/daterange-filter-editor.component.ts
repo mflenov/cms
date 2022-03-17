@@ -21,6 +21,13 @@ export class DaterangeFilterEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.model.values.length > 0)  {
+      this.fromDate = this.getNgbDate(this.model.values[0]);
+    }
+
+    if (this.model.values.length > 1)  {
+      this.toDate = this.getNgbDate(this.model.values[1]);
+    }
   }
 
   delete(): void {
@@ -39,6 +46,14 @@ export class DaterangeFilterEditorComponent implements OnInit {
     }
     this.model.values[0] = this.getDateString(this.fromDate);
     this.model.values[1] = this.getDateString(this.toDate);
+  }
+
+  getNgbDate(str: string): NgbDate | null {
+    if (!str) {
+      return null;
+    }
+    const date = new Date(str);
+    return  { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear()} as NgbDate;
   }
 
   getDateString(ngdate: NgbDate | null): string {
