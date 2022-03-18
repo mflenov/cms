@@ -18,6 +18,7 @@ import { EditFiltersComponent } from './editpage/edit-filters.component';
 import { TextFilterEditorComponent } from './editpage/filter-controls/text-filter-editor.component';
 import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filter-editor.component';
 import { DaterangeFilterEditorComponent } from './editpage/filter-controls/daterange-filter-editor.component';
+import { DateFilterEditorComponent } from './editpage/filter-controls/date-filter-editor.component';
 import { NewPageComponent } from './newpage/new-page.component';
 import { ListPageContentComponent } from './list-content/list-page-content.component';
 
@@ -37,6 +38,7 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
     DaterangeFilterEditorComponent,
     NewPageComponent,
     ListPageContentComponent,
+    DateFilterEditorComponent,
   ],
   imports: [
     SharedModule,

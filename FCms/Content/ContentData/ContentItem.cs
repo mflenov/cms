@@ -15,16 +15,26 @@ namespace FCms.Content
 
         public string ToolTip { get; set; }
 
-        public bool MatchFilters(List<IContentFilter> filters)
+        public bool MatchFilters(List<IContentFilter> searchContentFilters)
         {
-            if (filters == null || Filters.Count != filters.Count)
+            if (searchContentFilters == null || Filters.Count != searchContentFilters.Count)
             {
                 return false;
             }
             var lookup = Filters.ToLookup(m => m.GetHashValue());
-            foreach (var filter in filters)
+            foreach (var searchContentFilter in searchContentFilters)
             {
-                if (!lookup.Contains(filter.GetHashValue()))
+                if (searchContentFilter.Filter is DateRangeFilter)
+                {
+                    var dateContentFilter = Filters.Where(m => m.Filter.Id == searchContentFilter.Filter.Id).FirstOrDefault();
+                    if (dateContentFilter == null)
+                        return false;
+
+                    DateTime? datevalue = Tools.Utility.StringToDateTime(searchContentFilter.Values.FirstOrDefault().ToString());
+                    if (datevalue == null || !dateContentFilter.Validate(datevalue))
+                        return false;
+                }
+                else if (!lookup.Contains(searchContentFilter.GetHashValue()))
                 {
                     return false;
                 }

@@ -32,7 +32,7 @@ export class EditFiltersComponent implements OnInit {
   ngOnInit(): void {
     this.filterControlService.onDelete.subscribe(item => this.onDeleteFilter(item))
 
-    this.filtersSubs = this.filtersService.getFilters().subscribe({
+    this.filtersSubs = this.filtersService.getCachedFilters().subscribe({
       next: filters => {
         this.availableFilters = filters.data as IFilterModel[];
 
