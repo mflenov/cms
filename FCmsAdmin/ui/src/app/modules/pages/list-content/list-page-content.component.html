@@ -5,6 +5,7 @@
         <ng-container *ngFor="let content of data">
             <div [attr.id]="definition.definitionId" class="cms-repository">
 				<ng-container *ngIf="definition.typeName == 'String'">
+					<h3>Value</h3>
 					<span>{{content.data}}</span>
 				</ng-container>
 

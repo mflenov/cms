@@ -24,7 +24,7 @@ namespace FCms.Content
             List<object> result = new List<object>();
             foreach (string item in list ?? new List<string>())
             {
-                DateTime? value = FCms.Tools.Utility.StringToDateTime(item);
+                DateTime? value = Tools.Utility.StringToDateTime(item);
                 if (value != null)
                 {
                     result.Add(value);

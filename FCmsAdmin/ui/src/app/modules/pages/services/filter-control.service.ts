@@ -7,6 +7,7 @@ import { ContentPlaceholderDirective } from '../editpage/content-placeholder.dir
 import { TextFilterEditorComponent } from '../editpage/filter-controls/text-filter-editor.component';
 import { BoolFilterEditorComponent } from '../editpage/filter-controls/bool-filter-editor.component';
 import { DaterangeFilterEditorComponent } from '../editpage/filter-controls/daterange-filter-editor.component';
+import { DateFilterEditorComponent } from '../editpage/filter-controls/date-filter-editor.component';
 
 @Injectable()
 
@@ -28,9 +29,17 @@ export class FilterControlService {
     return model;
   }
 
-  createFilterEditor(filter: IFilterModel, model: IContentFilterModel, placeholder?: ContentPlaceholderDirective): IContentFilterModel {
-    let component = this.createComponent(filter.type);
+  createFilterControl(filter: IFilterModel, model: IContentFilterModel, placeholder?: ContentPlaceholderDirective): IContentFilterModel {
+    let component = this.createEditorComponent(filter.type, false);
+    return this.placeControl(component, filter, model, placeholder);
+  }
 
+  createFilterEditor(filter: IFilterModel, model: IContentFilterModel, placeholder?: ContentPlaceholderDirective): IContentFilterModel {
+    let component = this.createEditorComponent(filter.type, true);
+    return this.placeControl(component, filter, model, placeholder);
+  }
+
+  placeControl(component: any, filter: IFilterModel, model: IContentFilterModel, placeholder?: ContentPlaceholderDirective) {
     if (component && placeholder) {
       let componentRef = placeholder.viewContainerRef.createComponent(component);
       (<any>(componentRef.instance)).model = model;
@@ -44,17 +53,18 @@ export class FilterControlService {
     this.onDelete.emit(id);
   }
 
-  createComponent(type: string): any {
+  createEditorComponent(type: string, iseditor: Boolean): any {
     if (type == "Text") {
       return this.componentFactoryResolver.resolveComponentFactory(TextFilterEditorComponent);
     }
-
     if (type == "Boolean") {
       return this.componentFactoryResolver.resolveComponentFactory(BoolFilterEditorComponent);
     }
-
-    if (type == "DateRange") {
+    if (type == "DateRange" && iseditor) {
       return this.componentFactoryResolver.resolveComponentFactory(DaterangeFilterEditorComponent);
+    }
+    if (type == "DateRange" && !iseditor) {
+      return this.componentFactoryResolver.resolveComponentFactory(DateFilterEditorComponent);
     }
     return null;
   }

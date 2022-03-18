@@ -33,7 +33,7 @@ export class FiltersComponent implements OnInit {
   ngOnInit(): void {
     this.filterControlService.onDelete.subscribe(item => this.onDeleteFilter(item))
 
-    const filtersSubs = this.filtersService.getFilters().subscribe({
+    const filtersSubs = this.filtersService.getCachedFilters().subscribe({
       next: filters => {
         this.allfilters = filters.data as IFilterModel[];
         this.availableFilters = this.allfilters;
@@ -49,10 +49,10 @@ export class FiltersComponent implements OnInit {
   }
 
   addFilter(): void {
-    const item = this.allfilters.find(x => x.id == this.selectedFilter);
+    const item = this.allfilters.find(x => x.id == this.selectedFilter || x.type == this.selectedFilter);
     if (item) {
       this.availableFilters = this.availableFilters.filter(i => i.id != item.id);
-      this.contentFilters.push(this.filterControlService.createFilterEditor(item, this.filterControlService.createModel(item), this.placeholder));
+      this.contentFilters.push(this.filterControlService.createFilterControl(item, this.filterControlService.createModel(item), this.placeholder));
     }
     this.selectedFilter = "";
   }

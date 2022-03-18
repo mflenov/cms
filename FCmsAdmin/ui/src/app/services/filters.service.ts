@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -14,15 +14,24 @@ export class FiltersService {
   private listurl: string = 'api/v1/config/filters';
   private url: string = 'api/v1/config/filter/';
 
+  private cache: IApiRequestModel | undefined;
+
   constructor(private httpClient: HttpClient) {
 
   }
 
   getFilters(): Observable<IApiRequestModel> {
     return this.httpClient.get<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.listurl).pipe(
-      tap(),
+      tap(m => { this.cache = m; }),
       catchError(this.handleError)
     );
+  }
+
+  getCachedFilters(): Observable<IApiRequestModel> {
+    if (this.cache) {
+      return of(this.cache);
+    }
+    return this.getFilters();
   }
 
   getById(id: string): Observable<IFilterModel> {

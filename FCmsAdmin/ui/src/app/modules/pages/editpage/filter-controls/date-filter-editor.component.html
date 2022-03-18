@@ -1,0 +1,5 @@
+<div class="fcms-filter-item">
+    <span class="cms-right fa fa-times link" (click)="delete()"> </span>
+    <h4>{{title}}:</h4>
+    <ngb-datepicker #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
+</div>
