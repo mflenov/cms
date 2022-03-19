@@ -4,7 +4,7 @@ import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { Subscription } from 'rxjs';
 
-import { ContentPlaceholderDirective } from './content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 import { FilterControlService } from '../services/filter-control.service';
 
 @Component({
