@@ -12,8 +12,8 @@ import { ContentdefinitionComponent } from './structure/content-definition.compo
 import { EditpageComponent } from './editpage/edit-page.component';
 import { ContentItemComponent } from './editpage/content-item.component';
 import { ContentItemEditorComponent } from './editpage/content-item-editor.component';
-import { ContentPlaceholderDirective } from './editpage/content-placeholder.directive';
-import { FiltersComponent } from './editpage/filters.component';
+import { ContentPlaceholderDirective } from './widgets/content-placeholder.directive';
+import { FiltersComponent } from './widgets/filters.component';
 import { EditFiltersComponent } from './editpage/edit-filters.component';
 import { TextFilterEditorComponent } from './editpage/filter-controls/text-filter-editor.component';
 import { BoolFilterEditorComponent } from './editpage/filter-controls/bool-filter-editor.component';

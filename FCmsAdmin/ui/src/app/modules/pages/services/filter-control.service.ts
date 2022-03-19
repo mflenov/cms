@@ -2,7 +2,7 @@ import { ComponentFactoryResolver, Injectable, EventEmitter, Output } from '@ang
 
 import { IContentFilterModel } from '../models/content-filter.model';
 import { IFilterModel } from 'src/app/models/filter-model';
-import { ContentPlaceholderDirective } from '../editpage/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 
 import { TextFilterEditorComponent } from '../editpage/filter-controls/text-filter-editor.component';
 import { BoolFilterEditorComponent } from '../editpage/filter-controls/bool-filter-editor.component';

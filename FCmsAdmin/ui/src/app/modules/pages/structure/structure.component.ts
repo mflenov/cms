@@ -5,7 +5,7 @@ import { Subscription, of, Observable } from 'rxjs';
 import { CmsenumsService } from '../../../services/cmsenums.service'
 import { PagesService } from '../services/pages.service'
 import { IPageStructureModel } from '../models/page-structure.model'
-import { ContentPlaceholderDirective } from '../editpage/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 
 @Component({

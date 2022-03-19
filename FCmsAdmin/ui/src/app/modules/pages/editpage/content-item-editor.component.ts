@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { IContentDefinitionsModel } from '../models/content-definitions.model';
 import { ContentItemService } from '../services/content-item.service';
-import { ContentPlaceholderDirective } from './content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 
 @Component({

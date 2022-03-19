@@ -37,6 +37,10 @@
   font-weight: 300;
 }
 
+.fcms .nav {
+  padding-top: 8px;
+}
+
 .fcms a:hover {
   color: #f07b66;
   text-decoration: underline;
