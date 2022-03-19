@@ -1,5 +1,10 @@
 <h1>{{repositoryName}} - "{{definition.name}}"</h1>
 
+<div class="fcms-top-search col-md-8">
+	<h3>Search</h3>
+	<pg-filters (onFilter)="onFilter($event)"></pg-filters>
+</div>
+
 <div class="row">
     <div class="col-md-8">
         <ng-container *ngFor="let content of data">

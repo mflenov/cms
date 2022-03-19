@@ -17,15 +17,16 @@ namespace FCmsManagerAngular.Controllers
             this.config = config;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/v1/content/list/{repositoryId}/{definitionId}")]
-        public ApiResultModel List(Guid repositoryId, Guid definitionId) {
+        public ApiResultModel List(Guid repositoryId, Guid definitionId, ContentRequestModel request) {
             CmsManager manager = new CmsManager(config["DataLocation"]);
             IRepository repository = manager.GetRepositoryById(repositoryId);
             IContentStore contentStore = manager.GetContentStore(repositoryId);
 
+            var searchFilters = request.getFiltersModel().ToList();
             IEnumerable<ContentItem> contentItems = 
-                contentStore.Items.Where(m => m.DefinitionId == definitionId);
+                contentStore.Items.Where(m => m.DefinitionId == definitionId && m.MatchFilters(searchFilters, true));
             var contentDefinition = repository.ContentDefinitions.Where(m => m.DefinitionId == definitionId).Select(m => new ContentDefinitionViewModel(m) {}).FirstOrDefault();
 
             ContentListViewModel model = new ContentListViewModel() {
@@ -48,9 +49,10 @@ namespace FCmsManagerAngular.Controllers
 
             IContentStore contentStore = manager.GetContentStore(request.repositoryid);
 
+            var searchFilters = request.getFiltersModel().ToList();
             IEnumerable<ContentItem> contentItems = request.filters == null ?
                 contentStore.Items.Where(m => m.Filters.Count == 0):
-                contentStore.Items.Where(m => m.MatchFilters(request.getFiltersModel().ToList()));
+                contentStore.Items.Where(m => m.MatchFilters(searchFilters));
 
             PageContentViewModel model = new PageContentViewModel() {
                 RepositoryId = request.repositoryid,
