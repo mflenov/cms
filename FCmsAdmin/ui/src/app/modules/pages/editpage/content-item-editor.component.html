@@ -24,14 +24,14 @@
     </div>
     <div class="cms-right-controls cms-buttons">
         <button class="cms-button" (click)="addFolderValue(definition.definitionId)">Add new value</button>
-        <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List all variations</button>
+        <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
     </div>
 </ng-container>
 
 <ng-container *ngIf="folderItemEditor == false && definition.typeName != 'Folder'">
     <div class="cms-controls cms-buttons">
         <button class="cms-button" (click)="showFilters(content.filters)">Filters</button>
-        <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List all variations</button>
+        <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
     </div>
 </ng-container>
 
