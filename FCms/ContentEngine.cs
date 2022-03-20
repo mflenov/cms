@@ -21,7 +21,8 @@ namespace FCms
             manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
             if (manager == null)
             {
-                manager = new CmsManager(config["DataLocation"]);
+                string location = config == null || config["DataLocation"] == null  ? "" : config["DataLocation"];
+                manager = new CmsManager(location);
                 Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
             }
             this.RepositoryName = repositoryName;
