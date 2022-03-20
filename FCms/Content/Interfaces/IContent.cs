@@ -17,7 +17,7 @@ namespace FCms.Content
 
         public string Data { get { return this.GetValue().ToString(); } }
 
-        public bool MatchFilters(List<IContentFilter> filters);
+        public bool MatchFilters(List<IContentFilter> filters, Boolean skipEmpty = false);
 
         public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters);
 

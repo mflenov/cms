@@ -33,12 +33,16 @@ export class ContentService {
       { 'headers': headers });
   }
 
-  listPageContent(repositoryId: string, definitionId: string): Observable<IApiRequestModel> {
-    return this.httpClient.get<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.listUrl + 
-      repositoryId + "/" + definitionId).pipe(
-      tap(),
-      catchError(this.handleError)
-    );
+  listPageContent(repositoryId: string, definitionId: string, filters: IContentFilterModel[] = []): Observable<IApiRequestModel> {
+    const headers = {
+      'content-type': 'application/json',
+      'accept': 'text/plain'
+    };
+    return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.listUrl + repositoryId + "/" + definitionId,
+      {
+        filters: filters
+      },
+      { 'headers': headers });
   }
 
   save(model: IPageContentModel): Observable<any> {

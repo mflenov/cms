@@ -8,6 +8,7 @@ import { IContentListModel } from '../models/content-list.model';
 import { ContentService } from '../services/content.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
+import { IContentFilterModel } from '../models/content-filter.model';
 
 @Component({
   selector: 'app-list-page-content',
@@ -19,6 +20,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   repositoryName: string = '';
   data: IContentItemModel[] = {} as IContentItemModel[];
   definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
+  searchfilters: IContentFilterModel[] = [];
   filters: any = {};
 
   filtersSubs!: Subscription;
@@ -36,7 +38,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
     if (repositoryId && definitionId) {
       this.filtersSubs = this.filtersService.getFilters().subscribe(filters => {
-        this.contentSubs = this.contentService.listPageContent(repositoryId, definitionId).subscribe(content => {
+        this.contentSubs = this.contentService.listPageContent(repositoryId, definitionId, this.searchfilters).subscribe(content => {
           this.data = (content.data as IContentListModel).contentItems;
           this.definition = (content.data as IContentListModel).definition;
           this.repositoryName = (content.data as IContentListModel).repositoryName;
@@ -53,5 +55,10 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.filtersSubs.unsubscribe();
     this.contentSubs.unsubscribe();
+  }
+
+  onFilter(filters: IContentFilterModel[]): void {
+    this.searchfilters = filters;
+    this.ngOnInit();
   }
 }
