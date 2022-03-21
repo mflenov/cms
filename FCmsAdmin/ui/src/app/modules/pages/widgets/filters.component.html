@@ -3,7 +3,7 @@
 <div>
     <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
         <option id="">- select value -</option>
-        <option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.name}}</option>
+        <option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.displayName}}</option>
     </select>
 </div>
 

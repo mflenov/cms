@@ -11,6 +11,8 @@ namespace FCms.Content
 
         string Name { get; set; }
 
+        string DisplayName { get; set; }
+
         string Type { get; }
 
         bool Validate(List<object> values, object value);

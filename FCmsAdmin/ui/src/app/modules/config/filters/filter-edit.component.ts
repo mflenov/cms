@@ -18,6 +18,7 @@ import { FiltersService } from '../../../services/filters.service';
 export class FilterComponent implements OnInit, OnDestroy {
   model: IFilterModel = {
     name: '',
+    displayName: '',
     type: 'string'
   };
 
