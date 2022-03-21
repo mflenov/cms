@@ -11,6 +11,8 @@ namespace FCms.Content
 
         public string Name { get; set; }
 
+        public string DisplayName { get; set; }
+
         public string Type { get { return "RegEx"; } }
 
         public bool Validate(List<object> values, object value)

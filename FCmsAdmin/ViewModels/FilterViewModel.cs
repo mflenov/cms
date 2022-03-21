@@ -13,12 +13,15 @@ namespace FCmsManagerAngular.ViewModels
         public FilterViewModel(IFilter filter)  {
             Id = filter.Id;
             Name = filter.Name;
+            DisplayName = filter.DisplayName;
             Type = filter.Type;
         }
 
         public Guid? Id { get; set; }
 
         public string Name { get; set; }
+
+        public string DisplayName { get; set; }
 
         public string Type { get; set; }
         
@@ -43,6 +46,7 @@ namespace FCmsManagerAngular.ViewModels
         public IFilter MapToModel(IFilter model)
         {
             model.Name = this.Name;
+            model.DisplayName = this.DisplayName;
             model.Id = this.Id ?? Guid.NewGuid();
             return model;
         }

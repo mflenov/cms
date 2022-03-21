@@ -6,6 +6,10 @@
             <input name="name" class="form-control" [(ngModel)]="model.name" />
         </div>
         <div class="form-group">
+            <label for="displayname">Display Name</label>
+            <input name="displayname" class="form-control" [(ngModel)]="model.displayName" />
+        </div>
+        <div class="form-group">
             <label for="filterType">Type</label>
             <select name="filterType" class="form-control" [(ngModel)]="model.type">
                 <option *ngFor="let type of filterTypes | async" value="{{type}}">{{type}}</option>

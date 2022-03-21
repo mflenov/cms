@@ -43,7 +43,7 @@ export class FilterControlService {
     if (component && placeholder) {
       let componentRef = placeholder.viewContainerRef.createComponent(component);
       (<any>(componentRef.instance)).model = model;
-      (<any>(componentRef.instance)).title = filter.name;
+      (<any>(componentRef.instance)).title = filter.displayName;
       ((<any>(componentRef.instance)).onDelete as EventEmitter<string>).subscribe(item => this.onFilterDelete(item));
     }
     return model;

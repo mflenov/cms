@@ -3,7 +3,8 @@
 <div class="cms-repository">
     <table class="cms-table">
         <tr>
-            <th style="width:60%">Name</th>
+            <th style="width:40%">Name</th>
+            <th style="width:40%">Display Name</th>
             <th>Type</th>
             <th></th>
         </tr>
@@ -11,6 +12,7 @@
             <td>
                 <a [routerLink]="['/config/filter', filter.id]">{{filter.name}}</a>
             </td>
+            <td>{{filter.displayName}}</td>
             <td>{{filter.type}}</td>
             <td><span class="fa fa-trash link" (click)="deleteRow(filter.id)"></span></td>
         </tr>
