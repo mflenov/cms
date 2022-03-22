@@ -69,3 +69,34 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.thumbnail {
+    max-width: 100%;
+    width: 100%;
+}
+
+h1 {
+    font-size: 170%;
+}
+
+.header {
+    background-image: url('/images/bg.jpg');
+    height: 400px;
+    margin-bottom: 12px;
+}
+
+.header h1 {
+    display: inline-block;
+    padding: 30px;
+    color: #fff;
+    text-shadow: 1px 1px black;
+}
+
+.badge {
+    position: absolute;
+    background: #fff;
+    top: 10px;
+    padding: 8px;
+    left: 30px;
+    font-size: 100%;
+}

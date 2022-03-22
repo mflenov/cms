@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCms", "FCms\FCms.csproj", "{2A8EE976-E853-4914-9B89-E3C3819AAB1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCmsSample", "Samples\MvcProject\FCmsSample.csproj", "{5CD91773-61AD-4194-B127-E6343A30D10D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCmsMvcSample", "Samples\MvcProject\FCmsMvcSample.csproj", "{5CD91773-61AD-4194-B127-E6343A30D10D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCmsTests", "Tests\FCmsTests.csproj", "{9DCD2C06-6838-438E-92F1-212915E2E1D2}"
 EndProject
