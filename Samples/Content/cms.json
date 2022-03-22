@@ -30,6 +30,11 @@
               "$type": "FCms.Content.StringContentDefinition, FCms",
               "DefinitionId": "89670657-6087-409e-9180-61763b90454a",
               "Name": "Subtitle"
+            },
+            {
+              "$type": "FCms.Content.StringContentDefinition, FCms",
+              "DefinitionId": "00000000-0000-0000-0000-000000000000",
+              "Name": "Image"
             }
           ]
         }

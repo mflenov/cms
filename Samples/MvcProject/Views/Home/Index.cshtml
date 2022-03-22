@@ -3,13 +3,17 @@
     FCms.ContentEngine contentEngine = new FCms.ContentEngine(SiteGlobals.BASE_REPOSITORY_NAME);
 }
 
-<div class="text-center">
-    <h1 class="display-4">@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true, DateRange = DateTime.Now })</h1>
-    <div class="row">
+<div>
+    <div class="header">
+        <h1>@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true, DateRange = DateTime.Now })</h1>
+    </div>
+    <div class="row text-center">
         @foreach (var folder in contentEngine.GetFolderItems("Ads", null))
         {
             <div class="col-md-4">
-                <h3>@contentEngine.GetFolderItem(folder, "Title").GetHtmlString()</h3>
+                <span class="badge">@contentEngine.GetFolderItem(folder, "Title").GetHtmlString()</span>
+                <img class="thumbnail" src="/images/@contentEngine.GetFolderItem(folder, "Image").GetHtmlString()" />
+                <p>@contentEngine.GetFolderItem(folder, "Subtitle").GetHtmlString()</p>
             </div>
         }
     </div>
