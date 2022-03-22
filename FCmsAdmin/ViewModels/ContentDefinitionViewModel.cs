@@ -33,7 +33,7 @@ namespace FCmsManagerAngular.ViewModels
         public IContentDefinition ConvertToContentDefinition()
         {
             IContentDefinition definition = FCms.Factory.ContentFactory.CreateContentDefinition(TypeName);
-            definition.DefinitionId = DefinitionId;
+            definition.DefinitionId = DefinitionId == Guid.Empty ? Guid.NewGuid() : DefinitionId;
             definition.Name = Name;
             if (definition is FolderContentDefinition)
             {

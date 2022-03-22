@@ -25,7 +25,7 @@
           "$type": "FCms.Content.StringContentItem, FCms",
           "Data": "Thumbnail1.jpg",
           "Id": "986b4404-97e8-4c13-ba02-e6a5c57a23ee",
-          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "DefinitionId": "a6c0634c-4db9-49ae-a730-7501d4a5bda7",
           "Filters": [],
           "ToolTip": null
         }
@@ -86,7 +86,7 @@
           "$type": "FCms.Content.StringContentItem, FCms",
           "Data": "Thumbnail2.jpg",
           "Id": "fb10081f-17c3-4a62-a619-ca67273a9af3",
-          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "DefinitionId": "a6c0634c-4db9-49ae-a730-7501d4a5bda7",
           "Filters": [],
           "ToolTip": null
         }
@@ -121,7 +121,7 @@
           "$type": "FCms.Content.StringContentItem, FCms",
           "Data": "Thumbnail3.jpg",
           "Id": "9dc9a6f6-27a6-4e62-9edb-85b635fee3fd",
-          "DefinitionId": "00000000-0000-0000-0000-000000000000",
+          "DefinitionId": "a6c0634c-4db9-49ae-a730-7501d4a5bda7",
           "Filters": [],
           "ToolTip": null
         }

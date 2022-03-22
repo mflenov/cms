@@ -90,6 +90,7 @@ export class ContentItemComponent implements OnInit {
 
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).content = model;
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).definition = this.definition;
+    (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).folderItemEditor = this.folderItem;
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).onAddFolder.subscribe(this.onAddFolder);
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).onDelete.subscribe(this.onDelete);
   }
