@@ -33,7 +33,7 @@
             },
             {
               "$type": "FCms.Content.StringContentDefinition, FCms",
-              "DefinitionId": "00000000-0000-0000-0000-000000000000",
+              "DefinitionId": "a6c0634c-4db9-49ae-a730-7501d4a5bda7",
               "Name": "Image"
             }
           ]

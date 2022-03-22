@@ -7,9 +7,11 @@
     <div *ngIf="isNewItemVisible">
         <h3>{{definition.name}}</h3>
         Value for {{definition.name}} not found. <a class="cms-link" (click)="addValue(definition.definitionId!)">Add value</a>
-        <div class="cms-controls cms-buttons">
-            <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
-        </div>
+        <ng-container *ngIf="folderItem == false">
+            <div class="cms-controls cms-buttons">
+                <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+            </div>
+        </ng-container>
     </div>
 </ng-template>
 
