@@ -19,7 +19,7 @@
     },
     {
       "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Welcome to our web site",
+      "Data": "<p>Welcome to our web site, this is the about page. I have been providing professional digital services since 2009. Whether you need web design or web application solutions I have the solution that's the perfect fit for you and your business. My expertise is building high load and robust business web sites.</p>",
       "Id": "2d35b08b-33b5-4047-a67b-78ced2a4108d",
       "DefinitionId": "940b927f-84fb-4af1-8460-bffc6fbfe4f7",
       "Filters": [],

@@ -1,0 +1,21 @@
+{
+  "RepositoryId": "76189477-fd51-4e0a-8c5a-8309d1155bde",
+  "Items": [
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "Contact Us",
+      "Id": null,
+      "DefinitionId": "2075bb4e-16ea-472b-9d64-674083683e23",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "We will get back to you as soon as possible",
+      "Id": null,
+      "DefinitionId": "c21950b7-328a-4ec1-a5ae-9b5c7e7d634f",
+      "Filters": [],
+      "ToolTip": null
+    }
+  ]
+}

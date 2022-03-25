@@ -98,6 +98,24 @@
           "Name": "Title"
         }
       ]
+    },
+    {
+      "$type": "FCms.Content.Repository, FCms",
+      "Id": "384809e0-de5e-4d15-9f10-f3a0dbf572b0",
+      "Name": "Privacy",
+      "ContentType": 0,
+      "ContentDefinitions": [
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "480fb207-a240-49db-85d9-b81663ab5e6f",
+          "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "294e0544-df26-4d44-a92a-fb99b06625e3",
+          "Name": "Content"
+        }
+      ]
     }
   ],
   "Filters": [

@@ -1,0 +1,21 @@
+{
+  "RepositoryId": "384809e0-de5e-4d15-9f10-f3a0dbf572b0",
+  "Items": [
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "Privacy Policy",
+      "Id": null,
+      "DefinitionId": "480fb207-a240-49db-85d9-b81663ab5e6f",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "<p>Use this page to detail your site's privacy policy</p>",
+      "Id": null,
+      "DefinitionId": "294e0544-df26-4d44-a92a-fb99b06625e3",
+      "Filters": [],
+      "ToolTip": null
+    }
+  ]
+}

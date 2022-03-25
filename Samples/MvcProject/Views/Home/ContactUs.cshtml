@@ -1,0 +1,6 @@
+﻿@{
+    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", new { DateRange = DateTime.Now });
+}
+<h1>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", new { DateRange = DateTime.Now })</h1>
+
+<p>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Intro", new { DateRange = DateTime.Now })</p>
