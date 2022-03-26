@@ -15,7 +15,7 @@ namespace FCms.Content
         public string Type { get { return "ValueList"; } }
 
         List<string> values = new List<string>();
-        public List<string> Values { get { return values; }  }
+        public List<string> Values { get { return values; } set { values = value; } }
 
         public bool Validate(List<object> values, object value)
         {

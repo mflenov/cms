@@ -19,7 +19,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   model: IFilterModel = {
     name: '',
     displayName: '',
-    type: 'string'
+    type: 'string',
+    values: []
   };
 
   filterTypes!: Observable<string[]>;
@@ -61,5 +62,17 @@ export class FilterComponent implements OnInit, OnDestroy {
         this.router.navigate(['/config/filters']);
       }
     });
+  }
+
+  addValue() {
+    if (!this.model.values) {
+      this.model.values = [];
+    }
+    this.model.values.push('');
+    return false;
+  }
+
+  trackByFn(index:any, item:any) {
+    return index;  
   }
 }

@@ -78,7 +78,7 @@ export class ContentItemComponent implements OnInit {
     newitem.filters = this.filters;
     newitem.isFolder = false;
     if (this.definition.typeName == 'String') {
-      newitem.data = 'new string';
+      newitem.data = '';
     }
     return newitem;
   }
