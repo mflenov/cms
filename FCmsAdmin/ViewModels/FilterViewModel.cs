@@ -39,6 +39,10 @@ namespace FCmsManagerAngular.ViewModels
             {
                 throw new Exception("The filter definition not found");
             }
+            if (manager.Data.Filters[repoindex].Type != this.Type) {
+                manager.Data.Filters[repoindex] = FCms.Factory.FilterFactory.CreateFilterByType((IFilter.FilterType)Enum.Parse(typeof(IFilter.FilterType), Type));
+            }
+
             this.MapToModel(manager.Data.Filters[repoindex]);
             manager.Save();
         }

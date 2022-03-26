@@ -127,11 +127,12 @@
       "Type": "Boolean"
     },
     {
-      "$type": "FCms.Content.TextFilter, FCms",
+      "$type": "FCms.Content.ValueListFilter, FCms",
       "Id": "ca1ce504-99e7-4aa5-81c0-c10993a8e614",
       "Name": "Card",
       "DisplayName": "Card Name",
-      "Type": "Text"
+      "Type": "ValueList",
+      "Values": []
     },
     {
       "$type": "FCms.Content.DateRangeFilter, FCms",
