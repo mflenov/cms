@@ -72,6 +72,10 @@ export class FilterComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  deleteValue(index: number) {
+    this.model.values.splice(index, 1);
+  }
+
   trackByFn(index:any, item:any) {
     return index;  
   }

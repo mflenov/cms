@@ -17,8 +17,11 @@
         </div>
         <div class="form-group" *ngIf="model.type == 'ValueList'">
             <h3>Values:</h3>
-            <div *ngFor="let value of model.values;let i = index;trackBy: trackByFn">
-                <input name="value{{ i + 1 }}" class="form-control" [(ngModel)]="model.values[i]" type="text" autocomplete="off" autocapitalize="off" placeholder="Value" />
+            <div *ngFor="let value of model.values;let i = index;trackBy: trackByFn" class="form-group row">
+                <div class="col-sm-11" >
+                    <input name="value{{ i + 1 }}" class="form-control" [(ngModel)]="model.values[i]" type="text" autocomplete="off" autocapitalize="off" placeholder="Value" />
+                </div>
+                <div class="col-sm-1 fa fa-trash link" (click)="deleteValue(i)"></div>
             </div>
             <div class="cms-right-controls cms-buttons">
                 <button class="cms-button" (click)="addValue()">Add new value</button>
