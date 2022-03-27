@@ -15,6 +15,7 @@ namespace FCmsManagerAngular.ViewModels
             Name = filter.Name;
             DisplayName = filter.DisplayName;
             Type = filter.Type;
+            this.Values = (filter as ValueListFilter)?.Values ?? new List<string>();
         }
 
         public Guid? Id { get; set; }
@@ -52,6 +53,9 @@ namespace FCmsManagerAngular.ViewModels
             model.Name = this.Name;
             model.DisplayName = this.DisplayName;
             model.Id = this.Id ?? Guid.NewGuid();
+            if (model is ValueListFilter){
+                (model as ValueListFilter).Values  = this.Values;
+            }
             return model;
         }
     }

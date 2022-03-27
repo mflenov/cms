@@ -132,7 +132,10 @@
       "Name": "Card",
       "DisplayName": "Card Name",
       "Type": "ValueList",
-      "Values": []
+      "Values": [
+        "CoolBank Black",
+        "CoolBank Elite"
+      ]
     },
     {
       "$type": "FCms.Content.DateRangeFilter, FCms",

@@ -3,4 +3,5 @@ export interface IFilterModel {
   name: string;
   displayName: string;
   type: string;
+  values: string[];
 }
