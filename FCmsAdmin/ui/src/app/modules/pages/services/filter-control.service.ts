@@ -9,6 +9,7 @@ import { BoolFilterEditorComponent } from '../editpage/filter-controls/bool-filt
 import { DaterangeFilterEditorComponent } from '../editpage/filter-controls/daterange-filter-editor.component';
 import { DateFilterEditorComponent } from '../editpage/filter-controls/date-filter-editor.component';
 import { ValuelistFilterEditorComponent } from '../editpage/filter-controls/valuelist-filter-editor.component';
+import { RegexFilterEditorComponent } from '../editpage/filter-controls/regex-filter-editor.component';
 
 @Injectable()
 
@@ -69,6 +70,9 @@ export class FilterControlService {
     }
     if (type == "ValueList") {
       return this.componentFactoryResolver.resolveComponentFactory(ValuelistFilterEditorComponent);
+    }
+    if (type == "RegEx") {
+      return this.componentFactoryResolver.resolveComponentFactory(RegexFilterEditorComponent);
     }
     return null;
   }
