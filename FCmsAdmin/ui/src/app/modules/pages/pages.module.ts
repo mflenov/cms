@@ -21,6 +21,7 @@ import { DaterangeFilterEditorComponent } from './editpage/filter-controls/dater
 import { DateFilterEditorComponent } from './editpage/filter-controls/date-filter-editor.component';
 import { NewPageComponent } from './newpage/new-page.component';
 import { ListPageContentComponent } from './list-content/list-page-content.component';
+import { ValuelistFilterEditorComponent } from './editpage/filter-controls/valuelist-filter-editor.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
     NewPageComponent,
     ListPageContentComponent,
     DateFilterEditorComponent,
+    ValuelistFilterEditorComponent,
   ],
   imports: [
     SharedModule,

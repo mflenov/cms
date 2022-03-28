@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
@@ -13,7 +13,7 @@ import { FilterControlService } from '../services/filter-control.service';
   styleUrls: ['./edit-filters.component.css'],
   providers: [FiltersService, FilterControlService]
 })
-export class EditFiltersComponent implements OnInit {
+export class EditFiltersComponent implements OnInit, OnDestroy {
   @Input() model: IContentFilterModel[] = [];
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
@@ -53,6 +53,12 @@ export class EditFiltersComponent implements OnInit {
         this.nofilters = this.model?.length == 0;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.filtersSubs) {
+      this.filtersSubs.unsubscribe();
+    }
   }
 
   onDeleteFilter(id: string): void {
