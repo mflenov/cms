@@ -23,6 +23,7 @@ import { NewPageComponent } from './newpage/new-page.component';
 import { ListPageContentComponent } from './list-content/list-page-content.component';
 import { ValuelistFilterEditorComponent } from './editpage/filter-controls/valuelist-filter-editor.component';
 import { RegexFilterEditorComponent } from './editpage/filter-controls/regex-filter-editor.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegexFilterEditorComponent } from './editpage/filter-controls/regex-fil
     DateFilterEditorComponent,
     ValuelistFilterEditorComponent,
     RegexFilterEditorComponent,
+    PreviewComponent,
   ],
   imports: [
     SharedModule,
@@ -57,6 +59,7 @@ import { RegexFilterEditorComponent } from './editpage/filter-controls/regex-fil
         { path: 'pages/add', component: NewPageComponent },
         { path: 'pages/structure/:id', component: StructureComponent },
         { path: 'pages/edit/:id', component: EditpageComponent },
+        { path: 'pages/preview/:id', component: PreviewComponent },
         { path: 'pages/list/:repo/:id', component: ListPageContentComponent }
       ]
     )

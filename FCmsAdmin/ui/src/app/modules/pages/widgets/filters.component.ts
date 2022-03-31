@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
 import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { FilterControlService } from '../services/filter-control.service';
+import { convertTypeAcquisitionFromJson } from 'typescript';
 
 @Component({
   selector: 'pg-filters',
@@ -23,6 +24,7 @@ export class FiltersComponent implements OnInit {
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
   @Output() onFilter: EventEmitter<any> = new EventEmitter();
+  @Input() expanded:Boolean = false;
 
   constructor(
     private filtersService: FiltersService,
@@ -38,8 +40,18 @@ export class FiltersComponent implements OnInit {
         this.allfilters = filters.data as IFilterModel[];
         this.availableFilters = this.allfilters;
         filtersSubs.unsubscribe;
+        if (this.expanded) {
+          this.expand();
+        }
       }
     });
+  }
+
+  expand(): void {
+    this.allfilters.forEach(item => {
+      this.contentFilters.push(this.filterControlService.createFilterControl(item, this.filterControlService.createModel(item), this.placeholder));      
+    });
+    this.availableFilters = [];
   }
 
   onDeleteFilter(id: string): void {

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FCms;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace FCmsManagerAngular.Controllers
 {
@@ -58,6 +60,37 @@ namespace FCmsManagerAngular.Controllers
                 RepositoryId = request.repositoryid,
                 ContentItems = contentItems.Select(m => new ContentViewModel(m))
                 };
+
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                Data = model
+            };
+        }
+
+        [HttpPost]
+        [Route("api/v1/content/filter")]
+        public ApiResultModel Filter(ContentRequestModel request)
+        {
+            CmsManager manager = new CmsManager(config["DataLocation"]);
+            IRepository repository = manager.GetRepositoryById(request.repositoryid);
+            ContentEngine engine = new ContentEngine(repository.Name);
+
+            var definitions = manager.Data.Filters.ToLookup(m => m.Id);
+            var filters = request.filters
+                    .Where(m => m.Values != null && m.Values.Count() > 0 && m.Values.First().ToString() != "")
+                    .Select(m => new Dictionary<string, string>{{
+                            definitions[m.FilterDefinitionId].FirstOrDefault().Name,
+                            definitions[m.FilterDefinitionId].FirstOrDefault().ParseValues(m.Values.Select(m => m.ToString()).ToList()).FirstOrDefault().ToString()
+                    }}
+                ).ToList();
+
+            PagePreviewViewModel model = new PagePreviewViewModel();
+            foreach (IContentDefinition definition in repository.ContentDefinitions)
+            {
+                ContentItem item = engine.GetContents<ContentItem>(definition.Name, filters).FirstOrDefault();
+                if (item == null)
+                    continue;
+                model.ContentItems.Add(new PagePreviewItemViewModel() { Name = definition.Name, Value = item.GetValue().ToString() });
+            }
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
                 Data = model
