@@ -87,12 +87,12 @@ namespace FCms
             return contentStore.GetDefaultByDefinitionId(definition.DefinitionId).Select(m => m.GetValue().ToString());
         }
 
-        public IEnumerable<ContentItem> GetContentItems(string contentName, object filters)
+        public IEnumerable<ContentItem> GetContentItems(string contentName, Dictionary<string, object>  filters)
         {
             return GetContents<ContentItem>(contentName, filters);
         }
 
-        public IEnumerable<ContentFolderItem> GetFolderItems(string contentName, object filters)
+        public IEnumerable<ContentFolderItem> GetFolderItems(string contentName, Dictionary<string, object>  filters)
         {
             return GetContents<ContentFolderItem>(contentName, filters);
         }
@@ -109,21 +109,19 @@ namespace FCms
             return folder.GetItem((folderDefinition as FolderContentDefinition).Definitions.Where(m => m.Name == itemname).FirstOrDefault()?.DefinitionId);
         }
 
-        public IEnumerable<T> GetContents<T>(string contentName, object filters) where T: ContentItem
+        public IEnumerable<T> GetContents<T>(string contentName, Dictionary<string, object> filters) where T: ContentItem
         {
             if (filters == null)
             {
-                filters = new { };
+                filters = new Dictionary<string, object> { };
             }
 
             IContentDefinition definition = repo.GetByName(contentName);
             List<ContentItem> contentitems = contentStore.GetByDefinitionId(definition.DefinitionId).ToList();
 
-            var filterProperties = filters.GetType().GetProperties().ToLookup(m => m.Name);
-
             foreach (T contentitem in contentitems)
             {
-                if (contentitem.ValidateFilters(filterProperties, filters))
+                if (contentitem.ValidateFilters(filters))
                 {
                     yield return contentitem;
                 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FCms.Content;
@@ -18,7 +16,7 @@ namespace FCms.Extensions
             );
         }
 
-        public static IHtmlContent GetContentAsString(this IHtmlHelper htmlHelper, string repositoryName, string contentName, object filters)
+        public static IHtmlContent GetContentAsString(this IHtmlHelper htmlHelper, string repositoryName, string contentName, Dictionary<string, object> filters)
         {
             ContentEngine engine = new ContentEngine(repositoryName);
             ContentItem item = engine.GetContents<ContentItem>(contentName, filters).FirstOrDefault();

@@ -68,7 +68,7 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>()).ToList();
             Assert.Empty(items);
         }
 
@@ -79,10 +79,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Card", "NotFoundCard"} }).ToList();
             Assert.Empty(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() {{  "Card", "MyCoolCard"} }).ToList();
             Assert.Single(items);
         }
 
@@ -95,10 +95,10 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Card = "NotFoundCard" }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Card", "NotFoundCard"} }).ToList();
             Assert.Single(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Card = "MyCoolCard" }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Card", "MyCoolCard"} }).ToList();
             Assert.Empty(items);
         }
 

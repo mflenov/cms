@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
 
 namespace FCms.Content
@@ -45,19 +44,17 @@ namespace FCms.Content
             return true;
         }
 
-        public bool ValidateFilters(ILookup<string, PropertyInfo> filterProperties, object filters)
+        public bool ValidateFilters(Dictionary<string, object> filters)
         {
-            if (filterProperties == null)
-                return false;
+            if (filters == null)
+                return !Filters.Any();
 
             foreach (IContentFilter filter in Filters)
             {
-                if (filterProperties[filter.Filter.Name].FirstOrDefault() == null)
+                if (!filters.ContainsKey(filter.Filter.Name))
                     return false;
 
-                var propertyInfo = filterProperties[filter.Filter.Name].FirstOrDefault();
-                var value = propertyInfo.GetValue(filters);
-                if (value == null || !filter.Validate(value))
+                if (!filter.Validate(filters[filter.Filter.Name]))
                 {
                     return false;
                 }

@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using FCms.Content;
+﻿using FCms.Content;
 
 namespace FCms.Factory
 {
