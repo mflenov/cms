@@ -1,6 +1,11 @@
 ﻿@{
-    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", new { DateRange = DateTime.Now });
-}
-<h1>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", new { DateRange = DateTime.Now })</h1>
+    Dictionary<string, object> filters = new Dictionary<string, object>()
+    {
+        { SiteGlobals.DATE_RANGE_FILTER_NAME, DateTime.Now }
+    };
 
-<p>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Intro", new { DateRange = DateTime.Now })</p>
+    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", filters);
+}
+<h1>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Title", filters)</h1>
+
+<p>@Html.GetContentAsString(SiteGlobals.CONTACTUS_REPOSITORY_NAME, "Intro", filters)</p>

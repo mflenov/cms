@@ -69,7 +69,7 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>()).ToList();
             Assert.Empty(items);
         }
 
@@ -79,14 +79,14 @@ namespace FCmsTests
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
+            
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(-11) } }).ToList();
             Assert.Empty(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(11) } }).ToList();
             Assert.Empty(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now } }).ToList();
             Assert.Single(items);
         }
 
@@ -99,13 +99,13 @@ namespace FCmsTests
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
-            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(-11) }).ToList();
+            List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(-11) }}).ToList();
             Assert.Single(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now.AddDays(11) }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(11) } }).ToList();
             Assert.Single(items);
 
-            items = engine.GetContents<ContentItem>(contentName, new { Active = DateTime.Now }).ToList();
+            items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now }}).ToList();
             Assert.Empty(items);
         }
     }

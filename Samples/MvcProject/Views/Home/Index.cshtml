@@ -1,11 +1,17 @@
 ﻿@{
-    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true, DateRange = DateTime.Now });
+    Dictionary<string, object> filters = new Dictionary<string, object>()
+    {
+        { SiteGlobals.DATE_RANGE_FILTER_NAME, DateTime.Now },
+        { SiteGlobals.LOGGEDIN_FILTER_NAME, true }
+    };
+
+    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters);
     FCms.ContentEngine contentEngine = new FCms.ContentEngine(SiteGlobals.BASE_REPOSITORY_NAME);
 }
 
 <div>
     <div class="header">
-        <h1>@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", new { IsLoggedIn = true, DateRange = DateTime.Now })</h1>
+        <h1>@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters)</h1>
     </div>
     <div class="row text-center">
         @foreach (var folder in contentEngine.GetFolderItems("Ads", null))
