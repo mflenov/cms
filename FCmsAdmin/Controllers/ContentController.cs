@@ -83,7 +83,7 @@ namespace FCmsManagerAngular.Controllers
                         m => definitions[m.FilterDefinitionId].FirstOrDefault().ParseValues(m.Values.Select(m => m.ToString()).ToList()).FirstOrDefault()
                     );
 
-            PagePreviewViewModel model = new PagePreviewViewModel();
+            List<PagePreviewItemViewModel> contentItems = new List<PagePreviewItemViewModel>();
             foreach (IContentDefinition definition in repository.ContentDefinitions)
             {
                 if (definition.GetDefinitionType() == ContentDefinitionType.Folder)
@@ -97,10 +97,11 @@ namespace FCmsManagerAngular.Controllers
                     foreach(var folder in folders)
                     {
                         var foldermodel = new PagePreviewItemViewModel() { Name = definition.Name };
+                        foldermodel.Children = new List<PagePreviewItemViewModel>();
                         foldermodel.Children = (folder as ContentFolderItem).Childeren.Select(m =>
                             new PagePreviewItemViewModel() { Name = childdefinitions[m.DefinitionId].First().Name, Value = m.GetValue().ToString() }
                             ).ToList();
-                        model.ContentItems.Add(foldermodel);
+                        contentItems.Add(foldermodel);
                     }
                 }
                 else
@@ -108,12 +109,12 @@ namespace FCmsManagerAngular.Controllers
                     ContentItem contentitem = engine.GetContents<ContentItem>(definition.Name, filters).FirstOrDefault();
                     if (contentitem == null)
                         continue;
-                    model.ContentItems.Add(new PagePreviewItemViewModel() { Name = definition.Name, Value = contentitem.GetValue().ToString() });
+                    contentItems.Add(new PagePreviewItemViewModel() { Name = definition.Name, Value = contentitem.GetValue().ToString() });
                 }
             }
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
-                Data = model
+                Data = contentItems
             };
         }
 
