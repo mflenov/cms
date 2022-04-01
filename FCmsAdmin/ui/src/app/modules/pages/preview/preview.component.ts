@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { IPageContentModel } from '../models/page-content.model';
+import { IPagePreviewModel } from '../models/page-preview.model';
 import { IPageStructureModel } from '../models/page-structure.model';
 import { ContentService } from '../services/content.service';
 import { PagesService } from '../services/pages.service';
@@ -17,7 +18,7 @@ export class PreviewComponent implements OnInit {
   id: string = "";
   filters: IContentFilterModel[] = [];
 
-  data: IPageContentModel = {} as IPageContentModel;
+  data: IPagePreviewModel[] = [];
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
@@ -36,6 +37,7 @@ export class PreviewComponent implements OnInit {
         if (definition.status == 1 && definition.data) {
           this.definition = definition.data as IPageStructureModel;
         }
+        this.onFilter(this.filters);
       })
     }
   }
@@ -44,7 +46,7 @@ export class PreviewComponent implements OnInit {
     this.searchfilters = filters;
 
     this.contentService.filterPageContent(this.id, this.searchfilters).subscribe(content => {
-      this.data = (content.data as IPageContentModel);
+      this.data = (content.data as IPagePreviewModel[]);
     })
   }
 }

@@ -75,21 +75,41 @@ namespace FCmsManagerAngular.Controllers
             ContentEngine engine = new ContentEngine(repository.Name);
 
             var definitions = manager.Data.Filters.ToLookup(m => m.Id);
+            
             var filters = request.filters
                     .Where(m => m.Values != null && m.Values.Count() > 0 && m.Values.First().ToString() != "")
-                    .Select(m => new Dictionary<string, string>{{
-                            definitions[m.FilterDefinitionId].FirstOrDefault().Name,
-                            definitions[m.FilterDefinitionId].FirstOrDefault().ParseValues(m.Values.Select(m => m.ToString()).ToList()).FirstOrDefault().ToString()
-                    }}
-                ).ToList();
+                    .ToDictionary(
+                        m => definitions[m.FilterDefinitionId].FirstOrDefault().Name,
+                        m => definitions[m.FilterDefinitionId].FirstOrDefault().ParseValues(m.Values.Select(m => m.ToString()).ToList()).FirstOrDefault()
+                    );
 
             PagePreviewViewModel model = new PagePreviewViewModel();
             foreach (IContentDefinition definition in repository.ContentDefinitions)
             {
-                ContentItem item = engine.GetContents<ContentItem>(definition.Name, filters).FirstOrDefault();
-                if (item == null)
-                    continue;
-                model.ContentItems.Add(new PagePreviewItemViewModel() { Name = definition.Name, Value = item.GetValue().ToString() });
+                if (definition.GetDefinitionType() == ContentDefinitionType.Folder)
+                {
+                    List<ContentItem> folders = engine.GetContents<ContentItem>(definition.Name, filters).ToList();
+                    if (folders.Count == 0)
+                        continue;
+
+                    var childdefinitions = (definition as FolderContentDefinition).Definitions.ToLookup(m=> m.DefinitionId);
+
+                    foreach(var folder in folders)
+                    {
+                        var foldermodel = new PagePreviewItemViewModel() { Name = definition.Name };
+                        foldermodel.Children = (folder as ContentFolderItem).Childeren.Select(m =>
+                            new PagePreviewItemViewModel() { Name = childdefinitions[m.DefinitionId].First().Name, Value = m.GetValue().ToString() }
+                            ).ToList();
+                        model.ContentItems.Add(foldermodel);
+                    }
+                }
+                else
+                {
+                    ContentItem contentitem = engine.GetContents<ContentItem>(definition.Name, filters).FirstOrDefault();
+                    if (contentitem == null)
+                        continue;
+                    model.ContentItems.Add(new PagePreviewItemViewModel() { Name = definition.Name, Value = contentitem.GetValue().ToString() });
+                }
             }
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {

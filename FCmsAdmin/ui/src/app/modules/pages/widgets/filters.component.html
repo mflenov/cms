@@ -1,7 +1,7 @@
 <ng-template contentplaceholder></ng-template>
 
 
-<div *ngIf="expanded == false">
+<div *ngIf="availableFilters.length > 0">
     <div>
         <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
             <option id="">- select value -</option>
