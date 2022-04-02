@@ -29,11 +29,14 @@ namespace FCmsManagerAngular
                 );
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            FCms.ServiceCollection.Configure(app);
+
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {

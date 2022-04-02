@@ -15,6 +15,7 @@ import { IContentFilterModel } from '../models/content-filter.model';
 
 export class ContentService {
   private editpageurl: string = 'api/v1/content';
+  private filterpageurl: string = 'api/v1/content/filter';
   private listUrl: string = 'api/v1/content/list/';
 
   constructor(private httpClient: HttpClient) {
@@ -26,6 +27,20 @@ export class ContentService {
       'accept': 'text/plain'
     };
     return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editpageurl,
+      {
+        repositoryid: id,
+        filters: filters
+      },
+      { 'headers': headers });
+  }
+
+  filterPageContent(id: string, filters: IContentFilterModel[] ): Observable<IApiRequestModel> {
+    const headers = {
+      'content-type': 'application/json',
+      'accept': 'text/plain'
+    };
+
+    return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.filterpageurl,
       {
         repositoryid: id,
         filters: filters
