@@ -33,6 +33,12 @@
 						<span *ngIf="filters[filter.filterDefinitionId!].type == 'Text'">
 							{{filter.values[0]}}
 						</span>
+						<span *ngIf="filters[filter.filterDefinitionId!].type == 'RegEx'">
+							{{filter.values[0]}}
+						</span>
+						<span *ngIf="filters[filter.filterDefinitionId!].type == 'ValueList'">
+							{{filter.values[0]}}
+						</span>
 					</div>
 				</ng-container>
 			</div>
