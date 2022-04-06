@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'FCmsSample' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'FCmsMvcSample' " />
   <ItemGroup>
     <ProjectReference Include="..\..\FCms\FCms.csproj" />
   </ItemGroup>

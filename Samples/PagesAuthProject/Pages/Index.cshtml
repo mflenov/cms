@@ -1,0 +1,34 @@
+﻿@page
+@model IndexModel
+@{
+    Dictionary<string, object> filters = new Dictionary<string, object>()
+    {
+        { SiteGlobals.DATE_RANGE_FILTER_NAME, DateTime.Now },
+        { SiteGlobals.LOGGEDIN_FILTER_NAME, true }
+    };
+
+    ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters);
+    FCms.ContentEngine contentEngine = new FCms.ContentEngine(SiteGlobals.BASE_REPOSITORY_NAME);
+}
+
+
+<div class="text-center">
+    <div>
+        Predefined test login account: test@user.com P@ssw0rd
+    </div>
+
+    <div class="header">
+        <h1>@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters)</h1>
+    </div>
+    <div class="row text-center">
+        @foreach (var folder in contentEngine.GetFolderItems("Ads", null))
+        {
+            <div class="col-md-4">
+                <span class="badge">@contentEngine.GetFolderItem(folder, "Title").GetHtmlString()</span>
+                <img class="thumbnail" src="/images/@contentEngine.GetFolderItem(folder, "Image").GetHtmlString()" />
+                <p>@contentEngine.GetFolderItem(folder, "Subtitle").GetHtmlString()</p>
+            </div>
+        }
+    </div>
+
+</div>
