@@ -64,6 +64,10 @@ export class ContentService {
     return this.httpClient.put(environment.apiCmsServiceEndpoint + this.editpageurl, model);
   }
 
+  deleteById(repositoryId: string, contentid: string): Observable<IApiRequestModel> {
+    return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editpageurl + "/" + repositoryId + "/" + contentid);
+  }
+
   handleError(err: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

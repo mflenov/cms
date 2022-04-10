@@ -26,6 +26,9 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   filtersSubs!: Subscription;
   contentSubs!: Subscription;
 
+  repositoryId: string = '';
+  definitionId: string = '';
+
   constructor(
     private contentService: ContentService,
     private route: ActivatedRoute,
@@ -33,12 +36,12 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    const repositoryId = this.route.snapshot.paramMap.get('repo');
-    const definitionId = this.route.snapshot.paramMap.get('id');
+    this.repositoryId = this.route.snapshot.paramMap.get('repo') ?? '';
+    this.definitionId = this.route.snapshot.paramMap.get('id') ?? '';
 
-    if (repositoryId && definitionId) {
+    if (this.repositoryId && this.definitionId) {
       this.filtersSubs = this.filtersService.getFilters().subscribe(filters => {
-        this.contentSubs = this.contentService.listPageContent(repositoryId, definitionId, this.searchfilters).subscribe(content => {
+        this.contentSubs = this.contentService.listPageContent(this.repositoryId, this.definitionId, this.searchfilters).subscribe(content => {
           this.data = (content.data as IContentListModel).contentItems;
           this.definition = (content.data as IContentListModel).definition;
           this.repositoryName = (content.data as IContentListModel).repositoryName;
@@ -47,6 +50,8 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
           for (const key in foltersList) {
             this.filters[foltersList[key].id!] = foltersList[key];
           }
+          this.filtersSubs.unsubscribe();
+          this.contentSubs.unsubscribe();
         })
       });
     }
@@ -60,5 +65,21 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   onFilter(filters: IContentFilterModel[]): void {
     this.searchfilters = filters;
     this.ngOnInit();
+  }
+
+  delete(contentid: string | undefined) {
+    if (contentid) {
+      this.contentSubs = this.contentService.deleteById(this.repositoryId, contentid).subscribe({
+        next: data => {
+          debugger;
+          const index = this.data.findIndex(m => m.id == contentid);
+          this.data.splice(index, 1);
+        }
+      });
+    }
+  }
+
+  edit(id: string | undefined) {
+
   }
 }

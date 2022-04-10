@@ -118,6 +118,18 @@ namespace FCmsManagerAngular.Controllers
             };
         }
 
+        [HttpDelete]
+        [Route("api/v1/content/{repositoryId}/{contentId}")]
+        public ApiResultModel DeleteContent(Guid repositoryId, Guid contentId) {
+            CmsManager manager = new CmsManager(config["DataLocation"]);
+            IContentStore contentStore = manager.GetContentStore(repositoryId);
+            contentStore.Items.RemoveAll(m => m.Id == contentId);
+            manager.SaveContentStore(contentStore);
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                
+            };
+        }
+
         [HttpPut]
         [Route("api/v1/content")]
         public ApiResultModel Save(PageContentViewModel model)

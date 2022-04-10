@@ -9,6 +9,9 @@
     <div class="col-md-8">
         <ng-container *ngFor="let content of data">
             <div [attr.id]="definition.definitionId" class="cms-repository">
+				<span class="cms-right fa fa-times link padding-left-8" (click)="delete(content.id)" > </span>
+				<span class="cms-right fa fa-edit link padding-left-8" (click)="edit(content.id)"> </span>
+
 				<ng-container *ngIf="definition.typeName == 'String'">
 					<h3>Value</h3>
 					<span>{{content.data}}</span>
