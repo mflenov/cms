@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -9,6 +9,8 @@ import { ContentService } from '../services/content.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { IContentFilterModel } from '../models/content-filter.model';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { ContentItemComponent } from '../editpage/content-item.component'
 
 @Component({
   selector: 'app-list-page-content',
@@ -18,7 +20,7 @@ import { IContentFilterModel } from '../models/content-filter.model';
 })
 export class ListPageContentComponent implements OnInit, OnDestroy {
   repositoryName: string = '';
-  data: IContentItemModel[] = {} as IContentItemModel[];
+  data: IContentItemModel[] = [];
   definition: IContentDefinitionsModel = {} as IContentDefinitionsModel;
   searchfilters: IContentFilterModel[] = [];
   filters: any = {};
@@ -28,8 +30,12 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
   repositoryId: string = '';
   definitionId: string = '';
+  isContentEditorVisible: boolean = false;
+
+  @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
   constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
     private contentService: ContentService,
     private route: ActivatedRoute,
     private filtersService: FiltersService
@@ -79,7 +85,27 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  edit(id: string | undefined) {
+  edit(contentid: string | undefined) {
+    this.placeholder.viewContainerRef.clear();
+    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentItemComponent);
+    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
 
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).definition = this.definition;
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).filters = this.filters;
+    const index = this.data.findIndex(m => m.id == contentid);
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).data = [ this.data[index] ];
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).isControlsVisible = false;
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).isNewItemVisible = false;
+
+
+    this.isContentEditorVisible = true;
+  }
+
+  onSaveContentChanges() {
+    this.isContentEditorVisible = false;
+  }
+
+  onCancelContentChanges() {
+    this.isContentEditorVisible = false;    
   }
 }

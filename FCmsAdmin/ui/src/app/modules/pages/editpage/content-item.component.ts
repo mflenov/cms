@@ -25,6 +25,7 @@ export class ContentItemComponent implements OnInit {
 
   content: any = {};
   isNewItemVisible: boolean = true;
+  isControlsVisible: boolean = true;
   repositoryId: string = '';
 
   constructor(
