@@ -31,6 +31,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   repositoryId: string = '';
   definitionId: string = '';
   isContentEditorVisible: boolean = false;
+  selectedIndex: number = -1;
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
@@ -92,8 +93,8 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
     (<ContentItemComponent>(contentEditorComponentRef.instance)).definition = this.definition;
     (<ContentItemComponent>(contentEditorComponentRef.instance)).filters = this.filters;
-    const index = this.data.findIndex(m => m.id == contentid);
-    (<ContentItemComponent>(contentEditorComponentRef.instance)).data = [ this.data[index] ];
+    this.selectedIndex = this.data.findIndex(m => m.id == contentid);
+    (<ContentItemComponent>(contentEditorComponentRef.instance)).data = [ this.data[this.selectedIndex] ];
     (<ContentItemComponent>(contentEditorComponentRef.instance)).isControlsVisible = false;
     (<ContentItemComponent>(contentEditorComponentRef.instance)).isNewItemVisible = false;
 
@@ -102,6 +103,9 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   }
 
   onSaveContentChanges() {
+    if (this.selectedIndex >= 0) {
+      this.contentSubs = this.contentService.updateItemById(this.repositoryId, this.data[this.selectedIndex]).subscribe();
+    }
     this.isContentEditorVisible = false;
   }
 
