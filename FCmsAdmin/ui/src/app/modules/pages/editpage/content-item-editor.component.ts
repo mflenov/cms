@@ -15,6 +15,7 @@ export class ContentItemEditorComponent implements OnInit {
   @Input() definition!: IContentDefinitionsModel;
   @Input() content!: any;
   @Input() folderItemEditor: Boolean = false;
+  @Input() isControlsVisible: boolean = true;
 
   @Output() onDelete: EventEmitter<string> = new EventEmitter();
   @Output() onAddFolder: EventEmitter<any> = new EventEmitter();

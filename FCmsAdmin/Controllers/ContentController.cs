@@ -163,5 +163,34 @@ namespace FCmsManagerAngular.Controllers
                 Data = model
             };
         }
+
+        [HttpPut]
+        [Route("api/v1/contentitem/{repositoryid}")]
+        public ApiResultModel SaveContentItem(Guid repositoryid, ContentViewModel model)
+        {
+            CmsManager manager = new CmsManager(config["DataLocation"]);
+            IRepository repository = manager.GetRepositoryById(repositoryid);
+            IContentStore contentStore = manager.GetContentStore(repositoryid);
+
+            var definition = repository.ContentDefinitions.Where(m => m.DefinitionId == model.DefinitionId).FirstOrDefault();
+            var storeItem = contentStore.Items.Where(m => m.Id == model.Id.Value).FirstOrDefault();
+
+            if (model.Id != null && storeItem != null)
+            {
+                model.MapToModel(storeItem, definition);
+            }
+            else
+            {
+                var newitem = FCms.Factory.ContentFactory.CreateContentByType(definition);
+                model.MapToModel(newitem, definition);
+                contentStore.Items.Add(newitem);
+            }
+
+            manager.SaveContentStore(contentStore);
+
+            return new ApiResultModel(ApiResultModel.SUCCESS) {
+                Data = model
+            };
+        }
     }
 }

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
 import { IPageContentModel } from '../models/page-content.model';
 import { IContentFilterModel } from '../models/content-filter.model';
+import { IContentItemModel } from '../models/content-item.model';
 
 
 @Injectable({
@@ -17,6 +18,7 @@ export class ContentService {
   private editpageurl: string = 'api/v1/content';
   private filterpageurl: string = 'api/v1/content/filter';
   private listUrl: string = 'api/v1/content/list/';
+  private contenturl: string = 'api/v1/contentitem';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -66,6 +68,10 @@ export class ContentService {
 
   deleteById(repositoryId: string, contentid: string): Observable<IApiRequestModel> {
     return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editpageurl + "/" + repositoryId + "/" + contentid);
+  }
+
+  updateItemById(repositoryid: string, model: IContentItemModel): Observable<any> {
+    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.contenturl + '/' + repositoryid, model);
   }
 
   handleError(err: HttpErrorResponse): Observable<never> {

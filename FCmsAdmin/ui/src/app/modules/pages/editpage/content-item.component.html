@@ -1,6 +1,6 @@
 <ng-container *ngIf="content[definition.definitionId!]; then thenBlock else elseBlock"></ng-container>
 <ng-template #thenBlock>
-    <pg-content-item-editor [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId!]' (onAddFolder)='onAddFolder($event)' (onDelete)="onDelete($event)" ></pg-content-item-editor>
+    <pg-content-item-editor [isControlsVisible]="isControlsVisible" [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId!]' (onAddFolder)='onAddFolder($event)' (onDelete)="onDelete($event)" ></pg-content-item-editor>
 </ng-template>
 
 <ng-template #elseBlock>
@@ -9,7 +9,7 @@
         Value for {{definition.name}} not found. <a class="cms-link" (click)="addValue(definition.definitionId!)">Add value</a>
         <ng-container *ngIf="folderItem == false">
             <div class="cms-controls cms-buttons">
-                <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+                <button *ngIf="isControlsVisible" class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
             </div>
         </ng-container>
     </div>

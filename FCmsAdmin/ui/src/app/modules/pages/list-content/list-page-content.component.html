@@ -48,3 +48,9 @@
         </ng-container>
     </div>
 </div>
+
+<sh-slide-panel [isVisible]="isContentEditorVisible" (onSave)="onSaveContentChanges()" (onCancel)="onCancelContentChanges()" >
+    <div pane>
+        <ng-template contentplaceholder></ng-template>
+    </div>
+</sh-slide-panel>
