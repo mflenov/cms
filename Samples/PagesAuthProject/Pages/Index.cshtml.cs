@@ -19,7 +19,6 @@ namespace MVCAuthTest.Pages
 
         public void OnGet()
         {
-
         }
     }
 }

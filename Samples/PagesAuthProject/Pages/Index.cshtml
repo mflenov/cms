@@ -4,7 +4,7 @@
     Dictionary<string, object> filters = new Dictionary<string, object>()
     {
         { SiteGlobals.DATE_RANGE_FILTER_NAME, DateTime.Now },
-        { SiteGlobals.LOGGEDIN_FILTER_NAME, true }
+        { SiteGlobals.LOGGEDIN_FILTER_NAME, User.Identity.IsAuthenticated }
     };
 
     ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters);
@@ -15,6 +15,7 @@
 <div class="text-center">
     <div class="header">
         <h1>@Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters)</h1>
+        @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Intro", filters)
     </div>
     <div class="row text-center">
         @foreach (var folder in contentEngine.GetFolderItems("Ads", null))

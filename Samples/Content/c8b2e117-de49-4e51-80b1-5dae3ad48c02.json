@@ -37,32 +37,6 @@
       "ToolTip": null
     },
     {
-      "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "This is FCms Test Web Site 2019",
-      "Id": "14c9d315-ec74-4f7d-82b5-3633a59ef026",
-      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
-      "Filters": [
-        {
-          "$type": "FCms.Content.ContentFilter, FCms",
-          "FilterDefinitionId": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
-          "Index": 0,
-          "Values": [
-            "2019-01-01T00:00:00",
-            "2019-12-01T00:00:00"
-          ],
-          "Filter": {
-            "$type": "FCms.Content.DateRangeFilter, FCms",
-            "Id": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
-            "Name": "DateRange",
-            "DisplayName": "Acrive date range",
-            "Type": "DateRange"
-          },
-          "FilterType": 0
-        }
-      ],
-      "ToolTip": null
-    },
-    {
       "$type": "FCms.Content.ContentFolderItem, FCms",
       "Name": "Surface Pro X Ad",
       "Childeren": [
@@ -103,7 +77,7 @@
       "Childeren": [
         {
           "$type": "FCms.Content.StringContentItem, FCms",
-          "Data": "$100 off Xbox One X",
+          "Data": "Fireworks",
           "Id": "b47f482e-4477-4313-a133-fa46bf9f9848",
           "DefinitionId": "741be508-9bf2-40e6-b721-c2d8cc73ca95",
           "Filters": [],
@@ -111,7 +85,7 @@
         },
         {
           "$type": "FCms.Content.StringContentItem, FCms",
-          "Data": "Not much to tell about that",
+          "Data": "Beautiful Fireworks",
           "Id": "f01ee2bd-3ccc-4563-b6ce-d06e7fd5ac74",
           "DefinitionId": "89670657-6087-409e-9180-61763b90454a",
           "Filters": [],
@@ -134,7 +108,7 @@
     },
     {
       "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "This is FCms Test Web Site 2020",
+      "Data": "Welcome back",
       "Id": "85da9796-2e9f-431e-ae4e-cda8666280ab",
       "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
       "Filters": [
@@ -148,8 +122,8 @@
           "Filter": {
             "$type": "FCms.Content.DateRangeFilter, FCms",
             "Id": "5dd66ad5-0ead-4bb8-a78b-169a89588b0a",
-            "Name": "DateRange",
-            "DisplayName": "Acrive date range",
+            "Name": null,
+            "DisplayName": null,
             "Type": "DateRange"
           },
           "FilterType": 0
@@ -164,8 +138,8 @@
           "Filter": {
             "$type": "FCms.Content.BooleanFilter, FCms",
             "Id": "c5bd94ec-7be2-436a-ba16-90660cfd6a2f",
-            "Name": "IsLoggedIn",
-            "DisplayName": "Is Logged In",
+            "Name": null,
+            "DisplayName": null,
             "Type": "Boolean"
           },
           "FilterType": 0
@@ -200,9 +174,17 @@
     },
     {
       "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Default intro",
+      "Data": "<p>This sample project shows how to use Smart Cms Manager. It is an open source project. The project home page is https://github.com/mflenov/cms</p>",
       "Id": "71292414-0211-4e74-bfbf-36ae2157120e",
       "DefinitionId": "3115af61-6adf-418c-9c6b-89a6a81fe87a",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "Welcome",
+      "Id": null,
+      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
       "Filters": [],
       "ToolTip": null
     }
