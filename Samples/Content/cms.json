@@ -12,7 +12,7 @@
           "Name": "Title"
         },
         {
-          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
           "DefinitionId": "3115af61-6adf-418c-9c6b-89a6a81fe87a",
           "Name": "Intro"
         },
