@@ -22,7 +22,7 @@ namespace FCmsManagerAngular.ViewModels
         public IEnumerable<string> pageTemplates
         {
             get {
-                return new List<string>() { EMPTY_PAGE, SIMPLE_PAGE, DATABASE_CONTENT };
+                return new List<string>() { EMPTY_PAGE, SIMPLE_PAGE };
             }
         }
     }

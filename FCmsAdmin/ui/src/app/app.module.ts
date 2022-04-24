@@ -10,6 +10,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ConfigModule } from './modules/config/config.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DbModule } from './modules/db/db.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ]),
     ConfigModule,
     PagesModule,
+    DbModule,
     NgbModule
   ],
   providers: [],
