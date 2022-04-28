@@ -96,6 +96,11 @@
           "$type": "FCms.Content.StringContentDefinition, FCms",
           "DefinitionId": "7a10b1df-acfe-44fd-ab36-7ef72ba68a18",
           "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "e9bb7efc-26fa-4e30-b969-d17e8d4f8e29",
+          "Name": "Content"
         }
       ]
     },

@@ -2,14 +2,14 @@ import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } fro
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 import { IContentListModel } from '../models/content-list.model';
 import { ContentService } from '../services/content.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { IContentFilterModel } from '../models/content-filter.model';
-import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 import { ContentItemComponent } from '../editpage/content-item.component'
 import { EditFiltersComponent } from '../editpage/edit-filters.component';
 

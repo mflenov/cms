@@ -2,14 +2,14 @@ import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of, Observable } from 'rxjs';
 
-import { CmsenumsService } from '../../../services/cmsenums.service'
-import { PagesService } from '../services/pages.service'
-import { IPageStructureModel } from '../models/page-structure.model'
+import { CmsenumsService } from '../../services/cmsenums.service'
+import { PagesService } from '../../services/pages.service'
+import { IPageStructureModel } from '../../models/page-structure.model'
 import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
-import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentDefinitionsModel } from '../../models/content-definitions.model';
 
 @Component({
-  selector: 'stre-structure',
+  selector: 'sh-structure',
   templateUrl: './structure.component.html',
   styleUrls: ['./structure.component.css'],
   providers: [PagesService]
@@ -60,7 +60,7 @@ export class StructureComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.pagesService.save(this.model).subscribe({
       next: data => {
-        this.router.navigate(['/pages']);
+        this.router.navigate(['../../'],  {relativeTo: this.route});
       }
     });
   }

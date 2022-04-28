@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { ContentItemService } from '../services/content-item.service';
-import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 
 @Component({

@@ -7,12 +7,10 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PageListComponent } from './page-list/page-list.component';
-import { StructureComponent } from './structure/structure.component';
-import { ContentdefinitionComponent } from './structure/content-definition.component';
 import { EditpageComponent } from './editpage/edit-page.component';
 import { ContentItemComponent } from './editpage/content-item.component';
 import { ContentItemEditorComponent } from './editpage/content-item-editor.component';
-import { ContentPlaceholderDirective } from './widgets/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../../shared/widgets/content-placeholder.directive';
 import { FiltersComponent } from './widgets/filters.component';
 import { EditFiltersComponent } from './editpage/edit-filters.component';
 import { TextFilterEditorComponent } from './editpage/filter-controls/text-filter-editor.component';
@@ -24,12 +22,11 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
 import { ValuelistFilterEditorComponent } from './editpage/filter-controls/valuelist-filter-editor.component';
 import { RegexFilterEditorComponent } from './editpage/filter-controls/regex-filter-editor.component';
 import { PreviewComponent } from './preview/preview.component';
+import { StructureComponent } from 'src/app/shared/structure/structure.component';
 
 @NgModule({
   declarations: [
     PageListComponent,
-    StructureComponent,
-    ContentdefinitionComponent,
     EditpageComponent,
     ContentItemComponent,
     ContentItemEditorComponent,

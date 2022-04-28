@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SlidePanelComponent } from './slideout/slideout-panel.component';
+import { StructureComponent } from './structure/structure.component';
+import { ContentdefinitionComponent } from './structure/content-definition.component';
 
 @NgModule({
   declarations: [
-    SlidePanelComponent
+    SlidePanelComponent,
+    StructureComponent,
+    ContentdefinitionComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +23,8 @@ import { SlidePanelComponent } from './slideout/slideout-panel.component';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    SlidePanelComponent
+    SlidePanelComponent,
+    StructureComponent
   ]
 
 })

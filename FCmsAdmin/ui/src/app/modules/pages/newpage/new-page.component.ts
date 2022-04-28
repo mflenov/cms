@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CmsenumsService } from '../../../services/cmsenums.service';
-import { INewPageModel } from '../models/new-page.model';
-import { PagesService } from '../services/pages.service';
+import { INewPageModel } from '../../../models/new-page.model';
+import { PagesService } from '../../../services/pages.service';
 
 @Component({
   selector: 'app-new-page',

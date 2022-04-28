@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { IContentFilterModel } from '../models/content-filter.model';
-import { IPageContentModel } from '../models/page-content.model';
 import { IPagePreviewModel } from '../models/page-preview.model';
-import { IPageStructureModel } from '../models/page-structure.model';
+import { IPageStructureModel } from '../../../models/page-structure.model';
 import { ContentService } from '../services/content.service';
-import { PagesService } from '../services/pages.service';
+import { PagesService } from '../../../services/pages.service';
 
 @Component({
   selector: 'app-preview',
