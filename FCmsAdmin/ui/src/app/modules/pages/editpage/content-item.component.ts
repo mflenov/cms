@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { IContentItemModel } from '../models/content-item.model';
 import { ContentItemService } from '../services/content-item.service';
 import { ContentItemEditorComponent } from './content-item-editor.component';
-import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 
 
 @Component({

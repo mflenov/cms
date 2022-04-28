@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IContentDefinitionsModel } from '../models/content-definitions.model'
+import { IContentDefinitionsModel } from '../../models/content-definitions.model'
 import { Subscription, of, Observable } from 'rxjs';
 
-import { CmsenumsService } from '../../../services/cmsenums.service'
+import { CmsenumsService } from '../../services/cmsenums.service'
 
 
 @Component({
-  selector: 'stre-content-definition',
+  selector: 'sh-content-definition',
   templateUrl: './content-definition.component.html',
   styleUrls: ['./content-definition.component.css']
 })

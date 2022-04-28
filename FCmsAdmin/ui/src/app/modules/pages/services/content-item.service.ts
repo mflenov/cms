@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IContentDefinitionsModel } from '../models/content-definitions.model';
+import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 
 
