@@ -14,15 +14,12 @@ namespace FCms
         const string REPO_CACHE_KEY = "FCMS_REPO";
         const string REPO_CACHE_STORE = "FCMS_STORE";
 
-        public IConfiguration config = (IConfiguration)ServiceCollection.GetRequiredService<IConfiguration>();
-
         public ContentEngine(string repositoryName)
         {
             manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
             if (manager == null)
             {
-                string location = config == null || config["DataLocation"] == null  ? "" : config["DataLocation"];
-                manager = new CmsManager(location);
+                manager = new CmsManager(CMSConfigurator.ContentBaseFolder);
                 Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
             }
             this.RepositoryName = repositoryName;
@@ -40,9 +37,9 @@ namespace FCms
         private void GetRepository(string value)
         {
             string key = REPO_CACHE_KEY + "_" + value;
-            if (HttpContext.RequestCache.ContainsKey(key))
+            if (Tools.Cacher.Contains(key))
             {
-                repo = HttpContext.RequestCache[key] as IRepository;
+                repo = Tools.Cacher.Get(key) as IRepository;
                 return;
             }
             object cacherepo = Tools.Cacher.Get("key");
@@ -52,20 +49,19 @@ namespace FCms
                 return;
             }
             repo = manager.GetRepositoryByName(value);
-            HttpContext.RequestCache[key] = repo;
+            Tools.Cacher.Set(key, repo);
         }
 
         private void LoadContentStore(IRepository repo)
         {
-            if (HttpContext.RequestCache.ContainsKey(REPO_CACHE_STORE + repo.Id))
+            if (Tools.Cacher.Contains(REPO_CACHE_STORE + repo.Id))
             {
-                contentStore = HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] as IContentStore;
+                contentStore = Tools.Cacher.Get(REPO_CACHE_STORE + repo.Id) as IContentStore;
             }
             else
             {
                 contentStore = manager.GetContentStore(repo.Id);
-                HttpContext.RequestCache[REPO_CACHE_STORE + repo.Id] = contentStore;
-                Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.GetContentStoreFilename(repo.Id));
+                Tools.Cacher.Set(REPO_CACHE_STORE + repo.Id, contentStore, manager.GetContentStoreFilename(repo.Id));
             }
         }
 
