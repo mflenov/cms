@@ -1,7 +1,9 @@
-﻿using FCms.DbContent.Interfaces;
-using Microsoft.Data.SqlClient;
+﻿using System.Linq;
 using System.Collections.Generic;
+using FCms.DbContent.Interfaces;
+using Microsoft.Data.SqlClient;
 using Dapper;
+using FCms.DbContent.Models;
 
 namespace FCms.DbContent.Db
 {
@@ -24,8 +26,16 @@ namespace FCms.DbContent.Db
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                connection.Execute($"create table {tableName} ({tableName}Id int not null identity (1,1) primary key)");
+                if (!GetTables().Any(m => m.Name == tableName))
+                {
+                    connection.Execute($"create table {tableName} ({tableName}Id int not null identity (1,1) primary key)");
+                }
             }
+        }
+
+        public void CreateColumns(string tableName, IEnumerable<DbColumnModel> columns)
+        {
+
         }
     }
 }

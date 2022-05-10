@@ -53,7 +53,7 @@ namespace FCms.Content
 
         }
 
-        public void AddDefinition(string name, IContentDefinition.DefinitionType type)
+        public void AddDefinition(string name, ContentDefinitionType type)
         {
             if (contentDefinitions.Any(m => m.Name == name))
             {

@@ -23,7 +23,7 @@ namespace FCmsTests.DbTests
         }
 
         [Fact]
-        public void CreateTableTest() {
+        public void EmptyRepositoryTest() {
             using (TransactionScope ts = new TransactionScope())
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
@@ -31,8 +31,26 @@ namespace FCmsTests.DbTests
                 DbScaffold scaffold = new DbScaffold();
                 scaffold.ScaffoldRepository(repository);
 
-                var result = connection.Query<FCms.DbContent.Models.DbTableModel>("select Name from sys.tables where Name = @n", new { n = REPOSITORY_DB_NAME });
-                Assert.Single(result.ToList());
+                var result = connection.Query($"select * from {REPOSITORY_DB_NAME}");
+                Assert.Empty(result.ToList());
+            }
+        }
+
+        [Fact]
+        public void StringColumnsTest()
+        {
+            using (TransactionScope ts = new TransactionScope())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            {
+                IRepository repository = CreateRepository();
+                repository.AddDefinition("Name", ContentDefinitionType.String);
+                repository.AddDefinition("Description", ContentDefinitionType.String);
+
+                DbScaffold scaffold = new DbScaffold();
+                scaffold.ScaffoldRepository(repository);
+
+                var result = connection.Query($"select Name, Description from {REPOSITORY_DB_NAME}");
+                Assert.Empty(result.ToList());
             }
         }
 

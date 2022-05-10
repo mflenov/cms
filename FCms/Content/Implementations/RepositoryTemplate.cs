@@ -12,9 +12,9 @@ namespace FCms.Content
             }
             if (template == ContentTemplate.SimplePage)
             {
-                model.AddDefinition("Title", IContentDefinition.DefinitionType.String);
-                model.AddDefinition("Description", IContentDefinition.DefinitionType.String);
-                model.AddDefinition("Content", IContentDefinition.DefinitionType.LongString);
+                model.AddDefinition("Title", ContentDefinitionType.String);
+                model.AddDefinition("Description", ContentDefinitionType.String);
+                model.AddDefinition("Content", ContentDefinitionType.LongString);
             }
         }
     }

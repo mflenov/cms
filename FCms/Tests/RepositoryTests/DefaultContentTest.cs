@@ -22,7 +22,7 @@ namespace FCmsTests
 
             manager = new CmsManager();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
-            IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(IContentDefinition.DefinitionType.String);
+            IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(ContentDefinitionType.String);
             definition.DefinitionId = definitionId;
             definition.Name = contentName;
             repository.ContentDefinitions.Add(definition);
