@@ -8,7 +8,7 @@ namespace FCmsTests.DbTests
         [Fact]
         public void TableNameSanitizerTest()
         {
-            Assert.Equal("test9", DbHelpers.SanitizeTableName(" *'t#)e#*s)(t ):;9"));
+            Assert.Equal("test9", DbHelpers.SanitizeDbName(" *'t#)e#*s)(t ):;9"));
         }
     }
 }

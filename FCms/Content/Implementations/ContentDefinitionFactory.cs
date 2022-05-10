@@ -4,7 +4,7 @@ namespace FCms.Content
 {
     public static class ContentDefinitionFactory
     {
-        public static IContentDefinition CreateContentDefinition(IContentDefinition.DefinitionType contentType)
+        public static IContentDefinition CreateContentDefinition(ContentDefinitionType contentType)
         {
             return CreateContentDefinition(contentType.ToString());
         }

@@ -8,9 +8,6 @@ namespace FCms.Content
 
     public interface IContentDefinition
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "<Pending>")]
-        public enum DefinitionType { String, Folder, LongString };
-
         Guid DefinitionId { get; set; }
 
         string Name { get; set; }

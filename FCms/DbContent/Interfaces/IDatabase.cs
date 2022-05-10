@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using FCms.DbContent.Models;
+using System.Collections.Generic;
 
 namespace FCms.DbContent.Interfaces
 {
     internal interface IDatabase
     {
-        public IEnumerable<Models.DbTableModel> GetTables();
+        IEnumerable<Models.DbTableModel> GetTables();
 
-        public void CreateTable(string tableName);
+        void CreateTable(string tableName);
+
+        void CreateColumns(string tableName, IEnumerable<DbColumnModel> columns);
     }
 }

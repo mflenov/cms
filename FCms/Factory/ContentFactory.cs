@@ -26,13 +26,13 @@ namespace FCms.Factory
                 return new StringContentDefinition();
             }
 
-            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.String.ToString().ToUpperInvariant()) {
+            if (typeName.ToUpperInvariant() == ContentDefinitionType.String.ToString().ToUpperInvariant()) {
                 return new StringContentDefinition();
             }
-            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.LongString.ToString().ToUpperInvariant()) {
+            if (typeName.ToUpperInvariant() == ContentDefinitionType.LongString.ToString().ToUpperInvariant()) {
                 return new LongStringContentDefinition();
             }
-            if (typeName.ToUpperInvariant() == IContentDefinition.DefinitionType.Folder.ToString().ToUpperInvariant()) {
+            if (typeName.ToUpperInvariant() == ContentDefinitionType.Folder.ToString().ToUpperInvariant()) {
                 return new FolderContentDefinition();
             }
             throw new System.Exception("Not supported type");

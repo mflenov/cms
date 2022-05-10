@@ -23,6 +23,6 @@ namespace FCms.Content
 
         void DeleteDefinition(Guid id);
 
-        void AddDefinition(string name, IContentDefinition.DefinitionType type);
+        void AddDefinition(string name, ContentDefinitionType type);
     }
 }

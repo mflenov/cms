@@ -16,16 +16,14 @@ namespace FCms.DbContent.Implementations
 
         public void ScaffoldRepository(Content.IRepository repo)
         {
-            string tableName = DbHelpers.SanitizeTableName(repo.Name);
+            string tableName = DbHelpers.SanitizeDbName(repo.Name);
             if (String.IsNullOrEmpty(tableName))
             {
                 new Exception($"The table name is not correct {tableName}");
             }
 
-            if (!database.GetTables().Any(m => m.Name == tableName))
-            {
-                database.CreateTable(tableName);
-            }
+            database.CreateTable(tableName);
+            database.CreateColumns(tableName, repo.ContentDefinitions.Select(m => new Models.DbColumnModel(m)));
         }
     }
 }
