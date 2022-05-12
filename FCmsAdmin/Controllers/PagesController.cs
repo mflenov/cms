@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
 
@@ -11,17 +10,14 @@ namespace FCmsManagerAngular.Controllers
     [ApiController]
     public class PagesControllers
     {
-        IConfiguration config;
-
-        public PagesControllers(IConfiguration config) {
-            this.config = config;
+        public PagesControllers() {
         }
 
         [HttpGet]
         [Route("api/v1/pages")]
         public IEnumerable<PageViewModel> Index()
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
             {
@@ -36,7 +32,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/page/structure/{id}")]
         public ApiResultModel Get(string id)
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
             Guid repositoryid;
             if (!Guid.TryParse(id, out repositoryid))
             {
@@ -65,7 +61,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/page")]
         public ApiResultModel Put(PageStructureViewModel model)
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             IRepository repository = manager.GetRepositoryById(model.Id);
             if (repository == null)
@@ -82,7 +78,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/page")]
         public ApiResultModel Post(NewPageViewModel model)
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             var repository = new Repository();
             repository.Name = model.Name;
@@ -102,7 +98,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpDelete]
         [Route("api/v1/page/{id}")]
         public ApiResultModel Delete(string id) {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             Guid guid;
             if (Guid.TryParse(id, out guid)) {

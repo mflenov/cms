@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FCms;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace FCmsManagerAngular.Controllers
 {
@@ -23,7 +21,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/db")]
         public IEnumerable<PageViewModel> Index()
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.DbContent))
             {
@@ -38,7 +36,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/db")]
         public ApiResultModel Post(NewPageViewModel model)
         {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
 
             var repository = new Repository();
             repository.Name = model.Name;
@@ -53,7 +51,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpDelete]
         [Route("api/v1/db/{id}")]
         public ApiResultModel Delete(Guid id) {
-            var manager = new CmsManager(config["DataLocation"]);
+            var manager = new CmsManager();
             manager.DeleteRepository(id);
             manager.Save();
             return new ApiResultModel(ApiResultModel.SUCCESS);

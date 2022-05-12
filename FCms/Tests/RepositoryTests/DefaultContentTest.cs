@@ -19,6 +19,7 @@ namespace FCmsTests
         public DefaultContentTest()
         {
             Tools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
 
             manager = new CmsManager();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
@@ -47,7 +48,7 @@ namespace FCmsTests
         [Fact]
         public void DefaultContentExistTwoFoundTest()
         {
-            IContentStore contentStore = manager.GetContentStore(repositoryId);
+            IContentStore contentStore = ContentStore.Load(repositoryId);
             var contentItem = new StringContentItem()
             {
                 Id = Guid.NewGuid(),
@@ -55,7 +56,7 @@ namespace FCmsTests
                 Data = "UniqueValue"
             };
             contentStore.Items.Add(contentItem);
-            manager.SaveContentStore(contentStore);
+            contentStore.Save();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             Assert.Equal("UniqueValue", engine.GetContentString(contentName));
@@ -65,7 +66,7 @@ namespace FCmsTests
         [Fact]
         public void DefaultContenExistTwoFoundTest()
         {
-            IContentStore contentStore = manager.GetContentStore(repositoryId);
+            IContentStore contentStore = ContentStore.Load(repositoryId);
             contentStore.Items.Add(new StringContentItem()
                 {
                     Id = Guid.NewGuid(),
@@ -78,7 +79,7 @@ namespace FCmsTests
                 DefinitionId = definitionId,
                 Data = "Second"
             });
-            manager.SaveContentStore(contentStore);
+            contentStore.Save();
 
             // check GetContentString
             ContentEngine engine = new ContentEngine(repositoryName);

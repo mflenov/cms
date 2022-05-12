@@ -1,23 +1,17 @@
 ﻿using System;
-using FCms.Content;
-using FCms.DbContent.Db;
-using static FCms.Content.IContentDefinition;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FCms.DbContent.Models
 {
-    class DbColumnModel
+    public class DbColumnModel
     {
-        public DbColumnModel(IContentDefinition definition)
-        {
-            Name = DbHelpers.SanitizeDbName(definition.Name);
-            if (definition.GetDefinitionType() == ContentDefinitionType.String)
-            {
+        public enum DbType { IntValue = 0, NvarcharValue = 1 }
 
-            }
-        }
+        public string ColumnName { get; set; }
 
-        public string Name { get; set; }
-        
-        public Type DataType { get; set; }
+        public DbType DatabaseType { get; set; }
     }
 }

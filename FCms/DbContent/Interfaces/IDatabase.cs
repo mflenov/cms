@@ -9,6 +9,6 @@ namespace FCms.DbContent.Interfaces
 
         void CreateTable(string tableName);
 
-        void CreateColumns(string tableName, IEnumerable<DbColumnModel> columns);
+        void CreateColumns(string tableName, IEnumerable<ColumnModel> columns);
     }
 }

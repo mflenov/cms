@@ -21,12 +21,6 @@ namespace FCms.Content
 
         void DeleteRepository(Guid repositoryid);
 
-        string GetContentStoreFilename(Guid repositoryid);
-        
-        IContentStore GetContentStore(Guid repositoryid);
-
-        void SaveContentStore(IContentStore store);
-
         int GetIndexById(Guid id);
 
         void AddRepository(IRepository repository);

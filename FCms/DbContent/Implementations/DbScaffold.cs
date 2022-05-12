@@ -3,7 +3,7 @@ using System.Linq;
 using FCms.DbContent.Interfaces;
 using FCms.DbContent.Db;
 
-namespace FCms.DbContent.Implementations
+namespace FCms.DbContent
 {
     internal class DbScaffold
     {
@@ -23,7 +23,7 @@ namespace FCms.DbContent.Implementations
             }
 
             database.CreateTable(tableName);
-            database.CreateColumns(tableName, repo.ContentDefinitions.Select(m => new Models.DbColumnModel(m)));
+            database.CreateColumns(tableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));
         }
     }
 }
