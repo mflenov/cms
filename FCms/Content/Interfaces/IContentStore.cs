@@ -14,5 +14,9 @@ namespace FCms.Content
         IEnumerable<ContentItem> GetDefaultByDefinitionId(Guid definitionId);
 
         IEnumerable<ContentItem> GetByDefinitionId(Guid definitionId);
+
+        string GetContentStoreFilename();
+
+        void Save();
     }
 }

@@ -3,7 +3,7 @@ using System.Transactions;
 using Xunit;
 using FCms.Content;
 using FCms;
-using FCms.DbContent.Implementations;
+using FCms.DbContent;
 using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
 using Dapper;
@@ -12,6 +12,7 @@ using System.Linq;
 namespace FCmsTests.DbTests
 {
     [Trait ("Category", "Integration")]
+    [Collection("Sequential")]
     public class MsDbScafoldIntegrationTest
     {
         const string REPOSITORY_NAME = "Test 1";
@@ -19,7 +20,7 @@ namespace FCmsTests.DbTests
 
         public MsDbScafoldIntegrationTest()
         {
-            CMSConfigurator.Configure("", "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;");
+            CMSConfigurator.Configure("./", "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;");
         }
 
         [Fact]

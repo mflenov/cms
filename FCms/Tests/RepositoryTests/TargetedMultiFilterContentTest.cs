@@ -48,7 +48,7 @@ namespace FCmsTests
 
         void CreateTextContentValue()
         {
-            contentStore = manager.GetContentStore(repositoryId);
+            contentStore = ContentStore.Load(repositoryId);
             var contentItem = new StringContentItem()
             {
                 Id = Guid.NewGuid(),
@@ -73,7 +73,7 @@ namespace FCmsTests
             contentItem.Filters.Add(isloggedincontentFilter);
 
             contentStore.Items.Add(contentItem);
-            manager.SaveContentStore(contentStore);
+            contentStore.Save();
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace FCmsTests
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
             contentStore.Items[0].Filters[1].FilterType = IContentFilter.ContentFilterType.Exclude;
-            manager.SaveContentStore(contentStore);
+            contentStore.Save();
 
             ContentEngine engine = new ContentEngine(repositoryName);
 
@@ -136,7 +136,7 @@ namespace FCmsTests
         {
             CreateTextContentValue();
             contentStore.Items[0].Filters[0].FilterType = IContentFilter.ContentFilterType.Exclude;
-            manager.SaveContentStore(contentStore);
+            contentStore.Save();
 
             ContentEngine engine = new ContentEngine(repositoryName);
 

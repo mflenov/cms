@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using FCms.Content;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
 
 namespace FCms
 {
@@ -19,7 +18,7 @@ namespace FCms
             manager = (ICmsManager)Tools.Cacher.Get(MANAGER_CACHE_KEY);
             if (manager == null)
             {
-                manager = new CmsManager(CMSConfigurator.ContentBaseFolder);
+                manager = new CmsManager();
                 Tools.Cacher.Set(MANAGER_CACHE_KEY, manager, manager.Filename);
             }
             this.RepositoryName = repositoryName;
@@ -60,8 +59,8 @@ namespace FCms
             }
             else
             {
-                contentStore = manager.GetContentStore(repo.Id);
-                Tools.Cacher.Set(REPO_CACHE_STORE + repo.Id, contentStore, manager.GetContentStoreFilename(repo.Id));
+                contentStore = ContentStore.Load(repo.Id);
+                Tools.Cacher.Set(REPO_CACHE_STORE + repo.Id, contentStore, contentStore.GetContentStoreFilename());
             }
         }
 

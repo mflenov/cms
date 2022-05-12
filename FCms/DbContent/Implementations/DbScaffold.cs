@@ -3,7 +3,7 @@ using System.Linq;
 using FCms.DbContent.Interfaces;
 using FCms.DbContent.Db;
 
-namespace FCms.DbContent.Implementations
+namespace FCms.DbContent
 {
     internal class DbScaffold
     {

@@ -9,7 +9,7 @@ namespace FCms
             _dbConnection = dbConnection;
         }
 
-        private static string _contentBaseFolder = "";
+        private static string _contentBaseFolder = "./";
         public static string ContentBaseFolder
         {
             get { return _contentBaseFolder; }
