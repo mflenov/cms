@@ -57,7 +57,7 @@ namespace FCmsManagerAngular.Controllers
             };
          }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("api/v1/page")]
         public ApiResultModel Put(PageStructureViewModel model)
         {
@@ -74,7 +74,7 @@ namespace FCmsManagerAngular.Controllers
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/v1/page")]
         public ApiResultModel Post(NewPageViewModel model)
         {

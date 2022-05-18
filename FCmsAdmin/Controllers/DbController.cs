@@ -32,7 +32,7 @@ namespace FCmsManagerAngular.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/v1/db")]
         public ApiResultModel Post(NewPageViewModel model)
         {

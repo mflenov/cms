@@ -48,9 +48,9 @@ export class FiltersService {
 
   save(model: IFilterModel): Observable<any> {
     if (model.id)
-      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
+      return this.httpClient.patch(environment.apiCmsServiceEndpoint + this.url, model);
     else
-      return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
+      return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse): Observable<never> {

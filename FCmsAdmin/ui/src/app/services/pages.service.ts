@@ -39,11 +39,11 @@ export class PagesService {
   }
 
   save(model: IPageStructureModel): Observable<any> {
-    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
+    return this.httpClient.patch(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   create(model: INewPageModel): Observable<any> {
-    return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
+    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse):Observable<never>  {
