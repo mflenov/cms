@@ -38,14 +38,8 @@ export class RepoService {
     return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.url + id);
   }
 
-  /*
-  save(model: IPageStructureModel): Observable<any> {
-    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
-  }
-  */
-
   create(model: INewRepoModel): Observable<any> {
-    return this.httpClient.post(environment.apiCmsServiceEndpoint + this.url, model);
+    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
   handleError(err: HttpErrorResponse):Observable<never>  {

@@ -36,7 +36,7 @@ namespace FCmsManagerAngular.Controllers
             return null;
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("api/v1/config/filter")]
         public void Post(FilterViewModel model)
         {
@@ -44,7 +44,7 @@ namespace FCmsManagerAngular.Controllers
             model.Add(manager);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("api/v1/config/filter")]
         public void Put(FilterViewModel model)
         {
