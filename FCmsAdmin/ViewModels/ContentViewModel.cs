@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using FCms.Content;
+using System.Text.Json;
 
 namespace FCmsManagerAngular.ViewModels {
 
@@ -83,14 +84,19 @@ namespace FCmsManagerAngular.ViewModels {
         }
         private void MapScalar(ContentItem model)
         {
+            if (model.Id == null || model.Id == Guid.Empty)
+                model.Id = Guid.NewGuid();
+            model.DefinitionId = DefinitionId;
+
             if (model is StringContentItem)
-            {
                 (model as StringContentItem).Data = Data.ToString();
-                (model as StringContentItem).DefinitionId = DefinitionId;
-            }
+            if (model is DateContentItem)
+                (model as DateContentItem).Data = FCms.Tools.Utility.StringToDateTime(Data.ToString()) ?? DateTime.Today;
+            if (model is DateTimeContentItem)
+                (model as DateTimeContentItem).Data = FCms.Tools.Utility.StringToDateTime(Data.ToString()) ?? DateTime.Today;
         }
 
-        private  void MapFolder(ContentFolderItem model, IContentDefinition contentDefinition) {
+        private void MapFolder(ContentFolderItem model, IContentDefinition contentDefinition) {
             model.Childeren.Clear();
             model.DefinitionId = this.DefinitionId;
             model.Id = this.Id ?? Guid.NewGuid();
@@ -103,11 +109,11 @@ namespace FCmsManagerAngular.ViewModels {
                 }
                 if (definition is StringContentDefinition)
                 {
-                    model.Childeren.Add(new StringContentItem(){
+                    model.Childeren.Add(new StringContentItem() {
                         DefinitionId = definition.DefinitionId,
                         Data = content.Data.ToString(),
                         Id = content.Id ?? Guid.NewGuid()
-                        }
+                    }
                     );
                 }
             }

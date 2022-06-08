@@ -21,6 +21,10 @@ namespace FCms.DbContent.Models
         {
             switch (DataType)
             {
+                case ContentDefinitionType.Date:
+                    return "date";
+                case ContentDefinitionType.DateTime:
+                    return "datetime";
                 case ContentDefinitionType.String: 
                     return "nvarchar(255)";
                 case ContentDefinitionType.LongString:

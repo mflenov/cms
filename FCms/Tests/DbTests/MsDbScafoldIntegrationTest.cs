@@ -20,7 +20,7 @@ namespace FCmsTests.DbTests
 
         public MsDbScafoldIntegrationTest()
         {
-            CMSConfigurator.Configure("./", "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;");
+            CMSConfigurator.Configure("./", FCmsTests.Helpers.Constants.TestDbConnectionString);
         }
 
         [Fact]
@@ -46,11 +46,13 @@ namespace FCmsTests.DbTests
                 IRepository repository = CreateRepository();
                 repository.AddDefinition("Name", ContentDefinitionType.String);
                 repository.AddDefinition("Description", ContentDefinitionType.String);
+                repository.AddDefinition("Created", ContentDefinitionType.Date);
+                repository.AddDefinition("Updated", ContentDefinitionType.DateTime);
 
                 DbScaffold scaffold = new DbScaffold();
                 scaffold.ScaffoldRepository(repository);
 
-                var result = connection.Query($"select Name, Description from {REPOSITORY_DB_NAME}");
+                var result = connection.Query($"select Name, Description, Created, Updated from {REPOSITORY_DB_NAME}");
                 Assert.Empty(result.ToList());
             }
         }

@@ -16,7 +16,7 @@ namespace FCms.Tests.DbTests
 
         public DbSearchDataTest()
         {
-            CMSConfigurator.Configure("./", "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;");
+            CMSConfigurator.Configure("./", FCmsTests.Helpers.Constants.TestDbConnectionString);
         }
 
         [Fact]
@@ -46,6 +46,7 @@ namespace FCms.Tests.DbTests
                 );
             repository.AddDefinition("Name", ContentDefinitionType.String);
             repository.AddDefinition("Description", ContentDefinitionType.String);
+            repository.AddDefinition("DateTime", ContentDefinitionType.DateTime);
 
             DbScaffold scaffold = new DbScaffold();
             scaffold.ScaffoldRepository(repository);
