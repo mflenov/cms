@@ -20,6 +20,10 @@ namespace FCms.Content
                     return new LongStringContentDefinition();
                 case "folder":
                     return new FolderContentDefinition();
+                case "date":
+                    return new DateContentDefinition();
+                case "datetime":
+                    return new DateTimeContentDefinition();
             }
 
             throw new NotSupportedException();

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { ContentItemService } from '../services/content-item.service';
@@ -24,6 +25,7 @@ export class ContentItemEditorComponent implements OnInit {
 
   isFiltersPanelVisible: boolean = false;
   repositoryId: string = '';
+  date: NgbDate | null = null;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
       private contentItemService: ContentItemService,
@@ -32,6 +34,10 @@ export class ContentItemEditorComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get("id")) {
       this.repositoryId = this.route.snapshot.paramMap.get("id")!;
+    }
+
+    if (this.definition.typeName == 'DateTime' || this.definition.typeName == 'Date') {
+      this.date = this.getNgbDate(this.content.data);
     }
   }
 
@@ -67,5 +73,22 @@ export class ContentItemEditorComponent implements OnInit {
       (this.content as [any]).push(newFilderItem);
       this.onAddFolder.emit(newFilderItem);
     }
+  }
+
+  getNgbDate(str: string): NgbDate | null {
+    if (!str) {
+      return null;
+    }
+    const date = new Date(str);
+    return { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() } as NgbDate;
+  }
+
+  onDateSelection(d: NgbDate): void {
+    if (d == null) {
+      this.content.data = null;
+      return;
+    }
+    let date = new Date(d.year, d.month - 1, d.day);
+    this.content.data = date.toISOString();
   }
 }

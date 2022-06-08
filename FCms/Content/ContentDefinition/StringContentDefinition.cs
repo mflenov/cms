@@ -2,18 +2,9 @@
 
 namespace FCms.Content
 {
-    public class StringContentDefinition : IContentDefinition
+    public class StringContentDefinition : BaseContentDefinition, IContentDefinition
     {
-        public Guid DefinitionId { get; set; }
-
-        public string Name { get; set; }
-
-        public string GetTypeName()
-        {
-            return GetDefinitionType().ToString();
-        }
-
-        public ContentDefinitionType GetDefinitionType()
+        public override ContentDefinitionType GetDefinitionType()
         {
             return ContentDefinitionType.String;
         }

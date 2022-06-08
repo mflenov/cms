@@ -1,42 +1,52 @@
 <ng-container *ngIf="definition.typeName == 'String'">
-    <h3>{{definition.name}}</h3>
-    <input name="name" class="form-control" [(ngModel)]="content.data" />
+  <h3>{{definition.name}}</h3>
+  <input name="name" class="form-control" [(ngModel)]="content.data" />
 </ng-container>
 
 <ng-container *ngIf="definition.typeName == 'LongString'">
-    <h3>{{definition.name}}</h3>
-    <tinymce [(ngModel)]="content.data"></tinymce>
+  <h3>{{definition.name}}</h3>
+  <tinymce [(ngModel)]="content.data"></tinymce>
+</ng-container>
+
+<ng-container *ngIf="definition.typeName == 'Date'">
+  <h3>{{definition.name}}</h3>
+  <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
+</ng-container>
+
+<ng-container *ngIf="definition.typeName == 'DateTime'">
+  <h3>{{definition.name}}</h3>
+  <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
 </ng-container>
 
 
 <ng-container *ngIf="definition.typeName == 'Folder'">
-    <h3>{{definition.name}}</h3>
-    <div class="cms-folder" *ngFor="let folderitem of content">
-        <div *ngIf="folderitem.id" class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
+  <h3>{{definition.name}}</h3>
+  <div class="cms-folder" *ngFor="let folderitem of content">
+    <div *ngIf="folderitem.id" class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
 
-        <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcms-forlder-item">
-            <pg-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></pg-content-item>
-        </div>
-    
-        <div class="cms-controls">
-            <button class="cms-button" (click)="showFilters(folderitem.filters)">Filters</button>
-        </div>    
+    <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcms-forlder-item">
+      <pg-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></pg-content-item>
     </div>
-    <div class="cms-right-controls cms-buttons">
-        <button class="cms-button" *ngIf="isControlsVisible" (click)="addFolderValue(definition.definitionId)">Add new value</button>
-        <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+
+    <div class="cms-controls">
+      <button class="cms-button" (click)="showFilters(folderitem.filters)">Filters</button>
     </div>
+  </div>
+  <div class="cms-right-controls cms-buttons">
+    <button class="cms-button" *ngIf="isControlsVisible" (click)="addFolderValue(definition.definitionId)">Add new value</button>
+    <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+  </div>
 </ng-container>
 
 <ng-container *ngIf="folderItemEditor == false && definition.typeName != 'Folder'">
-    <div class="cms-controls cms-buttons">
-        <button class="cms-button" *ngIf="isControlsVisible" (click)="showFilters(content.filters)">Filters</button>
-        <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
-    </div>
+  <div class="cms-controls cms-buttons">
+    <button class="cms-button" *ngIf="isControlsVisible" (click)="showFilters(content.filters)">Filters</button>
+    <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+  </div>
 </ng-container>
 
-<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" (onCancel)="onCancelFilters()" >
-    <div pane>
-        <ng-template contentplaceholder></ng-template>
-    </div>
+<sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" (onCancel)="onCancelFilters()">
+  <div pane>
+    <ng-template contentplaceholder></ng-template>
+  </div>
 </sh-slide-panel>

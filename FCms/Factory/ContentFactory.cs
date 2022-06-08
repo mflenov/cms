@@ -6,15 +6,15 @@ namespace FCms.Factory
     {
         public static ContentItem CreateContentByType(IContentDefinition definition)
         {
+            if (definition is DateContentDefinition)
+                return new DateContentItem();
+            if (definition is DateTimeContentDefinition)
+                return new DateTimeContentItem();
             if (definition is StringContentDefinition)
-            {
                 return new StringContentItem();
-            }
 
             if (definition is FolderContentDefinition)
-            {
                 return new ContentFolderItem();
-            }
 
             return new StringContentItem();
         }
@@ -26,6 +26,14 @@ namespace FCms.Factory
                 return new StringContentDefinition();
             }
 
+            if (typeName.ToUpperInvariant() == ContentDefinitionType.Date.ToString().ToUpperInvariant())
+            {
+                return new DateContentDefinition();
+            }
+            if (typeName.ToUpperInvariant() == ContentDefinitionType.DateTime.ToString().ToUpperInvariant())
+            {
+                return new DateTimeContentDefinition();
+            }
             if (typeName.ToUpperInvariant() == ContentDefinitionType.String.ToString().ToUpperInvariant()) {
                 return new StringContentDefinition();
             }
