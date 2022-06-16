@@ -3,7 +3,7 @@ namespace FCms
 {
     public static class CMSConfigurator
     {
-        public static void Configure(string contentBaseFolder, string dbConnection = "")
+        public static void Configure(string contentBaseFolder, string dbConnection = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;")
         {
             _contentBaseFolder = contentBaseFolder;
             _dbConnection = dbConnection;
