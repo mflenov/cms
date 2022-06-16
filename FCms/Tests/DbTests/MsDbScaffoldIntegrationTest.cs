@@ -13,12 +13,12 @@ namespace FCmsTests.DbTests
 {
     [Trait ("Category", "Integration")]
     [Collection("Sequential")]
-    public class MsDbScafoldIntegrationTest
+    public class MsDbScaffoldIntegrationTest
     {
         const string REPOSITORY_NAME = "Test 1";
         const string REPOSITORY_DB_NAME = "Test1";
 
-        public MsDbScafoldIntegrationTest()
+        public MsDbScaffoldIntegrationTest()
         {
             CMSConfigurator.Configure("./", FCmsTests.Helpers.Constants.TestDbConnectionString);
         }

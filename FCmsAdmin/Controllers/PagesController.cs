@@ -70,6 +70,7 @@ namespace FCmsManagerAngular.Controllers
             }
             model.MapToModel(repository);
             manager.Save();
+            repository.Scaffold();
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
@@ -90,6 +91,7 @@ namespace FCmsManagerAngular.Controllers
             }
             manager.AddRepository(repository);
             manager.Save();
+            repository.Scaffold();
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
