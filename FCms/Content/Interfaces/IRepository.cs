@@ -25,6 +25,6 @@ namespace FCms.Content
 
         void AddDefinition(string name, ContentDefinitionType type);
 
-        void Scafold();
+        void Scaffold();
     }
 }

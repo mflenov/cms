@@ -65,7 +65,7 @@ namespace FCms.Content
             contentDefinitions.Add(definition);
         }
 
-        public void Scafold()
+        public void Scaffold()
         {
             if (ContentType == ContentType.DbContent)
             {

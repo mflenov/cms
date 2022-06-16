@@ -3,10 +3,12 @@ namespace FCms
 {
     public static class CMSConfigurator
     {
-        public static void Configure(string contentBaseFolder, string dbConnection = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;")
+        const string DEFAULT_DB_CONNECTION = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;";
+
+        public static void Configure(string contentBaseFolder, string dbConnection = null)
         {
             _contentBaseFolder = contentBaseFolder;
-            _dbConnection = dbConnection;
+            _dbConnection = dbConnection == null ? DEFAULT_DB_CONNECTION : dbConnection;
         }
 
         private static string _contentBaseFolder = "./";
