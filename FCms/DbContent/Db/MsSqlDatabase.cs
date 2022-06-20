@@ -42,7 +42,7 @@ namespace FCms.DbContent.Db
             {
                 if (!tables.Any(m => m.Name == tableName))
                 {
-                    connection.Execute($"create table {tableName} ({tableName}Id int not null identity (1,1) primary key)");
+                    connection.Execute($"create table [{tableName}] ({tableName}Id int not null identity (1,1) primary key)");
                 }
             }
         }
@@ -50,15 +50,22 @@ namespace FCms.DbContent.Db
         public void CreateColumns(string tableName, IEnumerable<ColumnModel> columns)
         {
             var dbcolumns = GetTableColumns(tableName).ToDictionary(m => m.ColumnName, m => m);
+            List<string> columnsSqlStatements = new List<string>();
+
+            foreach (var column in columns)
+            {
+                if (!dbcolumns.ContainsKey(column.Name))
+                    columnsSqlStatements.Add($"[{column.Name}] {column.GetDbTypeName()}");
+            }
+
+            if (!dbcolumns.ContainsKey("_modified"))
+                columnsSqlStatements.Add("_modified datetime");
+            if (!dbcolumns.ContainsKey("_created"))
+                columnsSqlStatements.Add("_created datetime");
+
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                foreach (var column in columns)
-                {
-                    if (!dbcolumns.ContainsKey(column.Name))
-                    {
-                        connection.Execute($"alter table {tableName} add {column.Name} {column.GetDbTypeName()}");
-                    }
-                }
+                connection.Execute($"alter table {tableName} add " + string.Join(",", columnsSqlStatements));
             }
         }
     }
