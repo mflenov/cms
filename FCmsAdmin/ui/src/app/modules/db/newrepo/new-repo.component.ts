@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CmsenumsService } from '../../../services/cmsenums.service';
 import { INewDbRepoModel } from '../models/new-dbrepo.model';
-import { RepoService } from '../services/repo.service';
+import { DbRepoService } from '../services/dbrepo.service';
 
 @Component({
   selector: 'app-new-repo',
   templateUrl: './new-repo.component.html',
   styleUrls: ['./new-repo.component.css'],
-  providers: [RepoService]
+  providers: [DbRepoService]
 })
 export class NewRepoComponent implements OnInit {
   model: INewDbRepoModel = {} as INewDbRepoModel;
 
   constructor(
     private cmsenumsService: CmsenumsService,
-    private repoService: RepoService,
+    private repoService: DbRepoService,
     private router: Router
   ) { }
 

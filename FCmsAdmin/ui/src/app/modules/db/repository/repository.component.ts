@@ -1,20 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IDbRepositoryModel } from '../models/dbrepository.model';
-import { RepoService } from '../services/repo.service';
+import { DbRepoService } from '../services/dbrepo.service';
 
 @Component({
   selector: 'app-repository',
   templateUrl: './repository.component.html',
   styleUrls: ['./repository.component.css'],
-  providers: [RepoService]
+  providers: [DbRepoService]
 })
 
 export class RepositoryComponent implements OnInit, OnDestroy {
   repositories: IDbRepositoryModel[] = [];
   repoSubs!: Subscription;
 
-  constructor(private repoService: RepoService) { }
+  constructor(private repoService: DbRepoService) { }
 
   ngOnInit(): void {
     this.repoSubs = this.repoService.getPages().subscribe({
