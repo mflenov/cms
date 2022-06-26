@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IRepositoryModel } from '../models/repository.model';
+import { IDbRepositoryModel } from '../models/dbrepository.model';
 import { RepoService } from '../services/repo.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { RepoService } from '../services/repo.service';
 })
 
 export class RepositoryComponent implements OnInit, OnDestroy {
-  repositories: IRepositoryModel[] = [];
+  repositories: IDbRepositoryModel[] = [];
   repoSubs!: Subscription;
 
   constructor(private repoService: RepoService) { }
