@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
-import { IRepositoryModel } from '../models/repository.model';
+import { IDbRepositoryModel } from '../models/dbrepository.model';
 //import { IPageStructureModel } from '../models/page-structure.model';
 import { environment } from 'src/environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
 import { IApiRequestModel } from 'src/app/models/api-request-model'
-import { INewRepoModel } from '../models/new-repo.model';
+import { INewDbRepoModel } from '../models/new-dbrepo.model';
 
 @Injectable()
 
@@ -20,8 +20,8 @@ export class RepoService {
   constructor(private httpClient: HttpClient) 
   { }
 
-  getPages(): Observable<IRepositoryModel[]> {
-    return this.httpClient.get<IRepositoryModel[]>(environment.apiCmsServiceEndpoint + this.listUrl).pipe(
+  getPages(): Observable<IDbRepositoryModel[]> {
+    return this.httpClient.get<IDbRepositoryModel[]>(environment.apiCmsServiceEndpoint + this.listUrl).pipe(
       tap(),
       catchError(this.handleError)
     );
@@ -38,7 +38,7 @@ export class RepoService {
     return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.url + id);
   }
 
-  create(model: INewRepoModel): Observable<any> {
+  create(model: INewDbRepoModel): Observable<any> {
     return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 

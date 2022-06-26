@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CmsenumsService } from '../../../services/cmsenums.service';
-import { INewRepoModel } from '../models/new-repo.model';
+import { INewDbRepoModel } from '../models/new-dbrepo.model';
 import { RepoService } from '../services/repo.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { RepoService } from '../services/repo.service';
   providers: [RepoService]
 })
 export class NewRepoComponent implements OnInit {
-  model: INewRepoModel = {} as INewRepoModel;
+  model: INewDbRepoModel = {} as INewDbRepoModel;
 
   constructor(
     private cmsenumsService: CmsenumsService,
