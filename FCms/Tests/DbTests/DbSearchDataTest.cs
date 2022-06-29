@@ -5,6 +5,7 @@ using FCms.Content;
 using FCms.DbContent;
 using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
+using FCms.Tests.Helpers;
 
 
 namespace FCms.Tests.DbTests
@@ -16,7 +17,7 @@ namespace FCms.Tests.DbTests
 
         public DbSearchDataTest()
         {
-            CMSConfigurator.Configure("./", FCmsTests.Helpers.Constants.TestDbConnectionString);
+            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
         }
 
         [Fact]
@@ -25,25 +26,14 @@ namespace FCms.Tests.DbTests
             using (TransactionScope ts = new TransactionScope())
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                
+                CreateTestRepository();
             }
         }
 
-        private IRepository CreateRepository()
+        private IDbRepository CreateTestRepository()
         {
-            Guid repositoryId1 = Guid.NewGuid();
+            IDbRepository repository = DbTestHelpers.CreateRepository();
 
-            IRepository repository = CreateRepository();
-
-            ICmsManager manager = new CmsManager();
-            manager.Data.Repositories.Add(
-                    new Repository()
-                    {
-                        Id = repositoryId1,
-                        Name = REPOSITORY_NAME,
-                        ContentType = ContentType.DbContent
-                    }
-                );
             repository.AddDefinition("Name", ContentDefinitionType.String);
             repository.AddDefinition("Description", ContentDefinitionType.String);
             repository.AddDefinition("DateTime", ContentDefinitionType.DateTime);
@@ -51,8 +41,7 @@ namespace FCms.Tests.DbTests
             DbScaffold scaffold = new DbScaffold();
             scaffold.ScaffoldRepository(repository);
 
-            manager.Save();
-            return manager.Data.Repositories[0];
+            return repository;
         }
     }
 }

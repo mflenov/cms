@@ -14,16 +14,15 @@ namespace FCms.DbContent
             database = new MsSqlDatabase();
         }
 
-        public void ScaffoldRepository(Content.IRepository repo)
+        public void ScaffoldRepository(Content.IDbRepository repo)
         {
-            string tableName = DbHelpers.SanitizeDbName(repo.Name);
-            if (String.IsNullOrEmpty(tableName))
+            if (String.IsNullOrEmpty(repo.TableName))
             {
-                new Exception($"The table name is not correct {tableName}");
+                new Exception($"The table name is not correct {repo.TableName}");
             }
 
-            database.CreateTable(tableName);
-            database.CreateColumns(tableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));
+            database.CreateTable(repo.TableName);
+            database.CreateColumns(repo.TableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));
         }
     }
 }

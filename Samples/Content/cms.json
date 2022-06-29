@@ -88,24 +88,6 @@
     },
     {
       "$type": "FCms.Content.Repository, FCms",
-      "Id": "c309d5a2-7f95-4649-ac8c-6db1bb716a54",
-      "Name": "Blog",
-      "ContentType": 1,
-      "ContentDefinitions": [
-        {
-          "$type": "FCms.Content.StringContentDefinition, FCms",
-          "DefinitionId": "7a10b1df-acfe-44fd-ab36-7ef72ba68a18",
-          "Name": "Title"
-        },
-        {
-          "$type": "FCms.Content.LongStringContentDefinition, FCms",
-          "DefinitionId": "e9bb7efc-26fa-4e30-b969-d17e8d4f8e29",
-          "Name": "Content"
-        }
-      ]
-    },
-    {
-      "$type": "FCms.Content.Repository, FCms",
       "Id": "384809e0-de5e-4d15-9f10-f3a0dbf572b0",
       "Name": "Privacy",
       "ContentType": 0,
@@ -119,6 +101,27 @@
           "$type": "FCms.Content.LongStringContentDefinition, FCms",
           "DefinitionId": "294e0544-df26-4d44-a92a-fb99b06625e3",
           "Name": "Content"
+        }
+      ]
+    }
+  ],
+  "DbRepositories": [
+    {
+      "$type": "FCms.Content.DbRepository, FCms",
+      "TableName": "Blog",
+      "Id": "7f2d54c5-56ab-4ea4-9abf-fc7332e0a607",
+      "Name": "Blog",
+      "ContentType": 1,
+      "ContentDefinitions": [
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "c2c2b59d-9085-47ae-bd11-1a24fe091de3",
+          "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "3f04dbcf-5461-47dc-b31c-48892b8790a0",
+          "Name": "Description"
         }
       ]
     }

@@ -21,7 +21,7 @@ namespace FCmsTests
 
         public TargetedTextContentTest()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
 
             manager = new CmsManager();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
@@ -39,7 +39,7 @@ namespace FCmsTests
 
         public void Dispose()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
             FCms.Tools.Cacher.Clear();
         }
 

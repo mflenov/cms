@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FCmsTests.Helpers
 {
-    static class Constants
+    static class TestConstants
     {
         public static string CmsFilename = "./cms.json";
 

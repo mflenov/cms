@@ -39,6 +39,15 @@ namespace FCms.Content
             data.Repositories.Add(repository);
         }
 
+        public void AddDbRepository(IDbRepository repository)
+        {
+            if (repository != null && data.DbRepositories.Select(x => x.Name).Contains(repository.Name))
+            {
+                throw new Exception($"The repository {repository.Name} already exists");
+            }
+            data.DbRepositories.Add(repository);
+        }
+
         public void Save()
         {
             System.IO.File.WriteAllText(CMSConfigurator.ContentBaseFolder + filename, JsonConvert.SerializeObject(this.Data, new JsonSerializerSettings()
@@ -50,21 +59,17 @@ namespace FCms.Content
 
         public void DeleteRepository(Guid repositoryid)
         {
-            var item = data.Repositories.Where(m => m.Id == repositoryid).FirstOrDefault();
-            if (item != null)
-            {
-                data.Repositories.Remove(item);
-            }
+            data.Repositories.Remove(data.Repositories.Where(m => m.Id == repositoryid).FirstOrDefault());
+            data.DbRepositories.Remove(data.DbRepositories.Where(m => m.Id == repositoryid).FirstOrDefault());
         }
 
         public IRepository GetRepositoryByName(string name)
-        {
-            return data.Repositories.Where(m => m.Name == name).FirstOrDefault();
-        }
+            => data.Repositories.Where(m => m.Name == name).FirstOrDefault() ?? 
+               data.DbRepositories.Where(m => m.Name == name).FirstOrDefault();
+
         public IRepository GetRepositoryById(Guid id)
-        {
-            return data.Repositories.Where(m => m.Id == id).FirstOrDefault();
-        }
+            => data.Repositories.Where(m => m.Id == id).FirstOrDefault() ?? 
+               data.DbRepositories.Where(m => m.Id == id).FirstOrDefault();
 
         public int GetIndexById(Guid id) 
             => data.Repositories

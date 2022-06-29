@@ -24,7 +24,5 @@ namespace FCms.Content
         void DeleteDefinition(Guid id);
 
         void AddDefinition(string name, ContentDefinitionType type);
-
-        void Scaffold();
     }
 }

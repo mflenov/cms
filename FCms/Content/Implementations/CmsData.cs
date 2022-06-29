@@ -11,6 +11,14 @@ namespace FCms.Content
             }
         }
 
+        List<IDbRepository> dbrepositories = new List<IDbRepository>();
+        public List<IDbRepository> DbRepositories
+        {
+            get
+            {
+                return this.dbrepositories;
+            }
+        }
 
         List<IFilter> filters = new List<IFilter>();
         public List<IFilter> Filters {
