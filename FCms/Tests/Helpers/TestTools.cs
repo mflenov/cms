@@ -4,13 +4,13 @@ using System.Text;
 
 namespace FCmsTests.Helpers
 {
-    static class Tools
+    static class TestTools
     {
         public static void DeleteCmsFile()
         {
-            if (System.IO.File.Exists(Constants.CmsFilename))
+            if (System.IO.File.Exists(TestConstants.CmsFilename))
             {
-                System.IO.File.Delete(Constants.CmsFilename);
+                System.IO.File.Delete(TestConstants.CmsFilename);
             }
         }
     }

@@ -23,7 +23,7 @@ export class ContentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getPageContent(id: string, filters: IContentFilterModel[] ): Observable<IApiRequestModel> {
+  getPageContent(id: string, filters: IContentFilterModel[]): Observable<IApiRequestModel> {
     const headers = {
       'content-type': 'application/json',
       'accept': 'text/plain'

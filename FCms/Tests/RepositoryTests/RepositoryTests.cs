@@ -10,12 +10,12 @@ namespace FCmsTests
     {
         public RepositoryTests()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
         }
 
         public void Dispose()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
             FCms.Tools.Cacher.Clear();
         }
 

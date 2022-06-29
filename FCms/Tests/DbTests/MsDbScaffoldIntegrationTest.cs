@@ -8,6 +8,7 @@ using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Linq;
+using FCms.Tests.Helpers;
 
 namespace FCmsTests.DbTests
 {
@@ -15,12 +16,9 @@ namespace FCmsTests.DbTests
     [Collection("Sequential")]
     public class MsDbScaffoldIntegrationTest
     {
-        const string REPOSITORY_NAME = "Test 1";
-        const string REPOSITORY_DB_NAME = "Test1";
-
         public MsDbScaffoldIntegrationTest()
         {
-            CMSConfigurator.Configure("./", FCmsTests.Helpers.Constants.TestDbConnectionString);
+            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
         }
 
         [Fact]
@@ -28,11 +26,11 @@ namespace FCmsTests.DbTests
             using (TransactionScope ts = new TransactionScope())
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IRepository repository = CreateRepository();
+                IDbRepository repository = DbTestHelpers.CreateRepository();
                 DbScaffold scaffold = new DbScaffold();
                 scaffold.ScaffoldRepository(repository);
 
-                var result = connection.Query($"select * from {REPOSITORY_DB_NAME}");
+                var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
                 Assert.Empty(result.ToList());
             }
         }
@@ -43,7 +41,7 @@ namespace FCmsTests.DbTests
             using (TransactionScope ts = new TransactionScope())
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IRepository repository = CreateRepository();
+                IDbRepository repository = DbTestHelpers.CreateRepository();
                 repository.AddDefinition("Name", ContentDefinitionType.String);
                 repository.AddDefinition("Description", ContentDefinitionType.String);
                 repository.AddDefinition("Created", ContentDefinitionType.Date);
@@ -52,25 +50,9 @@ namespace FCmsTests.DbTests
                 DbScaffold scaffold = new DbScaffold();
                 scaffold.ScaffoldRepository(repository);
 
-                var result = connection.Query($"select Name, Description, Created, Updated from {REPOSITORY_DB_NAME}");
+                var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");
                 Assert.Empty(result.ToList());
             }
-        }
-
-        private IRepository CreateRepository()
-        {
-            Guid repositoryId1 = Guid.NewGuid();
-            ICmsManager manager = new CmsManager();
-            manager.Data.Repositories.Add(
-                    new Repository()
-                    {
-                        Id = repositoryId1,
-                        Name = REPOSITORY_NAME,
-                        ContentType = ContentType.DbContent
-                    }
-                );
-            manager.Save();
-            return manager.Data.Repositories[0];
         }
     }
 }

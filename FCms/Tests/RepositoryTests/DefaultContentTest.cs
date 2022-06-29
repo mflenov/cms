@@ -18,7 +18,7 @@ namespace FCmsTests
 
         public DefaultContentTest()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
             FCms.Tools.Cacher.Clear();
 
             manager = new CmsManager();
@@ -33,7 +33,7 @@ namespace FCmsTests
 
         public void Dispose()
         {
-            Tools.DeleteCmsFile();
+            TestTools.DeleteCmsFile();
             FCms.Tools.Cacher.Clear();
         }
 

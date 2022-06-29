@@ -13,9 +13,9 @@ import { INewPageModel } from '../models/new-page.model';
 @Injectable()
 
 export class PagesService {
-  private listUrl: string = 'api/v1/pages';
-  private url:  string = 'api/v1/page/';
-  private definitionurl: string = 'api/v1/page/structure/';
+  private listUrl: string = 'api/v1/repositories';
+  private url: string = 'api/v1/repository/';
+  private definitionurl: string = 'api/v1/repository/structure/';
 
   constructor(private httpClient: HttpClient) 
   { }

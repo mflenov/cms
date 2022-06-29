@@ -12,7 +12,7 @@ import { INewDbRepoModel } from '../models/new-dbrepo.model';
 
 @Injectable()
 
-export class RepoService {
+export class DbRepoService {
   private listUrl: string = 'api/v1/db';
   private url:  string = 'api/v1/db/';
   private definitionurl: string = 'api/v1/db/structure/';

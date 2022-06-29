@@ -8,13 +8,10 @@ using FCmsManagerAngular.ViewModels;
 namespace FCmsManagerAngular.Controllers
 {
     [ApiController]
-    public class PagesControllers
+    public class RepositoryController
     {
-        public PagesControllers() {
-        }
-
         [HttpGet]
-        [Route("api/v1/pages")]
+        [Route("api/v1/repositories")]
         public IEnumerable<PageViewModel> Index()
         {
             var manager = new CmsManager();
@@ -29,7 +26,7 @@ namespace FCmsManagerAngular.Controllers
         }
 
         [HttpGet]
-        [Route("api/v1/page/structure/{id}")]
+        [Route("api/v1/repository/structure/{id}")]
         public ApiResultModel Get(string id)
         {
             var manager = new CmsManager();
@@ -58,7 +55,7 @@ namespace FCmsManagerAngular.Controllers
          }
 
         [HttpPatch]
-        [Route("api/v1/page")]
+        [Route("api/v1/repository")]
         public ApiResultModel Put(PageStructureViewModel model)
         {
             var manager = new CmsManager();
@@ -70,35 +67,41 @@ namespace FCmsManagerAngular.Controllers
             }
             model.MapToModel(repository);
             manager.Save();
-            repository.Scaffold();
+
+            if (repository is IDbRepository)
+                (repository as IDbRepository).Scaffold();
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
 
         [HttpPut]
-        [Route("api/v1/page")]
+        [Route("api/v1/repository")]
         public ApiResultModel Post(NewPageViewModel model)
         {
             var manager = new CmsManager();
 
-            var repository = new Repository();
-            repository.Name = model.Name;
-            repository.Id = Guid.NewGuid();
-            repository.ContentType = model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page;
+            var repository = FCms.Factory.RepositoryFactory.CreateRepository(model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page, model.Name);
             if (model.Template == EnumViewModel.SIMPLE_PAGE)
-            {
                 RepositoryTemplate.ApplyTemplate(ContentTemplate.SimplePage, repository);
+
+            if (repository is IDbRepository)
+            {
+                manager.AddDbRepository(repository as IDbRepository);
+                manager.Save();
+                (repository as IDbRepository).Scaffold();
             }
-            manager.AddRepository(repository);
-            manager.Save();
-            repository.Scaffold();
+            else
+            {
+                manager.AddRepository(repository);
+                manager.Save();
+            }
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
 
 
         [HttpDelete]
-        [Route("api/v1/page/{id}")]
+        [Route("api/v1/repository/{id}")]
         public ApiResultModel Delete(string id) {
             var manager = new CmsManager();
 

@@ -65,16 +65,6 @@ namespace FCms.Content
             contentDefinitions.Add(definition);
         }
 
-        public void Scaffold()
-        {
-            if (ContentType == ContentType.DbContent)
-            {
-                FCms.DbContent.DbScaffold scaffold = new FCms.DbContent.DbScaffold();
-                scaffold.ScaffoldRepository(this);
-            }
-
-        }
-
         #endregion
     }
 }

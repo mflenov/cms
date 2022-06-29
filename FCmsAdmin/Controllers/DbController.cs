@@ -23,7 +23,7 @@ namespace FCmsManagerAngular.Controllers
         {
             var manager = new CmsManager();
 
-            foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.DbContent))
+            foreach (IDbRepository repository in manager.Data.DbRepositories.Where(m => m.ContentType == ContentType.DbContent))
             {
                 yield return new PageViewModel(){
                     Id = repository.Id,
@@ -38,11 +38,11 @@ namespace FCmsManagerAngular.Controllers
         {
             var manager = new CmsManager();
 
-            var repository = new Repository();
+            var repository = new DbRepository();
             repository.Name = model.Name;
             repository.Id = Guid.NewGuid();
             repository.ContentType = ContentType.DbContent;
-            manager.AddRepository(repository);
+            manager.AddDbRepository(repository);
             manager.Save();
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
