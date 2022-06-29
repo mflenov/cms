@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FCms.DbContent;
+using System.Collections.Generic;
 
 namespace FCms.Content
 {

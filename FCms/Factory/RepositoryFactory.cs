@@ -1,5 +1,6 @@
 ﻿using System;
 using FCms.Content;
+using FCms.DbContent;
 
 namespace FCms.Factory
 {

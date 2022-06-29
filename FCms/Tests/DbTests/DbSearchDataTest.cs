@@ -7,7 +7,6 @@ using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
 using FCms.Tests.Helpers;
 
-
 namespace FCms.Tests.DbTests
 {
     [Trait("Category", "Integration")]
@@ -26,9 +25,13 @@ namespace FCms.Tests.DbTests
             using (TransactionScope ts = new TransactionScope())
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                CreateTestRepository();
+                IDbRepository repository = CreateTestRepository();
+
+                DbContentStore store = new DbContentStore(repository);
             }
         }
+
+        #region test helpers
 
         private IDbRepository CreateTestRepository()
         {
@@ -43,5 +46,7 @@ namespace FCms.Tests.DbTests
 
             return repository;
         }
+
+        #endregion
     }
 }

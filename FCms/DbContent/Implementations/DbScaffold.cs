@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using FCms.DbContent.Interfaces;
+using FCms.DbContent;
 using FCms.DbContent.Db;
 
 namespace FCms.DbContent
@@ -14,7 +14,7 @@ namespace FCms.DbContent
             database = new MsSqlDatabase();
         }
 
-        public void ScaffoldRepository(Content.IDbRepository repo)
+        public void ScaffoldRepository(IDbRepository repo)
         {
             if (String.IsNullOrEmpty(repo.TableName))
             {
