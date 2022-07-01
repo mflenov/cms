@@ -6,11 +6,18 @@ namespace FCms.DbContent
 {
     public class DbContentStore
     {
-        public DbContentModel GetContent(Content.IRepository repo)
+        Content.IRepository repository;
+
+        public DbContentStore(Content.IRepository repository)
         {
-            DbContentModel result = new DbContentModel();
-            
-            return result;
+            this.repository = repository;
+        }
+
+        public DbContentModel GetContent()
+        {
+
+
+            return new DbContentModel() { };
         }
     }
 }

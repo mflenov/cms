@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
+using FCms.DbContent;
 
 namespace FCmsManagerAngular.Controllers
 {

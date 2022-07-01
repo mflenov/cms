@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using FCms.DbContent.Interfaces;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using FCms.DbContent;
 using FCms.DbContent.Models;
 
 namespace FCms.DbContent.Db

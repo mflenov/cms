@@ -1,7 +1,7 @@
 ﻿using FCms.DbContent.Models;
 using System.Collections.Generic;
 
-namespace FCms.DbContent.Interfaces
+namespace FCms.DbContent
 {
     internal interface IDatabase
     {

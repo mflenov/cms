@@ -1,18 +1,21 @@
-﻿using FCms.DbContent.Db;
+﻿using FCms.Content;
+using FCms.DbContent.Db;
+using FCms.DbContent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FCms.Content
+namespace FCms.DbContent
 {
-    public class DbRepository: Repository, IDbRepository
+    public class DbRepository : Repository, IDbRepository
     {
         string tableName = null;
         public string TableName
         {
-            get { 
+            get
+            {
                 if (tableName == null)
                 {
                     tableName = DbHelpers.SanitizeDbName(Name);
@@ -25,7 +28,7 @@ namespace FCms.Content
         {
             if (ContentType == ContentType.DbContent)
             {
-                FCms.DbContent.DbScaffold scaffold = new FCms.DbContent.DbScaffold();
+                DbScaffold scaffold = new DbScaffold();
                 scaffold.ScaffoldRepository(this);
             }
 
