@@ -14,33 +14,10 @@
     <None Remove="Swashbuckle.AspNetCore.Swagger" />
     <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
     <None Remove="Swashbuckle.AspNetCore" />
-    <None Remove="ui\src\app\modules\db\models\dncontent.model.ts" />
-    <None Remove="ui\src\app\modules\pages\page-definition\" />
-    <None Remove="ui\src\app\services\" />
-    <None Remove="ui\src\app\modules\pages\services\" />
-    <None Remove="ui\src\app\shared\slideout\" />
-    <None Remove="ui\src\app\modules\pages\editpage\filter-controls\" />
-    <None Remove="ui\src\app\modules\pages\newpage\" />
-    <None Remove="ui\src\app\modules\pages\widgets\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ui\src\app\services\" />
-    <Folder Include="ui\src\app\modules\pages\services\" />
-    <Folder Include="ui\src\app\shared\slideout\" />
-    <Folder Include="ui\src\app\modules\pages\editpage\filter-controls\" />
-    <Folder Include="ui\src\app\modules\pages\newpage\" />
-    <Folder Include="ui\src\app\modules\pages\widgets\" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="ui\src\app\modules\db\models\dncontent.model.ts" />
   </ItemGroup>
 </Project>
