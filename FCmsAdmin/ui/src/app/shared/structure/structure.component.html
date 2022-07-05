@@ -1,4 +1,4 @@
-<h1>"{{model.name}}" page structure</h1>
+<h1>"{{model.name}}" structure</h1>
 <div *ngFor="let definition of model.contentDefinitions" [attr.id]="definition.definitionId" class="cms-repository">
     <div class="cms-right fa fa-times link" (click)="deleteRow(definition.definitionId)"></div>
     <sh-content-definition [definition]='definition'></sh-content-definition>
