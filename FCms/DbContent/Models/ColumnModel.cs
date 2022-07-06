@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using FCms.Content;
 using FCms.DbContent.Db;
 using static FCms.Content.IContentDefinition;
@@ -31,6 +32,22 @@ namespace FCms.DbContent.Models
                     return "ntext";
             }
             return "";
+        }
+
+        public SqlDbType GetSqlDbTypeName()
+        {
+            switch (DataType)
+            {
+                case ContentDefinitionType.Date:
+                    return SqlDbType.Date;
+                case ContentDefinitionType.DateTime:
+                    return SqlDbType.DateTime;
+                case ContentDefinitionType.String:
+                    return SqlDbType.NVarChar;
+                case ContentDefinitionType.LongString:
+                    return SqlDbType.NText;
+            }
+            return SqlDbType.NVarChar;
         }
     }
 }
