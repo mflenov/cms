@@ -21,8 +21,21 @@ namespace FCms.Tests.Helpers
                         ContentType = ContentType.DbContent
                     }
                 );
-            manager.Save();
             return manager.Data.DbRepositories[0] as IDbRepository;
+        }
+
+        public static IDbRepository CreateRepositoryWithSimpleDefinition()
+        {
+            IDbRepository repository = DbTestHelpers.CreateRepository();
+
+            repository.AddDefinition("Name", ContentDefinitionType.String);
+            repository.AddDefinition("Description", ContentDefinitionType.String);
+            repository.AddDefinition("DateTime", ContentDefinitionType.DateTime);
+
+            DbScaffold scaffold = new DbScaffold();
+            scaffold.ScaffoldRepository(repository);
+
+            return repository;
         }
     }
 }
