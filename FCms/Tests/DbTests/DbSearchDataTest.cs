@@ -20,7 +20,7 @@ namespace FCms.Tests.DbTests
         [Fact]
         public void StringColumnsTest()
         {
-            using (TransactionScope ts = new TransactionScope())
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition();

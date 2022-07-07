@@ -15,19 +15,19 @@ namespace FCms.DbContent.Db
         {
         }
 
-        public IEnumerable<DbTableModel> GetTables()
+        public async Task<IEnumerable<DbTableModel>> GetTables()
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                return connection.Query<Models.DbTableModel>("select Name from sys.tables");
+                return await connection.QueryAsync<Models.DbTableModel>("select Name from sys.tables");
             }
         }
 
-        public IEnumerable<DbColumnModel> GetTableColumns(string tableName)
+        public async Task<IEnumerable<DbColumnModel>> GetTableColumns(string tableName)
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                return connection.Query<DbColumnModel>(@"
+                return await connection.QueryAsync<DbColumnModel>(@"
                     select c.Name as ColumnName, t.Name + 'Value' as TypeName
                     from sys.columns c
 	                    join sys.types t on c.system_type_id = t.user_type_id
@@ -36,21 +36,23 @@ namespace FCms.DbContent.Db
             }
         }
 
-        public void CreateTable(string tableName)
+        public async Task<bool> CreateTable(string tableName)
         {
-            var tables = GetTables();
+            var tables = await GetTables();
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 if (!tables.Any(m => m.Name == tableName))
                 {
-                    connection.Execute($"create table [{tableName}] ({tableName}Id int not null identity (1,1) primary key)");
+                    await connection.ExecuteAsync($"create table [{tableName}] ({tableName}Id int not null identity (1,1) primary key)");
                 }
             }
+            return true;
         }
 
-        public void CreateColumns(string tableName, IEnumerable<ColumnModel> columns)
+        public async Task<bool> CreateColumns(string tableName, IEnumerable<ColumnModel> columns)
         {
-            var dbcolumns = GetTableColumns(tableName).ToDictionary(m => m.ColumnName, m => m);
+            var tables = await GetTableColumns(tableName);
+            var dbcolumns = tables.ToDictionary(m => m.ColumnName, m => m);
             List<string> columnsSqlStatements = new List<string>();
 
             foreach (var column in columns)
@@ -64,10 +66,14 @@ namespace FCms.DbContent.Db
             if (!dbcolumns.ContainsKey("_created"))
                 columnsSqlStatements.Add("_created datetime");
 
+            if (columnsSqlStatements.Count == 0)
+                return true;
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                connection.Execute($"alter table {tableName} add " + string.Join(",", columnsSqlStatements));
+                await connection.ExecuteAsync($"alter table {tableName} add " + string.Join(",", columnsSqlStatements));
             }
+
+            return true;
         }
 
         public async Task<List<List<string>>> GetContent(string tableName)

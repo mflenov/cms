@@ -6,11 +6,11 @@ namespace FCms.DbContent
 {
     internal interface IDatabase
     {
-        IEnumerable<Models.DbTableModel> GetTables();
+        Task<IEnumerable<Models.DbTableModel>> GetTables();
 
-        void CreateTable(string tableName);
+        Task<bool> CreateTable(string tableName);
 
-        void CreateColumns(string tableName, IEnumerable<ColumnModel> columns);
+        Task<bool> CreateColumns(string tableName, IEnumerable<ColumnModel> columns);
 
         Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns);
     }
