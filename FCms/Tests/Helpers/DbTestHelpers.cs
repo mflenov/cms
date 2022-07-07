@@ -33,7 +33,7 @@ namespace FCms.Tests.Helpers
             repository.AddDefinition("DateTime", ContentDefinitionType.DateTime);
 
             DbScaffold scaffold = new DbScaffold();
-            scaffold.ScaffoldRepository(repository);
+            scaffold.ScaffoldRepository(repository).GetAwaiter().GetResult();
 
             return repository;
         }

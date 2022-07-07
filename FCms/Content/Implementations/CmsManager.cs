@@ -39,7 +39,7 @@ namespace FCms.Content
             data.Repositories.Add(repository);
         }
 
-        public void AddDbRepository(IDbRepository repository)
+        public void AddRepository(IDbRepository repository)
         {
             if (repository != null && data.DbRepositories.Select(x => x.Name).Contains(repository.Name))
             {

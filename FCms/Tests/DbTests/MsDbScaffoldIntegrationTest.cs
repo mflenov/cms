@@ -23,12 +23,12 @@ namespace FCmsTests.DbTests
 
         [Fact]
         public void EmptyRepositoryTest() {
-            using (TransactionScope ts = new TransactionScope())
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepository();
                 DbScaffold scaffold = new DbScaffold();
-                scaffold.ScaffoldRepository(repository);
+                scaffold.ScaffoldRepository(repository).GetAwaiter().GetResult();
 
                 var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
                 Assert.Empty(result.ToList());
@@ -38,7 +38,7 @@ namespace FCmsTests.DbTests
         [Fact]
         public void StringColumnsTest()
         {
-            using (TransactionScope ts = new TransactionScope())
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepository();
@@ -48,7 +48,7 @@ namespace FCmsTests.DbTests
                 repository.AddDefinition("Updated", ContentDefinitionType.DateTime);
 
                 DbScaffold scaffold = new DbScaffold();
-                scaffold.ScaffoldRepository(repository);
+                scaffold.ScaffoldRepository(repository).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");
                 Assert.Empty(result.ToList());

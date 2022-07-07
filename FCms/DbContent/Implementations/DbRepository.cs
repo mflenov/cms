@@ -24,14 +24,14 @@ namespace FCms.DbContent
             }
         }
 
-        public void Scaffold()
+        public async Task<bool> Scaffold()
         {
             if (ContentType == ContentType.DbContent)
             {
                 DbScaffold scaffold = new DbScaffold();
-                scaffold.ScaffoldRepository(this);
+                return await scaffold.ScaffoldRepository(this);
             }
-
+            return false;
         }
     }
 }

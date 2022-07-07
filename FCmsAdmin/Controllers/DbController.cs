@@ -43,7 +43,7 @@ namespace FCmsManagerAngular.Controllers
             repository.Name = model.Name;
             repository.Id = Guid.NewGuid();
             repository.ContentType = ContentType.DbContent;
-            manager.AddDbRepository(repository);
+            manager.AddRepository(repository);
             manager.Save();
 
             return new ApiResultModel(ApiResultModel.SUCCESS);

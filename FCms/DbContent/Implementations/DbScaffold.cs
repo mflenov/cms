@@ -2,6 +2,7 @@
 using System.Linq;
 using FCms.DbContent;
 using FCms.DbContent.Db;
+using System.Threading.Tasks;
 
 namespace FCms.DbContent
 {
@@ -14,15 +15,15 @@ namespace FCms.DbContent
             database = new MsSqlDatabase();
         }
 
-        public void ScaffoldRepository(IDbRepository repo)
+        public async Task<bool> ScaffoldRepository(IDbRepository repo)
         {
             if (String.IsNullOrEmpty(repo.TableName))
             {
                 new Exception($"The table name is not correct {repo.TableName}");
             }
 
-            database.CreateTable(repo.TableName);
-            database.CreateColumns(repo.TableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));
+            await database.CreateTable(repo.TableName);
+            return await database.CreateColumns(repo.TableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));
         }
     }
 }

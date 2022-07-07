@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
 using FCms.DbContent;
+using System.Threading.Tasks;
 
 namespace FCmsManagerAngular.Controllers
 {
@@ -57,7 +58,7 @@ namespace FCmsManagerAngular.Controllers
 
         [HttpPatch]
         [Route("api/v1/repository")]
-        public ApiResultModel Put(PageStructureViewModel model)
+        public async Task<ApiResultModel> Put(PageStructureViewModel model)
         {
             var manager = new CmsManager();
 
@@ -69,15 +70,16 @@ namespace FCmsManagerAngular.Controllers
             model.MapToModel(repository);
             manager.Save();
 
-            if (repository is IDbRepository)
-                (repository as IDbRepository).Scaffold();
+            var scaffold = (repository as IDbRepository)?.Scaffold();
+            if (scaffold != null)
+                await scaffold;
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }
 
         [HttpPut]
         [Route("api/v1/repository")]
-        public ApiResultModel Post(NewPageViewModel model)
+        public async Task<ApiResultModel> Post(NewPageViewModel model)
         {
             var manager = new CmsManager();
 
@@ -85,17 +87,12 @@ namespace FCmsManagerAngular.Controllers
             if (model.Template == EnumViewModel.SIMPLE_PAGE)
                 RepositoryTemplate.ApplyTemplate(ContentTemplate.SimplePage, repository);
 
-            if (repository is IDbRepository)
-            {
-                manager.AddDbRepository(repository as IDbRepository);
-                manager.Save();
-                (repository as IDbRepository).Scaffold();
-            }
-            else
-            {
-                manager.AddRepository(repository);
-                manager.Save();
-            }
+            manager.AddRepository(repository);
+            manager.Save();
+
+            var scaffold = (repository as IDbRepository)?.Scaffold();
+            if (scaffold != null)
+                await scaffold;
 
             return new ApiResultModel(ApiResultModel.SUCCESS);
          }

@@ -22,7 +22,7 @@ namespace FCms.Tests.DbTests
         [Fact]
         public void AddRowTest()
         {
-            using (TransactionScope ts = new TransactionScope())
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition();
@@ -36,6 +36,5 @@ namespace FCms.Tests.DbTests
                 Assert.Equal("Description", result.Description);
             }
         }
-
     }
 }

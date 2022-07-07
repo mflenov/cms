@@ -10,6 +10,6 @@ namespace FCms.DbContent
     public interface IDbRepository : IRepository
     {
         public string TableName { get; }
-        void Scaffold();
+        Task<bool> Scaffold();
     }
 }
