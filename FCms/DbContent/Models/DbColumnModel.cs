@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FCms.DbContent.Models
 {
-    public class DbColumnModel
+    class DbColumnModel
     {
         public enum DbType { IntValue = 0, NvarcharValue = 1 }
 
