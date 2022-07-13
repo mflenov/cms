@@ -10,10 +10,6 @@ namespace FCms.Tests.DbTests
         public void TableNameSanitizerTest()
         {
             MsSqlGenerator generator = new MsSqlGenerator("tablename");
-            generator.GetSearchQuery(new ContentSearchModel()
-            {
-
-            });
             Assert.Equal("test9", DbHelpers.SanitizeDbName(" *'t#)e#*s)(t ):;9"));
         }
     }
