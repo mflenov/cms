@@ -27,8 +27,11 @@ namespace FCms.DbContent.Db
         protected SqlQueryModel GetWhereClause(ContentSearchModel model)
         {
             SqlQueryModel result = new SqlQueryModel();
-            if (model.Filters.Count == 0)
+            if (model.Filters == null || model.Filters.Count == 0)
+            {
                 result.Sql = "1 = 1";
+                return result;
+            }
 
             StringBuilder where = new StringBuilder();
             int index = 0;
