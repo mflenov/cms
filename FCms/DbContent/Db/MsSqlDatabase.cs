@@ -19,7 +19,7 @@ namespace FCms.DbContent.Db
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                return await connection.QueryAsync<Models.DbTableModel>("select Name from sys.tables");
+                return await connection.QueryAsync<DbTableModel>("select Name from sys.tables");
             }
         }
 

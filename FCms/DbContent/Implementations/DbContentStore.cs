@@ -18,16 +18,16 @@ namespace FCms.DbContent
             database = new MsSqlDatabase();
         }
 
-        public DbContentModel GetContent()
+        public ContentModel GetContent()
         {
-            return new DbContentModel() { 
+            return new ContentModel() { 
               //  Values = database.GetContent(repository.TableName)
             };
         }
 
         public Task<int> Add(List<object> values)
         {
-            return database.AddRow(repository.TableName, values, repository.ContentDefinitions.Select(m => new Models.ColumnModel(m)).ToList());
+            return database.AddRow(repository.TableName, values, repository.ContentDefinitions.Select(m => new ColumnModel(m)).ToList());
         }
     }
 }
