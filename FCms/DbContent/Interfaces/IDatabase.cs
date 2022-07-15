@@ -13,5 +13,7 @@ namespace FCms.DbContent
         Task<bool> CreateColumns(string tableName, IEnumerable<ColumnModel> columns);
 
         Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns);
+
+        Task<List<List<string>>> GetContent(string tableName);
     }
 }

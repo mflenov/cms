@@ -17,9 +17,17 @@ namespace FCms.DbContent.Db
 
         public SqlQueryModel GetSearchQuery(ContentSearchModel model)
         {
+            if (model == null)
+                model = new ContentSearchModel();
+            
             var where = GetWhereClause(model);
+
+            var select = String.Join(",", model.Columns);
+            if (String.IsNullOrEmpty(select))
+                select = "*";
+
             return new SqlQueryModel(
-                String.Format(GetSqlTemplage(), GetRowLimit(model.Top), String.Join(",", model.Columns), tablename, where.Sql),
+                String.Format(GetSqlTemplage(), GetRowLimit(model.Top), select, tablename, where.Sql),
                 where.Parameters
             );
         }
