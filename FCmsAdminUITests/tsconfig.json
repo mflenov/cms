@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "http://localhost:4200/",
+    "types": ["cypress", "cypress-file-upload"],
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "include": [
+    "**/*.ts"
+  ]
+}
