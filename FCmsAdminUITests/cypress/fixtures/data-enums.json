@@ -1,0 +1,20 @@
+{
+    "filterTypes": [
+        "Text",
+        "Boolean",
+        "RegEx",
+        "DateRange",
+        "ValueList"
+    ],
+    "contentDataTypes": [
+        "LongString",
+        "String",
+        "Folder",
+        "DateTime",
+        "Date"
+    ],
+    "pageTemplates": [
+        "Empty Page",
+        "Simple Page"
+    ]
+}

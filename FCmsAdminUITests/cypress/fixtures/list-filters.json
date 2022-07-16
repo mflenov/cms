@@ -1,0 +1,13 @@
+{
+    "status":1,
+    "description":null,
+    "data":[
+        {
+            "id":"c5bd94ec-7be2-436a-ba16-90660cfd6a2f",
+            "name":"IsLoggedIn",
+            "displayName":"Is Logged In",
+            "type":"Boolean",
+            "values":[]
+        }
+    ]
+}
