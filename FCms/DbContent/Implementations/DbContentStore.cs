@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using FCms.DbContent.Db;
 using FCms.DbContent.Models;
@@ -18,10 +17,14 @@ namespace FCms.DbContent
             database = new MsSqlDatabase();
         }
 
-        public ContentModel GetContent()
+        public async Task<ContentModel> GetContent(ContentSearchRequest request)
         {
+            SqlGenerator queryGenerator = database.GetSqlGenerator(repository.TableName);
+            var searchModel = new ContentSearchModel();
+            searchModel.MapRequest(request, this.repository);
+            var query = queryGenerator.GetSearchQuery(searchModel);
             return new ContentModel() { 
-              //  Values = database.GetContent(repository.TableName)
+              Rows = await database.GetContent(repository.TableName, query)
             };
         }
 

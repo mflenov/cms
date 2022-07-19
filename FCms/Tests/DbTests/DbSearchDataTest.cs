@@ -2,12 +2,11 @@
 using System.Linq;
 using System.Transactions;
 using Xunit;
-using FCms.Content;
 using FCms.DbContent;
 using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
 using FCms.Tests.Helpers;
-using Dapper;
+using FCms.DbContent.Models;
 
 namespace FCmsTests.DbTests
 {
@@ -20,7 +19,7 @@ namespace FCmsTests.DbTests
         }
 
         [Fact]
-        public void StringColumnsTest()
+        public void FindAllTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
@@ -30,12 +29,18 @@ namespace FCmsTests.DbTests
 
                 for (int i = 0; i < 10; i++)
                 {
-                    object[] columns = { $"Row{i}Name", "Row{i}Description", DateTime.Today.AddMinutes(i * -10) };
+                    object[] columns = { $"Row{i}Name", $"Row{i}Description", DateTime.Today.AddMinutes(i * -10) };
                     store.Add(columns.ToList()).GetAwaiter().GetResult();
                 }
 
-                //Assert.Equal("Name", result.Name);
-                //Assert.Equal("Description", result.Description);
+                ContentSearchRequest request = new ContentSearchRequest();
+                var content = store.GetContent(request).GetAwaiter().GetResult();
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Assert.Equal(content.Rows[i].GetStringValue(1), $"Row{i}Name");
+                    Assert.Equal(content.Rows[i].GetStringValue(2), $"Row{i}Description");
+                }
             }
         }
 

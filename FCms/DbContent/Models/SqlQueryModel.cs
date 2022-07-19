@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace FCms.DbContent.Models
 {
-    internal class SqlQueryModel
+    public class SqlQueryModel
     {
         public SqlQueryModel() { }
 

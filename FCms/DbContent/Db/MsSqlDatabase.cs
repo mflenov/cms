@@ -76,19 +76,21 @@ namespace FCms.DbContent.Db
             return true;
         }
 
-        public async Task<List<List<string>>> GetContent(string tableName)
+        public async Task<List<DbContentRow>> GetContent(string tableName, SqlQueryModel query)
         {
-            List<List<string>> result = new List<List<string>>();
+            List<DbContentRow> result = new List<DbContentRow>();
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                var command = new SqlCommand("", connection);
+                await connection.OpenAsync();
+                var command = new SqlCommand(query.Sql, connection);
+                command.Parameters.AddRange(query.Parameters.ToArray());
                 var datareader = await command.ExecuteReaderAsync();
                 while (datareader.Read())
                 {
-                    List<string> row = new List<string>();
+                    List<object> row = new List<object>();
                     for (int i = 0; i < datareader.FieldCount; i++)
-                        row.Add(datareader.GetString(i));
-                    result.Add(row);
+                        row.Add(datareader.GetValue(i));
+                    result.Add(new DbContentRow(row));
                 }
             }
             return result;
@@ -111,6 +113,11 @@ namespace FCms.DbContent.Db
                 }
                 return await command.ExecuteNonQueryAsync();
             }
+        }
+
+        public SqlGenerator GetSqlGenerator(string tableName)
+        {
+            return new MsSqlGenerator(tableName);
         }
     }
 }

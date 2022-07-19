@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FCms.Content;
 using FCms.DbContent;
 using FCmsManagerAngular.ViewModels;
@@ -24,7 +23,7 @@ namespace FCmsManagerAngular.Controllers
         {
             var manager = new CmsManager();
 
-            foreach (IDbRepository repository in manager.Data.DbRepositories.Where(m => m.ContentType == ContentType.DbContent))
+            foreach (IDbRepository repository in manager.Data.DbRepositories)
             {
                 yield return new PageViewModel(){
                     Id = repository.Id,

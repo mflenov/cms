@@ -1,27 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using FCms.Content;
+using FCms.DbContent;
+using FCmsManagerAngular.ViewModels;
+using System.Linq;
 
 namespace FCmsManagerAngular.Controllers
 {
     [ApiController]
     public class DbContentController : ControllerBase
     {
-        /*
         [HttpPost]
         [Route("api/v1/db")]
-        public IEnumerable<PageViewModel> Index()
+        public ApiResultModel Index(Guid repositoryid)
         {
             var manager = new CmsManager();
+            IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == repositoryid).FirstOrDefault();
+            if (repository == null)
+                return new ApiResultModel(ApiResultModel.NOT_FOUND);
 
-            foreach (IDbRepositories repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.DbContent))
+            DbContentStore store = new DbContentStore(repository);
+            store.GetContent(new FCms.DbContent.Models.ContentSearchRequest());
+
+
+            return new ApiResultModel(ApiResultModel.SUCCESS)
             {
-                yield return new PageViewModel()
-                {
-                    Id = repository.Id,
-                    Name = repository.Name
-                };
-            }
+                Data = null
+            }; ;
         }
-        */
     }
 }

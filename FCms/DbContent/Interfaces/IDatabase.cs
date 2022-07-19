@@ -6,6 +6,8 @@ namespace FCms.DbContent
 {
     internal interface IDatabase
     {
+        public Db.SqlGenerator GetSqlGenerator(string tablename);
+
         Task<IEnumerable<Models.DbTableModel>> GetTables();
 
         Task<bool> CreateTable(string tableName);
@@ -14,6 +16,6 @@ namespace FCms.DbContent
 
         Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns);
 
-        Task<List<List<string>>> GetContent(string tableName);
+        Task<List<DbContentRow>> GetContent(string tableName, SqlQueryModel query);
     }
 }
