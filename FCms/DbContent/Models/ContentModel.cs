@@ -4,7 +4,7 @@ namespace FCms.DbContent.Models
 {
     public class ContentModel
     {
-        List<string> ColumNames { get; set; } = new List<string>();
-        List<List<string>> Values { get; set; } = new List<List<string>>();
+        public List<string> ColumNames { get; set; } = new List<string>();
+        public List<DbContentRow> Rows { get; set; } = new List<DbContentRow>();
     }
 }
