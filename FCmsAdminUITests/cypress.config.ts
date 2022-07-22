@@ -6,5 +6,10 @@ export default defineConfig({
     baseUrl: 'http://localhost:4200/',
     setupNodeEvents(on, config) {},
     specPattern: 'cypress/tests/**/*.cy.{js,jsx,ts,tsx}',
+  },  
+  reporter: 'junit',
+  reporterOptions: {
+    mochaFile: 'results/testrun[HASH].xml',
+    toConsole: true
   },
 })

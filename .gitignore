@@ -409,3 +409,5 @@ ASALocalRun/
 /FCmsManager/package-lock.json
 /FCmsManager/package.json
 FCmsManager/wwwroot/js/cms/*.js
+FCmsAdminUITests/cypress/videos/
+FCmsAdminUITests/results/
