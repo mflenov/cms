@@ -9,7 +9,7 @@ import { IDbContentModel } from '../models/dncontent.model';
 @Injectable()
 
 export class DbContentService {
-  private listContent: string = 'api/v1/db/content';
+  private listContent: string = 'api/v1/dbcontent';
 
   constructor(private httpClient: HttpClient) { }
 

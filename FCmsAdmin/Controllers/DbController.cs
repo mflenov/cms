@@ -4,17 +4,13 @@ using FCms.Content;
 using FCms.DbContent;
 using FCmsManagerAngular.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace FCmsManagerAngular.Controllers
 {
     [ApiController]
     public class DbController : ControllerBase
     {
-        IConfiguration config;
-
-        public DbController(IConfiguration config) {
-            this.config = config;
+        public DbController() {
         }
 
         [HttpGet]
