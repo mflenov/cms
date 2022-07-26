@@ -149,31 +149,6 @@
     },
     {
       "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Hello new friend",
-      "Id": "c1d1d4db-41c6-477e-aa2a-1285220b9b04",
-      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
-      "Filters": [
-        {
-          "$type": "FCms.Content.ContentFilter, FCms",
-          "FilterDefinitionId": "c5bd94ec-7be2-436a-ba16-90660cfd6a2f",
-          "Index": 0,
-          "Values": [
-            false
-          ],
-          "Filter": {
-            "$type": "FCms.Content.BooleanFilter, FCms",
-            "Id": "c5bd94ec-7be2-436a-ba16-90660cfd6a2f",
-            "Name": "IsLoggedIn",
-            "DisplayName": "Is Logged In",
-            "Type": "Boolean"
-          },
-          "FilterType": 0
-        }
-      ],
-      "ToolTip": null
-    },
-    {
-      "$type": "FCms.Content.StringContentItem, FCms",
       "Data": "<p>This sample project shows how to use Smart Cms Manager. It is an open source project. The project home page is https://github.com/mflenov/cms</p>",
       "Id": "71292414-0211-4e74-bfbf-36ae2157120e",
       "DefinitionId": "3115af61-6adf-418c-9c6b-89a6a81fe87a",
@@ -183,31 +158,7 @@
     {
       "$type": "FCms.Content.StringContentItem, FCms",
       "Data": "Welcome",
-      "Id": null,
-      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
-      "Filters": [],
-      "ToolTip": null
-    },
-    {
-      "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Welcome1",
-      "Id": null,
-      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
-      "Filters": [],
-      "ToolTip": null
-    },
-    {
-      "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Welcome",
-      "Id": null,
-      "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
-      "Filters": [],
-      "ToolTip": null
-    },
-    {
-      "$type": "FCms.Content.StringContentItem, FCms",
-      "Data": "Welcome",
-      "Id": null,
+      "Id": "c1d1d4db-41c6-477e-aa2a-1285220b9b02",
       "DefinitionId": "5dbe3fe9-531c-4343-ba14-0b5165224df7",
       "Filters": [],
       "ToolTip": null
