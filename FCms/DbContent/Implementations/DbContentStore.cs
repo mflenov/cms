@@ -23,9 +23,8 @@ namespace FCms.DbContent
             var searchModel = new ContentSearchModel();
             searchModel.MapRequest(request, this.repository);
             var query = queryGenerator.GetSearchQuery(searchModel);
-            return new ContentModel() { 
-              Rows = await database.GetContent(repository.TableName, query)
-            };
+
+            return await database.GetContent(repository.TableName, query);
         }
 
         public Task<int> Add(List<object> values)

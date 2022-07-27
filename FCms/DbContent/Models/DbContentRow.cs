@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace FCms.DbContent.Models
 {
-    public class DbContentRow
+    public class ContentRow
     {
-        private List<object> columns = new List<object>();
+        private List<object> values = new List<object>();
+        public List<object> Values { get { return values; } }
 
-        public DbContentRow()
+        public ContentRow()
         {
 
         }
-        public DbContentRow(List<object> columns)
+        public ContentRow(List<object> values)
         {
-            this.columns = columns;
+            this.values = values;
         }
 
         public string GetStringValue(int i)
         {
-            if (i < 0 || i >= columns.Count())
+            if (i < 0 || i >= values.Count())
                 throw new IndexOutOfRangeException();
-            return columns[i].ToString();
+            return values[i].ToString();
         }
     }
 }
