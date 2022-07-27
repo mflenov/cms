@@ -76,27 +76,48 @@ namespace FCms.DbContent.Db
             return true;
         }
 
-        public async Task<List<DbContentRow>> GetContent(string tableName, SqlQueryModel query)
+        public async Task<ContentModel> GetContent(string tableName, SqlQueryModel query)
         {
-            List<DbContentRow> result = new List<DbContentRow>();
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 await connection.OpenAsync();
-                var command = new SqlCommand(query.Sql, connection);
+                var command = new SqlCommand(query.Sql + " FOR BROWSE", connection);
                 command.Parameters.AddRange(query.Parameters.ToArray());
                 var datareader = await command.ExecuteReaderAsync();
-                while (datareader.Read())
+                
+                return new ContentModel()
                 {
-                    List<object> row = new List<object>();
-                    for (int i = 0; i < datareader.FieldCount; i++)
-                        row.Add(datareader.GetValue(i));
-                    result.Add(new DbContentRow(row));
-                }
+                    Columns = GetSchema(datareader).ToList(),
+                    Rows = ReadData(datareader)
+                };
+            }
+        }
+
+        private List<ContentRow> ReadData(SqlDataReader datareader)
+        {
+            List<ContentRow> result = new List<ContentRow>();
+
+            while (datareader.Read())
+            {
+                List<object> row = new List<object>();
+                for (int i = 0; i < datareader.FieldCount; i++)
+                    row.Add(datareader.GetValue(i));
+                result.Add(new ContentRow(row));
             }
             return result;
         }
 
-        public async Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns)
+        private IEnumerable<ContentColumn> GetSchema(SqlDataReader datareader)
+        {
+            var columnSchema = datareader.GetColumnSchema();
+            return columnSchema.Select(m => new ContentColumn()
+            {
+                Name = m.ColumnName,
+                IsPrimaryKey = m.IsKey == true
+            });
+        }
+
+    public async Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns)
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {

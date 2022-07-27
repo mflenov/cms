@@ -1,5 +1,8 @@
+export interface IDbRowModel {
+  values: string;
+}
+
 export interface IDbContentModel {
-  id?: string;
-  name: string;
-  value: object;
+  columnNames: string[];
+  rows: IDbRowModel[];
 }

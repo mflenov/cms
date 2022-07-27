@@ -23,10 +23,13 @@ namespace FCmsManagerAngular.Controllers
             DbContentStore store = new DbContentStore(repository);
             var content = await store.GetContent(new FCms.DbContent.Models.ContentSearchRequest());
 
-
             return new ApiResultModel(ApiResultModel.SUCCESS)
             {
-                Data = content
+                Data = new DbContentListViewModel()
+                {
+                    Columns = content.Columns,
+                    Rows = content.Rows,
+                }
             }; ;
         }
     }
