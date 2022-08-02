@@ -1,20 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { IDbContentModel } from '../models/dncontent.model';
-import { DbContentService } from '../services/dbcontent.service';
 import { IPageStructureModel } from '../../../models/page-structure.model';
+import { DbContentService } from '../services/dbcontent.service';
 import { PagesService } from '../../../services/pages.service';
 
+
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css'],
+  selector: 'app-dbcontent',
+  templateUrl: './dbcontent.component.html',
+  styleUrls: ['./dbcontent.component.css'],
   providers: [DbContentService, PagesService]
 })
-export class ContentComponent implements OnInit, OnDestroy {
-  data: IDbContentModel[] = [];
-  contentSubs!: Subscription;
+
+export class DbContentComponent implements OnInit, OnDestroy {
+  data: IDbContentModel = {} as IDbContentModel;
   definitionId!: string;
 
   definition: IPageStructureModel = {} as IPageStructureModel;
@@ -34,7 +34,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         this.pagesService.getPage(this.definitionId).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
             this.definition = definition.data as IPageStructureModel;
-            this.data = (dbcontent.data as IDbContentModel[]);
+            this.data = (dbcontent.data as IDbContentModel);
           }
         })
       })
@@ -42,6 +42,5 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.contentSubs.unsubscribe();
   }
 }
