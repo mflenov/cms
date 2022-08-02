@@ -1,5 +1,5 @@
 export interface IDbRowModel {
-  values: string;
+  values: string[];
 }
 
 export interface IDbContentModel {
