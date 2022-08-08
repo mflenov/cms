@@ -5,7 +5,6 @@
     {
         { SiteGlobals.DATE_RANGE_FILTER_NAME, DateTime.Now },
         { SiteGlobals.LOGGEDIN_FILTER_NAME, User.Identity.IsAuthenticated },
-        { "Language", "ru" }
     };
 
     ViewData["Title"] = @Html.GetContentAsString(SiteGlobals.BASE_REPOSITORY_NAME, "Title", filters);
