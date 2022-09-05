@@ -215,3 +215,8 @@
 .fcms .padding-left-8 {
   padding-left:8px;
 }
+
+.fcms h1 a,
+.fcms h1 a:visited{
+    color:#000;
+}
