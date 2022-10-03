@@ -33,8 +33,8 @@ export class DbContentComponent implements OnInit, OnDestroy {
       this.contentService.getDbContent(this.definitionId).subscribe(dbcontent => {
         this.pagesService.getPage(this.definitionId).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
-            this.definition = definition.data as IPageStructureModel;
             this.data = (dbcontent.data as IDbContentModel);
+            this.definition = definition.data as IPageStructureModel;
           }
         })
       })

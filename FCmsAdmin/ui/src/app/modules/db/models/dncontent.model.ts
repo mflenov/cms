@@ -2,7 +2,12 @@ export interface IDbRowModel {
   values: string[];
 }
 
+export interface IDbColumnModel {
+  name: string;
+  isPrimaryKey: Boolean;
+}
+
 export interface IDbContentModel {
-  columnNames: string[];
+  columns: IDbColumnModel[];
   rows: IDbRowModel[];
 }

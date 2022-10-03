@@ -220,3 +220,10 @@
 .fcms h1 a:visited{
     color:#000;
 }
+
+.fcms hr {
+  padding: 0px;
+  margin: 0px 0px 8px 0px;
+  border: 0px;
+  color: #aaa;
+}
