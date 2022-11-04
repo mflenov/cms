@@ -7,7 +7,7 @@ import { PagesService } from '../../../services/pages.service';
 
 
 @Component({
-  selector: 'app-dbcontent',
+  selector: 'db-content',
   templateUrl: './db-content.component.html',
   styleUrls: ['./db-content.component.css'],
   providers: [DbContentService, PagesService]
