@@ -8,8 +8,8 @@ import { PagesService } from '../../../services/pages.service';
 
 @Component({
   selector: 'app-dbcontent',
-  templateUrl: './dbcontent.component.html',
-  styleUrls: ['./dbcontent.component.css'],
+  templateUrl: './db-content.component.html',
+  styleUrls: ['./db-content.component.css'],
   providers: [DbContentService, PagesService]
 })
 
