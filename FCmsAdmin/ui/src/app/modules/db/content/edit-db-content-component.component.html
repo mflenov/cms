@@ -2,9 +2,10 @@
 
 <div class="row">
   <div class="col-md-8">
-    <ng-container *ngFor="let definition of definition.contentDefinitions">
+    <ng-container *ngFor="let definition of definition.contentDefinitions; let i = index">
       <div [attr.id]="definition.definitionId" class="cms-repository">
         <h3>{{definition.name}}</h3>
+        <db-content-editor [definition]='definition' [content]='data.values[i]' ></db-content-editor>
       </div>
     </ng-container>
     <button class="cms-button" (click)="onSubmit()">Save</button>

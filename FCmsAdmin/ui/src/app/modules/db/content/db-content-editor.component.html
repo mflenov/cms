@@ -1,0 +1,8 @@
+<ng-container *ngIf="definition.typeName == 'String'">
+  <input name="name" class="form-control" [(ngModel)]="content.data" />
+</ng-container>
+
+<ng-container *ngIf="definition.typeName == 'LongString'">
+  <tinymce [(ngModel)]="content.data"></tinymce>
+</ng-container>
+
