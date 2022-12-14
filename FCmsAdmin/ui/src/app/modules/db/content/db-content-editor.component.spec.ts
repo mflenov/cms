@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DbContentComponent } from './db-content.component';
+import { DbContentEditorComponent } from './db-content-editor.component';
 
-describe('ContentComponent', () => {
-  let component: DbContentComponent;
-  let fixture: ComponentFixture<DbContentComponent>;
+describe('DbContentEditorComponent', () => {
+  let component: DbContentEditorComponent;
+  let fixture: ComponentFixture<DbContentEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DbContentComponent ]
+      declarations: [ DbContentEditorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DbContentComponent);
+    fixture = TestBed.createComponent(DbContentEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
