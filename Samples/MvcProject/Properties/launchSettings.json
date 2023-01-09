@@ -7,10 +7,18 @@
     "FCmsSample": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:6001;http://localhost:6000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:6001;http://localhost:6000"
+      }
+    },
+    "MvcSample": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:60318;http://localhost:26383",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
