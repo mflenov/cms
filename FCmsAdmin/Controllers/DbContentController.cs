@@ -30,7 +30,21 @@ namespace FCmsManagerAngular.Controllers
                     Columns = content.Columns,
                     Rows = content.Rows,
                 }
-            }; ;
+            };
+        }
+
+        [HttpPut]
+        [Route("api/v1/dbcontent")]
+        public async Task<ApiResultModel> Save(DbContentItemModel model)
+        {
+            var manager = new CmsManager();
+            IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == model.RepositoryId).FirstOrDefault();
+            if (repository == null)
+                return new ApiResultModel(ApiResultModel.NOT_FOUND);
+
+            DbContentStore store = new DbContentStore(repository);
+            var result = await store.Add(model.Row.Values);
+            return new ApiResultModel(ApiResultModel.SUCCESS);
         }
     }
 }

@@ -11,6 +11,7 @@ import { IContentDefinitionsModel } from '../../../models/content-definitions.mo
 export class DbContentEditorComponent implements OnInit {
   @Input() definition!: IContentDefinitionsModel;
   @Input() content!: any;
+  @Input() index!: number;
 
   date: NgbDate | null = null;
 
@@ -18,7 +19,7 @@ export class DbContentEditorComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.definition.typeName == 'DateTime' || this.definition.typeName == 'Date') {
-      this.date = this.getNgbDate(this.content.data);
+      this.date = this.getNgbDate(this.content);
     }
   }
 
@@ -32,10 +33,10 @@ export class DbContentEditorComponent implements OnInit {
 
   onDateSelection(d: NgbDate): void {
     if (d == null) {
-      this.content.data = null;
+      this.content = null;
       return;
     }
     let date = new Date(d.year, d.month - 1, d.day);
-    this.content.data = date.toISOString();
+    this.content = date.toISOString();
   }
 }

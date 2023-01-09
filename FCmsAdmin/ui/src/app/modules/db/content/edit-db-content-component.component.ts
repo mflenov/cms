@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IPageStructureModel } from '../../../models/page-structure.model';
 import { PagesService } from '../../../services/pages.service';
-import { IDbContentModel, IDbRowModel } from '../models/dncontent.model';
+import { IDbRowModel } from '../models/dncontent.model';
 import { DbContentService } from '../services/dbcontent.service';
 
 @Component({
@@ -13,21 +13,22 @@ import { DbContentService } from '../services/dbcontent.service';
 })
 export class EditDbContentComponentComponent implements OnInit {
   data: IDbRowModel = {} as IDbRowModel;
-  definitionId!: string;
+  repositoryId!: string;
 
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
     private contentService: DbContentService,
     private pagesService: PagesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
    ) { }
 
   ngOnInit(): void {
-    this.definitionId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.repositoryId = this.route.snapshot.paramMap.get('id') ?? '';
 
-    if (this.definitionId) {
-      this.pagesService.getPage(this.definitionId).subscribe(definition => {
+    if (this.repositoryId) {
+      this.pagesService.getPage(this.repositoryId).subscribe(definition => {
         if (definition.status == 1 && definition.data) {
           this.definition = definition.data as IPageStructureModel;
 
@@ -38,5 +39,10 @@ export class EditDbContentComponentComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.contentService.save(this.repositoryId, this.data).subscribe({
+      next: data => {
+        this.router.navigate(['/db/content/' + this.repositoryId]);
+      }
+    });
   }
 }
