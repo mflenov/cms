@@ -1,0 +1,19 @@
+<h1>{{definition.name}}</h1>
+
+
+<div class="row">
+  <div class="col-md-8">
+    <ng-container *ngIf="data != null">
+      <div class="cms-repository" *ngFor="let content of data.rows">
+        <div class="cms-db-row" *ngFor="let item of data.columns; index as i">
+          <hr *ngIf="i > 0" />
+          <label>{{item.name}}</label>
+          <div>{{content.values[i]}}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-md-4">
+      <a [routerLink]="['/db/content/add/' + definition.id]" class="cms-button">Add content</a>
+  </div>
+ </div>

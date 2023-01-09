@@ -7,9 +7,9 @@ import { PagesService } from '../../../services/pages.service';
 
 
 @Component({
-  selector: 'app-dbcontent',
-  templateUrl: './dbcontent.component.html',
-  styleUrls: ['./dbcontent.component.css'],
+  selector: 'db-content',
+  templateUrl: './db-content.component.html',
+  styleUrls: ['./db-content.component.css'],
   providers: [DbContentService, PagesService]
 })
 
@@ -33,8 +33,8 @@ export class DbContentComponent implements OnInit, OnDestroy {
       this.contentService.getDbContent(this.definitionId).subscribe(dbcontent => {
         this.pagesService.getPage(this.definitionId).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
-            this.definition = definition.data as IPageStructureModel;
             this.data = (dbcontent.data as IDbContentModel);
+            this.definition = definition.data as IPageStructureModel;
           }
         })
       })

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DbContentComponent } from './dbcontent.component';
+import { DbContentComponent } from './db-content.component';
 
 describe('ContentComponent', () => {
   let component: DbContentComponent;

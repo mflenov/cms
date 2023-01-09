@@ -122,6 +122,8 @@
   font-style: normal;
   text-transform: uppercase;
   outline: none;
+  text-decoration: none;
+  background: #d4e9fe;
 }
 
 .fcms .link {
@@ -143,6 +145,14 @@
 }
 
 .fcms .cms-repository {
+  border: 1px solid #999;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+  box-shadow: 0px 1px 5px #aaa;
+}
+
+.fcms .cms-rightrail {
   border: 1px solid #999;
   padding: 10px;
   margin-bottom: 10px;
@@ -219,4 +229,11 @@
 .fcms h1 a,
 .fcms h1 a:visited{
     color:#000;
+}
+
+.fcms hr {
+  padding: 0px;
+  margin: 0px 0px 8px 0px;
+  border: 0px;
+  color: #aaa;
 }
