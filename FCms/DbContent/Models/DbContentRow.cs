@@ -9,7 +9,7 @@ namespace FCms.DbContent.Models
     public class ContentRow
     {
         private List<object> values = new List<object>();
-        public List<object> Values { get { return values; } }
+        public List<object> Values { get { return values; } set { values = value; } }
 
         public ContentRow()
         {

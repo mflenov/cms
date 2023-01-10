@@ -4,12 +4,13 @@ import { Observable} from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from '../../../models/api-request-model';
-import { IDbContentModel } from '../models/dncontent.model';
+import { IDbRowModel } from '../models/dncontent.model';
 
 @Injectable()
 
 export class DbContentService {
   private listContent: string = 'api/v1/dbcontent';
+  private editContent: string = 'api/v1/dbcontent';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,5 +24,12 @@ export class DbContentService {
         repositoryid: id
       },
       { 'headers': headers });
+  }
+
+  save(repositoryId: string, model: IDbRowModel): Observable<any> {
+    return this.httpClient.put(environment.apiCmsServiceEndpoint + this.editContent, {
+      repositoryId: repositoryId,
+      row: model
+    });
   }
 }

@@ -129,7 +129,7 @@ namespace FCms.DbContent.Db
                 for (int index = 0; index < values.Count; index++)
                 {
                     var parameter = new SqlParameter("v" + index.ToString(), columns[index].GetSqlDbTypeName());
-                    parameter.Value = values[index];
+                    parameter.Value = values[index].ToString();
                     command.Parameters.Add(parameter);
                 }
                 return await command.ExecuteNonQueryAsync();
