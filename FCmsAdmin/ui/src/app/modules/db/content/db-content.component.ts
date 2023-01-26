@@ -23,8 +23,7 @@ export class DbContentComponent implements OnInit, OnDestroy {
     private contentService: DbContentService,
     private pagesService: PagesService,
     private route: ActivatedRoute
-  )
-  { }
+  ) { }
 
   ngOnInit(): void {
     this.definitionId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -42,5 +41,14 @@ export class DbContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  deleteItem(id: string): void {
+    this.contentService.delete(this.definitionId, id).subscribe({
+      next: data => {
+        const index = this.data.rows.findIndex(m => m.values[0] == id);
+        this.data.rows.splice(index, 1);
+      }
+    });
   }
 }

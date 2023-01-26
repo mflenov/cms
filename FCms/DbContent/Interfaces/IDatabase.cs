@@ -17,5 +17,7 @@ namespace FCms.DbContent
         Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns);
 
         Task<ContentModel> GetContent(string tableName, SqlQueryModel query);
+
+        Task DeleteRow(string tableName, string id);
     }
 }

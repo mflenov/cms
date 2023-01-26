@@ -46,5 +46,20 @@ namespace FCmsManagerAngular.Controllers
             var result = await store.Add(model.Row.Values);
             return new ApiResultModel(ApiResultModel.SUCCESS);
         }
+
+        [HttpDelete]
+        [Route("api/v1/dbcontent")]
+        public async Task<ApiResultModel> Delete(string repositoryid, string id)
+        {
+            var manager = new CmsManager();
+            Guid repoid = Guid.Parse(repositoryid);
+            IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == repoid).FirstOrDefault();
+            if (repository == null)
+                return new ApiResultModel(ApiResultModel.NOT_FOUND);
+
+            DbContentStore store = new DbContentStore(repository);
+            await store.Delete(id);
+            return new ApiResultModel(ApiResultModel.SUCCESS);
+        }
     }
 }
