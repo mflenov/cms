@@ -31,5 +31,10 @@ namespace FCms.DbContent
         {
             return database.AddRow(repository.TableName, values, repository.ContentDefinitions.Select(m => new ColumnModel(m)).ToList());
         }
+
+        public async Task Delete(string id)
+        {
+            await database.DeleteRow(repository.TableName, id);
+        }
     }
 }

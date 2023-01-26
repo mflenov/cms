@@ -5,7 +5,8 @@
   <div class="col-md-8">
     <ng-container *ngIf="data != null">
       <div class="cms-repository" *ngFor="let content of data.rows">
-        <div class="cms-db-row" *ngFor="let item of data.columns; index as i">
+          <div class="cms-right fa fa-times link" (click)="deleteItem(content.values[0])"></div>
+          <div class="cms-db-row" *ngFor="let item of data.columns; index as i">
           <hr *ngIf="i > 0" />
           <label>{{item.name}}</label>
           <div>{{content.values[i]}}</div>

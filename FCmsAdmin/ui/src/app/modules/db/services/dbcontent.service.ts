@@ -32,4 +32,10 @@ export class DbContentService {
       row: model
     });
   }
+
+
+  delete(repositoryId: string, id: string): Observable<IApiRequestModel> {
+    return this.httpClient.delete<IApiRequestModel>(environment.apiCmsServiceEndpoint + this.editContent +
+      "?repositoryid=" + repositoryId + "&id=" + id);
+  }
 }

@@ -117,7 +117,7 @@ namespace FCms.DbContent.Db
             });
         }
 
-    public async Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns)
+        public async Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns)
         {
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
@@ -139,6 +139,18 @@ namespace FCms.DbContent.Db
         public SqlGenerator GetSqlGenerator(string tableName)
         {
             return new MsSqlGenerator(tableName);
+        }
+
+        public async Task DeleteRow(string tableName, string id)
+        {
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            {
+                await connection.OpenAsync();
+                var command = new SqlCommand($"delete from {tableName} where {tableName}Id = @id", connection);
+                var parameter = new SqlParameter("id", id);
+                command.Parameters.Add(parameter);
+                await command.ExecuteNonQueryAsync();
+            }
         }
     }
 }
