@@ -26,7 +26,7 @@
     "font-awesome": "^4.7.0",
     "ngx-tinymce": "^13.0.0",
     "rxjs": "~6.6.0",
-    "tinymce": "^7.0.0",
+    "tinymce": "^7.2.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.13.3"
   },
