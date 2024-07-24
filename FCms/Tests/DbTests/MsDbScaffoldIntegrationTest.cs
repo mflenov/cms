@@ -1,6 +1,5 @@
-﻿using System;
-using System.Transactions;
-using Xunit;
+﻿using System.Transactions;
+using NUnit.Framework;
 using FCms.Content;
 using FCms;
 using FCms.DbContent;
@@ -12,8 +11,6 @@ using FCms.Tests.Helpers;
 
 namespace FCmsTests.DbTests
 {
-    [Trait ("Category", "Integration")]
-    [Collection("Sequential")]
     public class MsDbScaffoldIntegrationTest
     {
         public MsDbScaffoldIntegrationTest()
@@ -21,7 +18,7 @@ namespace FCmsTests.DbTests
             CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
         }
 
-        [Fact]
+        [Test, Sequential]
         public void EmptyRepositoryTest() {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
@@ -31,11 +28,11 @@ namespace FCmsTests.DbTests
                 scaffold.ScaffoldRepository(repository).GetAwaiter().GetResult();
 
                 var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
-                Assert.Empty(result.ToList());
+                Assert.That(result.ToList().Count, Is.EqualTo(0));
             }
         }
 
-        [Fact]
+        [Test, Sequential]
         public void StringColumnsTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -51,7 +48,7 @@ namespace FCmsTests.DbTests
                 scaffold.ScaffoldRepository(repository).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");
-                Assert.Empty(result.ToList());
+                Assert.That(result.ToList().Count, Is.EqualTo(0));
             }
         }
     }

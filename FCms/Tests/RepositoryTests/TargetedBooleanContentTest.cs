@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [Collection("Sequential")]
     public class TargetedBooleanContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
@@ -62,17 +61,17 @@ namespace FCmsTests
             contentStore.Save();
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueNotFoundTest()
         {
             CreateBooleanContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>()).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueBooleanFilterTest()
         {
             CreateBooleanContentValue();
@@ -80,13 +79,13 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "IsLoggedIn", true } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueExcludeBooleanFilterTest()
         {
             CreateBooleanContentValue();
@@ -97,10 +96,10 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "IsLoggedIn", false } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "IsLoggedIn", true } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
         }
     }
 }

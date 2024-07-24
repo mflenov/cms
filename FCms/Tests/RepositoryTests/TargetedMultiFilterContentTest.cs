@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [Collection("Sequential")]
     // tests with more than one filter
     public class TargetedMultiFilterContentTest: IDisposable
     {
@@ -76,26 +75,26 @@ namespace FCmsTests
             contentStore.Save();
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueNotFoundTest()
         {
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>()).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
             
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Email", "test@gmail.com" } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Email", "test@gmail.com" },  { "IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { {"IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueStringFilterTest()
         {
             CreateTextContentValue();
@@ -103,11 +102,11 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { {"Email", "test@gmail.com" }, { "IsLoggedIn", true }}).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
         }
 
         // exclude gmail and logged in users
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueExcludeStringFilterTest()
         {
             CreateTextContentValue();
@@ -118,20 +117,20 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Email", "test@gmail.com" },  { "IsLoggedIn", true } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() {{ "Email", "test@hotmail.com" } , { "IsLoggedIn", true } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { {"Email", "test@gmail.com" }, { "IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { {"Email", "test@hotmail.com" }, {"IsLoggedIn", false } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
         }
 
         // exclude gmail include logged in users
-        [Fact]
+        [Test, Sequential]
         public void TargetedValue_ExcludeRegEx_IncludeBoolean_StringFilterTest()
         {
             CreateTextContentValue();
@@ -141,16 +140,16 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Email", "test@gmail.com" }, { "IsLoggedIn", true } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() {{ "Email", "test@hotmail.com" }, {"IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() {{ "Email", "test@gmail.com" }, {"IsLoggedIn", false } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() {{ "Email", "test@hotmail.com" }, {"IsLoggedIn", true } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
         }
     }
 }
