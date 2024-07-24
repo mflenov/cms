@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace FCmsTests
 {
-    [Collection("Sequential")]
     public class TargetedDateRangeContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
@@ -63,17 +62,17 @@ namespace FCmsTests
             contentStore.Save();
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueNotFoundTest()
         {
             CreateTextContentValue();
 
             ContentEngine engine = new ContentEngine(repositoryName);
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>()).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueDateTimeFilterTest()
         {
             CreateTextContentValue();
@@ -81,16 +80,16 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
             
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(-11) } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(11) } }).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
         }
 
-        [Fact]
+        [Test, Sequential]
         public void TargetedValueExcludeDateTimeFilterTest()
         {
             CreateTextContentValue();
@@ -100,13 +99,13 @@ namespace FCmsTests
             ContentEngine engine = new ContentEngine(repositoryName);
 
             List<ContentItem> items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(-11) }}).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now.AddDays(11) } }).ToList();
-            Assert.Single(items);
+            Assert.That(items.Count, Is.EqualTo(1));
 
             items = engine.GetContents<ContentItem>(contentName, new Dictionary<string, object>() { { "Active", DateTime.Now }}).ToList();
-            Assert.Empty(items);
+            Assert.That(items.Count, Is.EqualTo(0));
         }
     }
 }

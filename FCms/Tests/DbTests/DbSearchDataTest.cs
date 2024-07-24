@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Transactions;
-using Xunit;
+using NUnit.Framework;
 using FCms.DbContent;
 using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;
@@ -10,7 +10,6 @@ using FCms.DbContent.Models;
 
 namespace FCmsTests.DbTests
 {
-    [Trait("Category", "Integration")]
     public class DbSearchDataTest
     {
         public DbSearchDataTest()
@@ -18,7 +17,7 @@ namespace FCmsTests.DbTests
             FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
         }
 
-        [Fact]
+        [Test, Sequential]
         public void FindAllTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -38,8 +37,8 @@ namespace FCmsTests.DbTests
 
                 for (int i = 0; i < 10; i++)
                 {
-                    Assert.Equal(content.Rows[i].GetStringValue(1), $"Row{i}Name");
-                    Assert.Equal(content.Rows[i].GetStringValue(2), $"Row{i}Description");
+                    Assert.That(content.Rows[i].GetStringValue(1), Is.EqualTo( $"Row{i}Name"));
+                    Assert.That(content.Rows[i].GetStringValue(2), Is.EqualTo($"Row{i}Description"));
                 }
             }
         }

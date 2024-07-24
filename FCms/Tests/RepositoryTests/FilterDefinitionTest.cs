@@ -1,11 +1,10 @@
 ﻿using System;
-using Xunit;
+using NUnit.Framework;
 using FCms.Content;
 using FCmsTests.Helpers;
 
 namespace FCmsTests
 {
-    [Collection("Sequential")]
     public class FilterDefinitionTest: IDisposable
     {
         public FilterDefinitionTest()
@@ -19,7 +18,7 @@ namespace FCmsTests
             FCms.Tools.Cacher.Clear();
         }
 
-        [Fact]
+        [Test, Sequential]
         public void CreateFiltersTest()
         {
             // create Filter
@@ -36,26 +35,26 @@ namespace FCmsTests
 
             // load and make sure it is there
             ICmsManager loadedmanager = new CmsManager();
-            Assert.Equal(4, loadedmanager.Data.Filters.Count);
+            Assert.That(loadedmanager.Data.Filters.Count, Is.EqualTo(4));
 
-            Assert.Equal(filter1, loadedmanager.Data.Filters[0].Id);
-            Assert.Equal("Boolean Filter", loadedmanager.Data.Filters[0].Name);
+            Assert.That(filter1, Is.EqualTo(loadedmanager.Data.Filters[0].Id));
+            Assert.That(loadedmanager.Data.Filters[0].Name, Is.EqualTo("Boolean Filter"));
             Assert.True(loadedmanager.Data.Filters[0] is BooleanFilter);
 
-            Assert.Equal(filter2, loadedmanager.Data.Filters[1].Id);
-            Assert.Equal("DateRange Filter", loadedmanager.Data.Filters[1].Name);
+            Assert.That(filter2, Is.EqualTo(loadedmanager.Data.Filters[1].Id));
+            Assert.That(loadedmanager.Data.Filters[1].Name, Is.EqualTo("DateRange Filter"));
             Assert.True(loadedmanager.Data.Filters[1] is DateRangeFilter);
 
-            Assert.Equal(filter3, loadedmanager.Data.Filters[2].Id);
-            Assert.Equal("Regex Filter", loadedmanager.Data.Filters[2].Name);
+            Assert.That(filter3, Is.EqualTo(loadedmanager.Data.Filters[2].Id));
+            Assert.That(loadedmanager.Data.Filters[2].Name, Is.EqualTo("Regex Filter"));
             Assert.True(loadedmanager.Data.Filters[2] is RegExFilter);
 
-            Assert.Equal(filter4, loadedmanager.Data.Filters[3].Id);
-            Assert.Equal("Text Filter", loadedmanager.Data.Filters[3].Name);
+            Assert.That(filter4, Is.EqualTo(loadedmanager.Data.Filters[3].Id));
+            Assert.That(loadedmanager.Data.Filters[3].Name, Is.EqualTo("Text Filter"));
             Assert.True(loadedmanager.Data.Filters[3] is TextFilter);
         }
 
-        [Fact]
+        [Test, Sequential]
         public void CreateValueListFiltersTest()
         {
             Guid filter1 = Guid.NewGuid();
@@ -65,10 +64,10 @@ namespace FCmsTests
 
             // load and make sure it is there
             ICmsManager loadedmanager = new CmsManager();
-            Assert.Single(loadedmanager.Data.Filters);
+            Assert.That(loadedmanager.Data.Filters.Count, Is.EqualTo(1));
 
-            Assert.Equal(filter1, loadedmanager.Data.Filters[0].Id);
-            Assert.Equal("ValueList Filter", loadedmanager.Data.Filters[0].Name);
+            Assert.That(filter1, Is.EqualTo(loadedmanager.Data.Filters[0].Id));
+            Assert.That(loadedmanager.Data.Filters[0].Name, Is.EqualTo("ValueList Filter"));
             Assert.True(loadedmanager.Data.Filters[0] is ValueListFilter);
         }
     }
