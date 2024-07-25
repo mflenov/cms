@@ -1,14 +1,14 @@
-﻿using FCms.DbContent.Db;
-using NUnit.Framework;
+﻿using Xunit;
+using FCms.DbContent.Db;
 
 namespace FCmsTests.DbTests
 {
     public class DbHelpersTest
     {
-        [Test]
+        [Fact]
         public void TableNameSanitizerTest()
         {
-            Assert.That(DbHelpers.SanitizeDbName(" *'t#)e#*s)(t ):;9"), Is.EqualTo("test9"));
+            Assert.Equal("test9", DbHelpers.SanitizeDbName(" *'t#)e#*s)(t ):;9"));
         }
     }
 }
