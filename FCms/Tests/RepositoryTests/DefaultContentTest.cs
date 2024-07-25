@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
+using Xunit;
 using FCms.Content;
 using FCmsTests.Helpers;
 using FCms;
-using NUnit.Framework;
 
 namespace FCmsTests
 {
-    [NonParallelizable]
+    [Collection("Sequential")]
     public class DefaultContentTest: IDisposable
     {
         const string repositoryName = "TestRepository";
@@ -37,17 +37,15 @@ namespace FCmsTests
             FCms.Tools.Cacher.Clear();
         }
 
-        [Test]
-        [NonParallelizable]
+        [Fact]
         public void DefaultContentNotFoundTest()
         {
             ContentEngine engine = new ContentEngine(repositoryName);
             
-            Assert.That(engine.GetContentString(contentName), Is.Empty);
+            Assert.Equal("", engine.GetContentString(contentName));
         }
 
-        [Test]
-        [NonParallelizable]
+        [Fact]
         public void DefaultContentExistTwoFoundTest()
         {
             IContentStore contentStore = ContentStore.Load(repositoryId);
@@ -61,12 +59,11 @@ namespace FCmsTests
             contentStore.Save();
 
             ContentEngine engine = new ContentEngine(repositoryName);
-            Assert.That(engine.GetContentString(contentName), Is.EqualTo("UniqueValue"));
-            Assert.That(engine.GetContentStrings(contentName).ToList().Count, Is.EqualTo(1));
+            Assert.Equal("UniqueValue", engine.GetContentString(contentName));
+            Assert.Single(engine.GetContentStrings(contentName));
         }
 
-        [Test]
-        [NonParallelizable]
+        [Fact]
         public void DefaultContenExistTwoFoundTest()
         {
             IContentStore contentStore = ContentStore.Load(repositoryId);
@@ -86,13 +83,13 @@ namespace FCmsTests
 
             // check GetContentString
             ContentEngine engine = new ContentEngine(repositoryName);
-            Assert.That(engine.GetContentString(contentName), Is.EqualTo("First"));
+            Assert.Equal("First", engine.GetContentString(contentName));
 
             // check GetContentStrings
             var list = engine.GetContentStrings(contentName).ToList();
-            Assert.That(list.Count, Is.EqualTo(2));
-            Assert.That(list[0], Is.EqualTo("First"));
-            Assert.That(list[1], Is.EqualTo("Second"));
+            Assert.Equal(2, list.Count);
+            Assert.Equal("First", list[0]);
+            Assert.Equal("Second", list[1]);
         }
     }
 }

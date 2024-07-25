@@ -1,5 +1,6 @@
-﻿using System.Transactions;
-using NUnit.Framework;
+﻿using System;
+using System.Transactions;
+using Xunit;
 using FCms.Content;
 using FCms;
 using FCms.DbContent;
@@ -8,9 +9,12 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Linq;
 using FCms.Tests.Helpers;
+using System.Threading.Tasks;
 
 namespace FCmsTests.DbTests
 {
+    [Trait ("Category", "Integration")]
+    [Collection("Sequential")]
     public class MsDbScaffoldIntegrationTest
     {
         public MsDbScaffoldIntegrationTest()
@@ -18,22 +22,22 @@ namespace FCmsTests.DbTests
             CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
         }
 
-        [Test, Sequential]
-        public void EmptyRepositoryTest() {
+        [Fact]
+        public async Task EmptyRepositoryTest() {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepository();
                 DbScaffold scaffold = new DbScaffold();
-                scaffold.ScaffoldRepository(repository).GetAwaiter().GetResult();
+                await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
-                Assert.That(result.ToList().Count, Is.EqualTo(0));
+                Assert.Empty(result.ToList());
             }
         }
 
-        [Test, Sequential]
-        public void StringColumnsTest()
+        [Fact]
+        public async Task StringColumnsTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
@@ -45,10 +49,10 @@ namespace FCmsTests.DbTests
                 repository.AddDefinition("Updated", ContentDefinitionType.DateTime);
 
                 DbScaffold scaffold = new DbScaffold();
-                scaffold.ScaffoldRepository(repository).ConfigureAwait(false).GetAwaiter().GetResult();
+                await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");
-                Assert.That(result.ToList().Count, Is.EqualTo(0));
+                Assert.Empty(result.ToList());
             }
         }
     }
