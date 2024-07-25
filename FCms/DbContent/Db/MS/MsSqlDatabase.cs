@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using Dapper;
-using FCms.DbContent;
 using FCms.DbContent.Models;
 using System.Threading.Tasks;
 
