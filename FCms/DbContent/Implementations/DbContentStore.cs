@@ -27,9 +27,9 @@ namespace FCms.DbContent
             return await database.GetContent(repository.TableName, query);
         }
 
-        public Task<int> Add(List<object> values)
+        public async Task Add(List<object> values)
         {
-            return database.AddRow(repository.TableName, values, repository.ContentDefinitions.Select(m => new ColumnModel(m)).ToList());
+            await database.AddRow(repository.TableName, values, repository.ContentDefinitions.Select(m => new ColumnModel(m)).ToList());
         }
 
         public async Task Delete(string id)

@@ -43,7 +43,7 @@ namespace FCmsManagerAngular.Controllers
                 return new ApiResultModel(ApiResultModel.NOT_FOUND);
 
             DbContentStore store = new DbContentStore(repository);
-            var result = await store.Add(model.Row.Values);
+            await store.Add(model.Row.Values);
             return new ApiResultModel(ApiResultModel.SUCCESS);
         }
 

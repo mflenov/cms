@@ -9,6 +9,7 @@ namespace FCms.DbContent.Db
 {
     internal class MsSqlDatabase : IDatabase
     {
+        MsSqlDbConnection connection = new MsSqlDbConnection();
 
         public MsSqlDatabase()
         {
@@ -16,23 +17,17 @@ namespace FCms.DbContent.Db
 
         public async Task<IEnumerable<DbTableModel>> GetTables()
         {
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
-            {
-                return await connection.QueryAsync<DbTableModel>("select Name from sys.tables");
-            }
+            return await connection.QueryAsync<DbTableModel>("select Name from sys.tables", new {});
         }
 
         public async Task<IEnumerable<DbColumnModel>> GetTableColumns(string tableName)
         {
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
-            {
-                return await connection.QueryAsync<DbColumnModel>(@"
+            return await connection.QueryAsync<DbColumnModel>(@"
                     select c.Name as ColumnName, t.Name + 'Value' as TypeName
                     from sys.columns c
 	                    join sys.types t on c.system_type_id = t.user_type_id
                     where c.Object_ID = Object_Id(@tablename)
                     ", new { tablename = tableName });
-            }
         }
 
         public async Task<bool> CreateTable(string tableName)
@@ -42,7 +37,7 @@ namespace FCms.DbContent.Db
             {
                 if (!tables.Any(m => m.Name == tableName))
                 {
-                    await connection.ExecuteAsync($"create table [{tableName}] ({tableName}Id int not null identity (1,1) primary key)");
+                    await connection.ExecuteAsync($"create table [{tableName}] ({tableName}Id int not null identity (1,1) primary key)", new {});
                 }
             }
             return true;
@@ -67,10 +62,7 @@ namespace FCms.DbContent.Db
 
             if (columnsSqlStatements.Count == 0)
                 return true;
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
-            {
-                await connection.ExecuteAsync($"alter table {tableName} add " + string.Join(",", columnsSqlStatements));
-            }
+            await connection.ExecuteAsync($"alter table {tableName} add " + string.Join(",", columnsSqlStatements), new {});
 
             return true;
         }
@@ -116,23 +108,17 @@ namespace FCms.DbContent.Db
             });
         }
 
-        public async Task<int> AddRow(string tableName, List<object> values, List<ColumnModel> columns)
+        public async Task AddRow(string tableName, List<object> values, List<ColumnModel> columns)
         {
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
-            {
-                await connection.OpenAsync();
-                var command = new SqlCommand(
-                    $"insert into {tableName} ({string.Join(",", columns.Select(m => m.Name))}) " +
-                    "values (" + string.Join(",", Enumerable.Range(0, values.Count).Select(m => "@v" + m.ToString())) + ")"
-                    , connection);
-                for (int index = 0; index < values.Count; index++)
-                {
-                    var parameter = new SqlParameter("v" + index.ToString(), columns[index].GetSqlDbTypeName());
-                    parameter.Value = values[index].ToString();
-                    command.Parameters.Add(parameter);
-                }
-                return await command.ExecuteNonQueryAsync();
+            var command = $"insert into {tableName} ({string.Join(",", columns.Select(m => m.Name))}) " +
+                "values (" + string.Join(",", Enumerable.Range(0, values.Count).Select(m => "@v" + m.ToString())) + ")";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            for (int index = 0; index < values.Count; index++) {
+                parameters.Add("v" + index.ToString(), values[index]);
             }
+
+            await connection.ExecuteAsync(command, parameters);
         }
 
         public SqlGenerator GetSqlGenerator(string tableName)
@@ -142,14 +128,7 @@ namespace FCms.DbContent.Db
 
         public async Task DeleteRow(string tableName, string id)
         {
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
-            {
-                await connection.OpenAsync();
-                var command = new SqlCommand($"delete from {tableName} where {tableName}Id = @id", connection);
-                var parameter = new SqlParameter("id", id);
-                command.Parameters.Add(parameter);
-                await command.ExecuteNonQueryAsync();
-            }
+            await connection.ExecuteAsync($"delete from {tableName} where {tableName}Id = @id", new { id = id});
         }
     }
 }
