@@ -1,5 +1,4 @@
-﻿using System;
-using System.Transactions;
+﻿using System.Transactions;
 using Xunit;
 using FCms.Content;
 using FCms;
@@ -19,7 +18,7 @@ namespace FCmsTests.DbTests
     {
         public MsDbScaffoldIntegrationTest()
         {
-            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
+            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
         }
 
         [Fact]
@@ -28,7 +27,7 @@ namespace FCmsTests.DbTests
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
                 IDbRepository repository = DbTestHelpers.CreateRepository();
-                DbScaffold scaffold = new DbScaffold();
+                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
                 await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
@@ -48,7 +47,7 @@ namespace FCmsTests.DbTests
                 repository.AddDefinition("Created", ContentDefinitionType.Date);
                 repository.AddDefinition("Updated", ContentDefinitionType.DateTime);
 
-                DbScaffold scaffold = new DbScaffold();
+                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
                 await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");

@@ -3,7 +3,11 @@ namespace FCms
 {
     public static class CMSConfigurator
     {
-        const string DEFAULT_DB_CONNECTION = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;";
+        // MS SQL Connection
+        //const string DEFAULT_DB_CONNECTION = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;";
+
+        // PG Connection
+        const string DEFAULT_DB_CONNECTION = "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=fcms";
 
         public static void Configure(string contentBaseFolder, string dbConnection = null)
         {

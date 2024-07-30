@@ -16,7 +16,7 @@ namespace FCmsTests.DbTests
     {
         public DbSearchDataTest()
         {
-            FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestDbConnectionString);
+            FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace FCmsTests.DbTests
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition();
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft);
                 DbContentStore store = new DbContentStore(repository);
 
                 for (int i = 0; i < 10; i++)

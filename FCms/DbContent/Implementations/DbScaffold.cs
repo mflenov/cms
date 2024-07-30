@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using FCms.DbContent;
 using FCms.DbContent.Db;
 using System.Threading.Tasks;
 
@@ -8,11 +7,16 @@ namespace FCms.DbContent
 {
     internal class DbScaffold
     {
+        
         IDatabase database;
 
-        public DbScaffold()
+        public DbScaffold(DbType dbType)
         {
-            database = new MsSqlDatabase();
+            // will need to move it out
+            if (dbType == DbType.Microsoft)
+                database = new MsSqlDatabase();
+            if (dbType == DbType.PostgresSQL)
+                database = new PgSqlDatabase();
         }
 
         public async Task<bool> ScaffoldRepository(IDbRepository repo)
