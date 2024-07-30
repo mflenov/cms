@@ -24,7 +24,7 @@ namespace FCms.Tests.Helpers
             return manager.Data.DbRepositories[0] as IDbRepository;
         }
 
-        public static IDbRepository CreateRepositoryWithSimpleDefinition()
+        public static IDbRepository CreateRepositoryWithSimpleDefinition(DbType dbType)
         {
             IDbRepository repository = DbTestHelpers.CreateRepository();
 
@@ -32,7 +32,7 @@ namespace FCms.Tests.Helpers
             repository.AddDefinition("Description", ContentDefinitionType.String);
             repository.AddDefinition("DateTime", ContentDefinitionType.DateTime);
 
-            DbScaffold scaffold = new DbScaffold();
+            DbScaffold scaffold = new DbScaffold(dbType);
             scaffold.ScaffoldRepository(repository).GetAwaiter().GetResult();
 
             return repository;

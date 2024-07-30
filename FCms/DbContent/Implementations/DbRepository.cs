@@ -28,7 +28,7 @@ namespace FCms.DbContent
         {
             if (ContentType == ContentType.DbContent)
             {
-                DbScaffold scaffold = new DbScaffold();
+                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
                 return await scaffold.ScaffoldRepository(this);
             }
             return false;

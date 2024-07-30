@@ -1,8 +1,6 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using FCms.Content;
 using FCms.DbContent.Db;
-using static FCms.Content.IContentDefinition;
 
 namespace FCms.DbContent.Models
 {
@@ -18,7 +16,7 @@ namespace FCms.DbContent.Models
         
         public ContentDefinitionType DataType { get; set; }
 
-        public string GetDbTypeName()
+        public string GetMsDbTypeName()
         {
             switch (DataType)
             {
@@ -32,6 +30,21 @@ namespace FCms.DbContent.Models
                     return "ntext";
             }
             return "";
+        }
+
+        public string GetPgDbTypeName() {
+            switch (DataType)
+            {
+                case ContentDefinitionType.Date:
+                    return "date";
+                case ContentDefinitionType.DateTime:
+                    return "timestamp";
+                case ContentDefinitionType.String: 
+                    return "varchar(255)";
+                case ContentDefinitionType.LongString:
+                    return "text";
+            }
+            return "";            
         }
 
         public SqlDbType GetSqlDbTypeName()

@@ -52,7 +52,7 @@ namespace FCms.DbContent.Db
             foreach (var column in columns)
             {
                 if (!dbcolumns.ContainsKey(column.Name))
-                    columnsSqlStatements.Add($"[{column.Name}] {column.GetDbTypeName()}");
+                    columnsSqlStatements.Add($"[{column.Name}] {column.GetMsDbTypeName()}");
             }
 
             if (!dbcolumns.ContainsKey("_modified"))
