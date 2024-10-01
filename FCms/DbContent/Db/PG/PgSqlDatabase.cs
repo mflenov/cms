@@ -76,17 +76,19 @@ namespace FCms.DbContent.Db
             {
                 await connection.OpenAsync();
                 
-                var result = await connection.QueryAsync(query.Sql, query.Parameters);
+                var command = new NpgsqlCommand(query.Sql, connection);
+                command.Parameters.AddRange(query.Parameters.ToArray());
+                var datareader = await command.ExecuteReaderAsync();
                 
                 return new ContentModel()
                 {
-                    Columns = null, // GetSchema(datareader).ToList(),
-                    Rows = null // ReadData(datareader)
+                    Columns = GetSchema(datareader).ToList(),
+                    Rows = ReadData(datareader)
                 };
             }
         }
 
-        private List<ContentRow> ReadData(SqlDataReader datareader)
+        private List<ContentRow> ReadData(NpgsqlDataReader datareader)
         {
             List<ContentRow> result = new List<ContentRow>();
 
@@ -100,7 +102,7 @@ namespace FCms.DbContent.Db
             return result;
         }
 
-        private IEnumerable<ContentColumn> GetSchema(SqlDataReader datareader)
+        private IEnumerable<ContentColumn> GetSchema(NpgsqlDataReader datareader)
         {
             var columnSchema = datareader.GetColumnSchema();
             return columnSchema.Select(m => new ContentColumn()
