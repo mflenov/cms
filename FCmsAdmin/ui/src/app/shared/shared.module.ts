@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SlidePanelComponent } from './slideout/slideout-panel.component';
 import { StructureComponent } from './structure/structure.component';
 import { ContentdefinitionComponent } from './structure/content-definition.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({ declarations: [
         SlidePanelComponent,
