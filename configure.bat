@@ -6,7 +6,7 @@ winget install Docker.DockerDesktop
 winget install Docker.DockerCLI
 
 :: add pgdatabase
-docker run --name fcmspgdb -e POSTGRES_PASSWORD=mysecretpassword -d postgresdb
+docker run --name fcmspgdb -e POSTGRES_PASSWORD=password -d postgres
 
 :: NodeJS
 winget install OpenJS.NodeJS
