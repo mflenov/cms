@@ -4,6 +4,7 @@ using FCms.DbContent.Models;
 
 namespace FCmsTests.DbTests
 {
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
     public class MsSqlGeneratorTest
     {
         [Fact]

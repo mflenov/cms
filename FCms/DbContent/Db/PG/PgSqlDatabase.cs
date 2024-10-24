@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
 using Npgsql;
 using Dapper;
 using FCms.DbContent.Models;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace FCms.DbContent.Db
 {
+
     internal class PgSqlDatabase : IDatabase
     {
         PgSqlDbConnection connection = new PgSqlDbConnection();

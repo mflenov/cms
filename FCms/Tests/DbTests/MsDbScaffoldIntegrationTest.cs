@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace FCmsTests.DbTests
 {
-    [Trait ("Category", "Integration")]
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
     [Collection("Sequential")]
     public class MsDbScaffoldIntegrationTest
     {
