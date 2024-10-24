@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace FCmsTests.DbTests
 {
-    [Trait("Category", "Integration")]
-    public class DbSearchDataTest
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
+    public class MsDbSearchDataTest
     {
-        public DbSearchDataTest()
+        public MsDbSearchDataTest()
         {
             FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
         }
