@@ -8,15 +8,8 @@ namespace FCms.DbContent
     internal class DbScaffold
     {
         
-        IDatabase database;
-
-        public DbScaffold(DbType dbType)
+        public DbScaffold()
         {
-            // will need to move it out
-            if (dbType == DbType.Microsoft)
-                database = new MsSqlDatabase();
-            if (dbType == DbType.PostgresSQL)
-                database = new PgSqlDatabase();
         }
 
         public async Task<bool> ScaffoldRepository(IDbRepository repo)
@@ -25,6 +18,7 @@ namespace FCms.DbContent
             {
                 new Exception($"The table name is not correct {repo.TableName}");
             }
+            IDatabase database = repo.GetDatabase();
 
             await database.CreateTable(repo.TableName);
             return await database.CreateColumns(repo.TableName, repo.ContentDefinitions.Select(m => new Models.ColumnModel(m)));

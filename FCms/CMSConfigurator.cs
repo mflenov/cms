@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-namespace FCms
+﻿namespace FCms
 {
     public static class CMSConfigurator
     {
         // MS SQL Connection
-        const string DEFAULT_MS_DB_CONNECTION = "Data Source=127.0.0.1;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;";
+        const string DEFAULT_MS_DB_CONNECTION = "Data Source=.;Initial Catalog=fcms;Integrated Security=true;Trust Server Certificate=true;";
 
         // PG Connection
         const string DEFAULT_PG_DB_CONNECTION = "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=fcms";

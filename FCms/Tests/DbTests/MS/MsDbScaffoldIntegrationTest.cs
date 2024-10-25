@@ -27,8 +27,8 @@ namespace FCmsTests.DbTests
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository();
-                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft);
+                DbScaffold scaffold = new DbScaffold();
                 await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}");
@@ -42,13 +42,13 @@ namespace FCmsTests.DbTests
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository();
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft);
                 repository.AddDefinition("Name", ContentDefinitionType.String);
                 repository.AddDefinition("Description", ContentDefinitionType.String);
                 repository.AddDefinition("Created", ContentDefinitionType.Date);
                 repository.AddDefinition("Updated", ContentDefinitionType.DateTime);
 
-                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
+                DbScaffold scaffold = new DbScaffold();
                 await scaffold.ScaffoldRepository(repository);
 
                 var result = connection.Query($"select Name, Description, Created, Updated from {DbTestHelpers.REPOSITORY_DB_NAME}");
