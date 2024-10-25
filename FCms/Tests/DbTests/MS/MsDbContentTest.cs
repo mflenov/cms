@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Transactions;
 using Xunit;
-using FCms.Content;
 using FCms.DbContent;
 using FCms.DbContent.Db;
 using Microsoft.Data.SqlClient;

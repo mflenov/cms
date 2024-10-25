@@ -14,7 +14,7 @@ namespace FCms.DbContent
         public DbContentStore(IDbRepository repository)
         {
             this.repository = repository;
-            database = new MsSqlDatabase();
+            database = repository.GetDatabase();
         }
 
         public async Task<ContentModel> GetContent(ContentSearchRequest request)

@@ -114,7 +114,7 @@ namespace FCms.DbContent.Db
 
         public async Task AddRow(string tableName, List<object> values, List<ColumnModel> columns)
         {
-            var command = $"insert into {tableName} ({string.Join(",", columns.Select(m => m.Name))}) " +
+            var command = $"insert into \"{tableName}\" (\"{string.Join("\", \"", columns.Select(m => m.Name))}\") " +
                 "values (" + string.Join(",", Enumerable.Range(0, values.Count).Select(m => "@v" + m.ToString())) + ")";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();

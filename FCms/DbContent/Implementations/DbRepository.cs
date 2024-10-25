@@ -24,11 +24,13 @@ namespace FCms.DbContent
             }
         }
 
+        public DbType DatabaseType { get; init; } = DbType.PostgresSQL;
+
         public async Task<bool> Scaffold()
         {
             if (ContentType == ContentType.DbContent)
             {
-                DbScaffold scaffold = new DbScaffold(DbType.Microsoft);
+                DbScaffold scaffold = new DbScaffold();
                 return await scaffold.ScaffoldRepository(this);
             }
             return false;

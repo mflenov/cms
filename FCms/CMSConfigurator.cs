@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-namespace FCms
+﻿namespace FCms
 {
     public static class CMSConfigurator
     {
