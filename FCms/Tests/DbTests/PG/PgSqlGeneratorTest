@@ -1,0 +1,32 @@
+using Xunit;
+using FCms.DbContent.Db;
+using FCms.DbContent.Models;
+
+namespace FCmsTests.DbTests
+{
+    [Trait("Category", DbHelpersTest.TEST_CATEGORY_PGSQL)]
+    public class PgSqlGeneratorTest
+    {
+        [Fact]
+        public void PgSqlGeneratorTest()
+        {
+            string tablename = "tablename";
+            PgSqlGenerator generator = new PgSqlGenerator(tablename);
+            var query = generator.GetSearchQuery(null);
+            
+            string expected = "SELECT TOP 10 * FROM \"tablename\" WHERE 1=1".Replace(" ", "");
+            Assert.Equal(expected, query.Sql.Replace(" ", "").Replace("\n", "").Replace("\r", ""));
+        }
+
+        [Fact]
+        public void NullSearchEmptyModelTest()
+        {
+            string tablename = "tablename";
+            PgSqlGenerator generator = new PgSqlGenerator(tablename);
+            var query = generator.GetSearchQuery(new ContentSearchModel());
+
+            string expected = "SELECT TOP 10 * FROM \"tablename\" WHERE 1=1".Replace(" ", "");
+            Assert.Equal(expected, query.Sql.Replace(" ", "").Replace("\n", "").Replace("\r", ""));
+        }
+    }
+}

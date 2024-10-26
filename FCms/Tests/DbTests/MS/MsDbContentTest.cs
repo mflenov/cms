@@ -13,6 +13,7 @@ namespace FCmsTests.DbTests
 {
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
+    [Collection("Sequential")]
     public class MsDbContentTest
     {
         public MsDbContentTest()
