@@ -12,9 +12,10 @@ namespace FCmsTests.DbTests
 {
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_PGSQL)]
-    public class PsDbContentTest
+    [Collection("Sequential")]
+    public class PgDbContentTest
     {
-        public PsDbContentTest()
+        public PgDbContentTest()
         {
             FCms.CMSConfigurator.Configure("./", Helpers.TestConstants.TestPgDbConnectionString);
         }
