@@ -13,7 +13,7 @@ namespace FCmsTests.DbTests
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_PGSQL)]
     [Collection("Sequential")]
-    public class PgDbContentTest
+     public class PgDbContentTest
     {
         public PgDbContentTest()
         {

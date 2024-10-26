@@ -26,7 +26,7 @@ namespace FCms.DbContent.Db
                 select = "*";
 
             return new SqlQueryModel(
-                String.Format(GetSqlTemplage(), GetRowLimit(model.Top), select, tablename, where.Sql),
+                String.Format(GetSqlTemplate(), GetRowLimit(model.Top), select, GetDbTableName(), where.Sql),
                 where.Parameters
             );
         }
@@ -58,7 +58,11 @@ namespace FCms.DbContent.Db
 
         protected abstract string GetRowLimit(int? top);
 
-        protected virtual string GetSqlTemplage()
+        protected virtual string GetDbTableName() {
+            return tablename;
+        }
+
+        protected virtual string GetSqlTemplate()
         {
             return @"
                 SELECT {0} {1}

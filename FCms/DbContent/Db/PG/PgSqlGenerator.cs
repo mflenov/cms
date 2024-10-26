@@ -14,13 +14,18 @@ namespace FCms.DbContent.Db
             return " limit " + top.ToString();
         }
 
-        protected override string GetSqlTemplage()
+        protected override string GetDbTableName()
+        {
+            return "\"" + base.GetDbTableName() + "\"";
+        }
+
+        protected override string GetSqlTemplate()
         {
             return @"
-                SELECT {0} 
+                SELECT {1} 
                 FROM {2}
                 WHERE {3}
-                {1}
+                {0}
             ";
         }
 
