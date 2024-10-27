@@ -27,5 +27,12 @@ namespace FCms.Content
                 return filters;
             }
         }
+
+        List<IDbConnection> dbConnections = new List<IDbConnection>();
+        public List<IDbConnection> DbConnections {
+            get {
+                return dbConnections;
+            }
+        }
     }
 }
