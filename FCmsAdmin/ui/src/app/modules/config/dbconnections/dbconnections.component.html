@@ -1,1 +1,22 @@
-<p>dbconnections works!</p>
+<h1>Database Connections</h1>
+
+<div class="cms-repository">
+    <table class="cms-table">
+        <tr>
+            <th style="width:40%">Name</th>
+            <th style="width:40%">Connection String</th>
+            <th>Type</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let connection of dbConnections" [attr.id]="connection.id">
+            <td>
+                <a [routerLink]="['/config/connection', connection.id]">{{connection.name}}</a>
+            </td>
+            <td>{{connection.connectionString}}</td>
+            <td>{{connection.dbType}}</td>
+            <td><span class="fa fa-trash link" (click)="deleteRow(connection.id)"></span></td>
+        </tr>
+    </table>
+    <br />
+    <button [routerLink]="['/config/connection']" class="cms-button" data-cy="add-button">Add</button>
+</div>

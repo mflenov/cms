@@ -14,9 +14,11 @@ import { DbconnectionComponent } from './dbconnections/dbconnection.component'
 
 @NgModule({
   declarations: [
-    FiltersComponent,
     HomeComponent,
-    FilterComponent
+    FiltersComponent,
+    FilterComponent,
+    DbconnectionsComponent,
+    DbconnectionComponent
   ],
   imports: [
     SharedModule,
