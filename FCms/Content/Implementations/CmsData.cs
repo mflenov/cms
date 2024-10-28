@@ -27,5 +27,19 @@ namespace FCms.Content
                 return filters;
             }
         }
+
+        List<IDbConnection> dbConnections = new List<IDbConnection>() {
+            new DbConnection {
+                Id = System.Guid.NewGuid(),
+                Name = "Test connection",
+                ConnectionString = "Postgree Connection", 
+                DatabaseType = FCms.DbContent.DbType.PostgresSQL
+            }
+        };
+        public List<IDbConnection> DbConnections {
+            get {
+                return dbConnections;
+            }
+        }
     }
 }
