@@ -35,6 +35,22 @@ public class DbConnectionViewModel
         if (Enum.TryParse(this.DatabaseType, out databaseType)) {
             model.DatabaseType = databaseType;
         }
+    }
 
+    public void Add(ICmsManager manager) {
+        IDbConnection connectionModel = new DbConnection();
+        MapToModel(connectionModel);
+        manager.Data.DbConnections.Add(connectionModel);
+        manager.Save(); 
+    }
+
+    public void Update(ICmsManager manager) {
+        int repoindex = manager.Data.DbConnections.Select((v, i) => new { filter = v, Index = i }).FirstOrDefault(x => x.filter.Id == Id)?.Index ?? -1;
+        if (repoindex < 0)
+        {
+            throw new Exception("The filter definition not found");
+        }
+        this.MapToModel(manager.Data.DbConnections[repoindex]);
+        manager.Save();
     }
 }

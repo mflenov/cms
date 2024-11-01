@@ -19,6 +19,11 @@ namespace FCmsManagerAngular.ViewModels
             get { return Enum.GetNames(typeof(FCms.Content.ContentDefinitionType)); }
         }
 
+        public IEnumerable<string> databaseTypes
+        {
+            get { return Enum.GetNames(typeof(FCms.DbContent.DbType)); }
+        }
+
         public IEnumerable<string> pageTemplates
         {
             get {
