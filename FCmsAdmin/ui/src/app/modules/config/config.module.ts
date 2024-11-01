@@ -29,7 +29,8 @@ import { DbconnectionComponent } from './dbconnections/dbconnection.component'
         { path: 'config/filter/:id', component: FilterComponent },
         { path: 'config/filter', component: FilterComponent },
         { path: 'config/dbconnections', component: DbconnectionsComponent },
-        { path: 'config/dbconnections/:id', component: DbconnectionComponent },
+        { path: 'config/dbconnection/:id', component: DbconnectionComponent },
+        { path: 'config/dbconnection', component: DbconnectionComponent },
       ]
     )
   ]

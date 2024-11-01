@@ -109,6 +109,7 @@
     {
       "$type": "FCms.DbContent.DbRepository, FCms",
       "TableName": "Blog",
+      "DatabaseType": 1,
       "Id": "7f2d54c5-56ab-4ea4-9abf-fc7332e0a607",
       "Name": "Blog",
       "ContentType": 1,
@@ -158,6 +159,15 @@
       "Name": "IsActive",
       "DisplayName": "Is Active",
       "Type": "Boolean"
+    }
+  ],
+  "DbConnections": [
+    {
+      "$type": "FCms.Content.DbConnection, FCms",
+      "Id": "ba9c9e5b-0660-41a6-974e-5c66d1af3638",
+      "Name": "Postgres",
+      "ConnectionString": "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=fcms",
+      "DatabaseType": 1
     }
   ]
 }
