@@ -1,9 +1,9 @@
-﻿// conflict test
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
 namespace FCmsManagerAngular
 {
+    // starting point
     public class Program
     {
         public static void Main(string[] args)
