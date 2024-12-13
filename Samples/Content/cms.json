@@ -163,7 +163,7 @@
   ],
   "DbConnections": [
     {
-      "$type": "FCms.Content.DbConnection, FCms",
+      "$type": "FCms.DbContent.DbConnection, FCms",
       "Id": "ba9c9e5b-0660-41a6-974e-5c66d1af3638",
       "Name": "Postgres",
       "ConnectionString": "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=fcms",

@@ -10,7 +10,7 @@
             <input name="connectionString" class="form-control" [(ngModel)]="model.connectionString" />
         </div>
         <div class="form-group">
-            <label for="databaseType">connectionString</label>
+            <label for="databaseType">Connection Type</label>
             <select name="databaseType" class="form-control" [(ngModel)]="model.databaseType">
                 <option *ngFor="let type of databaseTypes | async" value="{{type}}">{{type}}</option>
             </select>
