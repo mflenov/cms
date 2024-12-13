@@ -30,14 +30,15 @@ namespace FCmsManagerAngular.Controllers
 
         [HttpPut]
         [Route("api/v1/db")]
-        public ApiResultModel Post(NewPageViewModel model)
+        public ApiResultModel Post(NewDbRepoViewModel model)
         {
             var manager = new CmsManager();
 
-            var repository = new DbRepository();
+            var repository = new DbRepository(manager);
             repository.Name = model.Name;
             repository.Id = Guid.NewGuid();
             repository.ContentType = ContentType.DbContent;
+            repository.DatabaseConnectionId = Guid.Parse(model.ConnectionId);
             manager.AddRepository(repository);
             manager.Save();
 

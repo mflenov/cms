@@ -7,17 +7,19 @@ namespace FCms.DbContent
 {
     public interface IDbRepository : IRepository
     {
-        public IDbConnection DatabaseConnection { get; set; }
+        public System.Guid DatabaseConnectionId { get; set; }
+
+        public IDbConnection GetDatabaseConnection();
 
         public string TableName { get; }
         
         Task<bool> Scaffold();
 
         internal IDatabase GetDatabase() {
-            if (DatabaseConnection.DatabaseType == DbType.Microsoft)
-                return new MsSqlDatabase(DatabaseConnection.ConnectionString);
-            if (DatabaseConnection.DatabaseType == DbType.PostgresSQL)
-                return new PgSqlDatabase(DatabaseConnection.ConnectionString);
+            if (GetDatabaseConnection().DatabaseType == DbType.Microsoft)
+                return new MsSqlDatabase(GetDatabaseConnection().ConnectionString);
+            if (GetDatabaseConnection().DatabaseType == DbType.PostgresSQL)
+                return new PgSqlDatabase(GetDatabaseConnection().ConnectionString);
 
             throw new Exception("DB type is not supported");
         }

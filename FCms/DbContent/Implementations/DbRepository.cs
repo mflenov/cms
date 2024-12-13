@@ -1,11 +1,17 @@
 ﻿using FCms.Content;
 using FCms.DbContent.Db;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace FCms.DbContent
 {
     public class DbRepository : Repository, IDbRepository
     {
+        private readonly ICmsManager manager;
+        public DbRepository(ICmsManager cmsManager) {
+            this.manager = cmsManager;
+        }
+
         string tableName = null;
         public string TableName
         {
@@ -21,7 +27,13 @@ namespace FCms.DbContent
 
         public System.Guid DatabaseConnectionId { get; set; }
 
-        public IDbConnection DatabaseConnection { get; set; }
+        private IDbConnection databaseConnection = null;
+        public IDbConnection GetDatabaseConnection() {
+            if (databaseConnection == null) {
+                databaseConnection = manager.Data.DbConnections.Where(m => m.Id == DatabaseConnectionId).FirstOrDefault();
+            }
+            return databaseConnection;
+        }
         
         public async Task<bool> Scaffold()
         {

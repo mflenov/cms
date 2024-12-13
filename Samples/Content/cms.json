@@ -109,7 +109,7 @@
     {
       "$type": "FCms.DbContent.DbRepository, FCms",
       "TableName": "Blog",
-      "DatabaseType": 1,
+      "DatabaseConnectionId": "00000000-0000-0000-0000-000000000000",
       "Id": "7f2d54c5-56ab-4ea4-9abf-fc7332e0a607",
       "Name": "Blog",
       "ContentType": 1,

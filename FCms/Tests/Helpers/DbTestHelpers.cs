@@ -13,14 +13,21 @@ namespace FCms.Tests.Helpers
         {
             Guid repositoryId1 = Guid.NewGuid();
             ICmsManager manager = new CmsManager();
+
+            Guid connectionId = Guid.NewGuid();            
+            manager.Data.DbConnections.Add(
+                new FCms.DbContent.DbConnection {
+                    Id = connectionId,
+                    DatabaseType = dbType,
+                    ConnectionString = ConnectionString
+                }
+            );
+
             manager.Data.DbRepositories.Add(
-                    new DbRepository()
+                    new DbRepository(manager)
                     {
                         Id = repositoryId1,
-                        DatabaseConnection = new FCms.DbContent.DbConnection {
-                            DatabaseType = dbType,
-                            ConnectionString = ConnectionString
-                         },
+                        DatabaseConnectionId = connectionId,
                         Name = REPOSITORY_NAME,
                         ContentType = ContentType.DbContent
                     }
