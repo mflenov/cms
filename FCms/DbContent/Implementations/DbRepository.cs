@@ -1,10 +1,5 @@
 ﻿using FCms.Content;
 using FCms.DbContent.Db;
-using FCms.DbContent;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FCms.DbContent
@@ -24,8 +19,10 @@ namespace FCms.DbContent
             }
         }
 
-        public DbType DatabaseType { get; init; } = DbType.PostgresSQL;
+        public System.Guid DatabaseConnectionId { get; set; }
 
+        public IDbConnection DatabaseConnection { get; set; }
+        
         public async Task<bool> Scaffold()
         {
             if (ContentType == ContentType.DbContent)

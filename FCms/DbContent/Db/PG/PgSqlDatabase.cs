@@ -10,10 +10,13 @@ namespace FCms.DbContent.Db
 
     internal class PgSqlDatabase : IDatabase
     {
-        PgSqlDbConnection connection = new PgSqlDbConnection();
+        PgSqlDbConnection connection;
+        string connectionString;
 
-        public PgSqlDatabase()
+        public PgSqlDatabase(string connectionString)
         {
+            this.connectionString = connectionString;
+            connection = new PgSqlDbConnection(connectionString);
         }
 
         public async Task<IEnumerable<DbTableModel>> GetTables()
@@ -36,7 +39,7 @@ namespace FCms.DbContent.Db
         public async Task<bool> CreateTable(string tableName)
         {
             var tables = await GetTables();
-            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection())
+            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection(connectionString))
             {
                 if (!tables.Any(m => m.Name == tableName))
                 {
@@ -72,7 +75,7 @@ namespace FCms.DbContent.Db
 
         public async Task<ContentModel> GetContent(string tableName, SqlQueryModel query)
         {
-            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection())
+            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection(connectionString))
             {
                 await connection.OpenAsync();
                 

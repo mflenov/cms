@@ -18,16 +18,15 @@ namespace FCmsTests.DbTests
     {
         public PgDbSearchDataTest()
         {
-            FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestPgDbConnectionString);
+            FCms.CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task FindAllTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection())
             {
-                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.PostgresSQL);
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.PostgresSQL, Helpers.TestConstants.TestPgDbConnectionString);
                 DbContentStore store = new DbContentStore(repository);
 
                 for (int i = 0; i < 10; i++)

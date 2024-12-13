@@ -18,16 +18,16 @@ namespace FCmsTests.DbTests
     {
         public MsDbContentTest()
         {
-            FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
+            FCms.CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task AddRowTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(FCmsTests.Helpers.TestConstants.TestMsDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft);
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft, FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
                 DbContentStore store = new DbContentStore(repository);
 
                 object[] columns = { "Name", "Description", DateTime.Today };

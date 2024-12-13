@@ -19,15 +19,15 @@ namespace FCmsTests.DbTests
     {
         public MsDbScaffoldIntegrationTest()
         {
-            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
+            CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task EmptyRepositoryTest() {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(FCmsTests.Helpers.TestConstants.TestMsDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft);
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft, FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
                 DbScaffold scaffold = new DbScaffold();
                 await scaffold.ScaffoldRepository(repository);
 
@@ -40,9 +40,9 @@ namespace FCmsTests.DbTests
         public async Task StringColumnsTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(FCmsTests.Helpers.TestConstants.TestMsDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft);
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.Microsoft, FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
                 repository.AddDefinition("Name", ContentDefinitionType.String);
                 repository.AddDefinition("Description", ContentDefinitionType.String);
                 repository.AddDefinition("Created", ContentDefinitionType.Date);

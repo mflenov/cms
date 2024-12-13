@@ -9,7 +9,7 @@ namespace FCms.Tests.Helpers
         public const string REPOSITORY_NAME = "Test 1";
         public const string REPOSITORY_DB_NAME = "Test1";
 
-        public static IDbRepository CreateRepository(DbType dbType)
+        public static IDbRepository CreateRepository(DbType dbType, string ConnectionString)
         {
             Guid repositoryId1 = Guid.NewGuid();
             ICmsManager manager = new CmsManager();
@@ -17,7 +17,10 @@ namespace FCms.Tests.Helpers
                     new DbRepository()
                     {
                         Id = repositoryId1,
-                        DatabaseType = dbType,
+                        DatabaseConnection = new FCms.DbContent.DbConnection {
+                            DatabaseType = dbType,
+                            ConnectionString = ConnectionString
+                         },
                         Name = REPOSITORY_NAME,
                         ContentType = ContentType.DbContent
                     }
@@ -25,9 +28,9 @@ namespace FCms.Tests.Helpers
             return manager.Data.DbRepositories[0] as IDbRepository;
         }
 
-        public static IDbRepository CreateRepositoryWithSimpleDefinition(DbType dbType)
+        public static IDbRepository CreateRepositoryWithSimpleDefinition(DbType dbType, string connectionString)
         {
-            IDbRepository repository = DbTestHelpers.CreateRepository(dbType);
+            IDbRepository repository = DbTestHelpers.CreateRepository(dbType, connectionString);
 
             repository.AddDefinition("Name", ContentDefinitionType.String);
             repository.AddDefinition("Description", ContentDefinitionType.String);

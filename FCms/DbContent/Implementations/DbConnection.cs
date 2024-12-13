@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-
-namespace FCms.Content;
+namespace FCms.DbContent;
 
 public class DbConnection: IDbConnection {
-    public Guid Id { get; set; }
+    public System.Guid Id { get; set; }
 
     public string Name { get; set; }
 
