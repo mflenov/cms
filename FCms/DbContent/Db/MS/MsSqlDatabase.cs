@@ -9,10 +9,13 @@ namespace FCms.DbContent.Db
 {
     internal class MsSqlDatabase : IDatabase
     {
-        MsSqlDbConnection connection = new MsSqlDbConnection();
+        MsSqlDbConnection connection;
+        string connectionString;
 
-        public MsSqlDatabase()
+        public MsSqlDatabase(string connectionString)
         {
+            this.connectionString = connectionString;
+            connection = new MsSqlDbConnection(connectionString);
         }
 
         public async Task<IEnumerable<DbTableModel>> GetTables()
@@ -33,7 +36,7 @@ namespace FCms.DbContent.Db
         public async Task<bool> CreateTable(string tableName)
         {
             var tables = await GetTables();
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(connectionString))
             {
                 if (!tables.Any(m => m.Name == tableName))
                 {
@@ -69,7 +72,7 @@ namespace FCms.DbContent.Db
 
         public async Task<ContentModel> GetContent(string tableName, SqlQueryModel query)
         {
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(connectionString))
             {
                 await connection.OpenAsync();
                 var command = new SqlCommand(query.Sql + " FOR BROWSE", connection);

@@ -7,14 +7,21 @@ namespace FCms.DbContent.Db;
 
 internal class MsSqlDbConnection
 {
-    public static SqlConnection CreateConnection()
+    private string connectionString;
+
+    public MsSqlDbConnection(string connectionString){
+        this.connectionString = connectionString;
+    }
+
+
+    public static SqlConnection CreateConnection(string connectionString)
     {
-        return new SqlConnection(CMSConfigurator.DbConnection);
+        return new SqlConnection(connectionString);
     }
 
     public async Task ExecuteAsync(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             await connection.ExecuteAsync(sql, model);
@@ -23,7 +30,7 @@ internal class MsSqlDbConnection
 
     public async Task<T> QueryScalarAsync<T>(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             var result = await connection.QueryFirstOrDefaultAsync<T>(sql, model);
@@ -33,7 +40,7 @@ internal class MsSqlDbConnection
 
     public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             var result = await connection.QueryAsync<T>(sql, model);

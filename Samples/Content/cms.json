@@ -109,20 +109,15 @@
     {
       "$type": "FCms.DbContent.DbRepository, FCms",
       "TableName": "Blog",
-      "DatabaseType": 1,
-      "Id": "7f2d54c5-56ab-4ea4-9abf-fc7332e0a607",
+      "DatabaseConnectionId": "ba9c9e5b-0660-41a6-974e-5c66d1af3638",
+      "Id": "270d4acd-9d3b-4aac-920b-3e66e47551b3",
       "Name": "Blog",
       "ContentType": 1,
       "ContentDefinitions": [
         {
           "$type": "FCms.Content.StringContentDefinition, FCms",
-          "DefinitionId": "c2c2b59d-9085-47ae-bd11-1a24fe091de3",
+          "DefinitionId": "5cd06147-9033-4641-b9e0-89f03d6c0b25",
           "Name": "Title"
-        },
-        {
-          "$type": "FCms.Content.LongStringContentDefinition, FCms",
-          "DefinitionId": "3f04dbcf-5461-47dc-b31c-48892b8790a0",
-          "Name": "Description"
         }
       ]
     }
@@ -163,7 +158,7 @@
   ],
   "DbConnections": [
     {
-      "$type": "FCms.Content.DbConnection, FCms",
+      "$type": "FCms.DbContent.DbConnection, FCms",
       "Id": "ba9c9e5b-0660-41a6-974e-5c66d1af3638",
       "Name": "Postgres",
       "ConnectionString": "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=fcms",

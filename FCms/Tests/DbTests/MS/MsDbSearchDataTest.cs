@@ -18,16 +18,15 @@ namespace FCmsTests.DbTests
     {
         public MsDbSearchDataTest()
         {
-            FCms.CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
+            FCms.CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task FindAllTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (SqlConnection connection = MsSqlDbConnection.CreateConnection())
             {
-                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft);
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft, FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
                 DbContentStore store = new DbContentStore(repository);
 
                 for (int i = 0; i < 10; i++)

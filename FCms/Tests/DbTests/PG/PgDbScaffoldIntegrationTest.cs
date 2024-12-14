@@ -19,15 +19,15 @@ namespace FCmsTests.DbTests
     {
         public PgDbScaffoldIntegrationTest()
         {
-            CMSConfigurator.Configure("./", FCmsTests.Helpers.TestConstants.TestPgDbConnectionString);
+            CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task EmptyRepositoryTest() {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection())
+            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection(Helpers.TestConstants.TestPgDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.PostgresSQL);
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.PostgresSQL, Helpers.TestConstants.TestPgDbConnectionString);
                 DbScaffold scaffold = new DbScaffold();
                 await scaffold.ScaffoldRepository(repository);
 
@@ -40,9 +40,9 @@ namespace FCmsTests.DbTests
         public async Task StringColumnsTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection())
+            using (NpgsqlConnection connection = PgSqlDbConnection.CreateConnection(Helpers.TestConstants.TestPgDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.PostgresSQL);
+                IDbRepository repository = DbTestHelpers.CreateRepository(DbType.PostgresSQL, Helpers.TestConstants.TestPgDbConnectionString);
                 repository.AddDefinition("Name", ContentDefinitionType.String);
                 repository.AddDefinition("Description", ContentDefinitionType.String);
                 repository.AddDefinition("Created", ContentDefinitionType.Date);

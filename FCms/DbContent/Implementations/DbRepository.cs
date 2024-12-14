@@ -1,16 +1,17 @@
 ﻿using FCms.Content;
 using FCms.DbContent.Db;
-using FCms.DbContent;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace FCms.DbContent
 {
     public class DbRepository : Repository, IDbRepository
     {
+        private ICmsManager manager;
+        public DbRepository(ICmsManager cmsManager) {
+            this.manager = cmsManager;
+        }
+
         string tableName = null;
         public string TableName
         {
@@ -24,8 +25,19 @@ namespace FCms.DbContent
             }
         }
 
-        public DbType DatabaseType { get; init; } = DbType.PostgresSQL;
+        public System.Guid DatabaseConnectionId { get; set; }
 
+        private IDbConnection databaseConnection = null;
+        public IDbConnection GetDatabaseConnection() {
+            if (databaseConnection == null) {
+                if (manager == null) {
+                    manager = new CmsManager();
+                }
+                databaseConnection = manager.Data.DbConnections.Where(m => m.Id == DatabaseConnectionId).FirstOrDefault();
+            }
+            return databaseConnection;
+        }
+        
         public async Task<bool> Scaffold()
         {
             if (ContentType == ContentType.DbContent)

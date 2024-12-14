@@ -7,14 +7,20 @@ namespace FCms.DbContent.Db;
 
 internal class PgSqlDbConnection
 {
-    public static NpgsqlConnection CreateConnection()
+    private string connectionString;
+
+    public PgSqlDbConnection(string connectionString){
+        this.connectionString = connectionString;
+    }
+
+    public static NpgsqlConnection CreateConnection(string connectionString)
     {
-        return new NpgsqlConnection(CMSConfigurator.DbConnection);
+        return new NpgsqlConnection(connectionString);
     }
 
     public async Task ExecuteAsync(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             await connection.ExecuteAsync(sql, model);
@@ -23,7 +29,7 @@ internal class PgSqlDbConnection
 
     public async Task<T> QueryScalarAsync<T>(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             var result = await connection.QueryFirstOrDefaultAsync<T>(sql, model);
@@ -33,7 +39,7 @@ internal class PgSqlDbConnection
 
     public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object model)
     {
-        using (var connection = CreateConnection())
+        using (var connection = CreateConnection(connectionString))
         {
             await connection.OpenAsync();
             var result = await connection.QueryAsync<T>(sql, model);

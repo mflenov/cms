@@ -17,16 +17,16 @@ namespace FCmsTests.DbTests
     {
         public PgDbContentTest()
         {
-            FCms.CMSConfigurator.Configure("./", Helpers.TestConstants.TestPgDbConnectionString);
+            FCms.CMSConfigurator.Configure("./");
         }
 
         [Fact]
         public async Task AddRowTest()
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            using (var connection = PgSqlDbConnection.CreateConnection())
+            using (var connection = PgSqlDbConnection.CreateConnection(Helpers.TestConstants.TestPgDbConnectionString))
             {
-                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.PostgresSQL);
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.PostgresSQL, Helpers.TestConstants.TestPgDbConnectionString);
                 DbContentStore store = new DbContentStore(repository);
 
                 object[] columns = { "Name", "Description", DateTime.Today };
