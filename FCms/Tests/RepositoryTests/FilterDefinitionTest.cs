@@ -27,7 +27,7 @@ namespace FCmsTests
             Guid filter2 = Guid.NewGuid();
             Guid filter3 = Guid.NewGuid();
             Guid filter4 = Guid.NewGuid();
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
             manager.Data.Filters.Add(new BooleanFilter() { Id = filter1, Name = "Boolean Filter" });
             manager.Data.Filters.Add(new DateRangeFilter() { Id = filter2, Name = "DateRange Filter" });
             manager.Data.Filters.Add(new RegExFilter() { Id = filter3, Name = "Regex Filter" });
@@ -35,7 +35,7 @@ namespace FCmsTests
             manager.Save();
 
             // load and make sure it is there
-            ICmsManager loadedmanager = new CmsManager();
+            ICmsManager loadedmanager = CmsManager.GetInstance();
             Assert.Equal(4, loadedmanager.Data.Filters.Count);
 
             Assert.Equal(filter1, loadedmanager.Data.Filters[0].Id);
@@ -59,12 +59,12 @@ namespace FCmsTests
         public void CreateValueListFiltersTest()
         {
             Guid filter1 = Guid.NewGuid();
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
             manager.Data.Filters.Add(new ValueListFilter() { Id = filter1, Name = "ValueList Filter" });
             manager.Save();
 
             // load and make sure it is there
-            ICmsManager loadedmanager = new CmsManager();
+            ICmsManager loadedmanager = CmsManager.GetInstance();
             Assert.Single(loadedmanager.Data.Filters);
 
             Assert.Equal(filter1, loadedmanager.Data.Filters[0].Id);

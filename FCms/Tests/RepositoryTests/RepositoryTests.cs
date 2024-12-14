@@ -24,7 +24,7 @@ namespace FCmsTests
         {
             // create repository
             Guid repositoryId1 = Guid.NewGuid();
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
             manager.Data.Repositories.Add(
                     new Repository()
                     {
@@ -35,7 +35,7 @@ namespace FCmsTests
             manager.Save();
 
             // load manager and make sure the first repo is there
-            ICmsManager loadedmanager = new CmsManager();
+            ICmsManager loadedmanager = CmsManager.GetInstance();
             Assert.Single(loadedmanager.Data.Repositories);
             Assert.Equal(repositoryId1, loadedmanager.Data.Repositories[0].Id);
             Assert.Equal("Test 1", loadedmanager.Data.Repositories[0].Name);
@@ -52,7 +52,7 @@ namespace FCmsTests
             loadedmanager.Save();
 
             // load manager and make sure the first repo is there
-            loadedmanager = new CmsManager();
+            loadedmanager = CmsManager.GetInstance();
             Assert.Equal(2, loadedmanager.Data.Repositories.Count);
             Assert.Equal(repositoryId1, loadedmanager.Data.Repositories[0].Id);
             Assert.Equal("Test 1", loadedmanager.Data.Repositories[0].Name);

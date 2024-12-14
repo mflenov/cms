@@ -1,3 +1,4 @@
+using System;
 using System.Transactions;
 using Xunit;
 using FCms.Content;
@@ -15,11 +16,17 @@ namespace FCmsTests.DbTests
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_PGSQL)]
     [Collection("Sequential")]
-    public class PgDbScaffoldIntegrationTest
+    public class PgDbScaffoldIntegrationTest: IDisposable
     {
         public PgDbScaffoldIntegrationTest()
         {
             CMSConfigurator.Configure("./");
+        }
+
+        public void Dispose()
+        {
+            FCmsTests.Helpers.TestTools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         [Fact]

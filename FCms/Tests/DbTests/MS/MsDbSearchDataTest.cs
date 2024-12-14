@@ -14,11 +14,17 @@ namespace FCmsTests.DbTests
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
     [Collection("Sequential")]
-    public class MsDbSearchDataTest
+    public class MsDbSearchDataTest: IDisposable
     {
         public MsDbSearchDataTest()
         {
             FCms.CMSConfigurator.Configure("./");
+        }
+
+        public void Dispose()
+        {
+            FCmsTests.Helpers.TestTools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         [Fact]

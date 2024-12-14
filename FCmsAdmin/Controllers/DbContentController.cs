@@ -15,7 +15,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/dbcontent")]
         public async Task<ApiResultModel> Index(DbContentRequestViewModel model)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == model.RepositoryId).FirstOrDefault();
             if (repository == null)
                 return new ApiResultModel(ApiResultModel.NOT_FOUND);
@@ -37,7 +37,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/dbcontent")]
         public async Task<ApiResultModel> Save(DbContentItemModel model)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == model.RepositoryId).FirstOrDefault();
             if (repository == null)
                 return new ApiResultModel(ApiResultModel.NOT_FOUND);
@@ -51,7 +51,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/dbcontent")]
         public async Task<ApiResultModel> Delete(string repositoryid, string id)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             Guid repoid = Guid.Parse(repositoryid);
             IDbRepository repository = manager.Data.DbRepositories.Where(m => m.Id == repoid).FirstOrDefault();
             if (repository == null)

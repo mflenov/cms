@@ -23,7 +23,7 @@ namespace FCmsTests
         {
             TestTools.DeleteCmsFile();
 
-            manager = new CmsManager();
+            manager = CmsManager.GetInstance();
             Repository repository = new Repository() { Id = repositoryId, Name = repositoryName };
             IContentDefinition definition = ContentDefinitionFactory.CreateContentDefinition(ContentDefinitionType.String);
             definition.DefinitionId = definitionId;

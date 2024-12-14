@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿using System;
+using System.Transactions;
 using Xunit;
 using FCms.Content;
 using FCms;
@@ -15,11 +16,17 @@ namespace FCmsTests.DbTests
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_MSSQL)]
     [Collection("Sequential")]
-    public class MsDbScaffoldIntegrationTest
+    public class MsDbScaffoldIntegrationTest: IDisposable
     {
         public MsDbScaffoldIntegrationTest()
         {
             CMSConfigurator.Configure("./");
+        }
+
+        public void Dispose()
+        {
+            FCmsTests.Helpers.TestTools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         [Fact]

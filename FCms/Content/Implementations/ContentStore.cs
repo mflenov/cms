@@ -38,7 +38,7 @@ namespace FCms.Content
 
         public void MapFilters()
         {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             var filterDefinition = manager.Data.Filters.ToLookup(m => m.Id);
             foreach (var filter in Items.SelectMany(m => m.Filters))
             {

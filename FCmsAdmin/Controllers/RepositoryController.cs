@@ -16,7 +16,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/repositories")]
         public IEnumerable<PageViewModel> Index()
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
             {
@@ -31,7 +31,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/repository/structure/{id}")]
         public ApiResultModel Get(string id)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             Guid repositoryid;
             if (!Guid.TryParse(id, out repositoryid))
             {
@@ -60,7 +60,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/repository")]
         public async Task<ApiResultModel> Put(PageStructureViewModel model)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             IRepository repository = manager.GetRepositoryById(model.Id);
             if (repository == null)
@@ -81,7 +81,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/repository")]
         public async Task<ApiResultModel> Post(NewPageViewModel model)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             var repository = FCms.Factory.RepositoryFactory.CreateRepository(model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page, model.Name);
             if (model.Template == EnumViewModel.SIMPLE_PAGE)
@@ -101,7 +101,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpDelete]
         [Route("api/v1/repository/{id}")]
         public ApiResultModel Delete(string id) {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
