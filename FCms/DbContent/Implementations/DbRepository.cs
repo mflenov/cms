@@ -7,7 +7,7 @@ namespace FCms.DbContent
 {
     public class DbRepository : Repository, IDbRepository
     {
-        private readonly ICmsManager manager;
+        private ICmsManager manager;
         public DbRepository(ICmsManager cmsManager) {
             this.manager = cmsManager;
         }
@@ -30,6 +30,9 @@ namespace FCms.DbContent
         private IDbConnection databaseConnection = null;
         public IDbConnection GetDatabaseConnection() {
             if (databaseConnection == null) {
+                if (manager == null) {
+                    manager = new CmsManager();
+                }
                 databaseConnection = manager.Data.DbConnections.Where(m => m.Id == DatabaseConnectionId).FirstOrDefault();
             }
             return databaseConnection;
