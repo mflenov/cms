@@ -17,7 +17,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/db")]
         public IEnumerable<PageViewModel> Index()
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             foreach (IDbRepository repository in manager.Data.DbRepositories)
             {
@@ -32,9 +32,9 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/db")]
         public ApiResultModel Post(NewDbRepoViewModel model)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
-            var repository = new DbRepository(manager);
+            var repository = new DbRepository();
             repository.Name = model.Name;
             repository.Id = Guid.NewGuid();
             repository.ContentType = ContentType.DbContent;
@@ -48,7 +48,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpDelete]
         [Route("api/v1/db/{id}")]
         public ApiResultModel Delete(Guid id) {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             manager.DeleteRepository(id);
             manager.Save();
             return new ApiResultModel(ApiResultModel.SUCCESS);

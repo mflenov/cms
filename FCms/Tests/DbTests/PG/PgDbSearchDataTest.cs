@@ -14,11 +14,17 @@ namespace FCmsTests.DbTests
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_INTEGRATION)]
     [Trait("Category", DbHelpersTest.TEST_CATEGORY_PGSQL)]
     [Collection("Sequential")]
-    public class PgDbSearchDataTest
+    public class PgDbSearchDataTest: IDisposable
     {
         public PgDbSearchDataTest()
         {
             FCms.CMSConfigurator.Configure("./");
+        }
+
+        public void Dispose()
+        {
+            FCmsTests.Helpers.TestTools.DeleteCmsFile();
+            FCms.Tools.Cacher.Clear();
         }
 
         [Fact]

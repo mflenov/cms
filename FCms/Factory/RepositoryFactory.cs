@@ -8,8 +8,8 @@ namespace FCms.Factory
     {
         public static IRepository CreateRepository(ContentType contentType, string name)
         {
-            CmsManager manager = new CmsManager();
-            var repository = contentType == ContentType.DbContent ? new DbRepository(manager) : new Repository();
+            CmsManager manager = CmsManager.GetInstance();
+            var repository = contentType == ContentType.DbContent ? new DbRepository() : new Repository();
             repository.Name = name;
             repository.Id = Guid.NewGuid();
             repository.ContentType = contentType;

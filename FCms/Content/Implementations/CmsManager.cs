@@ -18,7 +18,20 @@ namespace FCms.Content
         public string Filename {
             get { return CMSConfigurator.ContentBaseFolder + filename; }
         }
-        public CmsManager()
+        
+        private static CmsManager instance = null;
+        public static CmsManager GetInstance() {
+            if (instance == null) {
+                instance = new CmsManager();
+            }
+            return instance;
+        }
+
+        public static void Reset() {
+            instance = null;
+        }
+        
+        private CmsManager()
         {
             if (File.Exists(CMSConfigurator.ContentBaseFolder + filename))
             {

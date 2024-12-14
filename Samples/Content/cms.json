@@ -118,6 +118,11 @@
           "$type": "FCms.Content.StringContentDefinition, FCms",
           "DefinitionId": "5cd06147-9033-4641-b9e0-89f03d6c0b25",
           "Name": "Title"
+        },
+        {
+          "$type": "FCms.Content.LongStringContentDefinition, FCms",
+          "DefinitionId": "e5235985-d1c6-4835-850b-5e3cce6f932d",
+          "Name": "Description"
         }
       ]
     }

@@ -17,7 +17,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpPost]
         [Route("api/v1/content/list/{repositoryId}/{definitionId}")]
         public ApiResultModel List(Guid repositoryId, Guid definitionId, ContentRequestModel request) {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IRepository repository = manager.GetRepositoryById(repositoryId);
             IContentStore contentStore = ContentStore.Load(repositoryId);
 
@@ -41,7 +41,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/content")]
         public ApiResultModel Index(ContentRequestModel request)
         {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IRepository repository = manager.GetRepositoryById(request.repositoryid);
 
             IContentStore contentStore = ContentStore.Load(request.repositoryid);
@@ -65,7 +65,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/content/filter")]
         public ApiResultModel Filter(ContentRequestModel request)
         {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IRepository repository = manager.GetRepositoryById(request.repositoryid);
             ContentEngine engine = new ContentEngine(repository.Name);
 
@@ -116,7 +116,7 @@ namespace FCmsManagerAngular.Controllers
         [HttpDelete]
         [Route("api/v1/content/{repositoryId}/{contentId}")]
         public ApiResultModel DeleteContent(Guid repositoryId, Guid contentId) {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IContentStore contentStore = ContentStore.Load(repositoryId);
             contentStore.Items.RemoveAll(m => m.Id == contentId);
             contentStore.Save();
@@ -129,7 +129,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/content")]
         public ApiResultModel Save(PageContentViewModel model)
         {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IRepository repository = manager.GetRepositoryById(model.RepositoryId);
             IContentStore contentStore = ContentStore.Load(model.RepositoryId);
 
@@ -163,7 +163,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/contentitem/{repositoryid}")]
         public ApiResultModel SaveContentItem(Guid repositoryid, ContentViewModel model)
         {
-            CmsManager manager = new CmsManager();
+            CmsManager manager = CmsManager.GetInstance();
             IRepository repository = manager.GetRepositoryById(repositoryid);
             IContentStore contentStore = ContentStore.Load(repositoryid);
 

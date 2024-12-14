@@ -17,7 +17,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filters")]
         public ApiResultModel Filters()
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
 
             return new ApiResultModel(ApiResultModel.SUCCESS) {
                  Data = manager.Data.Filters.Select(m => new FilterViewModel(m))
@@ -28,7 +28,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter/{id}")]
         public FilterViewModel Get(string id)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
                 return manager.Data.Filters.Where(n => n.Id == guid).Select(m => new FilterViewModel(m)).FirstOrDefault();
@@ -40,7 +40,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter")]
         public void Post(FilterViewModel model)
         {
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
             model.Add(manager);
         }
 
@@ -48,7 +48,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter")]
         public void Put(FilterViewModel model)
         {
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
             model.Update(manager);
         }
 
@@ -56,7 +56,7 @@ namespace FCmsManagerAngular.Controllers
         [Route("api/v1/config/filter/{id}")]
         public ApiResultModel Delete(string id)
         {
-            var manager = new CmsManager();
+            var manager = CmsManager.GetInstance();
             Guid guid;
             if (Guid.TryParse(id, out guid)) {
                 var filter = manager.Data.Filters.Where(n => n.Id == guid).FirstOrDefault();

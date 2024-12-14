@@ -17,7 +17,7 @@ public class ConfigDbConnectionsController: ControllerBase
     [Route("api/v1/config/dbconnections")]
     public ApiResultModel DbConnections()
     {
-        var manager = new CmsManager();
+        var manager = CmsManager.GetInstance();
 
         return new ApiResultModel(ApiResultModel.SUCCESS) {
                 Data = manager.Data.DbConnections.Select(m => new DbConnectionViewModel(m))
@@ -28,7 +28,7 @@ public class ConfigDbConnectionsController: ControllerBase
     [Route("api/v1/config/dbconnection/{id}")]
     public DbConnectionViewModel Get(string id)
     {
-        var manager = new CmsManager();
+        var manager = CmsManager.GetInstance();
         Guid guid;
         if (Guid.TryParse(id, out guid)) {
             return manager.Data.DbConnections.Where(n => n.Id == guid).Select(m => new DbConnectionViewModel(m)).FirstOrDefault();
@@ -40,7 +40,7 @@ public class ConfigDbConnectionsController: ControllerBase
     [Route("api/v1/config/dbconnection")]
     public void Post(DbConnectionViewModel model)
     {
-        ICmsManager manager = new CmsManager();
+        ICmsManager manager = CmsManager.GetInstance();
         model.Add(manager);
     }
 
@@ -48,7 +48,7 @@ public class ConfigDbConnectionsController: ControllerBase
     [Route("api/v1/config/dbconnection")]
     public void Put(DbConnectionViewModel model)
     {
-        ICmsManager manager = new CmsManager();
+        ICmsManager manager = CmsManager.GetInstance();
         model.Update(manager);
     }
 
@@ -56,7 +56,7 @@ public class ConfigDbConnectionsController: ControllerBase
     [Route("api/v1/config/dbconnection/{id}")]
     public ApiResultModel Delete(string id)
     {
-        var manager = new CmsManager();
+        var manager = CmsManager.GetInstance();
         Guid guid;
         if (Guid.TryParse(id, out guid)) {
             var dbconnection = manager.Data.DbConnections.Where(n => n.Id == guid).FirstOrDefault();

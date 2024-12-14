@@ -12,7 +12,7 @@ namespace FCms.Tests.Helpers
         public static IDbRepository CreateRepository(DbType dbType, string ConnectionString)
         {
             Guid repositoryId1 = Guid.NewGuid();
-            ICmsManager manager = new CmsManager();
+            ICmsManager manager = CmsManager.GetInstance();
 
             Guid connectionId = Guid.NewGuid();            
             manager.Data.DbConnections.Add(
@@ -24,7 +24,7 @@ namespace FCms.Tests.Helpers
             );
 
             manager.Data.DbRepositories.Add(
-                    new DbRepository(manager)
+                    new DbRepository()
                     {
                         Id = repositoryId1,
                         DatabaseConnectionId = connectionId,
