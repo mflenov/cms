@@ -43,5 +43,20 @@ namespace FCmsTests.DbTests
                 Assert.Equal("Description", result.Description);
             }
         }
+        [Fact]
+        public async Task DeleteRowTest()
+        {
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (SqlConnection connection = MsSqlDbConnection.CreateConnection(FCmsTests.Helpers.TestConstants.TestMsDbConnectionString))
+            {
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.Microsoft, FCmsTests.Helpers.TestConstants.TestMsDbConnectionString);
+                DbContentStore store = new DbContentStore(repository);
+
+                object[] columns = { "Name", "Description", DateTime.Today };
+                await store.Add(columns.ToList());
+                var result = connection.Query($"select * from {DbTestHelpers.REPOSITORY_DB_NAME}").First();
+                await store.Delete(result.Test1Id.ToString());
+            }
+        }                
     }
 }

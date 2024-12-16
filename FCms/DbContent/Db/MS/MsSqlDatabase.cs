@@ -118,7 +118,7 @@ namespace FCms.DbContent.Db
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             for (int index = 0; index < values.Count; index++) {
-                parameters.Add("v" + index.ToString(), values[index]);
+                parameters.Add("v" + index.ToString(), columns[index].ParseValue(values[index]));
             }
 
             await connection.ExecuteAsync(command, parameters);
@@ -131,7 +131,7 @@ namespace FCms.DbContent.Db
 
         public async Task DeleteRow(string tableName, string id)
         {
-            await connection.ExecuteAsync($"delete from {tableName} where {tableName}Id = @id", new { id = id});
+            await connection.ExecuteAsync($"delete from {tableName} where {tableName}Id = @id", new { id = Tools.Utility.StringToInt(id)});
         }
     }
 }
