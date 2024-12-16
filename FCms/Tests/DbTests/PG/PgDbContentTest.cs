@@ -42,5 +42,21 @@ namespace FCmsTests.DbTests
                 Assert.Equal("Description", result.Description);
             }
         }
+
+        [Fact]
+        public async Task DeleteRowTest()
+        {
+            using (TransactionScope ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (var connection = PgSqlDbConnection.CreateConnection(Helpers.TestConstants.TestPgDbConnectionString))
+            {
+                IDbRepository repository = DbTestHelpers.CreateRepositoryWithSimpleDefinition(DbType.PostgresSQL, Helpers.TestConstants.TestPgDbConnectionString);
+                DbContentStore store = new DbContentStore(repository);
+
+                object[] columns = { "Name", "Description", DateTime.Today };
+                await store.Add(columns.ToList());
+                var result = connection.Query($"select * from \"{DbTestHelpers.REPOSITORY_DB_NAME}\"").First();
+                await store.Delete(result.Test1Id.ToString());
+            }
+        }
     }
 }

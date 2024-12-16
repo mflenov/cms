@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using FCms.Content;
 using FCms.DbContent.Db;
 
@@ -61,6 +62,16 @@ namespace FCms.DbContent.Models
                     return SqlDbType.NText;
             }
             return SqlDbType.NVarChar;
+        }
+
+        public Object ParseValue(Object o) {
+            switch (DataType)
+            {
+                case ContentDefinitionType.Date:
+                case ContentDefinitionType.DateTime:
+                    return (DateTime)o;
+            }
+            return o.ToString();
         }
     }
 }
