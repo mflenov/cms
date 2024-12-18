@@ -23,8 +23,12 @@ namespace FCms.Content
         }
 
         public List<object> ParseValues(List<string> list)
-        {
+        {            
             List<object> result = new List<object>();
+            if (list == null) {
+                return result;
+            }
+
             foreach (string item in list ?? new List<string>())
             {
                 bool? value = Tools.Utility.StringToBoolean(item);
