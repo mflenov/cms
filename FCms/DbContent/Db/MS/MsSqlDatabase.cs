@@ -113,8 +113,8 @@ namespace FCms.DbContent.Db
 
         public async Task AddRow(string tableName, List<object> values, List<ColumnModel> columns)
         {
-            var command = $"insert into {tableName} ({string.Join(",", columns.Select(m => m.Name))}) " +
-                "values (" + string.Join(",", Enumerable.Range(0, values.Count).Select(m => "@v" + m.ToString())) + ")";
+            var command = $"insert into {tableName} ({string.Join(",", columns.Select(m => m.Name))}, _created, _modified) " +
+                "values (" + string.Join(",", Enumerable.Range(0, values.Count).Select(m => "@v" + m.ToString())) + ", GETDATE(), GETDATE())";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             for (int index = 0; index < values.Count; index++) {

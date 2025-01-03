@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IDbContentModel } from '../models/dncontent.model';
+import { IDbContentModel, IDbRowModel } from '../models/dncontent.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
 import { DbContentService } from '../services/dbcontent.service';
 import { PagesService } from '../../../services/pages.service';
@@ -16,6 +16,7 @@ import { PagesService } from '../../../services/pages.service';
 export class DbContentComponent implements OnInit, OnDestroy {
   data: IDbContentModel = {} as IDbContentModel;
   definitionId!: string;
+  hiddenColumns: string[] = ["_modified", "_created"];
 
   definition: IPageStructureModel = {} as IPageStructureModel;
 
@@ -38,6 +39,15 @@ export class DbContentComponent implements OnInit, OnDestroy {
         })
       })
     }
+  }
+
+  getValue(row: IDbRowModel, columnName: string) {
+    for (let index = 0; index < this.data.columns.length; index++) {
+      if (this.data.columns[index].name == columnName) {
+        return row.values[index].toString();
+      }
+    }
+    return  "1";
   }
 
   ngOnDestroy(): void {
