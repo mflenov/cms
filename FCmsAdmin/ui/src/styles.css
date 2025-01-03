@@ -168,6 +168,11 @@
   background-color: #a6c2de;
 }
 
+.fcms .cms-repository-item .cms-db-row-footer >span {
+  padding: 4px;
+  margin-right: 12px;
+}
+
 .fcms .cms-rightrail {
   border: 1px solid #999;
   padding: 10px;
