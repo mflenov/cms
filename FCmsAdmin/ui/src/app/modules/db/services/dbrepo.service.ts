@@ -17,7 +17,9 @@ export class DbRepoService {
   private url:  string = 'api/v1/db/';
   private definitionurl: string = 'api/v1/db/structure/';
 
-  constructor(private httpClient: HttpClient) 
+  constructor(
+    private httpClient: HttpClient
+  ) 
   { }
 
   getPages(): Observable<IDbRepositoryModel[]> {
@@ -42,16 +44,14 @@ export class DbRepoService {
     return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
-  handleError(err: HttpErrorResponse):Observable<never>  {
+  handleError = (err: HttpErrorResponse): Observable<never> => {
+    debugger;
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-      // network error
-      errorMessage = `An error occurred: ${err.error.message}`;
+      errorMessage = `Error: ${err.error.message}`;
     } else {
-      // bad response code
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
+      errorMessage = `Server Code: ${err.status}, Message: ${err.message}`;
+    }    
     return throwError(errorMessage);
   }
 }

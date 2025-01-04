@@ -6,12 +6,14 @@ import { DbContentService } from '../services/dbcontent.service';
 import { PagesService } from '../../../services/pages.service';
 import { Subscription } from 'rxjs';
 
+import { ToastService } from 'src/app/shared/services/toast.service';
+
 
 @Component({
   selector: 'db-content',
   templateUrl: './db-content.component.html',
   styleUrls: ['./db-content.component.css'],
-  providers: [DbContentService, PagesService]
+  providers: [DbContentService, PagesService, ToastService]
 })
 
 export class DbContentComponent implements OnInit, OnDestroy {
@@ -27,7 +29,8 @@ export class DbContentComponent implements OnInit, OnDestroy {
   constructor(
     private contentService: DbContentService,
     private pagesService: PagesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class DbContentComponent implements OnInit, OnDestroy {
         })
         this.dbContentSubs.unsubscribe();
       }, error => {
+        this.toastService.error(error.message);
         console.log(error.status);
       })
     }
