@@ -11,6 +11,7 @@ import { ConfigModule } from './modules/config/config.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DbModule } from './modules/db/db.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { DbModule } from './modules/db/db.module';
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     RouterModule.forRoot([
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },

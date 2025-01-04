@@ -4,13 +4,16 @@ import { IDbContentModel, IDbRowModel } from '../models/dncontent.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
 import { DbContentService } from '../services/dbcontent.service';
 import { PagesService } from '../../../services/pages.service';
+import { Subscription } from 'rxjs';
+
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 
 @Component({
   selector: 'db-content',
   templateUrl: './db-content.component.html',
   styleUrls: ['./db-content.component.css'],
-  providers: [DbContentService, PagesService]
+  providers: [DbContentService, PagesService, ToastService]
 })
 
 export class DbContentComponent implements OnInit, OnDestroy {
@@ -20,25 +23,37 @@ export class DbContentComponent implements OnInit, OnDestroy {
 
   definition: IPageStructureModel = {} as IPageStructureModel;
 
+  private dbContentSubs!: Subscription;
+  private pageSubs!: Subscription;
+
   constructor(
     private contentService: DbContentService,
     private pagesService: PagesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
     this.definitionId = this.route.snapshot.paramMap.get('id') ?? '';
 
     if (this.definitionId) {
-      this.contentService.getDbContent(this.definitionId).subscribe(dbcontent => {
-        this.pagesService.getPage(this.definitionId).subscribe(definition => {
+      this.dbContentSubs = this.contentService.getDbContent(this.definitionId).subscribe(dbcontent => {
+        this.pageSubs = this.pagesService.getPage(this.definitionId).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
             this.data = (dbcontent.data as IDbContentModel);
             this.definition = definition.data as IPageStructureModel;
           }
+          this.pageSubs.unsubscribe();
         })
+        this.dbContentSubs.unsubscribe();
+      }, error => {
+        this.toastService.error(error.message);
+        console.log(error.status);
       })
     }
+  }
+
+  ngOnDestroy(): void {
   }
 
   getValue(row: IDbRowModel, columnName: string) {
@@ -48,9 +63,6 @@ export class DbContentComponent implements OnInit, OnDestroy {
       }
     }
     return  "1";
-  }
-
-  ngOnDestroy(): void {
   }
 
   deleteItem(id: string): void {
