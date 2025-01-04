@@ -4,6 +4,7 @@ import { IPageStructureModel } from '../../../models/page-structure.model';
 import { PagesService } from '../../../services/pages.service';
 import { IDbRowModel } from '../models/dncontent.model';
 import { DbContentService } from '../services/dbcontent.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'db-edit-content-component',
@@ -21,7 +22,8 @@ export class EditDbContentComponentComponent implements OnInit {
     private contentService: DbContentService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
    ) { }
 
   ngOnInit(): void {
@@ -34,7 +36,8 @@ export class EditDbContentComponentComponent implements OnInit {
 
           this.data.values = this.definition.contentDefinitions.map(x => "");
         }
-      })
+      }
+      , error => {this.toastService.error(error.message, error.status);})
     }
   }
 

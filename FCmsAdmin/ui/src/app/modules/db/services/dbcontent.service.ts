@@ -57,10 +57,8 @@ export class DbContentService {
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Серверная ошибка
-      errorMessage = `Код: ${error.status}\Message: ${error.message}`;
+      errorMessage = `${error.message}`;
     }
-    
     return throwError({ status: error.status, message: errorMessage });
   }
 }

@@ -6,6 +6,7 @@ import { INewDbRepoModel } from '../models/new-dbrepo.model';
 import { DbRepoService } from '../services/dbrepo.service';
 import { IDbConnectionModel } from 'src/app/models/dbconnection-model';
 import { DbconnectionsService } from 'src/app/services/dbconnections.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-new-repo',
@@ -23,13 +24,14 @@ export class NewRepoComponent implements OnInit, OnDestroy {
   constructor(
     private dbconnectionsService: DbconnectionsService,
     private repoService: DbRepoService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.connectionSubs = this.dbconnectionsService.getDbConnections().subscribe({
-      next: dbConnections => { this.dbConnections = of(dbConnections.data); }
-      });
+    this.connectionSubs = this.dbconnectionsService.getDbConnections().subscribe(
+      dbConnections => { this.dbConnections = of(dbConnections.data); }
+      , error => {this.toastService.error(error.message, error.status);});
   }
 
   ngOnDestroy() : void {

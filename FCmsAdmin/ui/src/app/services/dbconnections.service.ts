@@ -23,19 +23,6 @@ export class DbconnectionsService {
       );
   }
 
-  handleError(err: HttpErrorResponse): Observable<never> {
-    let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-      // network error
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      // bad response code
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(errorMessage);
-  }
-
   getCachedConnections(): Observable<IApiRequestModel> {
     if (this.cache) {
       return of(this.cache);
@@ -60,5 +47,16 @@ export class DbconnectionsService {
       return this.httpClient.patch(environment.apiCmsServiceEndpoint + this.url, model);
     else
       return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `${error.message}`;
+    }
+    return throwError({ status: error.status, message: errorMessage });
   }
 }

@@ -44,14 +44,14 @@ export class DbRepoService {
     return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
-  handleError = (err: HttpErrorResponse): Observable<never> => {
-    debugger;
+  handleError(error: HttpErrorResponse) {
     let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${err.error.message}`;
+    
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-      errorMessage = `Server Code: ${err.status}, Message: ${err.message}`;
-    }    
-    return throwError(errorMessage);
+      errorMessage = `${error.message}`;
+    }
+    return throwError({ status: error.status, message: errorMessage });
   }
 }

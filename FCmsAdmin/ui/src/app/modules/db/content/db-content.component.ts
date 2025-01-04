@@ -44,12 +44,9 @@ export class DbContentComponent implements OnInit, OnDestroy {
             this.definition = definition.data as IPageStructureModel;
           }
           this.pageSubs.unsubscribe();
-        })
+        }, error => {this.toastService.error(error.message, error.status);})
         this.dbContentSubs.unsubscribe();
-      }, error => {
-        this.toastService.error(error.message);
-        console.log(error.status);
-      })
+      }, error => {this.toastService.error(error.message, error.status);})
     }
   }
 
