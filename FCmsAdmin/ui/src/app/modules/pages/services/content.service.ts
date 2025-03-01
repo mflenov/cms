@@ -15,10 +15,10 @@ import { IContentItemModel } from '../models/content-item.model';
 })
 
 export class ContentService {
-  private editpageurl: string = 'api/v1/content';
-  private filterpageurl: string = 'api/v1/content/filter';
-  private listUrl: string = 'api/v1/content/list/';
-  private contenturl: string = 'api/v1/contentitem';
+  private editpageurl: string = environment.baseurl + 'v1/content';
+  private filterpageurl: string = environment.baseurl + 'v1/content/filter';
+  private listUrl: string = environment.baseurl + 'v1/content/list/';
+  private contenturl: string = environment.baseurl + 'v1/contentitem';
 
   constructor(private httpClient: HttpClient) {
   }

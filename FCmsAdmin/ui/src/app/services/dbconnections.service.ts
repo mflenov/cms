@@ -9,8 +9,8 @@ import { IDbConnectionModel } from '../models/dbconnection-model';
 @Injectable()
 
 export class DbconnectionsService {
-  private listurl: string = 'api/v1/config/dbconnections';
-  private url: string = 'api/v1/config/dbconnection/';
+  private listurl: string = environment.baseurl + 'v1/config/dbconnections';
+  private url: string = environment.baseurl + 'v1/config/dbconnection/';
   private cache: IApiRequestModel | undefined;
 
   constructor(private httpClient: HttpClient) { }

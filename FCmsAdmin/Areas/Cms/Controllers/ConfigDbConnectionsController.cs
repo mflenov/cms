@@ -6,6 +6,7 @@ using FCms.Content;
 
 namespace FCmsManagerAngular.Controllers;
 
+[Area("cms")]
 [ApiController]
 public class ConfigDbConnectionsController: ControllerBase
 {
@@ -14,7 +15,7 @@ public class ConfigDbConnectionsController: ControllerBase
     }
     
     [HttpGet]
-    [Route("api/v1/config/dbconnections")]
+    [Route("cms/api/v1/config/dbconnections")]
     public ApiResultModel DbConnections()
     {
         var manager = CmsManager.GetInstance();

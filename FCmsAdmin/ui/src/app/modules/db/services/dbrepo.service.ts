@@ -13,9 +13,9 @@ import { INewDbRepoModel } from '../models/new-dbrepo.model';
 @Injectable()
 
 export class DbRepoService {
-  private listUrl: string = 'api/v1/db';
-  private url:  string = 'api/v1/db/';
-  private definitionurl: string = 'api/v1/db/structure/';
+  private listUrl: string = environment.baseurl + 'v1/db';
+  private url:  string = environment.baseurl + 'v1/db/';
+  private definitionurl: string = environment.baseurl + 'v1/db/structure/';
 
   constructor(
     private httpClient: HttpClient
