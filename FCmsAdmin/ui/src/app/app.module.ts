@@ -35,7 +35,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DbModule,
     NgbModule
   ],
-  providers: [{provide: APP_BASE_HREF, useValue: '/cms/'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

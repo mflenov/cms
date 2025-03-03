@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web" >
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageId>FCmsAdmin</PackageId>
+    <Version>1.0.3</Version>
+    <Authors>Mikhail Flenov</Authors>
+    <Company>profwebdev.com</Company>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\FCms\FCms.csproj">
@@ -23,4 +27,8 @@
   <ItemGroup>
     <Content Remove="appsettings.Development.json" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="npm run build" WorkingDirectory="ui" />
+  </Target>
 </Project>
