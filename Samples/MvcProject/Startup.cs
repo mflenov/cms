@@ -2,6 +2,7 @@ using FCms.Auth.Abstract;
 using FCms.Auth.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -59,6 +60,12 @@ namespace FCmsSample
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            var redirectOptions = new RewriteOptions()
+                .AddRedirect("_content/FCmsAdmin/fcms/", "_content/FCmsAdmin/fcms/index.html")
+                .AddRewrite("_content/FCmsAdmin/fcms/(?!index.html)", "_content/FCmsAdmin/fcms/index.html", true);
+
+            app.UseRewriter(redirectOptions);
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -69,6 +76,7 @@ namespace FCmsSample
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

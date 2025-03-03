@@ -11,8 +11,8 @@ import { IApiRequestModel } from '../models/api-request-model'
 @Injectable()
 
 export class FiltersService {
-  private listurl: string = 'api/v1/config/filters';
-  private url: string = 'api/v1/config/filter/';
+  private listurl: string = environment.baseurl + 'v1/config/filters';
+  private url: string = environment.baseurl + 'v1/config/filter/';
 
   private cache: IApiRequestModel | undefined;
 

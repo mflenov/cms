@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiCmsServiceEndpoint: 'http://localhost:56710/'
+  apiCmsServiceEndpoint: 'http://localhost:56710/',
+  baseurl:'cms/api/',
+  baseweburl:'/'
 };
 
 /*

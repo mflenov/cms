@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiCmsServiceEndpoint: 'http://localhost:56710/'
+  apiCmsServiceEndpoint: '/',
+  baseurl:'cms/api/',
+  baseweburl:'/_content/FCmsAdmin/fcms/'
 };

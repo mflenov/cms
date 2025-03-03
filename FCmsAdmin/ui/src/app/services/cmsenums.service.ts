@@ -14,8 +14,8 @@ import { environment } from '../../environments/environment';
 
 
 export class CmsenumsService {
-  private enumurl = 'api/v1/data/enums'
-  private datatypeurl = 'api/v1/data/datatypes'
+  private enumurl = environment.baseurl + 'v1/data/enums'
+  private datatypeurl = environment.baseurl + 'v1/data/datatypes'
 
   private enumModel?: IEnumsModel
   private contentTypeModel?: IEnumsModel

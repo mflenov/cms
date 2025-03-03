@@ -1,9 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web" >
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageId>FCmsAdmin</PackageId>
+    <Version>1.0.18</Version>
+    <Authors>Mikhail Flenov</Authors>
+    <Company>profwebdev.com</Company>
+    <IsPackable>true</IsPackable>
+    <PackageOutputPath>..\packages\</PackageOutputPath>
   </PropertyGroup>
-
 
   <ItemGroup>
     <ProjectReference Include="..\FCms\FCms.csproj">
@@ -22,5 +27,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(Configuration)' == 'Release' ">
+    <Exec Command="npm run build" WorkingDirectory="ui" />
+  </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot/**/*.*" />
   </ItemGroup>
 </Project>
