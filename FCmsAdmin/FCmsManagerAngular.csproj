@@ -3,10 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>FCmsAdmin</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.16</Version>
     <Authors>Mikhail Flenov</Authors>
     <Company>profwebdev.com</Company>
     <IsPackable>true</IsPackable>
+    <PackageOutputPath>..\packages\</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +29,11 @@
     <Content Remove="appsettings.Development.json" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <!--Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="npm run build" WorkingDirectory="ui" />
-  </Target>
+  </Target-->
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot/**/*.*" />
+  </ItemGroup>
 </Project>

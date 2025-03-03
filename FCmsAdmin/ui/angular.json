@@ -21,7 +21,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "../wwwroot/cms",
+              "base": "../wwwroot/fcms",
               "browser": ""
             },
             "index": "src/index.html",

@@ -4,9 +4,17 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RestoreSources>$(RestoreSources);../../Packages;https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'FCmsSample' " />
   <ItemGroup>
     <ProjectReference Include="..\..\FCms\FCms.csproj" />
   </ItemGroup>
 
+  
+  <ItemGroup>
+    <PackageReference Include="FCmsAdmin" Version="1.0.16" CopyStaticAssets="true"></PackageReference>
+  </ItemGroup>
 </Project>

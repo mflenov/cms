@@ -13,6 +13,7 @@ import { PagesModule } from './modules/pages/pages.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DbModule } from './modules/db/db.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DbModule,
     NgbModule
   ],
+  providers: [{provide: APP_BASE_HREF, useValue: environment.baseweburl}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
