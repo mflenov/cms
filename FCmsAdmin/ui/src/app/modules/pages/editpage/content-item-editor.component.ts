@@ -8,9 +8,10 @@ import { ContentPlaceholderDirective } from '../../../shared/widgets/content-pla
 import { EditFiltersComponent } from './edit-filters.component';
 
 @Component({
-  selector: 'pg-content-item-editor',
-  templateUrl: './content-item-editor.component.html',
-  styleUrls: ['./content-item-editor.component.css']
+    selector: 'pg-content-item-editor',
+    templateUrl: './content-item-editor.component.html',
+    styleUrls: ['./content-item-editor.component.css'],
+    standalone: false
 })
 export class ContentItemEditorComponent implements OnInit {
   @Input() definition!: IContentDefinitionsModel;

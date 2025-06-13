@@ -7,10 +7,11 @@ import { INewPageModel } from '../../../models/new-page.model';
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
-  selector: 'app-new-page',
-  templateUrl: './new-page.component.html',
-  styleUrls: ['./new-page.component.css'],
-  providers: [PagesService]
+    selector: 'app-new-page',
+    templateUrl: './new-page.component.html',
+    styleUrls: ['./new-page.component.css'],
+    providers: [PagesService],
+    standalone: false
 })
 export class NewPageComponent implements OnInit {
   model: INewPageModel = {} as INewPageModel;

@@ -2,9 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { IContentFilterModel } from '../../models/content-filter.model';
 
 @Component({
-  selector: 'pg-bool-filter-editor',
-  templateUrl: './bool-filter-editor.component.html',
-  styleUrls: ['./bool-filter-editor.component.css']
+    selector: 'pg-bool-filter-editor',
+    templateUrl: './bool-filter-editor.component.html',
+    styleUrls: ['./bool-filter-editor.component.css'],
+    standalone: false
 })
 
 export class BoolFilterEditorComponent implements OnInit {

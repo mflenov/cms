@@ -4,9 +4,10 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 
 @Component({
-  selector: 'db-content-editor',
-  templateUrl: './db-content-editor.component.html',
-  styleUrls: ['./db-content-editor.component.css']
+    selector: 'db-content-editor',
+    templateUrl: './db-content-editor.component.html',
+    styleUrls: ['./db-content-editor.component.css'],
+    standalone: false
 })
 export class DbContentEditorComponent implements OnInit {
   @Input() definition!: IContentDefinitionsModel;

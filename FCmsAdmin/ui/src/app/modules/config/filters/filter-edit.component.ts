@@ -9,10 +9,11 @@ import { CmsenumsService } from '../../../services/cmsenums.service';
 import { FiltersService } from '../../../services/filters.service';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter-edit.component.html',
-  styleUrls: ['./filter-edit.component.css'],
-  providers: [FiltersService]
+    selector: 'app-filter',
+    templateUrl: './filter-edit.component.html',
+    styleUrls: ['./filter-edit.component.css'],
+    providers: [FiltersService],
+    standalone: false
 })
 
 export class FilterComponent implements OnInit, OnDestroy {

@@ -7,10 +7,11 @@ import { ContentService } from '../services/content.service';
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
-  selector: 'app-preview',
-  templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.css'],
-  providers: [ContentService, PagesService]
+    selector: 'app-preview',
+    templateUrl: './preview.component.html',
+    styleUrls: ['./preview.component.css'],
+    providers: [ContentService, PagesService],
+    standalone: false
 })
 export class PreviewComponent implements OnInit {
   searchfilters: IContentFilterModel[] = [];

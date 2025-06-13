@@ -9,10 +9,11 @@ import { DbconnectionsService } from 'src/app/services/dbconnections.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-new-repo',
-  templateUrl: './new-repo.component.html',
-  styleUrls: ['./new-repo.component.css'],
-  providers: [DbRepoService, DbconnectionsService]
+    selector: 'app-new-repo',
+    templateUrl: './new-repo.component.html',
+    styleUrls: ['./new-repo.component.css'],
+    providers: [DbRepoService, DbconnectionsService],
+    standalone: false
 })
 export class NewRepoComponent implements OnInit, OnDestroy {
   private connectionSubs!: Subscription;

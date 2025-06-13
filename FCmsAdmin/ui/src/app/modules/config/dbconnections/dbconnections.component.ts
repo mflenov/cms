@@ -5,10 +5,11 @@ import { DbconnectionsService } from '../../../services/dbconnections.service';
 import { IDbConnectionModel } from 'src/app/models/dbconnection-model';
 
 @Component({
-  selector: 'app-dbconnections',
-  templateUrl: './dbconnections.component.html',
-  styleUrl: './dbconnections.component.css',
-  providers: [DbconnectionsService]
+    selector: 'app-dbconnections',
+    templateUrl: './dbconnections.component.html',
+    styleUrl: './dbconnections.component.css',
+    providers: [DbconnectionsService],
+    standalone: false
 })
 export class DbconnectionsComponent implements OnInit, OnDestroy {
   dbConnections: IDbConnectionModel[] = [];

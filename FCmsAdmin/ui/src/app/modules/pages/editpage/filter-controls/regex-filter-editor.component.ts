@@ -2,9 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { IContentFilterModel } from '../../models/content-filter.model';
 
 @Component({
-  selector: 'app-regex-filter-editor',
-  templateUrl: './regex-filter-editor.component.html',
-  styleUrls: ['./regex-filter-editor.component.css']
+    selector: 'app-regex-filter-editor',
+    templateUrl: './regex-filter-editor.component.html',
+    styleUrls: ['./regex-filter-editor.component.css'],
+    standalone: false
 })
 export class RegexFilterEditorComponent implements OnInit {
   @Input() model: IContentFilterModel = { values: [''] } as IContentFilterModel;

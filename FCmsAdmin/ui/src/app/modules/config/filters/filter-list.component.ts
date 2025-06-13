@@ -5,10 +5,11 @@ import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
 
 @Component({
-  selector: 'app-filters',
-  templateUrl: './filter-list.component.html',
-  styleUrls: ['./filter-list.component.css'],
-  providers: [FiltersService]
+    selector: 'app-filters',
+    templateUrl: './filter-list.component.html',
+    styleUrls: ['./filter-list.component.css'],
+    providers: [FiltersService],
+    standalone: false
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {

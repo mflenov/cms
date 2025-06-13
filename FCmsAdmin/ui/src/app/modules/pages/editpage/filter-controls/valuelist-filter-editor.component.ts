@@ -5,9 +5,10 @@ import { FiltersService } from 'src/app/services/filters.service';
 import { IContentFilterModel } from '../../models/content-filter.model';
 
 @Component({
-  selector: 'app-valuelist-filter-editor',
-  templateUrl: './valuelist-filter-editor.component.html',
-  styleUrls: ['./valuelist-filter-editor.component.css']
+    selector: 'app-valuelist-filter-editor',
+    templateUrl: './valuelist-filter-editor.component.html',
+    styleUrls: ['./valuelist-filter-editor.component.css'],
+    standalone: false
 })
 export class ValuelistFilterEditorComponent implements OnInit {
   @Input() model: IContentFilterModel = { values: [''] } as IContentFilterModel;

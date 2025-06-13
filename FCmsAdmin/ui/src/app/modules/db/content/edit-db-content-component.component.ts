@@ -7,10 +7,11 @@ import { DbContentService } from '../services/dbcontent.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'db-edit-content-component',
-  templateUrl: './edit-db-content-component.component.html',
-  styleUrls: ['./edit-db-content-component.component.css'],
-  providers: [PagesService, DbContentService]
+    selector: 'db-edit-content-component',
+    templateUrl: './edit-db-content-component.component.html',
+    styleUrls: ['./edit-db-content-component.component.css'],
+    providers: [PagesService, DbContentService],
+    standalone: false
 })
 export class EditDbContentComponentComponent implements OnInit {
   data: IDbRowModel = {} as IDbRowModel;

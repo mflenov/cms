@@ -5,10 +5,11 @@ import { IPageModel } from '../../../models/page.model';
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
-  selector: 'app-page-list',
-  templateUrl: './page-list.component.html',
-  styleUrls: ['./page-list.component.css'],
-  providers: [ PagesService ]
+    selector: 'app-page-list',
+    templateUrl: './page-list.component.html',
+    styleUrls: ['./page-list.component.css'],
+    providers: [PagesService],
+    standalone: false
 })
 
 export class PageListComponent implements OnInit, OnDestroy {
