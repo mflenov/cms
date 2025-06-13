@@ -5,10 +5,11 @@ import { DbRepoService } from '../services/dbrepo.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-repository',
-  templateUrl: './repository.component.html',
-  styleUrls: ['./repository.component.css'],
-  providers: [DbRepoService, ToastService]
+    selector: 'app-repository',
+    templateUrl: './repository.component.html',
+    styleUrls: ['./repository.component.css'],
+    providers: [DbRepoService, ToastService],
+    standalone: false
 })
 
 export class RepositoryComponent implements OnInit, OnDestroy {

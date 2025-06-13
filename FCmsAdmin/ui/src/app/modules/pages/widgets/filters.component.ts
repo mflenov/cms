@@ -7,10 +7,11 @@ import { IContentFilterModel } from '../models/content-filter.model';
 import { FilterControlService } from '../services/filter-control.service';
 
 @Component({
-  selector: 'pg-filters',
-  templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.css'],
-  providers: [FiltersService, FilterControlService]
+    selector: 'pg-filters',
+    templateUrl: './filters.component.html',
+    styleUrls: ['./filters.component.css'],
+    providers: [FiltersService, FilterControlService],
+    standalone: false
 })
 
 export class FiltersComponent implements OnInit {

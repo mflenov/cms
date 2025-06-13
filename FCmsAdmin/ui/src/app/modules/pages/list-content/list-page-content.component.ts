@@ -14,10 +14,11 @@ import { ContentItemComponent } from '../editpage/content-item.component'
 import { EditFiltersComponent } from '../editpage/edit-filters.component';
 
 @Component({
-  selector: 'app-list-page-content',
-  templateUrl: './list-page-content.component.html',
-  styleUrls: ['./list-page-content.component.css'],
-  providers: [FiltersService]
+    selector: 'app-list-page-content',
+    templateUrl: './list-page-content.component.html',
+    styleUrls: ['./list-page-content.component.css'],
+    providers: [FiltersService],
+    standalone: false
 })
 export class ListPageContentComponent implements OnInit, OnDestroy {
   repositoryName: string = '';

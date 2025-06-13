@@ -9,10 +9,11 @@ import { ContentPlaceholderDirective } from '../widgets/content-placeholder.dire
 import { IContentDefinitionsModel } from '../../models/content-definitions.model';
 
 @Component({
-  selector: 'sh-structure',
-  templateUrl: './structure.component.html',
-  styleUrls: ['./structure.component.css'],
-  providers: [PagesService]
+    selector: 'sh-structure',
+    templateUrl: './structure.component.html',
+    styleUrls: ['./structure.component.css'],
+    providers: [PagesService],
+    standalone: false
 })
 
 export class StructureComponent implements OnInit, OnDestroy {

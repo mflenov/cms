@@ -1,7 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[contentplaceholder]'
+    selector: '[contentplaceholder]',
+    standalone: false
 })
 export class ContentPlaceholderDirective {
   constructor(public viewContainerRef: ViewContainerRef) { }

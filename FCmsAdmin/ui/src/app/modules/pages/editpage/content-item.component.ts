@@ -10,9 +10,10 @@ import { ContentPlaceholderDirective } from '../../../shared/widgets/content-pla
 
 
 @Component({
-  selector: 'pg-content-item',
-  templateUrl: './content-item.component.html',
-  styleUrls: ['./content-item.component.css']
+    selector: 'pg-content-item',
+    templateUrl: './content-item.component.html',
+    styleUrls: ['./content-item.component.css'],
+    standalone: false
 })
 
 export class ContentItemComponent implements OnInit {

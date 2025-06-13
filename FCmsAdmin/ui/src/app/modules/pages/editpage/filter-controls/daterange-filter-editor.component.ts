@@ -3,9 +3,10 @@ import { IContentFilterModel } from '../../models/content-filter.model';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-daterange-filter-editor',
-  templateUrl: './daterange-filter-editor.component.html',
-  styleUrls: ['./daterange-filter-editor.component.css']
+    selector: 'app-daterange-filter-editor',
+    templateUrl: './daterange-filter-editor.component.html',
+    styleUrls: ['./daterange-filter-editor.component.css'],
+    standalone: false
 })
 export class DaterangeFilterEditorComponent implements OnInit {
   @Input() model: IContentFilterModel = { values: [''] } as IContentFilterModel;

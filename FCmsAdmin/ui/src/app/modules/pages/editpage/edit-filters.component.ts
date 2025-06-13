@@ -8,10 +8,11 @@ import { ContentPlaceholderDirective } from '../../../shared/widgets/content-pla
 import { FilterControlService } from '../services/filter-control.service';
 
 @Component({
-  selector: 'pg-edit-filters',
-  templateUrl: './edit-filters.component.html',
-  styleUrls: ['./edit-filters.component.css'],
-  providers: [FiltersService, FilterControlService]
+    selector: 'pg-edit-filters',
+    templateUrl: './edit-filters.component.html',
+    styleUrls: ['./edit-filters.component.css'],
+    providers: [FiltersService, FilterControlService],
+    standalone: false
 })
 export class EditFiltersComponent implements OnInit, OnDestroy {
   @Input() model: IContentFilterModel[] = [];

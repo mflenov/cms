@@ -8,10 +8,11 @@ import { ContentService } from '../services/content.service'
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
-  selector: 'pg-editpage',
-  templateUrl: './edit-page.component.html',
-  styleUrls: ['./edit-page.component.css'],
-  providers: [ContentService, PagesService]
+    selector: 'pg-editpage',
+    templateUrl: './edit-page.component.html',
+    styleUrls: ['./edit-page.component.css'],
+    providers: [ContentService, PagesService],
+    standalone: false
 })
 
 export class EditpageComponent implements OnInit, OnDestroy {

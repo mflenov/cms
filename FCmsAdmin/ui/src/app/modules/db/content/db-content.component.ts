@@ -10,10 +10,11 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 
 
 @Component({
-  selector: 'db-content',
-  templateUrl: './db-content.component.html',
-  styleUrls: ['./db-content.component.css'],
-  providers: [DbContentService, PagesService, ToastService]
+    selector: 'db-content',
+    templateUrl: './db-content.component.html',
+    styleUrls: ['./db-content.component.css'],
+    providers: [DbContentService, PagesService, ToastService],
+    standalone: false
 })
 
 export class DbContentComponent implements OnInit, OnDestroy {

@@ -2,9 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { IContentFilterModel } from '../../models/content-filter.model';
 
 @Component({
-  selector: 'pg-text-filter-editor',
-  templateUrl: './text-filter-editor.component.html',
-  styleUrls: ['./text-filter-editor.component.css']
+    selector: 'pg-text-filter-editor',
+    templateUrl: './text-filter-editor.component.html',
+    styleUrls: ['./text-filter-editor.component.css'],
+    standalone: false
 })
 export class TextFilterEditorComponent implements OnInit {
   @Input() model: IContentFilterModel = { values: [''] } as IContentFilterModel;

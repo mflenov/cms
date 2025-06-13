@@ -6,9 +6,10 @@ import { CmsenumsService } from '../../services/cmsenums.service'
 
 
 @Component({
-  selector: 'sh-content-definition',
-  templateUrl: './content-definition.component.html',
-  styleUrls: ['./content-definition.component.css']
+    selector: 'sh-content-definition',
+    templateUrl: './content-definition.component.html',
+    styleUrls: ['./content-definition.component.css'],
+    standalone: false
 })
 
 export class ContentdefinitionComponent implements OnInit, OnDestroy {
