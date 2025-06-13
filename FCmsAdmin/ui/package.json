@@ -16,6 +16,8 @@
     "@angular/core": "^19.2.14",
     "@angular/forms": "^19.2.14",
     "@angular/localize": "^19.2.14",
+    "@angular/platform-browser": "^19.2.14",
+    "@angular/platform-browser-dynamic": "^19.2.14",
     "@angular/router": "^19.2.14",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@popperjs/core": "^2.10.2",
