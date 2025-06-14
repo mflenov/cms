@@ -1,0 +1,11 @@
+#Install .NET
+https://learn.microsoft.com/en-us/dotnet/core/install/macos
+
+#Install Node.JS
+https://nodejs.org/en/
+
+#install angular cli
+npm install -g @angular/cli
+
+#install typescript
+npm install -g typescript
