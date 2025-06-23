@@ -26,7 +26,7 @@ public class ConfigDbConnectionsController: ControllerBase
     }
 
     [HttpGet]
-    [Route("api/v1/config/dbconnection/{id}")]
+    [Route("cms/api/v1/config/dbconnection/{id}")]
     public DbConnectionViewModel Get(string id)
     {
         var manager = CmsManager.GetInstance();
@@ -38,7 +38,7 @@ public class ConfigDbConnectionsController: ControllerBase
     }
 
     [HttpPut]
-    [Route("api/v1/config/dbconnection")]
+    [Route("cms/api/v1/config/dbconnection")]
     public void Post(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
@@ -46,7 +46,7 @@ public class ConfigDbConnectionsController: ControllerBase
     }
 
     [HttpPatch]
-    [Route("api/v1/config/dbconnection")]
+    [Route("cms/api/v1/config/dbconnection")]
     public void Put(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
@@ -54,7 +54,7 @@ public class ConfigDbConnectionsController: ControllerBase
     }
 
     [HttpDelete]
-    [Route("api/v1/config/dbconnection/{id}")]
+    [Route("cms/api/v1/config/dbconnection/{id}")]
     public ApiResultModel Delete(string id)
     {
         var manager = CmsManager.GetInstance();
