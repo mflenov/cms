@@ -34,7 +34,13 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
     this.connectionSubs.unsubscribe();
   }
 
-  deleteRow(id:string|undefined) : void {
-
+  deleteRow(id: string|undefined): void {
+    console.log('deleteRow', id);
+    this.dbconnectionsService.deleteById(id!).subscribe({
+      next: result => {
+        const index = this.dbConnections.findIndex(m => m.id == id);
+        this.dbConnections.splice(index, 1);
+      }
+    });
   }
 }
