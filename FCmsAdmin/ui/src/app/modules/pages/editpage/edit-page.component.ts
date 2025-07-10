@@ -7,11 +7,13 @@ import { IPageStructureModel } from '../../../models/page-structure.model';
 import { ContentService } from '../services/content.service'
 import { PagesService } from '../../../services/pages.service';
 
+import { ToastService } from 'src/app/shared/services/toast.service';
+
 @Component({
     selector: 'pg-editpage',
     templateUrl: './edit-page.component.html',
     styleUrls: ['./edit-page.component.css'],
-    providers: [ContentService, PagesService],
+    providers: [ContentService, PagesService, ToastService],
     standalone: false
 })
 
@@ -26,7 +28,8 @@ export class EditpageComponent implements OnInit, OnDestroy {
     private contentService: ContentService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +44,8 @@ export class EditpageComponent implements OnInit, OnDestroy {
             this.definition = definition.data as IPageStructureModel;
             this.data = (content.data as IPageContentModel);
           }
-        })
-      })
+        }, error => {this.toastService.error(error.message, error.status);})
+      }, error => {this.toastService.error(error.message, error.status);})
     }
   }
 
