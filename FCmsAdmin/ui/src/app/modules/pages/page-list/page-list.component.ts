@@ -4,11 +4,13 @@ import { Subscription } from 'rxjs';
 import { IPageModel } from '../../../models/page.model';
 import { PagesService } from '../../../services/pages.service';
 
+import { ToastService } from 'src/app/shared/services/toast.service';
+
 @Component({
     selector: 'app-page-list',
     templateUrl: './page-list.component.html',
     styleUrls: ['./page-list.component.css'],
-    providers: [PagesService],
+    providers: [PagesService, ToastService],
     standalone: false
 })
 
@@ -16,14 +18,15 @@ export class PageListComponent implements OnInit, OnDestroy {
   pages: IPageModel[] = [];
   pagesSubs!: Subscription;
 
-  constructor(private pagesService: PagesService) { }
+  constructor(
+    private pagesService: PagesService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
-    this.pagesSubs = this.pagesService.getPages().subscribe({
-      next: pages => {
+    this.pagesSubs = this.pagesService.getPages().subscribe(pages => {
         this.pages = pages;
-      }
-    });
+    }, error => {this.toastService.error(error.message, error.status);});
   }
 
   ngOnDestroy(): void {

@@ -29,10 +29,6 @@
   font-size: 100%;
 }
 
-.fcms a:visited {
-  color: #f07b66;
-}
-
 .fcms label {
   font-weight: 300;
 }
@@ -126,6 +122,11 @@
   outline: none;
   text-decoration: none;
   background: #f07b66;
+  border-radius: 4px;
+}
+
+.fcms input {
+  border-radius:4px;
 }
 
 .fcms .link {
@@ -147,14 +148,14 @@
 }
 
 .fcms .cms-repository {
-  border: 1px solid #999;
+  border: 1px solid #383b40;
   padding: 10px;
   margin-bottom: 10px;
   background: #282b30;
 }
 
 .fcms .cms-repository-item {
-  border: 1px solid #999;
+  border: 1px solid #383b40;
   margin-bottom: 10px;
   background: #fff;
   box-shadow: 0px 1px 5px #aaa;
@@ -175,7 +176,7 @@
 }
 
 .fcms .cms-rightrail {
-  border: 1px solid #999;
+  border: 1px solid #383b40;
   padding: 10px;
   margin-bottom: 10px;
   background: #fff;
@@ -216,10 +217,12 @@
 }
 
 .fcms .cms-folder {
-    border:1px solid #bbb;
+    border:1px solid #484b50;
+    background-color: #383b40;
     padding: 8px;
-    margin-top: 10px;
-}
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 95%;}
 
 .fcms .fcms-forlder-item {
     padding-bottom:12px;
@@ -231,16 +234,16 @@
 
 .fcms .fcms-filter-item {
     padding:8px;
-    background:rgb(227 240 255);
+    background:#282b30;
     border: 1px solid #ddd;
     margin-bottom:8px;
 }
 
 .fcms .fcms-top-search {
-  border: 1px solid #999;
+  border: 1px solid #383b40;
   padding: 10px;
   margin-bottom: 10px;
-  background: rgb(240, 247, 255);
+  background: #282b30;
 }
 
 .fcms .padding-left-8 {
