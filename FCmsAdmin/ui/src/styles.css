@@ -125,8 +125,11 @@
   border-radius: 4px;
 }
 
-.fcms input {
+.fcms input, .form-control{
   border-radius:4px;
+  background: #333;
+  border: 1px solid #666;
+  color: #eee;
 }
 
 .fcms .link {
@@ -148,14 +151,14 @@
 }
 
 .fcms .cms-repository {
-  border: 1px solid #383b40;
+  border: 1px solid #585b60;
   padding: 10px;
   margin-bottom: 10px;
   background: #282b30;
 }
 
 .fcms .cms-repository-item {
-  border: 1px solid #383b40;
+  border: 1px solid #585b60;
   margin-bottom: 10px;
   background: #fff;
   box-shadow: 0px 1px 5px #aaa;
@@ -176,7 +179,7 @@
 }
 
 .fcms .cms-rightrail {
-  border: 1px solid #383b40;
+  border: 1px solid #585b60;
   padding: 10px;
   margin-bottom: 10px;
   background: #fff;
@@ -217,7 +220,7 @@
 }
 
 .fcms .cms-folder {
-    border:1px solid #484b50;
+    border:1px solid #585b60;
     background-color: #383b40;
     padding: 8px;
     margin-top: 20px;
@@ -235,12 +238,12 @@
 .fcms .fcms-filter-item {
     padding:8px;
     background:#282b30;
-    border: 1px solid #ddd;
+    border: 1px solid #585b60;
     margin-bottom:8px;
 }
 
 .fcms .fcms-top-search {
-  border: 1px solid #383b40;
+  border: 1px solid #585b60;
   padding: 10px;
   margin-bottom: 10px;
   background: #282b30;
@@ -260,4 +263,8 @@
   margin: 0px 0px 8px 0px;
   border: 0px;
   color: #aaa;
+}
+
+.fcms .preview label {
+  color:#777;
 }
