@@ -14,14 +14,16 @@ namespace FCmsManagerAngular.Controllers;
 public class RepositoryController
 {
     [HttpGet]
-    [Route("cms/api/v1/repositories")]
-    public IEnumerable<PageViewModel> Index()
+    [Route("cms/api/v1/repositories/{contenttype}")]
+    public IEnumerable<PageViewModel> Index(string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
-        foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
+        ContentType contentType = Enum.Parse<ContentType>(contenttype);
+
+        foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == contentType))
         {
-            yield return new PageViewModel(){
+            yield return new PageViewModel() {
                 Id = repository.Id,
                 Name = repository.Name
             };

@@ -13,7 +13,7 @@ import { INewPageModel } from '../models/new-page.model';
 @Injectable()
 
 export class PagesService {
-  private listUrl: string = environment.baseurl + 'v1/repositories';
+  private listUrl: string = environment.baseurl + 'v1/repositories/Page';
   private url: string = environment.baseurl + 'v1/repository/';
   private definitionurl: string = environment.baseurl + 'v1/repository/structure/';
 
