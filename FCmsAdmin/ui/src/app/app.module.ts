@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DbModule } from './modules/db/db.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from '../environments/environment';
+import { ContentModule } from './modules/content/content.module';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { environment } from '../environments/environment';
     ]),
     ConfigModule,
     PagesModule,
+    ContentModule,
     DbModule,
     NgbModule
   ],
