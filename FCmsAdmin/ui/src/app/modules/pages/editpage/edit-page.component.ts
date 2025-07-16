@@ -4,7 +4,7 @@ import { IContentFilterModel } from '../models/content-filter.model';
 
 import { IPageContentModel } from '../models/page-content.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
-import { ContentService } from '../services/content.service'
+import { PageContentService } from '../services/page-content.service'
 import { PagesService } from '../../../services/pages.service';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     selector: 'pg-editpage',
     templateUrl: './edit-page.component.html',
     styleUrls: ['./edit-page.component.css'],
-    providers: [ContentService, PagesService, ToastService],
+    providers: [PageContentService, PagesService, ToastService],
     standalone: false
 })
 
@@ -25,7 +25,7 @@ export class EditpageComponent implements OnInit, OnDestroy {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private contentService: ContentService,
+    private pageContentService: PageContentService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     private router: Router,
@@ -38,7 +38,7 @@ export class EditpageComponent implements OnInit, OnDestroy {
     if (idvalue) {
       this.id = idvalue;
 
-      this.contentService.getPageContent(this.id, this.filters).subscribe(content => {
+      this.pageContentService.getPageContent(this.id, this.filters).subscribe(content => {
         this.pagesService.getPage(this.id).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
             this.definition = definition.data as IPageStructureModel;
@@ -53,7 +53,7 @@ export class EditpageComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.contentService.save(this.data).subscribe({
+    this.pageContentService.save(this.data).subscribe({
       next: data => {
         this.router.navigate(['/pages']);
       }
