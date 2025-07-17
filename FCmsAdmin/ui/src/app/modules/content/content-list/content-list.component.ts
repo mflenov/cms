@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   providers: [ContentService, ToastService],
   standalone: false
 })
+
 export class ContentListComponent implements OnInit, OnDestroy {
   content: IContentModel[] = [];
   pagesSubs!: Subscription;
