@@ -81,12 +81,14 @@ public class RepositoryController
         }
 
     [HttpPut]
-    [Route("cms/api/v1/repository")]
-    public async Task<ApiResultModel> Post(NewPageViewModel model)
+    [Route("cms/api/v1/repository/{contenttype}")]
+    public async Task<ApiResultModel> Post(NewPageViewModel model, string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
-        var repository = FCms.Factory.RepositoryFactory.CreateRepository(model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page, model.Name);
+        ContentType contentType = Enum.Parse<ContentType>(contenttype);
+
+        var repository = FCms.Factory.RepositoryFactory.CreateRepository(contentType, model.Name);
         if (model.Template == EnumViewModel.SIMPLE_PAGE)
             RepositoryTemplate.ApplyTemplate(ContentTemplate.SimplePage, repository);
 

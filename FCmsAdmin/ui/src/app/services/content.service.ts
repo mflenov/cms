@@ -14,7 +14,7 @@ import { INewContentModel } from '../models/new-content.model';
 
 export class ContentService {
   private listUrl: string = environment.baseurl + 'v1/repositories/Content';
-  private url: string = environment.baseurl + 'v1/repository/';
+  private url: string = environment.baseurl + 'v1/repository/Content';
   private definitionurl: string = environment.baseurl + 'v1/repository/structure/';
 
   constructor(private httpClient: HttpClient) 
