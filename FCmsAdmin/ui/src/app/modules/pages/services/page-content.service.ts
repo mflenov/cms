@@ -14,7 +14,7 @@ import { IContentItemModel } from '../models/content-item.model';
   providedIn: 'root'
 })
 
-export class ContentService {
+export class PageContentService {
   private editpageurl: string = environment.baseurl + 'v1/content';
   private filterpageurl: string = environment.baseurl + 'v1/content/filter';
   private listUrl: string = environment.baseurl + 'v1/content/list/';

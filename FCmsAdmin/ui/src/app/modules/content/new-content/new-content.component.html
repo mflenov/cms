@@ -1,0 +1,10 @@
+<h2>New page</h2>
+<div class="cms-repository">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" class="form-control" [(ngModel)]="model.name" />
+        </div>
+        <button class="cms-button">Save</button>
+    </form>
+</div>

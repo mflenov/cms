@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { IContentItemModel } from '../models/content-item.model';
 import { IContentListModel } from '../models/content-list.model';
-import { ContentService } from '../services/content.service';
+import { PageContentService } from '../services/page-content.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { IContentFilterModel } from '../models/content-filter.model';
@@ -39,7 +39,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private contentService: ContentService,
+    private contentService: PageContentService,
     private route: ActivatedRoute,
     private filtersService: FiltersService
   ) { }

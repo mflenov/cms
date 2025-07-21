@@ -7,11 +7,11 @@ import { PagesService } from '../../../services/pages.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-    selector: 'app-page-list',
-    templateUrl: './page-list.component.html',
-    styleUrls: ['./page-list.component.css'],
-    providers: [PagesService, ToastService],
-    standalone: false
+  selector: 'app-page-list',
+  templateUrl: './page-list.component.html',
+  styleUrls: ['./page-list.component.css'],
+  providers: [PagesService, ToastService],
+  standalone: false
 })
 
 export class PageListComponent implements OnInit, OnDestroy {

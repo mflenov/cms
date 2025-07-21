@@ -14,14 +14,16 @@ namespace FCmsManagerAngular.Controllers;
 public class RepositoryController
 {
     [HttpGet]
-    [Route("cms/api/v1/repositories")]
-    public IEnumerable<PageViewModel> Index()
+    [Route("cms/api/v1/repositories/{contenttype}")]
+    public IEnumerable<PageViewModel> Index(string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
-        foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == ContentType.Page))
+        ContentType contentType = Enum.Parse<ContentType>(contenttype);
+
+        foreach (IRepository repository in manager.Data.Repositories.Where(m => m.ContentType == contentType))
         {
-            yield return new PageViewModel(){
+            yield return new PageViewModel() {
                 Id = repository.Id,
                 Name = repository.Name
             };
@@ -58,8 +60,8 @@ public class RepositoryController
         }
 
     [HttpPatch]
-    [Route("cms/api/v1/repository")]
-    public async Task<ApiResultModel> Put(PageStructureViewModel model)
+    [Route("cms/api/v1/repository/{contenttype}")]
+    public async Task<ApiResultModel> Put(PageStructureViewModel model, string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
@@ -79,12 +81,14 @@ public class RepositoryController
         }
 
     [HttpPut]
-    [Route("cms/api/v1/repository")]
-    public async Task<ApiResultModel> Post(NewPageViewModel model)
+    [Route("cms/api/v1/repository/{contenttype}")]
+    public async Task<ApiResultModel> Post(NewPageViewModel model, string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
-        var repository = FCms.Factory.RepositoryFactory.CreateRepository(model.Template == EnumViewModel.DATABASE_CONTENT ? ContentType.DbContent : ContentType.Page, model.Name);
+        ContentType contentType = Enum.Parse<ContentType>(contenttype);
+
+        var repository = FCms.Factory.RepositoryFactory.CreateRepository(contentType, model.Name);
         if (model.Template == EnumViewModel.SIMPLE_PAGE)
             RepositoryTemplate.ApplyTemplate(ContentTemplate.SimplePage, repository);
 
@@ -100,8 +104,8 @@ public class RepositoryController
 
 
     [HttpDelete]
-    [Route("cms/api/v1/repository/{id}")]
-    public ApiResultModel Delete(string id) {
+    [Route("cms/api/v1/repository/{contenttype}/{id}")]
+    public ApiResultModel Delete(string id, string contenttype) {
         var manager = CmsManager.GetInstance();
 
         Guid guid;

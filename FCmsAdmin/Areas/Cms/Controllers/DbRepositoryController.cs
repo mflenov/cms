@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace FCmsManagerAngular.Controllers;
 
 [ApiController]
-public class DbController : ControllerBase
+public class DbRepositoryController : ControllerBase
 {
-    public DbController() {
+    public DbRepositoryController() {
     }
 
     [HttpGet]
