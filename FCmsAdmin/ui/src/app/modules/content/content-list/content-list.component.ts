@@ -15,7 +15,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 })
 
 export class ContentListComponent implements OnInit, OnDestroy {
-  content: IContentModel[] = [];
+  contents: IContentModel[] = [];
   pagesSubs!: Subscription;
 
   constructor(
@@ -25,7 +25,7 @@ export class ContentListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pagesSubs = this.contentService.getContents().subscribe(content => {
-        this.content = content;
+        this.contents = content;
     }, error => {this.toastService.error(error.message, error.status);});
   }
 
@@ -36,8 +36,8 @@ export class ContentListComponent implements OnInit, OnDestroy {
   deleteRow(id: string|undefined) : void {
     this.pagesSubs = this.contentService.deleteById(id!).subscribe({
       next: data => {
-        const index = this.content.findIndex(m => m.id == id);
-        this.content.splice(index, 1);
+        const index = this.contents.findIndex(m => m.id == id);
+        this.contents.splice(index, 1);
       }
     });
   }  
