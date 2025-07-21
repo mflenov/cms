@@ -60,8 +60,8 @@ public class RepositoryController
         }
 
     [HttpPatch]
-    [Route("cms/api/v1/repository")]
-    public async Task<ApiResultModel> Put(PageStructureViewModel model)
+    [Route("cms/api/v1/repository/{contenttype}")]
+    public async Task<ApiResultModel> Put(PageStructureViewModel model, string contenttype)
     {
         var manager = CmsManager.GetInstance();
 
@@ -104,8 +104,8 @@ public class RepositoryController
 
 
     [HttpDelete]
-    [Route("cms/api/v1/repository/{id}")]
-    public ApiResultModel Delete(string id) {
+    [Route("cms/api/v1/repository/{contenttype}/{id}")]
+    public ApiResultModel Delete(string id, string contenttype) {
         var manager = CmsManager.GetInstance();
 
         Guid guid;

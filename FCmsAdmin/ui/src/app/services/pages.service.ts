@@ -14,7 +14,7 @@ import { INewPageModel } from '../models/new-page.model';
 
 export class PagesService {
   private listUrl: string = environment.baseurl + 'v1/repositories/Page';
-  private url: string = environment.baseurl + 'v1/repository/Page';
+  private url: string = environment.baseurl + 'v1/repository/Page/';
   private definitionurl: string = environment.baseurl + 'v1/repository/structure/';
 
   constructor(private httpClient: HttpClient) 
