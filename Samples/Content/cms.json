@@ -106,15 +106,8 @@
     },
     {
       "$type": "FCms.Content.Repository, FCms",
-      "Id": "16bbadf0-1e0d-4b29-a276-7f0805ee22fa",
-      "Name": "Test",
-      "ContentType": 0,
-      "ContentDefinitions": []
-    },
-    {
-      "$type": "FCms.Content.Repository, FCms",
-      "Id": "b2fa162e-d933-49be-b65d-759f62d5345e",
-      "Name": "TestContent",
+      "Id": "f6a3df3c-731b-4ee7-b306-510613341358",
+      "Name": "Footer",
       "ContentType": 2,
       "ContentDefinitions": []
     }
