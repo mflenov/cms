@@ -2,13 +2,13 @@ import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, 
 import { ActivatedRoute } from '@angular/router';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
-import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
-import { ContentItemService } from '../services/content-item.service';
-import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
+import { IContentDefinitionsModel } from '../../models/content-definitions.model';
+import { ContentItemService } from '../../modules/pages/services/content-item.service';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 import { EditFiltersComponent } from './edit-filters.component';
 
 @Component({
-    selector: 'pg-content-item-editor',
+    selector: 'sh-content-item-editor',
     templateUrl: './content-item-editor.component.html',
     styleUrls: ['./content-item-editor.component.css'],
     standalone: false

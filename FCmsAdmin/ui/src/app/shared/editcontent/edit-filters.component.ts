@@ -1,14 +1,14 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { IContentFilterModel } from '../models/content-filter.model';
-import { FiltersService } from '../../../services/filters.service';
+import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { FiltersService } from '../../services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { Subscription } from 'rxjs';
 
-import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
-import { FilterControlService } from '../services/filter-control.service';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { FilterControlService } from '../../modules/pages/services/filter-control.service';
 
 @Component({
-    selector: 'pg-edit-filters',
+    selector: 'sh-edit-filters',
     templateUrl: './edit-filters.component.html',
     styleUrls: ['./edit-filters.component.css'],
     providers: [FiltersService, FilterControlService],

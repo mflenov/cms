@@ -1,23 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IContentFilterModel } from '../models/content-filter.model';
+import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
 
-import { IPageContentModel } from '../models/page-content.model';
-import { IPageStructureModel } from '../../../models/page-structure.model';
-import { PageContentService } from '../services/page-content.service'
-import { PagesService } from '../../../services/pages.service';
+import { IPageContentModel } from '../../modules/pages/models/page-content.model';
+import { IPageStructureModel } from '../../models/page-structure.model';
+import { PageContentService } from '../../modules/pages/services/page-content.service'
+import { PagesService } from '../../services/pages.service';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-    selector: 'pg-editpage',
-    templateUrl: './edit-page.component.html',
-    styleUrls: ['./edit-page.component.css'],
+    selector: 'sh-editcontent',
+    templateUrl: './edit-content.component.html',
+    styleUrls: ['./edit-content.component.css'],
     providers: [PageContentService, PagesService, ToastService],
     standalone: false
 })
 
-export class EditpageComponent implements OnInit, OnDestroy {
+export class EditContentComponent implements OnInit, OnDestroy {
   private id: string = "";
   filters: IContentFilterModel[] = [];
 

@@ -10,8 +10,8 @@ import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { IContentFilterModel } from '../models/content-filter.model';
 import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
-import { ContentItemComponent } from '../editpage/content-item.component'
-import { EditFiltersComponent } from '../editpage/edit-filters.component';
+import { ContentItemComponent } from '../../../shared/editcontent/content-item.component'
+import { EditFiltersComponent } from '../../../shared/editcontent/edit-filters.component';
 
 @Component({
     selector: 'app-list-page-content',

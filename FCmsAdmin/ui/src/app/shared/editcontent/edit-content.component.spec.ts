@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditpageComponent } from './edit-page.component';
+import { EditpageComponent } from './edit-content.component';
 
 describe('EditpageComponent', () => {
     let component: EditpageComponent;
