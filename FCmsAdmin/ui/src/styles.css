@@ -155,6 +155,7 @@
   padding: 10px;
   margin-bottom: 10px;
   background: #282b30;
+  border-radius:6px;
 }
 
 .fcms .cms-repository-item {
