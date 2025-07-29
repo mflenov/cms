@@ -49,7 +49,7 @@ export class DbconnectionsService {
       return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
-  handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     
     if (error.error instanceof ErrorEvent) {
