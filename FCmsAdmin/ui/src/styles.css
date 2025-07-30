@@ -84,15 +84,15 @@
 
 .fcms .cms-table th {
   width: 100%;
-  background: #ccc;
+  background: #222;
   padding: 4px 12px;
-  border: 1px solid #fff;
-  color:#212428
+  border: 1px solid #585b60;
+  color:#ccc;
 }
 
 .fcms .cms-table td {
   padding: 4px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #585b60;
 }
 
 .fcms .cms-table ul {
@@ -132,6 +132,10 @@
   color: #eee;
 }
 
+.fcms input:focus, .form-control:focus{
+  background: #9e9ea3;
+}
+
 .fcms .link {
     cursor: pointer;
 }
@@ -155,6 +159,7 @@
   padding: 10px;
   margin-bottom: 10px;
   background: #282b30;
+  border-radius:6px;
 }
 
 .fcms .cms-repository-item {
@@ -255,7 +260,7 @@
 
 .fcms h1 a,
 .fcms h1 a:visited{
-    color:#000;
+    color: #f07b66;
 }
 
 .fcms hr {

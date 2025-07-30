@@ -53,16 +53,14 @@ export class FiltersService {
       return this.httpClient.put(environment.apiCmsServiceEndpoint + this.url, model);
   }
 
-  handleError(err: HttpErrorResponse): Observable<never> {
+  private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-      // network error
-      errorMessage = `An error occurred: ${err.error.message}`;
+    
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
     } else {
-      // bad response code
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+      errorMessage = `${error.message}`;
     }
-    console.error(errorMessage);
-    return throwError(errorMessage);
+    return throwError({ status: error.status, message: errorMessage });
   }
 }

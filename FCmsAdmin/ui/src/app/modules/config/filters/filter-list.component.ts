@@ -3,12 +3,13 @@ import { Subscription } from 'rxjs';
 
 import { FiltersService } from '../../../services/filters.service';
 import { IFilterModel } from '../../../models/filter-model';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
     selector: 'app-filters',
     templateUrl: './filter-list.component.html',
     styleUrls: ['./filter-list.component.css'],
-    providers: [FiltersService],
+    providers: [FiltersService, ToastService],
     standalone: false
 })
 
@@ -16,15 +17,19 @@ export class FiltersComponent implements OnInit, OnDestroy {
   filters: IFilterModel[] = [];
   filtersSubs!: Subscription;
 
-  constructor(private filtersService: FiltersService) {
+  constructor(
+    private filtersService: FiltersService,
+    private toastService: ToastService
+  ) {
   }
 
   ngOnInit(): void {
-    this.filtersSubs = this.filtersService.getFilters().subscribe({
-      next: filters => {
+    this.filtersSubs = this.filtersService.getFilters().subscribe(
+      filters => {
         this.filters = filters.data as IFilterModel[];
       }
-    });
+      , error => {this.toastService.error(error.message, error.status);}
+    );
   }
 
   ngOnDestroy(): void {
