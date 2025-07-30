@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { Subscription } from 'rxjs';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { FiltersService } from 'src/app/services/filters.service';
-import { IContentFilterModel } from '../../models/content-filter.model';
+import { IContentFilterModel } from '../../../modules/pages/models/content-filter.model';
 
 @Component({
     selector: 'app-valuelist-filter-editor',

@@ -25,7 +25,7 @@
     <div *ngIf="folderitem.id" class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
 
     <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcms-forlder-item">
-      <pg-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></pg-content-item>
+      <sh-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></sh-content-item>
     </div>
 
     <div class="cms-controls">

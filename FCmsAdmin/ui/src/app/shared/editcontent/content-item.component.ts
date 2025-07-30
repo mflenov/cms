@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
-import { IContentFilterModel } from '../models/content-filter.model';
-import { IContentItemModel } from '../models/content-item.model';
-import { ContentItemService } from '../services/content-item.service';
+import { IContentDefinitionsModel } from '../../models/content-definitions.model';
+import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { IContentItemModel } from '../../modules/pages/models/content-item.model';
+import { ContentItemService } from '../../modules/pages/services/content-item.service';
 import { ContentItemEditorComponent } from './content-item-editor.component';
-import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 
 
 @Component({
-    selector: 'pg-content-item',
+    selector: 'sh-content-item',
     templateUrl: './content-item.component.html',
     styleUrls: ['./content-item.component.css'],
     standalone: false

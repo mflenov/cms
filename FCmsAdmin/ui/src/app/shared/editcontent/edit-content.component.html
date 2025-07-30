@@ -4,13 +4,13 @@
     <div class="col-md-8">
         <ng-container *ngFor="let definition of definition.contentDefinitions">
             <div [attr.id]="definition.definitionId" class="cms-repository">
-                <pg-content-item [definition]='definition' [data]='data.contentItems' [filters]='filters'></pg-content-item>
+                <sh-content-item [definition]='definition' [data]='data.contentItems' [filters]='filters'></sh-content-item>
             </div>
         </ng-container>
         <button class="cms-button" (click)="onSubmit()">Save</button>
     </div>
     <div class="col-md-4">
         <h2>Filter:</h2>
-        <pg-filters (onFilter)="onFilter($event)"></pg-filters>
+        <sh-filters (onFilter)="onFilter($event)"></sh-filters>
     </div>
 </div>

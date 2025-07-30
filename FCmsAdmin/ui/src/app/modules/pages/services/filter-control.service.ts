@@ -4,12 +4,12 @@ import { IContentFilterModel } from '../models/content-filter.model';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 
-import { TextFilterEditorComponent } from '../editpage/filter-controls/text-filter-editor.component';
-import { BoolFilterEditorComponent } from '../editpage/filter-controls/bool-filter-editor.component';
-import { DaterangeFilterEditorComponent } from '../editpage/filter-controls/daterange-filter-editor.component';
-import { DateFilterEditorComponent } from '../editpage/filter-controls/date-filter-editor.component';
-import { ValuelistFilterEditorComponent } from '../editpage/filter-controls/valuelist-filter-editor.component';
-import { RegexFilterEditorComponent } from '../editpage/filter-controls/regex-filter-editor.component';
+import { TextFilterEditorComponent } from '../../../shared/editcontent/filter-controls/text-filter-editor.component';
+import { BoolFilterEditorComponent } from '../../../shared/editcontent/filter-controls/bool-filter-editor.component';
+import { DaterangeFilterEditorComponent } from '../../../shared/editcontent/filter-controls/daterange-filter-editor.component';
+import { DateFilterEditorComponent } from '../../../shared/editcontent/filter-controls/date-filter-editor.component';
+import { ValuelistFilterEditorComponent } from '../../../shared/editcontent/filter-controls/valuelist-filter-editor.component';
+import { RegexFilterEditorComponent } from '../../../shared/editcontent/filter-controls/regex-filter-editor.component';
 
 @Injectable()
 
