@@ -1,4 +1,4 @@
-import { IContentFilterModel } from '../modules/pages/models/content-filter.model'
+import { IContentFilterModel } from './content-filter.model'
 
 export interface IContentDefinitionsModel {
   definitionId?: string;

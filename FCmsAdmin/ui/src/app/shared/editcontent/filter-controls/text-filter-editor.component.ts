@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
-import { IContentFilterModel } from '../../../modules/pages/models/content-filter.model';
+import { IContentFilterModel } from '../../../models/content-filter.model';
 
 @Component({
     selector: 'sh-text-filter-editor',

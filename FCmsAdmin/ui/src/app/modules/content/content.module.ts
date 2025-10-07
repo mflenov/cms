@@ -7,12 +7,14 @@ import { ContentListComponent } from './content-list/content-list.component'
 import { NewContentComponent } from './new-content/new-content.component';
 import { StructureComponent } from 'src/app/shared/structure/structure.component';
 import { EditContentComponent } from 'src/app/shared/editcontent/edit-content.component';
+import { PreviewComponent } from './preview/preview.component';
 
 
 @NgModule({
   declarations: [
     ContentListComponent,
-    NewContentComponent
+    NewContentComponent,
+    PreviewComponent
   ],
   imports: [
     SharedModule,
@@ -23,6 +25,7 @@ import { EditContentComponent } from 'src/app/shared/editcontent/edit-content.co
         { path: 'content/structure/:id', component: StructureComponent },
         { path: 'content/add', component: NewContentComponent },
         { path: 'content/edit/:id', component: EditContentComponent },
+        { path: 'content/preview/:id', component: PreviewComponent },
       ]
     )
   ]

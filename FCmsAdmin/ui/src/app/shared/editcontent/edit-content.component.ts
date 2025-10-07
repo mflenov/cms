@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { IContentFilterModel } from '../../models/content-filter.model';
 
-import { IPageContentModel } from '../../modules/pages/models/page-content.model';
+import { IPageContentModel } from '../../models/page-content.model';
 import { IPageStructureModel } from '../../models/page-structure.model';
 import { PageContentService } from '../../modules/pages/services/page-content.service'
 import { PagesService } from '../../services/pages.service';
