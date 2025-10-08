@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
-import { IContentItemModel } from '../models/content-item.model';
-import { IContentListModel } from '../models/content-list.model';
+import { IContentItemModel } from '../../../models/content-item.model';
+import { IContentListModel } from '../../../models/content-list.model';
 import { PageContentService } from '../services/page-content.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
-import { IContentFilterModel } from '../models/content-filter.model';
+import { IContentFilterModel } from '../../../models/content-filter.model';
 import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 import { ContentItemComponent } from '../../../shared/editcontent/content-item.component'
 import { EditFiltersComponent } from '../../../shared/editcontent/edit-filters.component';

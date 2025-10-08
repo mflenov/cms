@@ -106,26 +106,19 @@
     },
     {
       "$type": "FCms.Content.Repository, FCms",
-      "Id": "f6a3df3c-731b-4ee7-b306-510613341358",
+      "Id": "17ea62d7-720a-4a8c-b801-b272034fe003",
       "Name": "Footer",
       "ContentType": 2,
       "ContentDefinitions": [
         {
-          "$type": "FCms.Content.FolderContentDefinition, FCms",
-          "DefinitionId": "0a7c3c80-bc01-4ebf-b41a-82451c6747ce",
-          "Name": "LeftMenu",
-          "Definitions": [
-            {
-              "$type": "FCms.Content.StringContentDefinition, FCms",
-              "DefinitionId": "ef954ca7-f817-4dd6-a813-3f35aeaa9e6c",
-              "Name": "Link title"
-            },
-            {
-              "$type": "FCms.Content.StringContentDefinition, FCms",
-              "DefinitionId": "5ba3e210-caab-4449-903a-8be179032ca5",
-              "Name": "Link value"
-            }
-          ]
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "6f88fc55-dadc-4a42-8764-1a4d321ad57f",
+          "Name": "copyright"
+        },
+        {
+          "$type": "FCms.Content.StringContentDefinition, FCms",
+          "DefinitionId": "26cce74b-1ea8-4b43-a4a8-1f0ca528ca57",
+          "Name": "contacts"
         }
       ]
     }

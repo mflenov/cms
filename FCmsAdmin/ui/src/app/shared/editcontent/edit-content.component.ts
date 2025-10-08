@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { IContentFilterModel } from '../../models/content-filter.model';
 
-import { IPageContentModel } from '../../modules/pages/models/page-content.model';
+import { IPageContentModel } from '../../models/page-content.model';
 import { IPageStructureModel } from '../../models/page-structure.model';
 import { PageContentService } from '../../modules/pages/services/page-content.service'
 import { PagesService } from '../../services/pages.service';
@@ -18,8 +18,6 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 })
 
 export class EditContentComponent implements OnInit, OnDestroy {
-  private contentBaseUrl: string = "/";
-
   private id: string = "";
   filters: IContentFilterModel[] = [];
 
@@ -36,9 +34,6 @@ export class EditContentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const idvalue = this.route.snapshot.paramMap.get('id');
-    if (this.route.snapshot.url.length > 0) {
-      this.contentBaseUrl = '/' + this.route.snapshot.url[0].path;
-    }
 
     if (idvalue) {
       this.id = idvalue;
@@ -60,7 +55,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     this.pageContentService.save(this.data).subscribe({
       next: data => {
-        this.router.navigate([this.contentBaseUrl]);
+        this.router.navigate(['../../'],  {relativeTo: this.route});
       }
     });
   }

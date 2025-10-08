@@ -1,0 +1,21 @@
+{
+  "RepositoryId": "17ea62d7-720a-4a8c-b801-b272034fe003",
+  "Items": [
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "Created by Mikhail Flenov ",
+      "Id": "fa3d21a3-bc66-4a69-a880-214b2baad3bd",
+      "DefinitionId": "6f88fc55-dadc-4a42-8764-1a4d321ad57f",
+      "Filters": [],
+      "ToolTip": null
+    },
+    {
+      "$type": "FCms.Content.StringContentItem, FCms",
+      "Data": "http://dev.profwebdev.com/",
+      "Id": "2b1e536a-1697-43bb-b9be-66f2df8cc6fd",
+      "DefinitionId": "26cce74b-1ea8-4b43-a4a8-1f0ca528ca57",
+      "Filters": [],
+      "ToolTip": null
+    }
+  ]
+}

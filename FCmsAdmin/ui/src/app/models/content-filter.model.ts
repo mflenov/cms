@@ -1,4 +1,4 @@
-import { IFilterModel } from '../../../models/filter-model';
+import { IFilterModel } from './filter-model';
 
 export interface IContentFilterModel {
   filterDefinitionId?: string;

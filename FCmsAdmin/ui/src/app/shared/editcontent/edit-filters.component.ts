@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { IContentFilterModel } from '../../models/content-filter.model';
 import { FiltersService } from '../../services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { Subscription } from 'rxjs';

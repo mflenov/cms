@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { FiltersService } from '../../services/filters.service';
 import { IFilterModel } from '../../models/filter-model';
 import { ContentPlaceholderDirective } from './content-placeholder.directive';
-import { IContentFilterModel } from '../../modules/pages/models/content-filter.model';
+import { IContentFilterModel } from '../../models/content-filter.model';
 import { FilterControlService } from '../../modules/pages/services/filter-control.service';
 
 @Component({

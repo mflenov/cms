@@ -5,9 +5,9 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
-import { IPageContentModel } from '../models/page-content.model';
-import { IContentFilterModel } from '../models/content-filter.model';
-import { IContentItemModel } from '../models/content-item.model';
+import { IPageContentModel } from '../../../models/page-content.model';
+import { IContentFilterModel } from '../../../models/content-filter.model';
+import { IContentItemModel } from '../../../models/content-item.model';
 
 
 @Injectable({

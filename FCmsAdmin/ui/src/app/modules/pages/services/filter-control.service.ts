@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, Injectable, EventEmitter, Output } from '@angular/core';
 
-import { IContentFilterModel } from '../models/content-filter.model';
+import { IContentFilterModel } from '../../../models/content-filter.model';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
 
