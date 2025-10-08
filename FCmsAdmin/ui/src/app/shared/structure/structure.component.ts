@@ -66,6 +66,10 @@ export class StructureComponent implements OnInit, OnDestroy {
     });
   }
 
+  onGoBack(): void {
+    this.router.navigate(['../../'],  {relativeTo: this.route});
+  }
+
   onAddValue(): void {
     const model = {
       name: "",
