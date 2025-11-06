@@ -3,23 +3,27 @@
 
 <div class="row">
   <div class="col-md-8">
-    <ng-container *ngIf="data != null">
-      <div class="cms-repository-item" *ngFor="let content of data.rows">
+    @if (data != null) {
+      @for (content of data.rows; track content) {
+        <div class="cms-repository-item">
           <div class="cms-right fa fa-times link" (click)="deleteItem(content.values[0])"></div>
-          <ng-container *ngFor="let item of data.columns; index as i">
-           <div class="cms-db-row-value" *ngIf="!hiddenColumns.includes(item.name) && i > 0">
-              <label>{{item.name}}</label>
-              <div>{{content.values[i]}}</div>
-           </div>
-        </ng-container>
-        <div class="cms-db-row-footer">
-          <span>Created: {{getValue(content, "_created")}}</span>
-          <span>Modified: {{getValue(content, "_modified")}}</span>
+          @for (item of data.columns; track item; let i = $index) {
+            @if (!hiddenColumns.includes(item.name) && i > 0) {
+              <div class="cms-db-row-value">
+                <label>{{item.name}}</label>
+                <div>{{content.values[i]}}</div>
+              </div>
+            }
+          }
+          <div class="cms-db-row-footer">
+            <span>Created: {{getValue(content, "_created")}}</span>
+            <span>Modified: {{getValue(content, "_modified")}}</span>
+          </div>
         </div>
-      </div>
-    </ng-container>
+      }
+    }
   </div>
   <div class="col-md-4">
-      <a [routerLink]="['/db/content/add/' + definitionId]" class="cms-button">Add content</a>
+    <a [routerLink]="['/db/content/add/' + definitionId]" class="cms-button">Add content</a>
   </div>
- </div>
+</div>

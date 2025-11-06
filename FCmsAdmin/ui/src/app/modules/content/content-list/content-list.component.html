@@ -1,16 +1,17 @@
 <h1>Content</h1>
 
-<div class="cms-repository" *ngFor="let content of contents" [attr.id]="content.id">
+@for (content of contents; track content) {
+  <div class="cms-repository" [attr.id]="content.id">
     <h2>{{content.name}}</h2>
     <div class="cms-subline"></div>
-
     <div class="cmscontrols">
-        <a [routerLink]="['/content/edit', content.id]">Edit content</a> |
-        <a [routerLink]="['/content/structure', content.id]">Content structure</a> |
-        <a [routerLink]="['/content/preview', content.id]">Preview</a> |
-        <a href="javascript:void()" (click)="deleteRow(content.id)">Delete</a>
+      <a [routerLink]="['/content/edit', content.id]">Edit content</a> |
+      <a [routerLink]="['/content/structure', content.id]">Content structure</a> |
+      <a [routerLink]="['/content/preview', content.id]">Preview</a> |
+      <a href="javascript:void()" (click)="deleteRow(content.id)">Delete</a>
     </div>
-</div>
+  </div>
+}
 
 <br/>
 <a [routerLink]="['/content/add']" class="cms-button">Add</a>

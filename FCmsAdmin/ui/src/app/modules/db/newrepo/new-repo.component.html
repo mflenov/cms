@@ -1,17 +1,19 @@
 <h2>New repository</h2>
 <div class="cms-repository">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input name="name" class="form-control" [(ngModel)]="model.name" />
-        </div>
-        <div class="form-group">
-            <label for="name">Connection String</label>
-            <select name="filterType" class="form-control" [(ngModel)]="model.connectionId">
-                <option *ngFor="let type of dbConnections | async" value="{{type.id}}">{{type.name}}</option>
-            </select>
-        </div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name="name" class="form-control" [(ngModel)]="model.name" />
+    </div>
+    <div class="form-group">
+      <label for="name">Connection String</label>
+      <select name="filterType" class="form-control" [(ngModel)]="model.connectionId">
+        @for (type of dbConnections | async; track type) {
+          <option value="{{type.id}}">{{type.name}}</option>
+        }
+      </select>
+    </div>
 
-        <button class="cms-button">Save</button>
-    </form>
+    <button class="cms-button">Save</button>
+  </form>
 </div>

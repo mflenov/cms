@@ -1,32 +1,38 @@
 <h1>Edit filter</h1>
 <div class="cms-repository">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input name="name" class="form-control" [(ngModel)]="model.name" />
-        </div>
-        <div class="form-group">
-            <label for="displayname">Display Name</label>
-            <input name="displayname" class="form-control" [(ngModel)]="model.displayName" />
-        </div>
-        <div class="form-group">
-            <label for="filterType">Type</label>
-            <select name="filterType" class="form-control" [(ngModel)]="model.type">
-                <option *ngFor="let type of filterTypes | async" value="{{type}}">{{type}}</option>
-            </select>
-        </div>
-        <div class="form-group" *ngIf="model.type == 'ValueList'">
-            <h3>Values:</h3>
-            <div *ngFor="let value of model.values;let i = index;trackBy: trackByFn" class="form-group row">
-                <div class="col-sm-11" >
-                    <input name="value{{ i + 1 }}" class="form-control" [(ngModel)]="model.values[i]" type="text" autocomplete="off" autocapitalize="off" placeholder="Value" />
-                </div>
-                <div class="col-sm-1 fa fa-trash link" (click)="deleteValue(i)"></div>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name="name" class="form-control" [(ngModel)]="model.name" />
+    </div>
+    <div class="form-group">
+      <label for="displayname">Display Name</label>
+      <input name="displayname" class="form-control" [(ngModel)]="model.displayName" />
+    </div>
+    <div class="form-group">
+      <label for="filterType">Type</label>
+      <select name="filterType" class="form-control" [(ngModel)]="model.type">
+        @for (type of filterTypes | async; track type) {
+          <option value="{{type}}">{{type}}</option>
+        }
+      </select>
+    </div>
+    @if (model.type == 'ValueList') {
+      <div class="form-group">
+        <h3>Values:</h3>
+        @for (value of model.values; track trackByFn(i, value); let i = $index) {
+          <div class="form-group row">
+            <div class="col-sm-11" >
+              <input name="value{{ i + 1 }}" class="form-control" [(ngModel)]="model.values[i]" type="text" autocomplete="off" autocapitalize="off" placeholder="Value" />
             </div>
-            <div class="cms-right-controls cms-buttons">
-                <button class="cms-button" (click)="addValue()">Add new value</button>
-            </div>
+            <div class="col-sm-1 fa fa-trash link" (click)="deleteValue(i)"></div>
+          </div>
+        }
+        <div class="cms-right-controls cms-buttons">
+          <button class="cms-button" (click)="addValue()">Add new value</button>
         </div>
-        <button class="cms-button">Save</button>
-    </form>
+      </div>
+    }
+    <button class="cms-button">Save</button>
+  </form>
 </div>

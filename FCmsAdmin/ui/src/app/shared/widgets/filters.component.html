@@ -1,13 +1,17 @@
 <ng-template contentplaceholder></ng-template>
 
 
-<div *ngIf="availableFilters.length > 0">
+@if (availableFilters.length > 0) {
+  <div>
     <div>
-        <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
-            <option id="">- select value -</option>
-            <option *ngFor="let filter of availableFilters" [attr.value]="filter.id">{{filter.displayName}}</option>
-        </select>
+      <select [(ngModel)]="selectedFilter" class="form-control" (change)="addFilter()">
+        <option id="">- select value -</option>
+        @for (filter of availableFilters; track filter) {
+          <option [attr.value]="filter.id">{{filter.displayName}}</option>
+        }
+      </select>
     </div>
-</div>
+  </div>
+}
 
 <button class="cms-button" (click)="search()">Search</button>

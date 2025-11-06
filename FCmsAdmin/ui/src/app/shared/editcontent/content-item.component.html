@@ -1,19 +1,21 @@
-<ng-container *ngIf="content[definition.definitionId!]; then thenBlock else elseBlock"></ng-container>
-<ng-template #thenBlock>
-    <sh-content-item-editor [isControlsVisible]="isControlsVisible" [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId!]' (onAddFolder)='onAddFolder($event)' (onDelete)="onDelete($event)" ></sh-content-item-editor>
-</ng-template>
-
-<ng-template #elseBlock>
-    <div *ngIf="isNewItemVisible">
-        <h3>{{definition.name}}</h3>
-        Value for {{definition.name}} not found. <a class="cms-link" (click)="addValue(definition.definitionId!)">Add value</a>
-        <ng-container *ngIf="folderItem == false">
-            <div class="cms-controls cms-buttons">
-                <button *ngIf="isControlsVisible" class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
-            </div>
-        </ng-container>
+@if (content[definition.definitionId!]) {
+  <sh-content-item-editor [isControlsVisible]="isControlsVisible" [folderItemEditor]='folderItem' [definition]='definition' [content]='content[definition.definitionId!]' (onAddFolder)='onAddFolder($event)' (onDelete)="onDelete($event)" ></sh-content-item-editor>
+} @else {
+  @if (isNewItemVisible) {
+    <div>
+      <h3>{{definition.name}}</h3>
+      Value for {{definition.name}} not found. <a class="cms-link" (click)="addValue(definition.definitionId!)">Add value</a>
+      @if (folderItem == false) {
+        <div class="cms-controls cms-buttons">
+          @if (isControlsVisible) {
+            <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+          }
+        </div>
+      }
     </div>
-</ng-template>
+  }
+}
+
 
 <ng-template contentplaceholder></ng-template>
 

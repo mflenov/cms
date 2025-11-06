@@ -1,15 +1,16 @@
 <h1>DB repositories</h1>
 
-<div class="cms-repository" *ngFor="let repo of repositories" [attr.id]="repo.id">
+@for (repo of repositories; track repo) {
+  <div class="cms-repository" [attr.id]="repo.id">
     <h2>{{repo.name}}</h2>
     <div class="cms-subline"></div>
-
     <div class="cmscontrols">
-        <a [routerLink]="['/db/content', repo.id]">Edit content</a> |
-        <a [routerLink]="['/db/structure', repo.id]">Repository structure</a> |
-        <a href="javascript:void()" (click)="deleteRow(repo.id)">Delete</a>
+      <a [routerLink]="['/db/content', repo.id]">Edit content</a> |
+      <a [routerLink]="['/db/structure', repo.id]">Repository structure</a> |
+      <a href="javascript:void()" (click)="deleteRow(repo.id)">Delete</a>
     </div>
-</div>
+  </div>
+}
 
 <br/>
 <a [routerLink]="['/db/add']" class="cms-button">Add</a>

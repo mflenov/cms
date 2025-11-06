@@ -1,49 +1,61 @@
-<ng-container *ngIf="definition.typeName == 'String'">
+@if (definition.typeName == 'String') {
   <h3>{{definition.name}}</h3>
   <input name="name" class="form-control" [(ngModel)]="content.data" />
-</ng-container>
+}
 
-<ng-container *ngIf="definition.typeName == 'LongString'">
+@if (definition.typeName == 'LongString') {
   <h3>{{definition.name}}</h3>
   <tinymce [(ngModel)]="content.data"></tinymce>
-</ng-container>
+}
 
-<ng-container *ngIf="definition.typeName == 'Date'">
+@if (definition.typeName == 'Date') {
   <h3>{{definition.name}}</h3>
   <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
-</ng-container>
+}
 
-<ng-container *ngIf="definition.typeName == 'DateTime'">
+@if (definition.typeName == 'DateTime') {
   <h3>{{definition.name}}</h3>
   <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
-</ng-container>
+}
 
 
-<ng-container *ngIf="definition.typeName == 'Folder'">
+@if (definition.typeName == 'Folder') {
   <h3>{{definition.name}}</h3>
-  <div class="cms-folder" *ngFor="let folderitem of content">
-    <div *ngIf="folderitem.id" class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
-
-    <div *ngFor="let folder of definition.contentDefinitions;" [attr.id]="folder.definitionId" class="fcms-forlder-item">
-      <sh-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></sh-content-item>
+  @for (folderitem of content; track folderitem) {
+    <div class="cms-folder">
+      @if (folderitem.id) {
+        <div class="cms-right fa fa-times link" (click)="deleteFolderItem(folderitem.id)"></div>
+      }
+      @for (folder of definition.contentDefinitions; track folder) {
+        <div [attr.id]="folder.definitionId" class="fcms-forlder-item">
+          <sh-content-item [folderItem]='true' [definition]='folder' [data]='folderitem.children'></sh-content-item>
+        </div>
+      }
+      <div class="cms-controls">
+        <button class="cms-button" (click)="showFilters(folderitem.filters)">Filters</button>
+      </div>
     </div>
-
-    <div class="cms-controls">
-      <button class="cms-button" (click)="showFilters(folderitem.filters)">Filters</button>
-    </div>
-  </div>
+  }
   <div class="cms-right-controls cms-buttons">
-    <button class="cms-button" *ngIf="isControlsVisible" (click)="addFolderValue(definition.definitionId)">Add new value</button>
-    <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+    @if (isControlsVisible) {
+      <button class="cms-button" (click)="addFolderValue(definition.definitionId)">Add new value</button>
+    }
+    @if (isControlsVisible) {
+      <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+    }
   </div>
-</ng-container>
+}
 
-<ng-container *ngIf="folderItemEditor == false && definition.typeName != 'Folder'">
+@if (folderItemEditor == false && definition.typeName != 'Folder') {
   <div class="cms-controls cms-buttons">
-    <button class="cms-button" *ngIf="isControlsVisible" (click)="showFilters(content.filters)">Filters</button>
-    <button class="cms-button" *ngIf="isControlsVisible" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+    @if (isControlsVisible) {
+      <button class="cms-button" (click)="showFilters(content.filters)">Filters</button>
+    }
+    @if (isControlsVisible) {
+      <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+    }
   </div>
-</ng-container>
+}
 
 <sh-slide-panel [isVisible]="isFiltersPanelVisible" (onSave)="onSaveFilters()" (onCancel)="onCancelFilters()">
   <div pane>
