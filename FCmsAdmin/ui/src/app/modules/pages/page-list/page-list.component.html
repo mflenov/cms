@@ -1,16 +1,17 @@
 <h1>Pages</h1>
 
-<div class="cms-repository" *ngFor="let page of pages" [attr.id]="page.id">
+@for (page of pages; track page) {
+  <div class="cms-repository" [attr.id]="page.id">
     <h2>{{page.name}}</h2>
     <div class="cms-subline"></div>
-
     <div class="cmscontrols">
-        <a [routerLink]="['/pages/edit', page.id]">Edit page</a> |
-        <a [routerLink]="['/pages/structure', page.id]">Page structure</a> |
-        <a [routerLink]="['/pages/preview', page.id]">Preview</a> |
-        <a href="javascript:void()" (click)="deleteRow(page.id)">Delete</a>
+      <a [routerLink]="['/pages/edit', page.id]">Edit page</a> |
+      <a [routerLink]="['/pages/structure', page.id]">Page structure</a> |
+      <a [routerLink]="['/pages/preview', page.id]">Preview</a> |
+      <a href="javascript:void()" (click)="deleteRow(page.id)">Delete</a>
     </div>
-</div>
+  </div>
+}
 
 <br/>
 <a [routerLink]="['/pages/add']" class="cms-button">Add</a>

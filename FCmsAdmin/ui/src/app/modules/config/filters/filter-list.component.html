@@ -1,22 +1,24 @@
 <h1>Filters</h1>
 
 <div class="cms-repository">
-    <table class="cms-table">
-        <tr>
-            <th style="width:40%">Name</th>
-            <th style="width:40%">Display Name</th>
-            <th>Type</th>
-            <th></th>
-        </tr>
-        <tr *ngFor="let filter of filters" [attr.id]="filter.id">
-            <td>
-                <a [routerLink]="['/config/filter', filter.id]">{{filter.name}}</a>
-            </td>
-            <td>{{filter.displayName}}</td>
-            <td>{{filter.type}}</td>
-            <td><span class="fa fa-trash link" (click)="deleteRow(filter.id)"></span></td>
-        </tr>
-    </table>
-    <br />
-    <button [routerLink]="['/config/filter']" class="cms-button" data-cy="add-button">Add</button>
+  <table class="cms-table">
+    <tr>
+      <th style="width:40%">Name</th>
+      <th style="width:40%">Display Name</th>
+      <th>Type</th>
+      <th></th>
+    </tr>
+    @for (filter of filters; track filter) {
+      <tr [attr.id]="filter.id">
+        <td>
+          <a [routerLink]="['/config/filter', filter.id]">{{filter.name}}</a>
+        </td>
+        <td>{{filter.displayName}}</td>
+        <td>{{filter.type}}</td>
+        <td><span class="fa fa-trash link" (click)="deleteRow(filter.id)"></span></td>
+      </tr>
+    }
+  </table>
+  <br />
+  <button [routerLink]="['/config/filter']" class="cms-button" data-cy="add-button">Add</button>
 </div>

@@ -1,7 +1,9 @@
 <div class="fcms-filter-item">
-    <span class="cms-right fa fa-times link" (click)="delete()"> </span>
-    <h4>{{title}}:</h4>
-	<select name="name" class="form-control" [(ngModel)]="model.values[0]">
-		<option *ngFor="let v of values" value="{{v}}">{{ v }}</option>
-	</select>
+  <span class="cms-right fa fa-times link" (click)="delete()"> </span>
+  <h4>{{title}}:</h4>
+  <select name="name" class="form-control" [(ngModel)]="model.values[0]">
+    @for (v of values; track v) {
+      <option value="{{v}}">{{ v }}</option>
+    }
+  </select>
 </div>

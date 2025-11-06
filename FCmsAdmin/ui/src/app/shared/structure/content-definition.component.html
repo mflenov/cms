@@ -1,23 +1,29 @@
 <div class="row">
-    <div class="col-md-5">
-        <label for="name">Name</label>
-        <input name="name" class="form-control" [(ngModel)]="definition.name" />
-    </div>
+  <div class="col-md-5">
+    <label for="name">Name</label>
+    <input name="name" class="form-control" [(ngModel)]="definition.name" />
+  </div>
 
-    <div class="col-md-5">
-        <label for="name">Type</label>
-        <select name="filterType" class="form-control" [(ngModel)]="definition.typeName">
-            <option *ngFor="let type of dataTypes | async" value="{{type}}">{{type}}</option>
-        </select>
-    </div>
+  <div class="col-md-5">
+    <label for="name">Type</label>
+    <select name="filterType" class="form-control" [(ngModel)]="definition.typeName">
+      @for (type of dataTypes | async; track type) {
+        <option value="{{type}}">{{type}}</option>
+      }
+    </select>
+  </div>
 
-    <div *ngIf="definition.typeName == 'Folder'" class="cms-folder">
-        <div *ngFor="let folder of definition.contentDefinitions" [attr.id]="folder.definitionId">
-            <div class="cms-right fa fa-times link" (click)="deleteRow(folder.definitionId)"></div>
-            <sh-content-definition [definition]='folder'></sh-content-definition>
+  @if (definition.typeName == 'Folder') {
+    <div class="cms-folder">
+      @for (folder of definition.contentDefinitions; track folder) {
+        <div [attr.id]="folder.definitionId">
+          <div class="cms-right fa fa-times link" (click)="deleteRow(folder.definitionId)"></div>
+          <sh-content-definition [definition]='folder'></sh-content-definition>
         </div>
-        <div class="cms-right-controls">
-            <button class="cms-button" (click)="onAddValue()">Add value</button>
-        </div>
+      }
+      <div class="cms-right-controls">
+        <button class="cms-button" (click)="onAddValue()">Add value</button>
+      </div>
     </div>
+  }
 </div>

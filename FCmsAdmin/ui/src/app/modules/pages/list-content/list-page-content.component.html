@@ -1,56 +1,64 @@
 <h1><a href="/pages/edit/{{repositoryId}}">{{repositoryName}}</a> - "{{definition.name}}"</h1>
 
 <div class="fcms-top-search col-md-8">
-	<h3>Search</h3>
-	<sh-filters (onFilter)="onFilter($event)"></sh-filters>
+  <h3>Search</h3>
+  <sh-filters (onFilter)="onFilter($event)"></sh-filters>
 </div>
 
 <div class="row">
-    <div class="col-md-8">
-        <ng-container *ngFor="let content of data">
-            <div [attr.id]="definition.definitionId" class="cms-repository">
-				<span class="cms-right fa fa-times link padding-left-8" (click)="delete(content.id)" > </span>
-				<span class="cms-right fa fa-edit link padding-left-8" (click)="edit(content.id)"> </span>
-
-				<ng-container *ngIf="definition.typeName == 'String'">
-					<h3>Value</h3>
-					<span>{{content.data}}</span>
-				</ng-container>
-
-				<ng-container *ngIf="definition.typeName == 'Folder'">
-					<ng-container *ngFor="let childcontent of content.children">
-						<div>{{childcontent.data}}</div>
-					</ng-container>
-				</ng-container>
-				<hr/>
-				<h3>Filters</h3>
-				<ng-container *ngFor="let filter of content.filters">
-					<div>
-						<label>{{ filters[filter.filterDefinitionId!].name }}</label>:
-						<span *ngIf="filters[filter.filterDefinitionId!].type == 'DateRange'">
-							{{filter.values[0] | date:'medium'}} - {{filter.values[1] | date:'medium'}}
-						</span>
-						<span *ngIf="filters[filter.filterDefinitionId!].type == 'Boolean'">
-							{{filter.values[0]}}
-						</span>
-						<span *ngIf="filters[filter.filterDefinitionId!].type == 'Text'">
-							{{filter.values[0]}}
-						</span>
-						<span *ngIf="filters[filter.filterDefinitionId!].type == 'RegEx'">
-							{{filter.values[0]}}
-						</span>
-						<span *ngIf="filters[filter.filterDefinitionId!].type == 'ValueList'">
-							{{filter.values[0]}}
-						</span>
-					</div>
-				</ng-container>
-			</div>
-        </ng-container>
-    </div>
+  <div class="col-md-8">
+    @for (content of data; track content) {
+      <div [attr.id]="definition.definitionId" class="cms-repository">
+        <span class="cms-right fa fa-times link padding-left-8" (click)="delete(content.id)" > </span>
+        <span class="cms-right fa fa-edit link padding-left-8" (click)="edit(content.id)"> </span>
+        @if (definition.typeName == 'String') {
+          <h3>Value</h3>
+          <span>{{content.data}}</span>
+        }
+        @if (definition.typeName == 'Folder') {
+          @for (childcontent of content.children; track childcontent) {
+            <div>{{childcontent.data}}</div>
+          }
+        }
+        <hr/>
+        <h3>Filters</h3>
+        @for (filter of content.filters; track filter) {
+          <div>
+            <label>{{ filters[filter.filterDefinitionId!].name }}</label>:
+            @if (filters[filter.filterDefinitionId!].type == 'DateRange') {
+              <span>
+                {{filter.values[0] | date:'medium'}} - {{filter.values[1] | date:'medium'}}
+              </span>
+            }
+            @if (filters[filter.filterDefinitionId!].type == 'Boolean') {
+              <span>
+                {{filter.values[0]}}
+              </span>
+            }
+            @if (filters[filter.filterDefinitionId!].type == 'Text') {
+              <span>
+                {{filter.values[0]}}
+              </span>
+            }
+            @if (filters[filter.filterDefinitionId!].type == 'RegEx') {
+              <span>
+                {{filter.values[0]}}
+              </span>
+            }
+            @if (filters[filter.filterDefinitionId!].type == 'ValueList') {
+              <span>
+                {{filter.values[0]}}
+              </span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>
 
 <sh-slide-panel [isVisible]="isContentEditorVisible" (onSave)="onSaveContentChanges()" (onCancel)="onCancelContentChanges()" >
-    <div pane>
-        <ng-template contentplaceholder></ng-template>
-    </div>
+  <div pane>
+    <ng-template contentplaceholder></ng-template>
+  </div>
 </sh-slide-panel>
