@@ -3,14 +3,14 @@ import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { IContentFilterModel } from '../../../models/content-filter.model';
 import { IPagePreviewModel } from '../../../models/page-preview.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
-import { PageContentService } from '../services/page-content.service';
+import { PageItemService } from '../services/page-item.service';
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
     selector: 'app-preview',
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css'],
-    providers: [PageContentService, PagesService],
+    providers: [PageItemService, PagesService],
     standalone: false
 })
 export class PreviewComponent implements OnInit {
@@ -22,7 +22,7 @@ export class PreviewComponent implements OnInit {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private contentService: PageContentService,
+    private contentService: PageItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     ) { }

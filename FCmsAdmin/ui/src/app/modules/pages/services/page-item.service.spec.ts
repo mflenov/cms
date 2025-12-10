@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PageContentService } from './page-content.service';
+import { PageItemService } from './page-item.service';
 
 describe('ContentService', () => {
-  let service: PageContentService;
+  let service: PageItemService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PageContentService);
+    service = TestBed.inject(PageItemService);
   });
 
   it('should be created', () => {
