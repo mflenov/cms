@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHandler } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
@@ -14,7 +13,7 @@ import { IContentItemModel } from '../../../models/content-item.model';
   providedIn: 'root'
 })
 
-export class PageContentService {
+export class PageItemService {
   private editpageurl: string = environment.baseurl + 'v1/content';
   private filterpageurl: string = environment.baseurl + 'v1/content/filter';
   private listUrl: string = environment.baseurl + 'v1/content/list/';

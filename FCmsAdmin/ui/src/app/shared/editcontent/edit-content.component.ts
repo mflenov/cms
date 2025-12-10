@@ -4,7 +4,7 @@ import { IContentFilterModel } from '../../models/content-filter.model';
 
 import { IPageContentModel } from '../../models/page-content.model';
 import { IPageStructureModel } from '../../models/page-structure.model';
-import { PageContentService } from '../../modules/pages/services/page-content.service'
+import { PageItemService } from '../../modules/pages/services/page-item.service'
 import { PagesService } from '../../services/pages.service';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     selector: 'sh-editcontent',
     templateUrl: './edit-content.component.html',
     styleUrls: ['./edit-content.component.css'],
-    providers: [PageContentService, PagesService, ToastService],
+    providers: [PageItemService, PagesService, ToastService],
     standalone: false
 })
 
@@ -25,7 +25,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private pageContentService: PageContentService,
+    private pageContentService: PageItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     private router: Router,
