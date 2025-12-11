@@ -22,7 +22,7 @@ export class PreviewComponent implements OnInit {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private contentService: RepositoryItemService,
+    private repositoryService: RepositoryItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     ) { }
@@ -45,7 +45,7 @@ export class PreviewComponent implements OnInit {
   onFilter(filters: IContentFilterModel[]): void {
     this.searchfilters = filters;
 
-    this.contentService.filterContent(this.id, this.searchfilters).subscribe(content => {
+    this.repositoryService.filterContent(this.id, this.searchfilters).subscribe(content => {
       this.data = (content.data as IPagePreviewModel[]);
     })
   }
