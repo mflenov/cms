@@ -4,7 +4,7 @@ import { IContentFilterModel } from '../../models/content-filter.model';
 
 import { IPageContentModel } from '../../models/page-content.model';
 import { IPageStructureModel } from '../../models/page-structure.model';
-import { PageItemService } from '../../modules/pages/services/page-item.service'
+import { RepositoryItemService } from '../../services/repository-item.service'
 import { PagesService } from '../../services/pages.service';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -13,7 +13,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     selector: 'sh-editcontent',
     templateUrl: './edit-content.component.html',
     styleUrls: ['./edit-content.component.css'],
-    providers: [PageItemService, PagesService, ToastService],
+    providers: [RepositoryItemService, PagesService, ToastService],
     standalone: false
 })
 
@@ -25,7 +25,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private pageContentService: PageItemService,
+    private pageContentService: RepositoryItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     private router: Router,
@@ -38,7 +38,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
     if (idvalue) {
       this.id = idvalue;
 
-      this.pageContentService.getPageContent(this.id, this.filters).subscribe(content => {
+      this.pageContentService.getContent(this.id, this.filters).subscribe(content => {
         this.pagesService.getPage(this.id).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
             this.definition = definition.data as IPageStructureModel;

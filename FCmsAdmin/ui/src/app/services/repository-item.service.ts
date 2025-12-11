@@ -4,16 +4,16 @@ import { Observable, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IApiRequestModel } from 'src/app/models/api-request-model'
-import { IPageContentModel } from '../../../models/page-content.model';
-import { IContentFilterModel } from '../../../models/content-filter.model';
-import { IContentItemModel } from '../../../models/content-item.model';
+import { IPageContentModel } from '../models/page-content.model';
+import { IContentFilterModel } from '../models/content-filter.model';
+import { IContentItemModel } from '../models/content-item.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class PageItemService {
+export class RepositoryItemService {
   private editpageurl: string = environment.baseurl + 'v1/content';
   private filterpageurl: string = environment.baseurl + 'v1/content/filter';
   private listUrl: string = environment.baseurl + 'v1/content/list/';
@@ -22,7 +22,7 @@ export class PageItemService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getPageContent(id: string, filters: IContentFilterModel[]): Observable<IApiRequestModel> {
+  getContent(id: string, filters: IContentFilterModel[]): Observable<IApiRequestModel> {
     const headers = {
       'content-type': 'application/json',
       'accept': 'text/plain'
@@ -35,7 +35,7 @@ export class PageItemService {
       { 'headers': headers });
   }
 
-  filterPageContent(id: string, filters: IContentFilterModel[] ): Observable<IApiRequestModel> {
+  filterContent(id: string, filters: IContentFilterModel[] ): Observable<IApiRequestModel> {
     const headers = {
       'content-type': 'application/json',
       'accept': 'text/plain'
@@ -49,7 +49,7 @@ export class PageItemService {
       { 'headers': headers });
   }
 
-  listPageContent(repositoryId: string, definitionId: string, filters: IContentFilterModel[] = []): Observable<IApiRequestModel> {
+  listContent(repositoryId: string, definitionId: string, filters: IContentFilterModel[] = []): Observable<IApiRequestModel> {
     const headers = {
       'content-type': 'application/json',
       'accept': 'text/plain'

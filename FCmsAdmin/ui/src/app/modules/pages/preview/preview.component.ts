@@ -3,14 +3,14 @@ import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { IContentFilterModel } from '../../../models/content-filter.model';
 import { IPagePreviewModel } from '../../../models/page-preview.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
-import { PageItemService } from '../services/page-item.service';
+import { RepositoryItemService } from '../../../services/repository-item.service';
 import { PagesService } from '../../../services/pages.service';
 
 @Component({
     selector: 'app-preview',
     templateUrl: './preview.component.html',
     styleUrls: ['./preview.component.css'],
-    providers: [PageItemService, PagesService],
+    providers: [RepositoryItemService, PagesService],
     standalone: false
 })
 export class PreviewComponent implements OnInit {
@@ -22,7 +22,7 @@ export class PreviewComponent implements OnInit {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private contentService: PageItemService,
+    private contentService: RepositoryItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     ) { }
@@ -45,7 +45,7 @@ export class PreviewComponent implements OnInit {
   onFilter(filters: IContentFilterModel[]): void {
     this.searchfilters = filters;
 
-    this.contentService.filterPageContent(this.id, this.searchfilters).subscribe(content => {
+    this.contentService.filterContent(this.id, this.searchfilters).subscribe(content => {
       this.data = (content.data as IPagePreviewModel[]);
     })
   }

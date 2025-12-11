@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
 import { IContentItemModel } from '../../../models/content-item.model';
 import { IContentListModel } from '../../../models/content-list.model';
-import { PageItemService } from '../services/page-item.service';
+import { RepositoryItemService } from '../../../services/repository-item.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
 import { IContentFilterModel } from '../../../models/content-filter.model';
@@ -39,7 +39,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private contentService: PageItemService,
+    private contentService: RepositoryItemService,
     private route: ActivatedRoute,
     private filtersService: FiltersService
   ) { }
@@ -50,7 +50,7 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
 
     if (this.repositoryId && this.definitionId) {
       this.filtersSubs = this.filtersService.getFilters().subscribe(filters => {
-        this.contentSubs = this.contentService.listPageContent(this.repositoryId, this.definitionId, this.searchfilters).subscribe(content => {
+        this.contentSubs = this.contentService.listContent(this.repositoryId, this.definitionId, this.searchfilters).subscribe(content => {
           this.data = (content.data as IContentListModel).contentItems;
           this.definition = (content.data as IContentListModel).definition;
           this.repositoryName = (content.data as IContentListModel).repositoryName;
