@@ -5,6 +5,7 @@ import { IPagePreviewModel } from '../../../models/page-preview.model';
 import { IPageStructureModel } from '../../../models/page-structure.model';
 import { ContentService } from '../../../services/content.service';
 import { PagesService } from '../../../services/pages.service';
+import { RepositoryItemService } from 'src/app/services/repository-item.service';
 
 @Component({
     selector: 'app-content-preview',
@@ -22,7 +23,7 @@ export class PreviewComponent implements OnInit {
   definition: IPageStructureModel = {} as IPageStructureModel;
 
   constructor(
-    private contentService: ContentService,
+    private repositoryService: RepositoryItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     ) { }
@@ -45,10 +46,8 @@ export class PreviewComponent implements OnInit {
   onFilter(filters: IContentFilterModel[]): void {
     this.searchfilters = filters;
 
-/*    this.contentService.filterPageContent(this.id, this.searchfilters).subscribe(content => {
+    this.repositoryService.filterContent(this.id, this.searchfilters).subscribe(content => {
       this.data = (content.data as IPagePreviewModel[]);
     })
-
-*/
   }
 }
