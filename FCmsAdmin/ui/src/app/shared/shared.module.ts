@@ -55,6 +55,7 @@ import { FiltersComponent } from './widgets/filters.component';
         EditContentComponent,
         ToastComponent,
         FiltersComponent,
+        ContentPlaceholderDirective
     ], 
     imports: [
         FormsModule,
