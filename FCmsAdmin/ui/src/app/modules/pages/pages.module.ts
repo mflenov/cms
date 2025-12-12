@@ -4,16 +4,15 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { PageListComponent } from './page-list/page-list.component';
 import { NewPageComponent } from './newpage/new-page.component';
-import { ListPageContentComponent } from './list-content/list-page-content.component';
 import { PreviewComponent } from './preview/preview.component';
 import { StructureComponent } from 'src/app/shared/structure/structure.component';
 import { EditContentComponent } from 'src/app/shared/editcontent/edit-content.component';
+import { ListPageContentComponent } from 'src/app/shared/list-content/list-page-content.component';
 
 @NgModule({
   declarations: [
     PageListComponent,
     NewPageComponent,
-    ListPageContentComponent,
     PreviewComponent,
   ],
   imports: [
