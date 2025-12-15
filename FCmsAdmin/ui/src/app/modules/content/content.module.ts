@@ -8,6 +8,7 @@ import { NewContentComponent } from './new-content/new-content.component';
 import { StructureComponent } from 'src/app/shared/structure/structure.component';
 import { EditContentComponent } from 'src/app/shared/editcontent/edit-content.component';
 import { PreviewComponent } from './preview/preview.component';
+import { ListPageContentComponent } from 'src/app/shared/list-content/list-page-content.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { PreviewComponent } from './preview/preview.component';
         { path: 'content/add', component: NewContentComponent },
         { path: 'content/edit/:id', component: EditContentComponent },
         { path: 'content/preview/:id', component: PreviewComponent },
+        { path: 'content/list/:repo/:id', component: ListPageContentComponent }
       ]
     )
   ]

@@ -2,19 +2,19 @@ import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } fro
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { IContentDefinitionsModel } from '../../../models/content-definitions.model';
-import { IContentItemModel } from '../../../models/content-item.model';
-import { IContentListModel } from '../../../models/content-list.model';
-import { RepositoryItemService } from '../../../services/repository-item.service';
+import { IContentDefinitionsModel } from '../../models/content-definitions.model';
+import { IContentItemModel } from '../../models/content-item.model';
+import { IContentListModel } from '../../models/content-list.model';
+import { RepositoryItemService } from '../../services/repository-item.service';
 import { FiltersService } from 'src/app/services/filters.service';
 import { IFilterModel } from 'src/app/models/filter-model';
-import { IContentFilterModel } from '../../../models/content-filter.model';
-import { ContentPlaceholderDirective } from '../../../shared/widgets/content-placeholder.directive';
-import { ContentItemComponent } from '../../../shared/editcontent/content-item.component'
-import { EditFiltersComponent } from '../../../shared/editcontent/edit-filters.component';
+import { IContentFilterModel } from '../../models/content-filter.model';
+import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
+import { ContentItemComponent } from '../editcontent/content-item.component'
+import { EditFiltersComponent } from '../editcontent/edit-filters.component';
 
 @Component({
-    selector: 'app-list-page-content',
+    selector: 'sh-list-page-content',
     templateUrl: './list-page-content.component.html',
     styleUrls: ['./list-page-content.component.css'],
     providers: [FiltersService],

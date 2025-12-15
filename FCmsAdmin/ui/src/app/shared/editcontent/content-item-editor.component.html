@@ -41,7 +41,7 @@
       <button class="cms-button" (click)="addFolderValue(definition.definitionId)">Add new value</button>
     }
     @if (isControlsVisible) {
-      <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+      <button class="cms-button" [routerLink]="['../../list', repositoryId, definition.definitionId]">List variations</button>
     }
   </div>
 }
@@ -52,7 +52,7 @@
       <button class="cms-button" (click)="showFilters(content.filters)">Filters</button>
     }
     @if (isControlsVisible) {
-      <button class="cms-button" [routerLink]="['/pages/list', repositoryId, definition.definitionId]">List variations</button>
+      <button class="cms-button" [routerLink]="['../../list', repositoryId, definition.definitionId]">List variations</button>
     }
   </div>
 }

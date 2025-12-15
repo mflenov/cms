@@ -9,6 +9,7 @@ import { FilterComponent } from './filters/filter-edit.component';
 
 import { DbconnectionsComponent } from './dbconnections/dbconnections.component'
 import { DbconnectionComponent } from './dbconnections/dbconnection.component'
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -31,6 +32,7 @@ import { DbconnectionComponent } from './dbconnections/dbconnection.component'
         { path: 'config/dbconnections', component: DbconnectionsComponent },
         { path: 'config/dbconnection/:id', component: DbconnectionComponent },
         { path: 'config/dbconnection', component: DbconnectionComponent },
+        { path: 'config/users', component: UsersComponent },
       ]
     )
   ]
