@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NotfoundComponent } from './notfound/notfound.component';
@@ -15,6 +16,7 @@ import { DbModule } from './modules/db/db.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from '../environments/environment';
 import { ContentModule } from './modules/content/content.module';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -38,7 +40,10 @@ import { ContentModule } from './modules/content/content.module';
     DbModule,
     NgbModule
   ],
-  providers: [{provide: APP_BASE_HREF, useValue: environment.baseweburl}],
+  providers: [
+    { provide: APP_BASE_HREF, useValue: environment.baseweburl },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
