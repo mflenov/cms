@@ -1,14 +1,12 @@
 ﻿using FCms.Auth.Abstract;
-using Microsoft.Extensions.Configuration;
-
 
 namespace FCms.Auth.Concrete
 {
     public class ConfigAuthentication : ICmsAuthentication
     {
-        private readonly AdminAuthConfig _adminAuthConfig;
+        private readonly CmsUserModel _adminAuthConfig;
 
-        public ConfigAuthentication(AdminAuthConfig adminAuthConfig)
+        public ConfigAuthentication(CmsUserModel adminAuthConfig)
         {
             _adminAuthConfig = adminAuthConfig;
         }

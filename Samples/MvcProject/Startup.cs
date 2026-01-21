@@ -33,9 +33,9 @@ namespace FCmsSample
             services.AddScoped<ICmsAuthentication, ConfigAuthentication>();
                         
             // config inject way
-            var adminAuthConfig = new AdminAuthConfig();
+            var adminAuthConfig = new CmsUserModel();
             Configuration.GetSection("FCmsAuth").GetSection("Admin").Bind(adminAuthConfig);
-            services.AddSingleton<AdminAuthConfig>(adminAuthConfig);
+            services.AddSingleton<CmsUserModel>(adminAuthConfig);
             
             
             services.AddControllersWithViews();
