@@ -6,15 +6,31 @@ namespace FCms.Auth.Implementations;
 
 public class CmsUsers : ICmsUsers
 {
-    private readonly List<CmsUserModel> _users;
+    static CmsUsers cmsUsers = null;
 
-    public CmsUsers(string filename)
+    private readonly List<CmsUserModel> users = new List<CmsUserModel>();
+
+    private CmsUsers()
     {
-        
+        LoadUsersFromFile();
+    }
+
+    public static CmsUsers GetInstance()
+    {
+        if (cmsUsers == null)
+        {
+            cmsUsers = new CmsUsers();
+        }
+        return cmsUsers;
     }
 
     public List<CmsUserModel> GetAllUsers()
     {
-        return _users;
+        return users;
+    }
+
+    public void LoadUsersFromFile()
+    {
+        users.Add(new CmsUserModel() { Id = System.Guid.NewGuid(), Username = "admin" });
     }
 }

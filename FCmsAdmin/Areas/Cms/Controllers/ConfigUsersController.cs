@@ -17,9 +17,7 @@ public class ConfigUsersController
     public ConfigUsersController()
     {
         if (cmsUsers == null)
-        {
-            cmsUsers = new List<ICmsUsers> { new FCms.Auth.Implementations.CmsUsers("./users.json") };
-        }
+            cmsUsers = new List<ICmsUsers> { FCms.Auth.Implementations.CmsUsers.GetInstance() };
     }
 
     [HttpGet]
