@@ -10,11 +10,11 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
-public class UsersController
+public class ConfigUsersController
 {
     public static List<ICmsUsers> cmsUsers = null;
 
-    public UsersController()
+    public ConfigUsersController()
     {
         if (cmsUsers == null)
         {
@@ -23,13 +23,14 @@ public class UsersController
     }
 
     [HttpGet]
-    [Route("cms/api/v1/users")]
+    [Route("cms/api/v1/config/users")]
     public IEnumerable<UserViewModel> List(string contenttype)
     {
         
         foreach(var repository in cmsUsers.SelectMany(u => u.GetAllUsers()))
         {
             yield return new UserViewModel() {
+                Id = repository.Id,
                 Username = repository.Username
             };
         }

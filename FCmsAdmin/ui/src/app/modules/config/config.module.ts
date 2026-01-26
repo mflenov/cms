@@ -19,7 +19,8 @@ import { UsersComponent } from './users/users.component';
     FiltersComponent,
     FilterComponent,
     DbconnectionsComponent,
-    DbconnectionComponent
+    DbconnectionComponent,
+    UsersComponent
   ],
   imports: [
     SharedModule,

@@ -6,11 +6,11 @@ import { IDbConnectionModel } from 'src/app/models/dbconnection-model';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-    selector: 'app-dbconnections',
-    templateUrl: './dbconnections.component.html',
-    styleUrl: './dbconnections.component.css',
-    providers: [DbconnectionsService, ToastService],
-    standalone: false
+  selector: 'app-dbconnections',
+  templateUrl: './dbconnections.component.html',
+  styleUrl: './dbconnections.component.css',
+  providers: [DbconnectionsService, ToastService],
+  standalone: false
 })
 export class DbconnectionsComponent implements OnInit, OnDestroy {
   dbConnections: IDbConnectionModel[] = [];
@@ -37,7 +37,6 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined): void {
-    console.log('deleteRow', id);
     this.dbconnectionsService.deleteById(id!).subscribe({
       next: result => {
         const index = this.dbConnections.findIndex(m => m.id == id);
