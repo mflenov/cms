@@ -22,15 +22,19 @@ public class ConfigUsersController
 
     [HttpGet]
     [Route("cms/api/v1/config/users")]
-    public IEnumerable<UserViewModel> List(string contenttype)
+    public ApiResultModel List(string contenttype)
     {
-        
+        List<UserViewModel> users = new List<UserViewModel>();
         foreach(var repository in cmsUsers.SelectMany(u => u.GetAllUsers()))
         {
-            yield return new UserViewModel() {
+            users.Add(new UserViewModel() {
                 Id = repository.Id,
                 Username = repository.Username
-            };
+            });
         }
+
+        return new ApiResultModel(ApiResultModel.SUCCESS) {
+                Data = users
+        };  
     }
 }
