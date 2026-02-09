@@ -38,6 +38,7 @@ import { UserComponent } from './users/user.component';
         { path: 'config/dbconnection', component: DbconnectionComponent },
         { path: 'config/users', component: UsersComponent },
         { path: 'config/user/:id', component: UserComponent },
+        { path: 'config/user', component: UserComponent },
       ]
     )
   ]
