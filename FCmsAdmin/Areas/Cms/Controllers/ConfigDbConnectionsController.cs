@@ -68,5 +68,5 @@ public class ConfigDbConnectionsController: ControllerBase
             }
         }
         return new ApiResultModel(ApiResultModel.NOT_FOUND);
-    }    
+    }
 }

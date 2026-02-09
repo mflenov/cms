@@ -10,7 +10,7 @@ import { IUserModel } from '../models/user-model';
 
 export class UsersService {
   private listurl: string = environment.baseurl + 'v1/config/users/';
-  private url: string = environment.baseurl + 'v1/config/users/';
+  private url: string = environment.baseurl + 'v1/config/user/';
   private cache: IApiRequestModel | undefined;
 
   constructor(private httpClient: HttpClient) { }
