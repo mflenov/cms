@@ -39,7 +39,7 @@ public class ConfigDbConnectionsController: ControllerBase
 
     [HttpPut]
     [Route("cms/api/v1/config/dbconnection")]
-    public void Post(DbConnectionViewModel model)
+    public void Put(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Add(manager);
@@ -47,7 +47,7 @@ public class ConfigDbConnectionsController: ControllerBase
 
     [HttpPatch]
     [Route("cms/api/v1/config/dbconnection")]
-    public void Put(DbConnectionViewModel model)
+    public void Patch(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Update(manager);

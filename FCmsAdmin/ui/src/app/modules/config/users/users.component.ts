@@ -37,6 +37,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined): void {
+    debugger;
     this.userrsService.deleteById(id!).subscribe({
       next: result => {
         const index = this.users.findIndex(m => m.id == id);

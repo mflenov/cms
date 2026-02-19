@@ -1,16 +1,20 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using FCms.Auth.Abstract;
 using FCms.Auth.Concrete;
+using Newtonsoft.Json;
     
 namespace FCms.Auth.Implementations;
 
 public class CmsUsers : ICmsUsers
 {
+    const string filename = "users.json";
+
     static CmsUsers cmsUsers = null;
 
-    private readonly List<CmsUserModel> users = new List<CmsUserModel>();
+    private List<CmsUserModel> users = new List<CmsUserModel>();
 
     private CmsUsers()
     {
@@ -33,12 +37,29 @@ public class CmsUsers : ICmsUsers
 
     public void LoadUsersFromFile()
     {
-        users.Add(new CmsUserModel() { Id = System.Guid.NewGuid(), Username = "admin" });
+        if (File.Exists(CMSConfigurator.ContentBaseFolder + filename))
+        {
+            this.users = JsonConvert.DeserializeObject<List<CmsUserModel>>(File.ReadAllText(CMSConfigurator.ContentBaseFolder + filename),
+                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+        }
+        else {
+            this.users = new List<CmsUserModel>();
+        }
     }
+
+    public void SaveUsersToFile()
+    {
+        System.IO.File.WriteAllText(CMSConfigurator.ContentBaseFolder + filename, JsonConvert.SerializeObject(this.users, new JsonSerializerSettings()
+        {
+            TypeNameHandling = TypeNameHandling.Auto,
+            Formatting = Formatting.Indented
+        }));
+}
 
     public void Add(CmsUserModel user)
     {
         users.Add(user);
+        SaveUsersToFile();
     }
 
     public void Update(CmsUserModel user)
@@ -47,11 +68,13 @@ public class CmsUsers : ICmsUsers
         if (u != null) {
             u.Username = user.Username;
             u.PasswordHash = user.PasswordHash;
+            SaveUsersToFile();  
         }
     }
 
     public void Delete(Guid id)
     {
         users.RemoveAll(u => u.Id == id);
+        SaveUsersToFile();
     }
 }

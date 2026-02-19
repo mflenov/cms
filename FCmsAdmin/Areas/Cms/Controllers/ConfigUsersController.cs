@@ -6,6 +6,7 @@ using FCms.Content;
 using FCmsManagerAngular.ViewModels;
 using FCms.Auth.Abstract;
 using FCms.Auth.Concrete;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace FCmsManagerAngular.Controllers;
 
@@ -42,10 +43,10 @@ public class ConfigUsersController
 
     [HttpPut]
     [Route("cms/api/v1/config/user")]
-    public void Post(UserViewModel model)
+    public void Put(UserViewModel model)
     {
         var user = new CmsUserModel() {
-            Id = model.Id,
+            Id = Guid.NewGuid(),
             Username = model.Username
         };
         user.PasswordHash = user.HashPassword(model.Password);
@@ -54,7 +55,7 @@ public class ConfigUsersController
 
     [HttpPatch]
     [Route("cms/api/v1/config/user")]
-    public void Put(UserViewModel model)
+    public void Patch(UserViewModel model)
     {
         var user = new CmsUserModel() {
             Id = model.Id,
