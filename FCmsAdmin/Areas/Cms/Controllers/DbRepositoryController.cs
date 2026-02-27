@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using FCms.Content;
 using FCms.DbContent;
 using FCmsManagerAngular.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCmsManagerAngular.Controllers;
 
 [ApiController]
+[Authorize]
 public class DbRepositoryController : ControllerBase
 {
     public DbRepositoryController() {

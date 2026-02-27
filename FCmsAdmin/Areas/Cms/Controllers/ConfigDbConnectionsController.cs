@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManagerAngular.ViewModels;
 using FCms.Content;
@@ -8,6 +9,7 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class ConfigDbConnectionsController: ControllerBase
 {
     public ConfigDbConnectionsController()

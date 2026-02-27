@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FCms.Content;
 using FCms.DbContent;
@@ -10,6 +11,7 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class DbContentController : ControllerBase
 {
     [HttpPost]

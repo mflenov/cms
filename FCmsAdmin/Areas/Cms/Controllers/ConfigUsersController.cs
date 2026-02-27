@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
@@ -12,6 +13,7 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class ConfigUsersController
 {
     public static List<ICmsUsers> cmsUsers = null;
