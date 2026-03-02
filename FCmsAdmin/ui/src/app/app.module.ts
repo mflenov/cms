@@ -16,6 +16,7 @@ import { DbModule } from './modules/db/db.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from '../environments/environment';
 import { ContentModule } from './modules/content/content.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
@@ -34,6 +35,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
       { path: 'notfound', component: NotfoundComponent },
       { path: '**', component: NotfoundComponent },
     ]),
+    AuthModule,
     ConfigModule,
     PagesModule,
     ContentModule,
