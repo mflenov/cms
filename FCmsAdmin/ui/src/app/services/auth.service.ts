@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { IApiRequestModel } from '../models/api-request-model';
 
 export interface LoginCredentials {
   username: string;
@@ -31,15 +32,16 @@ export class AuthService {
   /**
    * Login user and store JWT token
    */
-  login(credentials: LoginCredentials): Observable<LoginResponse> {
+  login(credentials: LoginCredentials): Observable<IApiRequestModel> {
     const loginUrl = environment.baseurl + 'v1/auth/login';
     
-    return this.httpClient.post<LoginResponse>(environment.apiCmsServiceEndpoint + loginUrl, credentials).pipe(
+    return this.httpClient.post<IApiRequestModel>(environment.apiCmsServiceEndpoint + loginUrl, credentials).pipe(
       tap(response => {
-        if (response.token) {
-          this.setToken(response.token);
-          if (response.refreshToken) {
-            this.setRefreshToken(response.refreshToken);
+        const data = response.data as LoginResponse;
+        if (data.token) {
+          this.setToken(data.token);
+          if (data.refreshToken) {
+            this.setRefreshToken(data.refreshToken);
           }
           this.isLoggedInSubject.next(true);
         }
