@@ -1,1 +1,20 @@
-<p>users works!</p>
+<h1>Users</h1>
+
+<div class="cms-repository">
+  <table class="cms-table">
+    <tr>
+      <th style="width:40%">Name</th>
+      <th></th>
+    </tr>
+    @for (user of users; track user) {
+      <tr [attr.id]="user.id">
+        <td>
+          <a [routerLink]="['/config/user', user.id]">{{user.username}}</a>
+        </td>
+        <td><span class="fa fa-trash link" (click)="deleteRow(user.id)"></span></td>
+      </tr>
+    }
+  </table>
+  <br />
+  <button [routerLink]="['/config/user']" class="cms-button" data-cy="add-button">Add</button>
+</div>

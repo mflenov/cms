@@ -9,7 +9,9 @@ import { FilterComponent } from './filters/filter-edit.component';
 
 import { DbconnectionsComponent } from './dbconnections/dbconnections.component'
 import { DbconnectionComponent } from './dbconnections/dbconnection.component'
+
 import { UsersComponent } from './users/users.component';
+import { UserComponent } from './users/user.component';
 
 
 
@@ -19,7 +21,9 @@ import { UsersComponent } from './users/users.component';
     FiltersComponent,
     FilterComponent,
     DbconnectionsComponent,
-    DbconnectionComponent
+    DbconnectionComponent,
+    UsersComponent,
+    UserComponent
   ],
   imports: [
     SharedModule,
@@ -33,6 +37,8 @@ import { UsersComponent } from './users/users.component';
         { path: 'config/dbconnection/:id', component: DbconnectionComponent },
         { path: 'config/dbconnection', component: DbconnectionComponent },
         { path: 'config/users', component: UsersComponent },
+        { path: 'config/user/:id', component: UserComponent },
+        { path: 'config/user', component: UserComponent },
       ]
     )
   ]

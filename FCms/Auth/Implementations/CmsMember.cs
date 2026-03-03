@@ -9,16 +9,13 @@ namespace FCms.Auth.Concrete
         public string Username { get; set; }
         public bool IsLoggedIn { get; private set; }
 
-        private readonly ICmsAuthentication _cmsAuthentication;
-
-        public CmsMember(ICmsAuthentication cmsAuthentication)
+        public CmsMember()
         {
-            _cmsAuthentication = cmsAuthentication;
         }
 
         public bool Authenticate(string username, string password)
         {
-            this.IsLoggedIn = _cmsAuthentication.Authenticate(username?.Trim(), password?.Trim());
+            //this.IsLoggedIn = _cmsAuthentication.Authenticate(username?.Trim(), password?.Trim();
             if (this.IsLoggedIn)
             {
                 this.Username = username;

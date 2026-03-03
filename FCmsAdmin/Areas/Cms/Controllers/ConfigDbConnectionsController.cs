@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManagerAngular.ViewModels;
 using FCms.Content;
@@ -8,6 +9,7 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class ConfigDbConnectionsController: ControllerBase
 {
     public ConfigDbConnectionsController()
@@ -39,7 +41,7 @@ public class ConfigDbConnectionsController: ControllerBase
 
     [HttpPut]
     [Route("cms/api/v1/config/dbconnection")]
-    public void Post(DbConnectionViewModel model)
+    public void Put(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Add(manager);
@@ -47,7 +49,7 @@ public class ConfigDbConnectionsController: ControllerBase
 
     [HttpPatch]
     [Route("cms/api/v1/config/dbconnection")]
-    public void Put(DbConnectionViewModel model)
+    public void Patch(DbConnectionViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Update(manager);
@@ -68,5 +70,5 @@ public class ConfigDbConnectionsController: ControllerBase
             }
         }
         return new ApiResultModel(ApiResultModel.NOT_FOUND);
-    }    
+    }
 }

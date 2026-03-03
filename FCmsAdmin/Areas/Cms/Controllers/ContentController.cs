@@ -4,12 +4,14 @@ using System.Linq;
 using FCms;
 using FCms.Content;
 using FCmsManagerAngular.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class ContentController : ControllerBase
 {
     public ContentController() {

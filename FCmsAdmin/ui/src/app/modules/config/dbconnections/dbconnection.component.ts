@@ -8,11 +8,11 @@ import { CmsenumsService } from 'src/app/services/cmsenums.service';
 import { DbconnectionsService } from 'src/app/services/dbconnections.service';
 
 @Component({
-    selector: 'app-dbconnection',
-    templateUrl: './dbconnection.component.html',
-    styleUrl: './dbconnection.component.css',
-    providers: [DbconnectionsService, CmsenumsService],
-    standalone: false
+  selector: 'app-dbconnection',
+  templateUrl: './dbconnection.component.html',
+  styleUrl: './dbconnection.component.css',
+  providers: [DbconnectionsService, CmsenumsService],
+  standalone: false
 })
 export class DbconnectionComponent {
   model: IDbConnectionModel = {

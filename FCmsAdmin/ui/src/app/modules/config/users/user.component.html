@@ -1,0 +1,14 @@
+<h1>Edit Usrer</h1>
+<div class="cms-repository">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="name">Username</label>
+      <input name="name" class="form-control" [(ngModel)]="model.username" />
+    </div>
+    <div class="form-group">
+      <label for="connectionString">Password</label>
+      <input name="connectionString" type="password" class="form-control" [(ngModel)]="model.password" />
+    </div>
+    <button class="cms-button">Save</button>
+  </form>
+</div>

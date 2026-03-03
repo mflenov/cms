@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FCmsManagerAngular.ViewModels;
 using FCms.Content;
@@ -8,6 +9,7 @@ namespace FCmsManagerAngular.Controllers;
 
 [Area("cms")]
 [ApiController]
+[Authorize]
 public class ConfigFiltersController: ControllerBase
 {
     public ConfigFiltersController()
@@ -39,7 +41,7 @@ public class ConfigFiltersController: ControllerBase
 
     [HttpPut]
     [Route("cms/api/v1/config/filter")]
-    public void Post(FilterViewModel model)
+    public void Put(FilterViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Add(manager);
@@ -47,7 +49,7 @@ public class ConfigFiltersController: ControllerBase
 
     [HttpPatch]
     [Route("cms/api/v1/config/filter")]
-    public void Put(FilterViewModel model)
+    public void Patch(FilterViewModel model)
     {
         ICmsManager manager = CmsManager.GetInstance();
         model.Update(manager);

@@ -30,12 +30,12 @@ namespace FCmsSample
 
             // DI area
             services.AddScoped<ICmsMember, CmsMember>();
-            services.AddScoped<ICmsAuthentication, ConfigAuthentication>();
+            services.AddScoped<ICmsAuthentication, CmsAuthentication>();
                         
             // config inject way
-            var adminAuthConfig = new AdminAuthConfig();
+            var adminAuthConfig = new CmsUserModel();
             Configuration.GetSection("FCmsAuth").GetSection("Admin").Bind(adminAuthConfig);
-            services.AddSingleton<AdminAuthConfig>(adminAuthConfig);
+            services.AddSingleton<CmsUserModel>(adminAuthConfig);
             
             
             services.AddControllersWithViews();
