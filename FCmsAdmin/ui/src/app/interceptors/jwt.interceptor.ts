@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, take, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class JwtInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Add JWT token to request if available
@@ -30,6 +31,7 @@ export class JwtInterceptor implements HttpInterceptor {
           // Handle 403 Forbidden errors
           if (error.status === 403) {
             this.authService.logout();
+            this.router.navigate(['/login']);
             return throwError(error);
           }
         }
@@ -73,14 +75,16 @@ export class JwtInterceptor implements HttpInterceptor {
           catchError(error => {
             this.isRefreshing = false;
             
-            // Refresh failed, logout user
+            // Refresh failed, logout user and redirect to login
             this.authService.logout();
+            this.router.navigate(['/login']);
             return throwError(error);
           })
         );
       } else {
-        // No refresh token available, logout user
+        // No refresh token available, logout user and redirect to login
         this.authService.logout();
+        this.router.navigate(['/login']);
         return throwError({ status: 401, message: 'Authentication required' });
       }
     } else {
