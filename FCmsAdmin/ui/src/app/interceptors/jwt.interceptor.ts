@@ -29,7 +29,7 @@ export class JwtInterceptor implements HttpInterceptor {
           }
           
           // Handle 403 Forbidden errors
-          if (error.status === 403) {
+          if (error.status === 403 || error.status === 401) {
             this.authService.logout();
             this.router.navigate(['/login']);
             return throwError(error);
