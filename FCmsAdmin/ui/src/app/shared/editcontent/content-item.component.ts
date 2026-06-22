@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IContentDefinitionsModel } from '../../models/content-definitions.model';
@@ -30,7 +30,6 @@ export class ContentItemComponent implements OnInit {
   repositoryId: string = '';
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private contentItemService: ContentItemService,
     private route: ActivatedRoute
   ) { }
@@ -87,7 +86,6 @@ export class ContentItemComponent implements OnInit {
 
   createContentComponent(model: any) {
     this.placeholder.viewContainerRef.clear();
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentItemEditorComponent);
     let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(ContentItemEditorComponent);
 
     (<ContentItemEditorComponent>(contentEditorComponentRef.instance)).content = model;

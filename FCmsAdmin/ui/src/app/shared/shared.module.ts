@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { NgxTinymceModule } from 'ngx-tinymce';
+import { TinymceComponent, provideTinymce } from 'ngx-tinymce';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
@@ -65,12 +65,13 @@ import { ListPageContentComponent } from './list-content/list-page-content.compo
         EditorModule,
         NgbModule,
         RouterModule,
-        NgxTinymceModule.forRoot({ baseURL: '/tinymce/' }),
+        TinymceComponent,
         CommonModule,
         BrowserAnimationsModule
     ], 
     providers: [
         provideHttpClient(withInterceptorsFromDi()),
+        provideTinymce({ baseURL: '/tinymce/' }),
         { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
     ] 
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
@@ -28,8 +28,7 @@ export class ContentItemEditorComponent implements OnInit {
   repositoryId: string = '';
   date: NgbDate | null = null;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-      private contentItemService: ContentItemService,
+  constructor(private contentItemService: ContentItemService,
       private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -57,8 +56,7 @@ export class ContentItemEditorComponent implements OnInit {
 
   createFiltersComponent(filters: any) {
     this.placeholder.viewContainerRef.clear();
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(EditFiltersComponent);
-    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
+    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(EditFiltersComponent);
     (<EditFiltersComponent>(contentEditorComponentRef.instance)).model = filters;
   }
 
