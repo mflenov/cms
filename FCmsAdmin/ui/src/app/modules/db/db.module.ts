@@ -11,8 +11,7 @@ import { RepositoryComponent } from './repository/repository.component';
 import { EditDbContentComponentComponent } from './content/edit-db-content-component.component';
 import { DbContentEditorComponent } from './content/db-content-editor.component';
 
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { NgxTinymceModule } from 'ngx-tinymce';
+import { TinymceComponent, provideTinymce } from 'ngx-tinymce';
 
 
 @NgModule({
@@ -34,12 +33,10 @@ import { NgxTinymceModule } from 'ngx-tinymce';
         { path: 'db/structure/:id', component: StructureComponent },
       ]
     ),
-    NgxTinymceModule.forRoot({
-      baseURL: '/tinymce/'
-    }),
+    TinymceComponent,
   ],
   providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+    provideTinymce({ baseURL: '/tinymce/' })
   ]
 })
 export class DbModule { }

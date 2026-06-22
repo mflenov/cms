@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -38,7 +38,6 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private contentService: RepositoryItemService,
     private route: ActivatedRoute,
     private filtersService: FiltersService
@@ -91,16 +90,14 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
   edit(contentid: string | undefined) {
     this.placeholder.viewContainerRef.clear();
 
-    let contentEditorComponent = this.componentFactoryResolver.resolveComponentFactory(ContentItemComponent);
-    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(contentEditorComponent);
+    let contentEditorComponentRef = this.placeholder.viewContainerRef.createComponent(ContentItemComponent);
     (<ContentItemComponent>(contentEditorComponentRef.instance)).definition = this.definition;
     (<ContentItemComponent>(contentEditorComponentRef.instance)).filters = this.filters;
     this.selectedIndex = this.data.findIndex(m => m.id == contentid);
     (<ContentItemComponent>(contentEditorComponentRef.instance)).data = [ this.data[this.selectedIndex] ];
     (<ContentItemComponent>(contentEditorComponentRef.instance)).isControlsVisible = false;
 
-    let filtersComponent = this.componentFactoryResolver.resolveComponentFactory(EditFiltersComponent);
-    let filtersComponentRef = this.placeholder.viewContainerRef.createComponent(filtersComponent);
+    let filtersComponentRef = this.placeholder.viewContainerRef.createComponent(EditFiltersComponent);
     (<EditFiltersComponent>(filtersComponentRef.instance)).model = this.data[this.selectedIndex].filters;
 
     (<ContentItemComponent>(contentEditorComponentRef.instance)).isNewItemVisible = false;

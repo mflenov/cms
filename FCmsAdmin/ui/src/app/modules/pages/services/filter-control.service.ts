@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 
 import { IContentFilterModel } from '../../../models/content-filter.model';
 import { IFilterModel } from 'src/app/models/filter-model';
@@ -15,11 +15,6 @@ import { RegexFilterEditorComponent } from '../../../shared/editcontent/filter-c
 
 export class FilterControlService {
   @Output() onDelete: EventEmitter<string> = new EventEmitter();
-
-  constructor(
-		private componentFactoryResolver: ComponentFactoryResolver
-	) 
-  { }
 
   createModel(filter: IFilterModel) : IContentFilterModel {
     const model = {
@@ -57,22 +52,22 @@ export class FilterControlService {
 
   createEditorComponent(type: string, iseditor: Boolean): any {
     if (type == "Text") {
-      return this.componentFactoryResolver.resolveComponentFactory(TextFilterEditorComponent);
+      return TextFilterEditorComponent;
     }
     if (type == "Boolean") {
-      return this.componentFactoryResolver.resolveComponentFactory(BoolFilterEditorComponent);
+      return BoolFilterEditorComponent;
     }
     if (type == "DateRange" && iseditor) {
-      return this.componentFactoryResolver.resolveComponentFactory(DaterangeFilterEditorComponent);
+      return DaterangeFilterEditorComponent;
     }
     if (type == "DateRange" && !iseditor) {
-      return this.componentFactoryResolver.resolveComponentFactory(DateFilterEditorComponent);
+      return DateFilterEditorComponent;
     }
     if (type == "ValueList") {
-      return this.componentFactoryResolver.resolveComponentFactory(ValuelistFilterEditorComponent);
+      return ValuelistFilterEditorComponent;
     }
     if (type == "RegEx") {
-      return this.componentFactoryResolver.resolveComponentFactory(RegexFilterEditorComponent);
+      return RegexFilterEditorComponent;
     }
     return null;
   }
