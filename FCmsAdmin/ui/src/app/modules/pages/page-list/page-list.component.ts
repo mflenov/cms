@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { IPageModel } from '../../../models/page.model';
 import { PagesService } from '../../../services/pages.service';
 
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastService } from '../../..//shared/services/toast.service';
 
 @Component({
   selector: 'app-page-list',
@@ -15,17 +15,19 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 })
 
 export class PageListComponent implements OnInit, OnDestroy {
-  pages: IPageModel[] = [];
+  pages: IPageModel[] = [ ];
   pagesSubs!: Subscription;
 
   constructor(
     private pagesService: PagesService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.pagesSubs = this.pagesService.getPages().subscribe(pages => {
         this.pages = pages;
+        this.cdr.detectChanges();
     }, error => {this.toastService.error(error.message, error.status);});
   }
 
@@ -35,9 +37,8 @@ export class PageListComponent implements OnInit, OnDestroy {
 
   deleteRow(id: string|undefined) : void {
     this.pagesSubs = this.pagesService.deleteById(id!).subscribe({
-      next: data => {
-        const index = this.pages.findIndex(m => m.id == id);
-        this.pages.splice(index, 1);
+      next: () => {
+        this.pages = this.pages.filter(m => m.id !== id);
       }
     });
   }  

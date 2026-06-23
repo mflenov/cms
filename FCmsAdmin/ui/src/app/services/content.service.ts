@@ -4,10 +4,10 @@ import { Observable, throwError } from 'rxjs';
 
 import { IContentModel } from '../models/content.model';
 import { IContentStructureModel } from '../models/content-structure.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../..//environments/environment';
 import { catchError, tap } from 'rxjs/operators';
 
-import { IApiRequestModel } from 'src/app/models/api-request-model'
+import { IApiRequestModel } from '../..//app/models/api-request-model'
 import { INewContentModel } from '../models/new-content.model';
 
 @Injectable()

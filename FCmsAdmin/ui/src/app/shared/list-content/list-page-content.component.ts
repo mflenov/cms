@@ -6,8 +6,8 @@ import { IContentDefinitionsModel } from '../../models/content-definitions.model
 import { IContentItemModel } from '../../models/content-item.model';
 import { IContentListModel } from '../../models/content-list.model';
 import { RepositoryItemService } from '../../services/repository-item.service';
-import { FiltersService } from 'src/app/services/filters.service';
-import { IFilterModel } from 'src/app/models/filter-model';
+import { FiltersService } from '../../services/filters.service';
+import { IFilterModel } from '../..//models/filter-model';
 import { IContentFilterModel } from '../../models/content-filter.model';
 import { ContentPlaceholderDirective } from '../widgets/content-placeholder.directive';
 import { ContentItemComponent } from '../editcontent/content-item.component'
@@ -58,8 +58,6 @@ export class ListPageContentComponent implements OnInit, OnDestroy {
           for (const key in foltersList) {
             this.filters[foltersList[key].id!] = foltersList[key];
           }
-          this.filtersSubs.unsubscribe();
-          this.contentSubs.unsubscribe();
         })
       });
     }

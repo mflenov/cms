@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -18,7 +18,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(
     private userrsService: UsersService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) {
 
   }
@@ -27,6 +28,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.connectionSubs = this.userrsService.getUsers().subscribe(
         dbConnections => {
             this.users = dbConnections.data as IUserModel[];
+            this.cdr.detectChanges();
         }
         , error => {this.toastService.error(error.message, error.status);}
       );

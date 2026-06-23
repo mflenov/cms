@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DbconnectionsService } from '../../../services/dbconnections.service';
@@ -18,7 +18,8 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
 
   constructor(
     private dbconnectionsService: DbconnectionsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) {
 
   }
@@ -27,6 +28,7 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
     this.connectionSubs = this.dbconnectionsService.getDbConnections().subscribe(
         dbConnections => {
             this.dbConnections = dbConnections.data as IDbConnectionModel[];
+            this.cdr.detectChanges();
         }
         , error => {this.toastService.error(error.message, error.status);}
       );
