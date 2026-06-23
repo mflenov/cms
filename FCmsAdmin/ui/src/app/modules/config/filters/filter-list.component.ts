@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { FiltersService } from '../../../services/filters.service';
@@ -19,7 +19,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   constructor(
     private filtersService: FiltersService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
@@ -27,6 +28,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filtersSubs = this.filtersService.getFilters().subscribe(
       filters => {
         this.filters = filters.data as IFilterModel[];
+        this.cdr.detectChanges();
       }
       , error => {this.toastService.error(error.message, error.status);}
     );

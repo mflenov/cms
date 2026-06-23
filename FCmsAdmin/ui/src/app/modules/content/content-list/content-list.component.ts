@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
-import { IContentModel } from 'src/app/models/content.model';
-import { ContentService } from 'src/app/services/content.service';
+import { IContentModel } from '../../../models/content.model';
+import { ContentService } from '../../..//services/content.service';
 
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastService } from '../../..//shared/services/toast.service';
 
 @Component({
   selector: 'app-content-list',
@@ -20,13 +21,15 @@ export class ContentListComponent implements OnInit, OnDestroy {
 
   constructor(
     private contentService: ContentService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.pagesSubs = this.contentService.getContents().subscribe(content => {
+    this.pagesSubs = this.contentService.getContents().subscribe((content: IContentModel[]) => {
         this.contents = content;
-    }, error => {this.toastService.error(error.message, error.status);});
+        this.cdr.detectChanges();
+    }, (error: HttpErrorResponse) => {this.toastService.error(error.message, error.status);});
   }
 
   ngOnDestroy(): void {
@@ -35,7 +38,7 @@ export class ContentListComponent implements OnInit, OnDestroy {
 
   deleteRow(id: string|undefined) : void {
     this.pagesSubs = this.contentService.deleteById(id!).subscribe({
-      next: data => {
+      next: () => {
         const index = this.contents.findIndex(m => m.id == id);
         this.contents.splice(index, 1);
       }
