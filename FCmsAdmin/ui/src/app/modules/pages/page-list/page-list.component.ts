@@ -39,6 +39,7 @@ export class PageListComponent implements OnInit, OnDestroy {
     this.pagesSubs = this.pagesService.deleteById(id!).subscribe({
       next: () => {
         this.pages = this.pages.filter(m => m.id !== id);
+          this.cdr.detectChanges();
       }
     });
   }  

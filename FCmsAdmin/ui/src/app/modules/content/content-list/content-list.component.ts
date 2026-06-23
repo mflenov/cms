@@ -41,6 +41,7 @@ export class ContentListComponent implements OnInit, OnDestroy {
       next: () => {
         const index = this.contents.findIndex(m => m.id == id);
         this.contents.splice(index, 1);
+        this.cdr.detectChanges();
       }
     });
   }  

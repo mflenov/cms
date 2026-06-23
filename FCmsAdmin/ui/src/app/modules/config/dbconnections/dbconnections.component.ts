@@ -43,6 +43,7 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
       next: result => {
         const index = this.dbConnections.findIndex(m => m.id == id);
         this.dbConnections.splice(index, 1);
+        this.cdr.detectChanges();
       }
     });
   }

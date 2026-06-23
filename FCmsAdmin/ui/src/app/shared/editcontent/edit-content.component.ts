@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IContentFilterModel } from '../../models/content-filter.model';
 
@@ -29,7 +29,8 @@ export class EditContentComponent implements OnInit, OnDestroy {
     private pagesService: PagesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +44,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
           if (definition.status == 1 && definition.data) {
             this.definition = definition.data as IPageStructureModel;
             this.data = (content.data as IPageContentModel);
+            this.cdr.detectChanges();
           }
         }, error => {this.toastService.error(error.message, error.status);})
       }, error => {this.toastService.error(error.message, error.status);})

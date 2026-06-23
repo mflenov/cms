@@ -44,6 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       next: result => {
         const index = this.users.findIndex(m => m.id == id);
         this.users.splice(index, 1);
+        this.cdr.detectChanges();
       }
     });
   }
