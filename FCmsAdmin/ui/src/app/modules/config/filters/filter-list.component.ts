@@ -43,6 +43,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       next: result => {
         const index = this.filters.findIndex(m => m.id == id);
         this.filters.splice(index, 1);
+        this.cdr.detectChanges();
       }
     });
   }
