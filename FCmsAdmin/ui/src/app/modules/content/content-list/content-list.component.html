@@ -1,6 +1,6 @@
 <h1>Content</h1>
 
-@for (content of contents; track content) {
+@for (content of contents(); track content) {
   <div class="cms-repository" [attr.id]="content.id">
     <h2>{{content.name}}</h2>
     <div class="cms-subline"></div>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -13,13 +13,13 @@ import { UsersService } from 'src/app/services/user.service';
   standalone: false
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  users: IUserModel[] = [];
+  private _users = signal<IUserModel[]>([]);
+  users = this._users.asReadonly();
   connectionSubs!: Subscription;
 
   constructor(
     private userrsService: UsersService,
-    private toastService: ToastService,
-    private cdr: ChangeDetectorRef
+    private toastService: ToastService
   ) {
 
   }
@@ -27,8 +27,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.connectionSubs = this.userrsService.getUsers().subscribe(
         dbConnections => {
-            this.users = dbConnections.data as IUserModel[];
-            this.cdr.detectChanges();
+            this._users.set(dbConnections.data as IUserModel[]);
         }
         , error => {this.toastService.error(error.message, error.status);}
       );
@@ -39,12 +38,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(id: string|undefined): void {
-    debugger;
     this.userrsService.deleteById(id!).subscribe({
       next: result => {
-        const index = this.users.findIndex(m => m.id == id);
-        this.users.splice(index, 1);
-        this.cdr.detectChanges();
+        this._users.update(users => users.filter(m => m.id !== id));
       }
     });
   }

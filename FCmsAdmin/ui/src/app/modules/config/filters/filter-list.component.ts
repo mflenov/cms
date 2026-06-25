@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { FiltersService } from '../../../services/filters.service';
@@ -14,21 +14,20 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
-  filters: IFilterModel[] = [];
+  private _filters = signal<IFilterModel[]>([]);
+  filters = this._filters.asReadonly();
   filtersSubs!: Subscription;
 
   constructor(
     private filtersService: FiltersService,
     private toastService: ToastService,
-    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
     this.filtersSubs = this.filtersService.getFilters().subscribe(
       filters => {
-        this.filters = filters.data as IFilterModel[];
-        this.cdr.detectChanges();
+        this._filters.set(filters.data as IFilterModel[]);
       }
       , error => {this.toastService.error(error.message, error.status);}
     );
@@ -41,9 +40,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   deleteRow(id: string | undefined): void {
     this.filtersService.deleteById(id!).subscribe({
       next: result => {
-        const index = this.filters.findIndex(m => m.id == id);
-        this.filters.splice(index, 1);
-        this.cdr.detectChanges();
+        this._filters.update(filters => filters.filter(m => m.id !== id));
       }
     });
   }

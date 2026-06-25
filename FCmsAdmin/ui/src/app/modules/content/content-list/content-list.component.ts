@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
@@ -16,19 +16,18 @@ import { ToastService } from '../../..//shared/services/toast.service';
 })
 
 export class ContentListComponent implements OnInit, OnDestroy {
-  contents: IContentModel[] = [];
+  private _contents = signal<IContentModel[]>([]);
+  contents = this._contents.asReadonly();
   pagesSubs!: Subscription;
 
   constructor(
     private contentService: ContentService,
     private toastService: ToastService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.pagesSubs = this.contentService.getContents().subscribe((content: IContentModel[]) => {
-        this.contents = content;
-        this.cdr.detectChanges();
+        this._contents.set(content);
     }, (error: HttpErrorResponse) => {this.toastService.error(error.message, error.status);});
   }
 
@@ -39,9 +38,7 @@ export class ContentListComponent implements OnInit, OnDestroy {
   deleteRow(id: string|undefined) : void {
     this.pagesSubs = this.contentService.deleteById(id!).subscribe({
       next: () => {
-        const index = this.contents.findIndex(m => m.id == id);
-        this.contents.splice(index, 1);
-        this.cdr.detectChanges();
+        this._contents.update(contents => contents.filter(m => m.id !== id));
       }
     });
   }  

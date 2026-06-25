@@ -1,6 +1,6 @@
 <h1>Pages</h1>
 
-@for (page of pages; track page.id) {
+@for (page of pages(); track page.id) {
   <div class="cms-repository" [attr.id]="page.id">
     <h2>{{page.name}}</h2>
     <div class="cms-subline"></div>

@@ -6,7 +6,7 @@
       <th style="width:40%">Name</th>
       <th></th>
     </tr>
-    @for (user of users; track user) {
+    @for (user of users(); track user) {
       <tr [attr.id]="user.id">
         <td>
           <a [routerLink]="['/config/user', user.id]">{{user.username}}</a>

@@ -8,7 +8,7 @@
       <th>Type</th>
       <th></th>
     </tr>
-    @for (filter of filters; track filter) {
+    @for (filter of filters(); track filter) {
       <tr [attr.id]="filter.id">
         <td>
           <a [routerLink]="['/config/filter', filter.id]">{{filter.name}}</a>

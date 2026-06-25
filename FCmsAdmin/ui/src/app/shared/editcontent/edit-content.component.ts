@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IContentFilterModel } from '../../models/content-filter.model';
 
@@ -19,18 +19,21 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 
 export class EditContentComponent implements OnInit, OnDestroy {
   private id: string = "";
-  filters: IContentFilterModel[] = [];
+  private _filters = signal<IContentFilterModel[]>([]);
+  filters = this._filters.asReadonly();
 
-  data: IPageContentModel = {} as IPageContentModel;
-  definition: IPageStructureModel = {} as IPageStructureModel;
+  private _data = signal<IPageContentModel>({} as IPageContentModel);
+  data = this._data.asReadonly();
+  
+  private _definition = signal<IPageStructureModel>({} as IPageStructureModel);
+  definition = this._definition.asReadonly();
 
   constructor(
     private pageContentService: RepositoryItemService,
     private pagesService: PagesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private cdr: ChangeDetectorRef
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -39,12 +42,11 @@ export class EditContentComponent implements OnInit, OnDestroy {
     if (idvalue) {
       this.id = idvalue;
 
-      this.pageContentService.getContent(this.id, this.filters).subscribe(content => {
+      this.pageContentService.getContent(this.id, this.filters()).subscribe(content => {
         this.pagesService.getPage(this.id).subscribe(definition => {
           if (definition.status == 1 && definition.data) {
-            this.definition = definition.data as IPageStructureModel;
-            this.data = (content.data as IPageContentModel);
-            this.cdr.detectChanges();
+            this._definition.set(definition.data as IPageStructureModel);
+            this._data.set(content.data as IPageContentModel);
           }
         }, error => {this.toastService.error(error.message, error.status);})
       }, error => {this.toastService.error(error.message, error.status);})
@@ -55,7 +57,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.pageContentService.save(this.data).subscribe({
+    this.pageContentService.save(this.data()).subscribe({
       next: data => {
         this.router.navigate(['../../'],  {relativeTo: this.route});
       }
@@ -63,7 +65,7 @@ export class EditContentComponent implements OnInit, OnDestroy {
   }
 
   onFilter(filters: IContentFilterModel[]): void {
-    this.filters = filters;
+    this._filters.set(filters);
 
     this.ngOnInit();
   }

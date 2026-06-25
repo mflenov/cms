@@ -1,5 +1,5 @@
-<h1>"{{model.name}}" structure</h1>
-@for (definition of model.contentDefinitions; track definition) {
+<h1>"{{model().name}}" structure</h1>
+@for (definition of model().contentDefinitions; track definition) {
   <div [attr.id]="definition.definitionId" class="cms-repository">
     <div class="cms-right fa fa-times link" (click)="deleteRow(definition.definitionId)"></div>
     <sh-content-definition [definition]='definition'></sh-content-definition>

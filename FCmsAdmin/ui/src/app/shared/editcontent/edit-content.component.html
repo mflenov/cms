@@ -1,10 +1,10 @@
-<h1>"{{definition.name}}" content</h1>
+<h1>"{{definition().name}}" content</h1>
 
 <div class="row">
   <div class="col-md-8">
-    @for (definition of definition.contentDefinitions; track definition) {
+    @for (definition of definition().contentDefinitions; track definition) {
       <div [attr.id]="definition.definitionId" class="cms-repository">
-        <sh-content-item [definition]='definition' [data]='data.contentItems' [filters]='filters'></sh-content-item>
+        <sh-content-item [definition]='definition' [data]='data().contentItems' [filters]='filters()'></sh-content-item>
       </div>
     }
     <button class="cms-button" (click)="onSubmit()">Save</button>

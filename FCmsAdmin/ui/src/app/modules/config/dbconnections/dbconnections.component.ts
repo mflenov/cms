@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DbconnectionsService } from '../../../services/dbconnections.service';
@@ -13,13 +13,13 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   standalone: false
 })
 export class DbconnectionsComponent implements OnInit, OnDestroy {
-  dbConnections: IDbConnectionModel[] = [];
+  private _dbConnections = signal<IDbConnectionModel[]>([]);
+  dbConnections = this._dbConnections.asReadonly();
   connectionSubs!: Subscription;
 
   constructor(
     private dbconnectionsService: DbconnectionsService,
-    private toastService: ToastService,
-    private cdr: ChangeDetectorRef
+    private toastService: ToastService
   ) {
 
   }
@@ -27,8 +27,7 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.connectionSubs = this.dbconnectionsService.getDbConnections().subscribe(
         dbConnections => {
-            this.dbConnections = dbConnections.data as IDbConnectionModel[];
-            this.cdr.detectChanges();
+            this._dbConnections.set(dbConnections.data as IDbConnectionModel[]);
         }
         , error => {this.toastService.error(error.message, error.status);}
       );
@@ -41,9 +40,7 @@ export class DbconnectionsComponent implements OnInit, OnDestroy {
   deleteRow(id: string|undefined): void {
     this.dbconnectionsService.deleteById(id!).subscribe({
       next: result => {
-        const index = this.dbConnections.findIndex(m => m.id == id);
-        this.dbConnections.splice(index, 1);
-        this.cdr.detectChanges();
+        this._dbConnections.update(dbConnections => dbConnections.filter(m => m.id !== id));
       }
     });
   }

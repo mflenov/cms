@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { IPageModel } from '../../../models/page.model';
@@ -15,19 +15,18 @@ import { ToastService } from '../../..//shared/services/toast.service';
 })
 
 export class PageListComponent implements OnInit, OnDestroy {
-  pages: IPageModel[] = [ ];
+  private _pages = signal<IPageModel[]>([]);
+  pages = this._pages.asReadonly();
   pagesSubs!: Subscription;
 
   constructor(
     private pagesService: PagesService,
     private toastService: ToastService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.pagesSubs = this.pagesService.getPages().subscribe(pages => {
-        this.pages = pages;
-        this.cdr.detectChanges();
+        this._pages.set(pages);
     }, error => {this.toastService.error(error.message, error.status);});
   }
 
@@ -38,8 +37,7 @@ export class PageListComponent implements OnInit, OnDestroy {
   deleteRow(id: string|undefined) : void {
     this.pagesSubs = this.pagesService.deleteById(id!).subscribe({
       next: () => {
-        this.pages = this.pages.filter(m => m.id !== id);
-          this.cdr.detectChanges();
+        this._pages.update(pages => pages.filter(m => m.id !== id));
       }
     });
   }  

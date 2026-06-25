@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, of, Observable } from 'rxjs';
 
@@ -22,7 +22,8 @@ export class StructureComponent implements OnInit, OnDestroy {
 
   dataTypes!: Observable<string[]>
 
-  model: IPageStructureModel = {} as IPageStructureModel;
+  private _model = signal<IPageStructureModel>({} as IPageStructureModel);
+  model = this._model.asReadonly();
 
   @ViewChild(ContentPlaceholderDirective, { static: true }) placeholder!: ContentPlaceholderDirective;
 
@@ -42,7 +43,7 @@ export class StructureComponent implements OnInit, OnDestroy {
       this.modelSubs = this.pagesService.getPage(id).subscribe({
         next: result => {
           if (result.status == 1 && result.data) {
-            this.model = result.data as IPageStructureModel;
+            this._model.set(result.data as IPageStructureModel);
           }
         }
       });
@@ -59,7 +60,7 @@ export class StructureComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.pagesService.save(this.model).subscribe({
+    this.pagesService.save(this.model()).subscribe({
       next: data => {
         this.router.navigate(['../../'],  {relativeTo: this.route});
       }
@@ -76,11 +77,11 @@ export class StructureComponent implements OnInit, OnDestroy {
       typeName: "String",
       contentDefinitions: []
     } as IContentDefinitionsModel;
-    this.model.contentDefinitions.push(model);
+    this._model().contentDefinitions.push(model);
   }
 
   deleteRow(id: string | undefined): void {
-    const index = this.model.contentDefinitions.findIndex(m => m.definitionId == id);
-    this.model.contentDefinitions.splice(index, 1);
+    const index = this._model().contentDefinitions.findIndex(m => m.definitionId == id);
+    this._model().contentDefinitions.splice(index, 1);
   }
 }
