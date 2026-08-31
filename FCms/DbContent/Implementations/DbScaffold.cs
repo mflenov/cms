@@ -16,7 +16,7 @@ namespace FCms.DbContent
         {
             if (String.IsNullOrEmpty(repo.TableName))
             {
-                new Exception($"The table name is not correct {repo.TableName}");
+                throw new Exception($"The table name is not correct {repo.TableName}");
             }
             IDatabase database = repo.GetDatabase();
 
