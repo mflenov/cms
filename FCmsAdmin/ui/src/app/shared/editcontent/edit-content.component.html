@@ -10,7 +10,14 @@
     <button class="cms-button" (click)="onSubmit()">Save</button>
   </div>
   <div class="col-md-4">
-    <h2>Filter:</h2>
+    <h2>Content sections:</h2>
+    <ul>
+    @for (d of definition().contentDefinitions; track d) {
+      <li><a [attr.href]="'/pages/edit/' + definition().id + '#'+ d.definitionId">{{d.name}}</a></li>
+    }
+    </ul>
+
+    <h2>Filters:</h2>
     <sh-filters (onFilter)="onFilter($event)"></sh-filters>
   </div>
 </div>

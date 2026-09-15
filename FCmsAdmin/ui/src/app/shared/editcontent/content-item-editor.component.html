@@ -1,26 +1,22 @@
+<h3 id="{{definition.definitionId}}">{{definition.name}}</h3>
 @if (definition.typeName == 'String') {
-  <h3>{{definition.name}}</h3>
   <input name="name" class="form-control" [(ngModel)]="content.data" />
 }
 
 @if (definition.typeName == 'LongString') {
-  <h3>{{definition.name}}</h3>
   <tinymce [(ngModel)]="content.data"></tinymce>
 }
 
 @if (definition.typeName == 'Date') {
-  <h3>{{definition.name}}</h3>
   <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
 }
 
 @if (definition.typeName == 'DateTime') {
-  <h3>{{definition.name}}</h3>
   <ngb-datepicker name="name" class="form-control" #dp [(ngModel)]="date" (dateSelect)="onDateSelection($event)"></ngb-datepicker>
 }
 
 
 @if (definition.typeName == 'Folder') {
-  <h3>{{definition.name}}</h3>
   @for (folderitem of content; track folderitem) {
     <div class="cms-folder">
       @if (folderitem.id) {
