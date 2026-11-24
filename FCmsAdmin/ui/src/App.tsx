@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { createBrowserRouter, Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router';
-import { isLoggedIn } from './api/auth';
+import { createBrowserRouter, Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
+import { clearToken, isLoggedIn } from './api/auth';
 import { setUnauthorizedHandler } from './api/http';
 import { Toasts } from './components/toast';
 import {
@@ -26,6 +26,13 @@ import {
 
 const logo = `${import.meta.env.BASE_URL}assets/fcms-logo.png`;
 
+const NAV: [label: string, to: string, extraClass?: string][] = [
+  ['Pages', '/pages'],
+  ['Content', '/content'],
+  ['Database', '/db'],
+  ['Config', '/config', 'config-link'],
+];
+
 function loginUrl(location: { pathname: string; search: string }) {
   return `/login?returnUrl=${encodeURIComponent(location.pathname + location.search)}`;
 }
@@ -42,60 +49,56 @@ function Layout() {
     });
   }, [navigate, location]);
 
+  const signedIn = isLoggedIn();
+  const logout = () => {
+    clearToken();
+    navigate('/login', { replace: true });
+  };
+
   return (
     <>
-      <div className="header">
+      <header className="header">
         <div className="container">
-          <div className="row">
-            <div className="col-md-1 cms-logo">
-              <Link to="/">
-                <img src={logo} alt="FCms" />
-              </Link>
-            </div>
-            <div className="col-sm-11 cms-menu">
-              <ul className="nav nav-pills">
-                <li>
-                  <Link to="/pages" className="nav-link">
-                    Pages
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/content" className="nav-link">
-                    Content
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/db" className="nav-link">
-                    Database
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/config" className="nav-link config-link">
-                    Config
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <div className="cms-logo">
+            <Link to="/">
+              <img src={logo} alt="FCms" />
+            </Link>
           </div>
+          {signedIn && (
+            <nav className="cms-menu">
+              <ul className="nav nav-pills">
+                {NAV.map(([label, to, extra]) => (
+                  <li key={to}>
+                    <NavLink to={to} className={`nav-link${extra ? ` ${extra}` : ''}`}>
+                      {label}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+          {signedIn && (
+            <div className="cms-user">
+              <button type="button" className="cms-button cms-button-secondary cms-button-sm" onClick={logout}>
+                <span className="fa fa-sign-out" /> Sign out
+              </button>
+            </div>
+          )}
         </div>
-      </div>
+      </header>
       <div className="page">
         <div className="container">
           <Outlet />
         </div>
       </div>
-      <div className="footer">
+      <footer className="footer">
         <div className="container">
-          <div className="row">
-            <div className="col-md-9">
-              <p>fCms is an Open Source .NET Core Smart CMS </p>
-              <p>
-                Created by Mikhail Flenov from <a href="http://www.profwebdev.com">ProfWebDev</a>
-              </p>
-            </div>
-          </div>
+          <p>
+            fCms is an Open Source .NET Smart CMS · Created by Mikhail Flenov from{' '}
+            <a href="http://www.profwebdev.com">ProfWebDev</a>
+          </p>
         </div>
-      </div>
+      </footer>
       <Toasts />
     </>
   );

@@ -6,6 +6,7 @@ import { ContentItemView, type ContentEditorContext } from '../components/conten
 import { EditFilters, SearchFilters } from '../components/filters';
 import { SlidePanel } from '../components/SlidePanel';
 import { toast } from '../components/toast';
+import { confirmDelete, EmptyState, IconButton, Loading, PageHeader } from '../components/ui';
 import { keyOf, useLoad, useRerender } from '../hooks';
 import {
   API_SUCCESS,
@@ -45,9 +46,11 @@ export function RepositoryList({
   addUrl: string;
   links: (id: string) => [label: string, url: string][];
 }) {
-  const { data: repositories, setData } = useLoad(load, []);
+  const { data: repositories, setData, loading } = useLoad(load, []);
 
-  const deleteRow = async (id: string) => {
+  const deleteRow = async (repo: RepositorySummary) => {
+    if (!confirmDelete(`"${repo.name}"`)) return;
+    const id = repo.id!;
     try {
       await remove(id);
       setData((list) => list?.filter((r) => r.id !== id));
@@ -58,25 +61,40 @@ export function RepositoryList({
 
   return (
     <>
-      <h1>{title}</h1>
-      {repositories?.map((repo) => (
-        <div className="cms-repository" id={repo.id} key={repo.id}>
-          <h2>{repo.name}</h2>
-          <div className="cms-subline"></div>
-          <div className="cmscontrols">
-            {links(repo.id!).map(([label, url]) => (
-              <span key={url}>
-                <Link to={url}>{label}</Link> |{' '}
-              </span>
-            ))}
-            <a onClick={() => deleteRow(repo.id!)}>Delete</a>
+      <PageHeader
+        title={title}
+        actions={
+          <Link to={addUrl} className="cms-button">
+            <span className="fa fa-plus" /> Add
+          </Link>
+        }
+      />
+      {loading && !repositories && <Loading />}
+      {repositories?.length === 0 && (
+        <EmptyState>
+          Nothing here yet. <Link to={addUrl}>Create the first one</Link>.
+        </EmptyState>
+      )}
+      {repositories?.map((repo) => {
+        const [primary, ...rest] = links(repo.id!);
+        return (
+          <div className="cms-repository" id={repo.id} key={repo.id}>
+            <div className="cms-card-header">
+              <h2>
+                <Link to={primary[1]}>{repo.name}</Link>
+              </h2>
+              <IconButton icon="trash" title="Delete" danger onClick={() => deleteRow(repo)} />
+            </div>
+            <div className="cms-card-actions cmscontrols">
+              {[primary, ...rest].map(([label, url], i) => (
+                <Link key={url} to={url} className={`cms-button cms-button-sm${i > 0 ? ' cms-button-secondary' : ''}`}>
+                  {label}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-      <br />
-      <Link to={addUrl} className="cms-button">
-        Add
-      </Link>
+        );
+      })}
     </>
   );
 }
@@ -86,9 +104,9 @@ export function StructurePage({ section }: { section: Section }) {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const rerender = useRerender();
-  const { data: model } = useLoad(() => loadStructure(id), [id]);
+  const { data: model, loading } = useLoad(() => loadStructure(id), [id]);
 
-  if (!model) return null;
+  if (!model) return loading ? <Loading /> : null;
 
   const save = async () => {
     try {
@@ -106,12 +124,15 @@ export function StructurePage({ section }: { section: Section }) {
 
   return (
     <>
-      <h1>"{model.name}" structure</h1>
+      <PageHeader title={<>"{model.name}" structure</>} back={{ to: `/${section}`, label: 'Back to list' }} />
+      {model.contentDefinitions.length === 0 && <EmptyState>No values defined yet. Add one below.</EmptyState>}
       {model.contentDefinitions.map((definition, index) => (
         <div id={definition.definitionId} className="cms-repository" key={definition.definitionId ?? keyOf(definition)}>
-          <div
-            className="cms-right fa fa-times link"
+          <IconButton
+            icon="times"
             title="Delete"
+            danger
+            className="cms-right"
             onClick={() => {
               model.contentDefinitions.splice(index, 1);
               rerender();
@@ -124,11 +145,11 @@ export function StructurePage({ section }: { section: Section }) {
         <button type="button" className="cms-button" onClick={save}>
           Save
         </button>
-        <button type="button" className="cms-button" onClick={addValue}>
-          Add value
+        <button type="button" className="cms-button cms-button-secondary" onClick={addValue}>
+          <span className="fa fa-plus" /> Add value
         </button>
-        <button type="button" className="cms-button" onClick={() => navigate(`/${section}`)}>
-          Back
+        <button type="button" className="cms-button cms-button-secondary" onClick={() => navigate(`/${section}`)}>
+          Cancel
         </button>
       </div>
     </>
@@ -140,8 +161,8 @@ function ContentDefinitionEditor({ definition, onChange }: { definition: Content
   const children = (definition.contentDefinitions ??= []);
 
   return (
-    <div className="row">
-      <div className="col-md-5">
+    <div className="row g-3">
+      <div className="col-md-6">
         <label>Name</label>
         <input
           className="form-control"
@@ -172,10 +193,12 @@ function ContentDefinitionEditor({ definition, onChange }: { definition: Content
       {definition.typeName === 'Folder' && (
         <div className="cms-folder">
           {children.map((child, index) => (
-            <div id={child.definitionId} key={child.definitionId ?? keyOf(child)}>
-              <div
-                className="cms-right fa fa-times link"
+            <div id={child.definitionId} className="mb-3" key={child.definitionId ?? keyOf(child)}>
+              <IconButton
+                icon="times"
                 title="Delete"
+                danger
+                className="cms-right"
                 onClick={() => {
                   children.splice(index, 1);
                   onChange();
@@ -187,13 +210,13 @@ function ContentDefinitionEditor({ definition, onChange }: { definition: Content
           <div className="cms-right-controls">
             <button
               type="button"
-              className="cms-button"
+              className="cms-button cms-button-secondary cms-button-sm"
               onClick={() => {
                 children.push({ name: '', typeName: 'String', contentDefinitions: [] });
                 onChange();
               }}
             >
-              Add value
+              <span className="fa fa-plus" /> Add value
             </button>
           </div>
         </div>
@@ -209,7 +232,7 @@ export function EditContentPage({ section }: { section: Section }) {
   const rerender = useRerender();
   const [filters, setFilters] = useState<ContentFilter[]>([]);
 
-  const { data } = useLoad(async () => {
+  const { data, loading } = useLoad(async () => {
     const [content, definition] = await Promise.all([repositoryItemsApi.getContent(id, filters), loadStructure(id)]);
     if (!definition) return undefined;
     const model: RepositoryContent = content.data ?? { contentItems: [] };
@@ -217,7 +240,7 @@ export function EditContentPage({ section }: { section: Section }) {
     return { definition, content: model };
   }, [id, filters]);
 
-  if (!data) return null;
+  if (!data) return loading ? <Loading /> : null;
   const { definition, content } = data;
   const ctx: ContentEditorContext = { section, repositoryId: id, onChange: rerender };
 
@@ -232,9 +255,22 @@ export function EditContentPage({ section }: { section: Section }) {
 
   return (
     <>
-      <h1>"{definition.name}" content</h1>
+      <PageHeader
+        title={<>"{definition.name}" content</>}
+        back={{ to: `/${section}`, label: 'Back to list' }}
+        actions={
+          <button type="button" className="cms-button" onClick={save}>
+            <span className="fa fa-check" /> Save
+          </button>
+        }
+      />
       <div className="row">
         <div className="col-md-8">
+          {definition.contentDefinitions.length === 0 && (
+            <EmptyState>
+              This repository has no values yet. <Link to={`/${section}/structure/${id}`}>Edit its structure</Link>.
+            </EmptyState>
+          )}
           {definition.contentDefinitions.map((d) => (
             <div id={d.definitionId} className="cms-repository" key={d.definitionId ?? keyOf(d)}>
               <ContentItemView ctx={ctx} definition={d} data={content.contentItems} filters={filters} />
@@ -245,16 +281,22 @@ export function EditContentPage({ section }: { section: Section }) {
           </button>
         </div>
         <div className="col-md-4">
-          <h2>Content sections:</h2>
-          <ul>
-            {definition.contentDefinitions.map((d) => (
-              <li key={d.definitionId ?? keyOf(d)}>
-                <a href={`#${d.definitionId}`}>{d.name}</a>
-              </li>
-            ))}
-          </ul>
-          <h2>Filters:</h2>
-          <SearchFilters onFilter={setFilters} />
+          <div className="cms-sidebar">
+            <div className="cms-repository">
+              <h3>Content sections</h3>
+              <ul className="mb-0">
+                {definition.contentDefinitions.map((d) => (
+                  <li key={d.definitionId ?? keyOf(d)}>
+                    <a href={`#${d.definitionId}`}>{d.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="cms-repository">
+              <h3>Filters</h3>
+              <SearchFilters onFilter={setFilters} />
+            </div>
+          </div>
         </div>
       </div>
     </>
@@ -277,7 +319,7 @@ export function ListContentPage({ section }: { section: Section }) {
   const [searchFilters, setSearchFilters] = useState<ContentFilter[]>([]);
   const [editing, setEditing] = useState<{ index: number; snapshot: ContentItem } | null>(null);
 
-  const { data } = useLoad(async () => {
+  const { data, loading } = useLoad(async () => {
     const [filterDefinitions, list] = await Promise.all([
       filtersApi.list(),
       repositoryItemsApi.listContent(repo, id, searchFilters),
@@ -287,14 +329,14 @@ export function ListContentPage({ section }: { section: Section }) {
     return { filters: new Map(filterDefinitions.map((f) => [f.id, f])), content };
   }, [repo, id, searchFilters]);
 
-  if (!data) return null;
+  if (!data) return loading ? <Loading /> : null;
   const { content, filters } = data;
   const items = content.contentItems;
   const definition = content.definition;
   const ctx: ContentEditorContext = { section, repositoryId: repo, onChange: rerender };
 
   const remove = async (item: ContentItem) => {
-    if (!item.id) return;
+    if (!item.id || !confirmDelete('this variation')) return;
     try {
       await repositoryItemsApi.remove(repo, item.id);
       items.splice(items.indexOf(item), 1);
@@ -323,23 +365,21 @@ export function ListContentPage({ section }: { section: Section }) {
 
   return (
     <>
-      <h1>
-        <Link to={`/${section}/edit/${repo}`}>{content.repositoryName}</Link> - "{definition?.name}"
-      </h1>
-
-      <div className="fcms-top-search col-md-8">
-        <h3>Search</h3>
-        <SearchFilters onFilter={setSearchFilters} />
-      </div>
+      <PageHeader
+        title={<>Variations of "{definition?.name}"</>}
+        back={{ to: `/${section}/edit/${repo}`, label: content.repositoryName ?? 'Back' }}
+      />
 
       <div className="row">
         <div className="col-md-8">
+          {items.length === 0 && <EmptyState>No variations match the search.</EmptyState>}
           {items.map((item, index) => (
             <div id={definition.definitionId} className="cms-repository" key={item.id ?? keyOf(item)}>
-              <span className="cms-right fa fa-times link padding-left-8" title="Delete" onClick={() => remove(item)} />
-              <span
-                className="cms-right fa fa-edit link padding-left-8"
+              <IconButton icon="times" title="Delete" danger className="cms-right" onClick={() => remove(item)} />
+              <IconButton
+                icon="edit"
                 title="Edit"
+                className="cms-right"
                 onClick={() => setEditing({ index, snapshot: structuredClone(item) })}
               />
               {definition.typeName === 'Folder' ? (
@@ -352,17 +392,25 @@ export function ListContentPage({ section }: { section: Section }) {
               )}
               <hr />
               <h3>Filters</h3>
+              {!item.filters?.length && <span className="text-secondary">None — shown to everyone</span>}
               {item.filters?.map((filter) => {
                 const filterDefinition = filters.get(filter.filterDefinitionId);
                 if (!filterDefinition) return null;
                 return (
                   <div key={filter.filterDefinitionId}>
-                    <label>{filterDefinition.name}</label>: <span>{formatFilterValue(filterDefinition, filter.values)}</span>
+                    <label>{filterDefinition.name}</label>:{' '}
+                    <span>{formatFilterValue(filterDefinition, filter.values)}</span>
                   </div>
                 );
               })}
             </div>
           ))}
+        </div>
+        <div className="col-md-4">
+          <div className="cms-sidebar fcms-top-search">
+            <h3>Search</h3>
+            <SearchFilters onFilter={setSearchFilters} />
+          </div>
         </div>
       </div>
 
@@ -397,7 +445,8 @@ export function PreviewPage() {
   return (
     <div className="row preview">
       <div className="col-md-8">
-        <h1>{definition?.name} Preview</h1>
+        <h1>{definition?.name} preview</h1>
+        {items?.length === 0 && <EmptyState>Nothing would be shown for these filter values.</EmptyState>}
         {items?.map((item, i) => (
           <div className="cms-repository" key={i}>
             <label>{item.name}:</label>
@@ -416,8 +465,10 @@ export function PreviewPage() {
         ))}
       </div>
       <div className="col-md-4">
-        <h3>Search</h3>
-        <SearchFilters expanded onFilter={setFilters} />
+        <div className="cms-sidebar cms-repository">
+          <h3>Filter values</h3>
+          <SearchFilters expanded onFilter={setFilters} />
+        </div>
       </div>
     </div>
   );

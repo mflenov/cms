@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { Navigate, useNavigate, useSearchParams } from 'react-router';
+import { Link, Navigate, useNavigate, useSearchParams } from 'react-router';
 import { isLoggedIn } from '../api/auth';
 import { ApiError } from '../api/http';
 import { authApi } from '../api/services';
@@ -9,10 +9,32 @@ export function WelcomePage() {
   return (
     <>
       <h1>Welcome to FCMS Manager</h1>
-      <p>
-        FCMS Manager is a Smart CMS content manager. CMS manager can be smart. It can return data based on the various
-        filters you can configure in the manager.
+      <p className="text-secondary mb-4">
+        FCMS is a smart CMS: instead of putting personalization logic in your views, define content variations and the
+        filters that select them, and the CMS picks the right one for each request.
       </p>
+      <div className="cms-tiles">
+        <Link to="/pages" className="cms-tile">
+          <span className="fa fa-file-text-o" />
+          <h2>Pages</h2>
+          <p>Page-level content built from templates.</p>
+        </Link>
+        <Link to="/content" className="cms-tile">
+          <span className="fa fa-th-large" />
+          <h2>Content</h2>
+          <p>Reusable content blocks stored as JSON.</p>
+        </Link>
+        <Link to="/db" className="cms-tile">
+          <span className="fa fa-database" />
+          <h2>Database</h2>
+          <p>Repositories stored in SQL Server or Postgres.</p>
+        </Link>
+        <Link to="/config" className="cms-tile">
+          <span className="fa fa-cog" />
+          <h2>Config</h2>
+          <p>Users, database connections and filters.</p>
+        </Link>
+      </div>
     </>
   );
 }
@@ -22,6 +44,9 @@ export function NotFoundPage() {
     <>
       <h1>Page not found</h1>
       <p>The page you are looking for does not exist.</p>
+      <Link to="/welcome" className="cms-button">
+        Go home
+      </Link>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { dbConnectionsApi, enumsApi, filtersApi, usersApi } from '../api/services';
 import { toast } from '../components/toast';
+import { confirmDelete, EmptyState, IconButton, Loading, PageHeader } from '../components/ui';
 import { useLoad } from '../hooks';
 import type { DbConnection, FilterDefinition, User } from '../models';
 
@@ -10,25 +11,22 @@ export function ConfigHomePage() {
   return (
     <>
       <h1>Config</h1>
-      <div className="cms-repository">
-        <p>
-          <Link to="/config/users" data-cy="userslist-link">
-            Users
-          </Link>{' '}
-          - manage users who can access the CMS
-        </p>
-        <p>
-          <Link to="/config/dbconnections" data-cy="dbconnectionslist-link">
-            Database Connections
-          </Link>{' '}
-          - allow you to add/configure database connections for database stored content
-        </p>
-        <p>
-          <Link to="/config/filters" data-cy="filterslist-link">
-            Filters
-          </Link>{' '}
-          - allow you to add/configure variables to create personalized content
-        </p>
+      <div className="cms-tiles">
+        <Link to="/config/users" className="cms-tile" data-cy="userslist-link">
+          <span className="fa fa-users" />
+          <h2>Users</h2>
+          <p>Manage who can sign in to the CMS.</p>
+        </Link>
+        <Link to="/config/dbconnections" className="cms-tile" data-cy="dbconnectionslist-link">
+          <span className="fa fa-database" />
+          <h2>Database Connections</h2>
+          <p>Connections used by database-backed repositories.</p>
+        </Link>
+        <Link to="/config/filters" className="cms-tile" data-cy="filterslist-link">
+          <span className="fa fa-filter" />
+          <h2>Filters</h2>
+          <p>Variables used to personalize content.</p>
+        </Link>
       </div>
     </>
   );
@@ -54,9 +52,10 @@ function ConfigTable<T extends { id?: string }>({
   columns: Column<T>[];
 }) {
   const navigate = useNavigate();
-  const { data: rows, setData } = useLoad(load, []);
+  const { data: rows, setData, loading } = useLoad(load, []);
 
   const deleteRow = async (id: string) => {
+    if (!confirmDelete('this item')) return;
     try {
       await remove(id);
       setData((list) => list?.filter((r) => r.id !== id));
@@ -67,34 +66,42 @@ function ConfigTable<T extends { id?: string }>({
 
   return (
     <>
-      <h1>{title}</h1>
+      <PageHeader
+        title={title}
+        back={{ to: '/config', label: 'Config' }}
+        actions={
+          <button type="button" className="cms-button" data-cy="add-button" onClick={() => navigate(addUrl)}>
+            <span className="fa fa-plus" /> Add
+          </button>
+        }
+      />
       <div className="cms-repository">
-        <table className="cms-table">
-          <tbody>
-            <tr>
-              {columns.map((c) => (
-                <th key={c.header} style={c.width ? { width: c.width } : undefined}>
-                  {c.header}
-                </th>
-              ))}
-              <th></th>
-            </tr>
-            {rows?.map((row) => (
-              <tr id={row.id} key={row.id}>
+        {loading && !rows && <Loading />}
+        {rows?.length === 0 && <EmptyState>Nothing here yet.</EmptyState>}
+        {!!rows?.length && (
+          <table className="cms-table">
+            <tbody>
+              <tr>
                 {columns.map((c) => (
-                  <td key={c.header}>{c.cell(row)}</td>
+                  <th key={c.header} style={c.width ? { width: c.width } : undefined}>
+                    {c.header}
+                  </th>
                 ))}
-                <td>
-                  <span className="fa fa-trash link" title="Delete" onClick={() => deleteRow(row.id!)} />
-                </td>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <br />
-        <button type="button" className="cms-button" data-cy="add-button" onClick={() => navigate(addUrl)}>
-          Add
-        </button>
+              {rows?.map((row) => (
+                <tr id={row.id} key={row.id}>
+                  {columns.map((c) => (
+                    <td key={c.header}>{c.cell(row)}</td>
+                  ))}
+                  <td>
+                    <IconButton icon="trash" title="Delete" danger onClick={() => deleteRow(row.id!)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   );
@@ -148,7 +155,12 @@ export function UserListPage() {
  * Form state for an edit screen: starts from `initial`, replaced by the loaded record when the
  * route has an :id. `save` posts the model and returns to `backUrl`.
  */
-function useEditForm<T>(initial: T, load: (id: string) => Promise<T>, save: (model: T) => Promise<unknown>, backUrl: string) {
+function useEditForm<T>(
+  initial: T,
+  load: (id: string) => Promise<T>,
+  save: (model: T) => Promise<unknown>,
+  backUrl: string,
+) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [model, setModel] = useState<T>(initial);
@@ -177,7 +189,19 @@ function useEditForm<T>(initial: T, load: (id: string) => Promise<T>, save: (mod
     }
   };
 
-  return { model, setModel, set, onSubmit };
+  return { id, model, setModel, set, onSubmit };
+}
+
+function FormButtons() {
+  const navigate = useNavigate();
+  return (
+    <div className="cms-buttons">
+      <button className="cms-button">Save</button>
+      <button type="button" className="cms-button cms-button-secondary" onClick={() => navigate(-1)}>
+        Cancel
+      </button>
+    </div>
+  );
 }
 
 export function FilterEditPage() {
@@ -192,12 +216,17 @@ export function FilterEditPage() {
 
   return (
     <>
-      <h1>Edit filter</h1>
+      <PageHeader title="Edit filter" back={{ to: '/config/filters', label: 'Filters' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input id="name" className="form-control" value={model.name} onChange={(e) => set('name', e.target.value)} />
+            <input
+              id="name"
+              className="form-control"
+              value={model.name}
+              onChange={(e) => set('name', e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="displayname">Display Name</label>
@@ -210,7 +239,12 @@ export function FilterEditPage() {
           </div>
           <div className="form-group">
             <label htmlFor="filterType">Type</label>
-            <select id="filterType" className="form-control" value={model.type} onChange={(e) => set('type', e.target.value)}>
+            <select
+              id="filterType"
+              className="form-control"
+              value={model.type}
+              onChange={(e) => set('type', e.target.value)}
+            >
               {(enums?.filterTypes ?? [model.type]).map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -230,24 +264,41 @@ export function FilterEditPage() {
                       autoComplete="off"
                       autoCapitalize="off"
                       placeholder="Value"
-                      onChange={(e) => set('values', values.map((v, j) => (j === i ? e.target.value : v)))}
+                      onChange={(e) =>
+                        set(
+                          'values',
+                          values.map((v, j) => (j === i ? e.target.value : v)),
+                        )
+                      }
                     />
                   </div>
-                  <div
-                    className="col-sm-1 fa fa-trash link"
-                    title="Delete value"
-                    onClick={() => set('values', values.filter((_, j) => j !== i))}
-                  />
+                  <div className="col-sm-1 d-flex align-items-center">
+                    <IconButton
+                      icon="trash"
+                      title="Delete value"
+                      danger
+                      onClick={() =>
+                        set(
+                          'values',
+                          values.filter((_, j) => j !== i),
+                        )
+                      }
+                    />
+                  </div>
                 </div>
               ))}
               <div className="cms-right-controls cms-buttons">
-                <button type="button" className="cms-button" onClick={() => set('values', [...values, ''])}>
+                <button
+                  type="button"
+                  className="cms-button cms-button-secondary cms-button-sm"
+                  onClick={() => set('values', [...values, ''])}
+                >
                   Add new value
                 </button>
               </div>
             </div>
           )}
-          <button className="cms-button">Save</button>
+          <FormButtons />
         </form>
       </div>
     </>
@@ -265,12 +316,17 @@ export function DbConnectionEditPage() {
 
   return (
     <>
-      <h1>Edit Connection</h1>
+      <PageHeader title="Edit Connection" back={{ to: '/config/dbconnections', label: 'Database Connections' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input id="name" className="form-control" value={model.name} onChange={(e) => set('name', e.target.value)} />
+            <input
+              id="name"
+              className="form-control"
+              value={model.name}
+              onChange={(e) => set('name', e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="connectionString">Connection String</label>
@@ -296,7 +352,7 @@ export function DbConnectionEditPage() {
               ))}
             </select>
           </div>
-          <button className="cms-button">Save</button>
+          <FormButtons />
         </form>
       </div>
     </>
@@ -313,7 +369,7 @@ export function UserEditPage() {
 
   return (
     <>
-      <h1>Edit User</h1>
+      <PageHeader title="Edit User" back={{ to: '/config/users', label: 'Users' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
@@ -335,7 +391,7 @@ export function UserEditPage() {
               onChange={(e) => set('password', e.target.value)}
             />
           </div>
-          <button className="cms-button">Save</button>
+          <FormButtons />
         </form>
       </div>
     </>
