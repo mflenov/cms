@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { contentApi, dbConnectionsApi, dbRepositoriesApi, enumsApi, pagesApi } from '../api/services';
 import { toast } from '../components/toast';
 import { useLoad } from '../hooks';
+import { PageHeader } from '../components/ui';
 import { RepositoryList } from './repository';
 
 export function PageListPage() {
@@ -76,16 +77,28 @@ export function NewPagePage() {
 
   return (
     <>
-      <h2>New page</h2>
+      <PageHeader title="New page" back={{ to: '/pages', label: 'Back to list' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input id="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              id="name"
+              className="form-control"
+              required
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="template">Type</label>
-            <select id="template" className="form-control" value={template} onChange={(e) => setTemplate(e.target.value)}>
+            <select
+              id="template"
+              className="form-control"
+              value={template}
+              onChange={(e) => setTemplate(e.target.value)}
+            >
               {templates.map((t) => (
                 <option key={t} value={t}>
                   {t}
@@ -93,7 +106,9 @@ export function NewPagePage() {
               ))}
             </select>
           </div>
-          <button className="cms-button">Save</button>
+          <div className="cms-buttons">
+            <button className="cms-button">Save</button>
+          </div>
         </form>
       </div>
     </>
@@ -106,14 +121,23 @@ export function NewContentPage() {
 
   return (
     <>
-      <h2>New content</h2>
+      <PageHeader title="New content" back={{ to: '/content', label: 'Back to list' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input id="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              id="name"
+              className="form-control"
+              required
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-          <button className="cms-button">Save</button>
+          <div className="cms-buttons">
+            <button className="cms-button">Save</button>
+          </div>
         </form>
       </div>
     </>
@@ -131,12 +155,19 @@ export function NewDbRepositoryPage() {
 
   return (
     <>
-      <h2>New repository</h2>
+      <PageHeader title="New repository" back={{ to: '/db', label: 'Back to list' }} />
       <div className="cms-repository">
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input id="name" className="form-control" value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              id="name"
+              className="form-control"
+              required
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="connection">Connection</label>
@@ -153,7 +184,9 @@ export function NewDbRepositoryPage() {
               ))}
             </select>
           </div>
-          <button className="cms-button">Save</button>
+          <div className="cms-buttons">
+            <button className="cms-button">Save</button>
+          </div>
         </form>
       </div>
     </>

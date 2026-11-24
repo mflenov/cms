@@ -5,6 +5,11 @@ import type { ContentDefinition, ContentFilter, ContentItem, Section } from '../
 import { EditFilters } from './filters';
 import { DateInput, RichTextEditor } from './inputs';
 import { SlidePanel } from './SlidePanel';
+import { IconButton } from './ui';
+
+function filtersLabel(filters: ContentFilter[] | undefined) {
+  return filters?.length ? `Filters (${filters.length})` : 'Filters';
+}
 
 /** Context shared by every editor in one repository's content tree. */
 export interface ContentEditorContext {
@@ -109,13 +114,13 @@ export function ContentItemView({
   return (
     <div>
       <h3>{definition.name}</h3>
-      Value for {definition.name} not found.{' '}
-      <a className="cms-link" onClick={addValue}>
+      <span className="text-secondary">No value for these filters.</span>{' '}
+      <button type="button" className="btn btn-link p-0 align-baseline cms-link" onClick={addValue}>
         Add value
-      </a>
+      </button>
       {!folderItem && isControlsVisible && (
         <div className="cms-controls cms-buttons">
-          <Link className="cms-button" to={listVariationsUrl(ctx, definition)}>
+          <Link className="cms-button cms-button-secondary cms-button-sm" to={listVariationsUrl(ctx, definition)}>
             List variations
           </Link>
         </div>
@@ -176,25 +181,39 @@ function ContentItemEditor({
         <>
           {items.map((folderItem) => (
             <div className="cms-folder" key={folderItem.id ?? keyOf(folderItem)}>
-              <div className="cms-right fa fa-times link" title="Delete" onClick={() => onDeleteFolderItem(folderItem)} />
+              <IconButton
+                icon="times"
+                title="Delete"
+                danger
+                className="cms-right"
+                onClick={() => onDeleteFolderItem(folderItem)}
+              />
               {(definition.contentDefinitions ?? []).map((child) => (
                 <div id={child.definitionId} className="fcms-forlder-item" key={child.definitionId ?? keyOf(child)}>
                   <ContentItemView ctx={ctx} folderItem definition={child} data={folderItem.children} />
                 </div>
               ))}
               <div className="cms-controls">
-                <button type="button" className="cms-button" onClick={() => showFilters(folderItem.filters)}>
-                  Filters
+                <button
+                  type="button"
+                  className="cms-button cms-button-secondary cms-button-sm"
+                  onClick={() => showFilters(folderItem.filters)}
+                >
+                  <span className="fa fa-filter" /> {filtersLabel(folderItem.filters)}
                 </button>
               </div>
             </div>
           ))}
           {isControlsVisible && (
             <div className="cms-right-controls cms-buttons">
-              <button type="button" className="cms-button" onClick={() => onAddFolderItem(newFolderItem(definition))}>
+              <button
+                type="button"
+                className="cms-button cms-button-secondary cms-button-sm"
+                onClick={() => onAddFolderItem(newFolderItem(definition))}
+              >
                 Add new value
               </button>
-              <Link className="cms-button" to={listVariationsUrl(ctx, definition)}>
+              <Link className="cms-button cms-button-secondary cms-button-sm" to={listVariationsUrl(ctx, definition)}>
                 List variations
               </Link>
             </div>
@@ -204,10 +223,14 @@ function ContentItemEditor({
 
       {!folderItemEditor && definition.typeName !== 'Folder' && isControlsVisible && (
         <div className="cms-controls cms-buttons">
-          <button type="button" className="cms-button" onClick={() => showFilters(content.filters)}>
-            Filters
+          <button
+            type="button"
+            className="cms-button cms-button-secondary cms-button-sm"
+            onClick={() => showFilters(content.filters)}
+          >
+            <span className="fa fa-filter" /> {filtersLabel(content.filters)}
           </button>
-          <Link className="cms-button" to={listVariationsUrl(ctx, definition)}>
+          <Link className="cms-button cms-button-secondary cms-button-sm" to={listVariationsUrl(ctx, definition)}>
             List variations
           </Link>
         </div>

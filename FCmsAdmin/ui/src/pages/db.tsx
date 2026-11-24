@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { dbContentApi, structureApi } from '../api/services';
 import { RichTextEditor } from '../components/inputs';
 import { toast } from '../components/toast';
+import { confirmDelete, EmptyState, IconButton, Loading, PageHeader } from '../components/ui';
 import { keyOf, useLoad } from '../hooks';
 import { API_SUCCESS, type DbContent, type DbRow } from '../models';
 
@@ -11,7 +12,7 @@ const HIDDEN_COLUMNS = ['_modified', '_created'];
 
 export function DbContentPage() {
   const { id = '' } = useParams();
-  const { data, setData } = useLoad(async () => {
+  const { data, setData, loading } = useLoad(async () => {
     const [content, structure] = await Promise.all([dbContentApi.list(id), structureApi.get(id)]);
     if (structure.status !== API_SUCCESS || !structure.data) return undefined;
     return { rows: content.data as DbContent, name: structure.data.name };
@@ -23,6 +24,7 @@ export function DbContentPage() {
   };
 
   const deleteRow = async (rowId: string) => {
+    if (!confirmDelete('this row')) return;
     try {
       await dbContentApi.remove(id, rowId);
       setData((d) => d && { ...d, rows: { ...d.rows, rows: d.rows.rows.filter((r) => r.values[0] !== rowId) } });
@@ -33,12 +35,22 @@ export function DbContentPage() {
 
   return (
     <>
-      <h1>{data?.name}</h1>
+      <PageHeader
+        title={data?.name ?? ''}
+        back={{ to: '/db', label: 'DB repositories' }}
+        actions={
+          <Link to={`/db/content/add/${id}`} className="cms-button">
+            <span className="fa fa-plus" /> Add content
+          </Link>
+        }
+      />
+      {loading && !data && <Loading />}
       <div className="row">
         <div className="col-md-8">
+          {data?.rows?.rows?.length === 0 && <EmptyState>No rows yet.</EmptyState>}
           {data?.rows?.rows?.map((row) => (
             <div className="cms-repository-item" key={String(row.values[0])}>
-              <div className="cms-right fa fa-times link" title="Delete" onClick={() => deleteRow(row.values[0])} />
+              <IconButton icon="times" title="Delete" danger onClick={() => deleteRow(row.values[0])} />
               {data.rows.columns.map((column, i) =>
                 i > 0 && !HIDDEN_COLUMNS.includes(column.name) ? (
                   <div className="cms-db-row-value" key={column.name}>
@@ -54,11 +66,6 @@ export function DbContentPage() {
             </div>
           ))}
         </div>
-        <div className="col-md-4">
-          <Link to={`/db/content/add/${id}`} className="cms-button">
-            Add content
-          </Link>
-        </div>
       </div>
     </>
   );
@@ -73,7 +80,7 @@ export function AddDbContentPage() {
   }, [id]);
   const [values, setValues] = useState<Record<number, string>>({});
 
-  if (!structure) return null;
+  if (!structure) return <Loading />;
   const definitions = structure.contentDefinitions ?? [];
 
   const setValue = (index: number, value: string) => setValues((v) => ({ ...v, [index]: value }));
@@ -89,11 +96,15 @@ export function AddDbContentPage() {
 
   return (
     <>
-      <h1>"{structure.name}" content</h1>
+      <PageHeader title={<>Add to "{structure.name}"</>} back={{ to: `/db/content/${id}`, label: 'Back to rows' }} />
       <div className="row">
         <div className="col-md-8">
           {definitions.map((definition, i) => (
-            <div id={definition.definitionId} className="cms-repository" key={definition.definitionId ?? keyOf(definition)}>
+            <div
+              id={definition.definitionId}
+              className="cms-repository"
+              key={definition.definitionId ?? keyOf(definition)}
+            >
               <h3>{definition.name}</h3>
               {definition.typeName === 'String' && (
                 <input className="form-control" value={values[i] ?? ''} onChange={(e) => setValue(i, e.target.value)} />
@@ -103,9 +114,14 @@ export function AddDbContentPage() {
               )}
             </div>
           ))}
-          <button type="button" className="cms-button" onClick={save}>
-            Save
-          </button>
+          <div className="cms-buttons">
+            <button type="button" className="cms-button" onClick={save}>
+              Save
+            </button>
+            <Link to={`/db/content/${id}`} className="cms-button cms-button-secondary">
+              Cancel
+            </Link>
+          </div>
         </div>
       </div>
     </>

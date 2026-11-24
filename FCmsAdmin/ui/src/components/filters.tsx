@@ -4,6 +4,7 @@ import { filtersApi } from '../api/services';
 import { useLoad, useRerender } from '../hooks';
 import type { ContentFilter, FilterDefinition } from '../models';
 import { DateInput } from './inputs';
+import { IconButton } from './ui';
 
 export function createFilterModel(definition: FilterDefinition): ContentFilter {
   return {
@@ -84,7 +85,7 @@ export function FilterEditor({ definition, model, mode, onChange, onDelete }: Fi
 
   return (
     <div className="fcms-filter-item">
-      <span className="cms-right fa fa-times link" title="Remove filter" onClick={onDelete} />
+      <IconButton icon="times" title="Remove filter" danger className="cms-right" onClick={onDelete} />
       <h4>{definition.displayName}:</h4>
       {control}
     </div>
@@ -126,7 +127,11 @@ export function EditFilters({ model, onChange }: { model: ContentFilter[]; onCha
   return (
     <div>
       <h2>Filters</h2>
-      {loading ? <div>loading...</div> : model.length === 0 && <p>No filters found.</p>}
+      {loading ? (
+        <div>Loading…</div>
+      ) : (
+        model.length === 0 && <p className="text-secondary">No filters — this value is shown to everyone.</p>
+      )}
       {model.map((filter) => {
         const definition = byId.get(filter.filterDefinitionId);
         return definition ? (
@@ -140,17 +145,21 @@ export function EditFilters({ model, onChange }: { model: ContentFilter[]; onCha
           />
         ) : null;
       })}
-      <select className="form-control" value={selected} onChange={(e) => setSelected(e.target.value)}>
-        <option value="">- select value -</option>
-        {available.map((d) => (
-          <option key={d.id} value={d.id}>
-            {d.name}
-          </option>
-        ))}
-      </select>
-      <button type="button" className="cms-button mt-2" onClick={add}>
-        Add filter
-      </button>
+      {available.length > 0 && (
+        <div className="d-flex gap-2 mt-3">
+          <select className="form-control" value={selected} onChange={(e) => setSelected(e.target.value)}>
+            <option value="">- select filter -</option>
+            {available.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+          <button type="button" className="cms-button cms-button-secondary" disabled={!selected} onClick={add}>
+            <span className="fa fa-plus" /> Add
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -211,7 +220,7 @@ export function SearchFilters({
       })}
       {available.length > 0 && (
         <select className="form-control mb-2" value="" onChange={(e) => add(e.target.value)}>
-          <option value="">- select value -</option>
+          <option value="">+ add criterion…</option>
           {available.map((d) => (
             <option key={d.id} value={d.id}>
               {d.displayName}
@@ -220,7 +229,7 @@ export function SearchFilters({
         </select>
       )}
       <button type="button" className="cms-button" onClick={() => onFilter(structuredClone(criteria.current))}>
-        Search
+        <span className="fa fa-search" /> Search
       </button>
     </div>
   );
