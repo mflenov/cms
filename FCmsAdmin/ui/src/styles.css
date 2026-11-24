@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global FCms admin styles */
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 @import "font-awesome/css/font-awesome.min.css";
@@ -272,4 +272,33 @@
 
 .fcms .preview label {
   color:#777;
+}
+/* Slide-out panel */
+.fcms .fcms-slideout {
+  position: fixed;
+  top: 10px;
+  right: 0px;
+  bottom: 10px;
+  left: 40%;
+  background: #282b30;
+  border: 1px solid #585b60;
+  box-shadow: 0px 0px 10px #444;
+  padding: 12px;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.fcms .fcms-modal-screen {
+  position: fixed;
+  inset: 0;
+  background: rgba(200, 200, 200, .8);
+  z-index: 900;
+}
+
+.fcms .cms-db-row {
+  padding: 4px;
+}
+
+.fcms input[type="date"] {
+  color-scheme: dark;
 }
